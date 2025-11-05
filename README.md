@@ -1,158 +1,118 @@
-<!-- Header block for project -->
 <hr>
 
 <div align="center">
 
-[INSERT YOUR LOGO IMAGE HERE (IF APPLICABLE)]
-<!-- ☝️ Replace with your logo (if applicable) via ![](https://uri-to-your-logo-image) ☝️ -->
-<!-- ☝️ If you see logo rendering errors, make sure you're not using indentation, or try an HTML IMG tag -->
-
-<h1 align="center">[INSERT YOUR REPO / PROJ NAME HERE]</h1>
-<!-- ☝️ Replace with your repo name ☝️ -->
+<h1 align="center">PDS Claude Code Skills</h1>
 
 </div>
 
-<pre align="center">[INSERT A SINGLE SENTENCE DESCRIBING THE PURPOSE OF YOUR REPO / PROJ]</pre>
-<!-- ☝️ Replace with a single sentence describing the purpose of your repo / proj ☝️ -->
+<pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
-<!-- Header block for project -->
+[![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
 
-[INSERT YOUR BADGES HERE (SEE: https://shields.io)] [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-<!-- ☝️ Add badges via: https://shields.io e.g. ![](https://img.shields.io/github/your_chosen_action/your_org/your_repo) ☝️ -->
+This repository contains [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for NASA's Planetary Data System (PDS) Engineering Node. Skills are specialized AI agents that automate complex tasks within the [Claude Code CLI environment](https://claude.ai/code).
 
-[INSERT SCREENSHOT OF YOUR SOFTWARE, IF APPLICABLE]
-<!-- ☝️ Screenshot of your software (if applicable) via ![](https://uri-to-your-screenshot) ☝️ -->
+## What are Claude Code Skills?
 
-[INSERT MORE DETAILED DESCRIPTION OF YOUR REPOSITORY HERE]
-<!-- ☝️ Replace with a more detailed description of your repository, including why it was made and whom its intended for.  ☝️ -->
+Claude Code skills are reusable prompts that enable Claude Code to perform specialized tasks autonomously. Each skill is defined by a `SKILL.md` file containing:
 
-[INSERT LIST OF IMPORTANT PROJECT / REPO LINKS HERE]
-<!-- example links>
-[Website](INSERT WEBSITE LINK HERE) | [Docs/Wiki](INSERT DOCS/WIKI SITE LINK HERE) | [Discussion Board](INSERT DISCUSSION BOARD LINK HERE) | [Issue Tracker](INSERT ISSUE TRACKER LINK HERE)
--->
+- Detailed instructions for task execution
+- Input/output specifications
+- Style rules and algorithms
+- Edge case handling
 
-## Features
+Skills help automate repetitive or complex workflows, making development more efficient and consistent across the PDS organization.
 
-* [INSERT LIST OF FEATURES IMPORTANT TO YOUR USERS HERE]
-  
-<!-- ☝️ Replace with a bullet-point list of your features ☝️ -->
+## Available Skills
 
-## Contents
+### 📝 Release Notes Generator
 
-* [Quick Start](#quick-start)
-* [Changelog](#changelog)
-* [FAQ](#frequently-asked-questions-faq)
-* [Contributing Guide](#contributing)
-* [License](#license)
-* [Support](#support)
+**Location:** `release-notes/`
 
-## Quick Start
+Generates structured, user-friendly GitHub release notes from PR/issue data with:
 
-This guide provides a quick way to get started with our project. Please see our [docs]([INSERT LINK TO DOCS SITE / WIKI HERE]) for a more comprehensive overview.
+- Automatic categorization (Breaking Changes, New Features, Improvements, Fixes, Security)
+- Prominent breaking changes warnings (⚠️)
+- Executive summaries in "Highlights" section
+- Mandatory GitHub links for all changes
+- PDS-specific label mapping
+- Optional upload to GitHub releases via `gh` CLI
 
-### Requirements
+**Use cases:**
+- Creating release notes for PDS software releases
+- Generating changelog summaries from GitHub data
+- Ensuring consistent release note formatting across PDS projects
 
-* [INSERT LIST OF REQUIREMENTS HERE]
-  
-<!-- ☝️ Replace with a numbered list of your requirements, including hardware if applicable ☝️ -->
+See [release-notes/SKILL.md](release-notes/SKILL.md) for detailed documentation.
 
-### Setup Instructions
+## Getting Started
 
-1. [INSERT STEP-BY-STEP SETUP INSTRUCTIONS HERE, WITH OPTIONAL SCREENSHOTS]
-   
-<!-- ☝️ Replace with a numbered list of how to set up your software prior to running ☝️ -->
+### Prerequisites
 
-### Run Instructions
+- [Claude Code CLI](https://claude.ai/code) installed and configured
+- For release notes upload functionality: [GitHub CLI (`gh`)](https://cli.github.com) installed and authenticated
 
-1. [INSERT STEP-BY-STEP RUN INSTRUCTIONS HERE, WITH OPTIONAL SCREENSHOTS]
+### Using Skills
 
-<!-- ☝️ Replace with a numbered list of your run instructions, including expected results ☝️ -->
+1. Open Claude Code in your project directory
+2. Reference the skill by name or provide the necessary inputs as described in each skill's documentation
+3. Claude Code will execute the skill autonomously based on the instructions in the `SKILL.md` file
 
-### Usage Examples
+### Adding a New Skill
 
-* [INSERT LIST OF COMMON USAGE EXAMPLES HERE, WITH OPTIONAL SCREENSHOTS]
+1. Create a new directory: `<skill-name>/`
+2. Add a `SKILL.md` file with:
+   ```yaml
+   ---
+   name: skill-name
+   description: Brief description of what the skill does
+   ---
+   ```
+3. Add comprehensive instructions, input/output specs, and style rules
+4. Include supporting resources in subdirectories (templates, additional_resources, etc.)
+5. Update this README with your new skill in the "Available Skills" section
+6. Test thoroughly with sample inputs
 
-<!-- ☝️ Replace with a list of your usage examples, including screenshots if possible, and link to external documentation for details ☝️ -->
+See [CLAUDE.md](CLAUDE.md) for detailed development guidance.
 
-### Build Instructions (if applicable)
+## Repository Structure
 
-1. [INSERT STEP-BY-STEP BUILD INSTRUCTIONS HERE, WITH OPTIONAL SCREENSHOTS]
-
-<!-- ☝️ Replace with a numbered list of your build instructions, including expected results / outputs with optional screenshots ☝️ -->
-
-### Test Instructions (if applicable)
-
-1. [INSERT STEP-BY-STEP TEST INSTRUCTIONS HERE, WITH OPTIONAL SCREENSHOTS]
-
-<!-- ☝️ Replace with a numbered list of your test instructions, including expected results / outputs with optional screenshots ☝️ -->
-
-## Changelog
-
-See our [CHANGELOG.md](CHANGELOG.md) for a history of our changes.
-
-See our [releases page]([INSERT LINK TO YOUR RELEASES PAGE]) for our key versioned releases.
-
-<!-- ☝️ Replace with links to your changelog and releases page ☝️ -->
-
-## Frequently Asked Questions (FAQ)
-
-[INSERT LINK TO FAQ PAGE OR PROVIDE FAQ INLINE HERE]
-<!-- example link to FAQ PAGE>
-Questions about our project? Please see our: [FAQ]([INSERT LINK TO FAQ / DISCUSSION BOARD])
--->
-
-<!-- example FAQ inline format>
-1. Question 1
-   - Answer to question 1
-2. Question 2
-   - Answer to question 2
--->
-
-<!-- example FAQ inline with no questions yet>
-No questions yet. Propose a question to be added here by reaching out to our contributors! See support section below.
--->
-
-<!-- ☝️ Replace with a list of frequently asked questions from your project, or post a link to your FAQ on a discussion board ☝️ -->
+```
+pds-claude-skills/
+├── release-notes/          # Release notes generation skill
+│   ├── SKILL.md           # Skill definition and instructions
+│   ├── templates/         # Release note templates
+│   └── additional_resources/  # PDS label mapping and docs
+├── CLAUDE.md              # Developer guidance for Claude Code
+├── README.md              # This file
+└── CHANGELOG.md           # Project changelog
+```
 
 ## Contributing
 
-[INSERT LINK TO CONTRIBUTING GUIDE OR FILL INLINE HERE]
-<!-- example link to CONTRIBUTING.md>
-Interested in contributing to our project? Please see our: [CONTRIBUTING.md](CONTRIBUTING.md)
--->
+Contributions are welcome! When adding new skills:
 
-<!-- example inline contributing guide>
-1. Create an GitHub issue ticket describing what changes you need (e.g. issue-1)
-2. [Fork](INSERT LINK TO YOUR REPO FORK PAGE HERE, e.g. https://github.com/my_org/my_repo/fork) this repo
-3. Make your modifications in your own fork
-4. Make a pull-request in this repo with the code in your fork and tag the repo owner / largest contributor as a reviewer
+1. Follow the skill structure outlined in [CLAUDE.md](CLAUDE.md)
+2. Ensure comprehensive documentation in the `SKILL.md` file
+3. Test your skill with various inputs and edge cases
+4. Update the changelog following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
+5. Submit a pull request with a clear description of the skill's purpose
 
-**Working on your first pull request?** See guide: [How to Contribute to an Open Source Project on GitHub](https://kcd.im/pull-request)
--->
+## Changelog
 
-[INSERT LINK TO YOUR CODE_OF_CONDUCT.md OR SHARE TEXT HERE]
-<!-- example link to CODE_OF_CONDUCT.md>
-For guidance on how to interact with our team, please see our code of conduct located at: [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md)
--->
-
-<!-- ☝️ Replace with a text describing how people may contribute to your project, or link to your contribution guide directly ☝️ -->
-
-[INSERT LINK TO YOUR GOVERNANCE.md OR SHARE TEXT HERE]
-<!-- example link to GOVERNANCE.md>
-For guidance on our governance approach, including decision-making process and our various roles, please see our governance model at: [GOVERNANCE.md](GOVERNANCE.md)
--->
+See [CHANGELOG.md](CHANGELOG.md) for a history of changes to this project.
 
 ## License
 
-See our: [LICENSE](LICENSE)
-<!-- ☝️ Replace with the text of your copyright and license, or directly link to your license file ☝️ -->
+Copyright (c) 2022 California Institute of Technology ("Caltech"). U.S. Government sponsorship acknowledged.
+
+Licensed under the Apache License, Version 2.0. See [LICENSE.md](LICENSE.md) for details.
 
 ## Support
 
-[INSERT CONTACT INFORMATION OR PROFILE LINKS TO MAINTAINERS AMONG COMMITTER LIST]
+This repository is maintained by NASA's Planetary Data System Engineering Node.
 
-<!-- example list of contacts>
-Key points of contact are: [@github-user-1](link to github profile) [@github-user-2](link to github profile)
--->
-
-<!-- ☝️ Replace with the key individuals who should be contacted for questions ☝️ -->
+For questions or issues:
+- Open an issue in this repository
+- Refer to [Claude Code documentation](https://docs.claude.com/en/docs/claude-code)
+- Contact the PDS Engineering Node team
