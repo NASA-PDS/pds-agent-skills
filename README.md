@@ -12,6 +12,21 @@
 
 This repository contains [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for NASA's Planetary Data System (PDS) Engineering Node. Skills are specialized AI agents that automate complex tasks within the [Claude Code CLI environment](https://claude.ai/code).
 
+## Table of Contents
+
+- [What are Claude Code Skills?](#what-are-claude-code-skills)
+- [Available Skills](#available-skills)
+- [Installation](#installation)
+  - [Option 1: Project-Level Skills (Recommended for Teams)](#option-1-project-level-skills-recommended-for-teams)
+  - [Option 2: Personal Skills (Available Across All Projects)](#option-2-personal-skills-available-across-all-projects)
+  - [Option 3: Direct Git Reference](#option-3-direct-git-reference)
+- [Using Skills](#using-skills)
+- [Repository Structure](#repository-structure)
+- [Contributing](#contributing)
+- [Changelog](#changelog)
+- [License](#license)
+- [Support](#support)
+
 ## What are Claude Code Skills?
 
 Claude Code skills are reusable prompts that enable Claude Code to perform specialized tasks autonomously. Each skill is defined by a `SKILL.md` file containing:
@@ -45,20 +60,106 @@ Generates structured, user-friendly GitHub release notes from PR/issue data with
 
 See [release-notes/SKILL.md](release-notes/SKILL.md) for detailed documentation.
 
-## Getting Started
+## Installation
 
 ### Prerequisites
 
-- [Claude Code CLI](https://claude.ai/code) installed and configured
-- For release notes upload functionality: [GitHub CLI (`gh`)](https://cli.github.com) installed and authenticated
+- **Claude Code CLI**: Install from [claude.ai/code](https://claude.ai/code) or via Homebrew:
+  ```bash
+  brew install claude
+  ```
+- **Claude Desktop**: Download from [claude.ai/download](https://claude.ai/download) (skills work in projects mode)
+- **For release notes upload**: [GitHub CLI (`gh`)](https://cli.github.com) installed and authenticated
 
-### Using Skills
+Skills are automatically discovered by Claude Code - no manual activation required. Choose one of the installation methods below based on your needs.
 
-1. Open Claude Code in your project directory
-2. Reference the skill by name or provide the necessary inputs as described in each skill's documentation
-3. Claude Code will execute the skill autonomously based on the instructions in the `SKILL.md` file
+### Option 1: Project-Level Skills (Recommended for Teams)
 
-### Adding a New Skill
+Project-level skills are shared with your team via version control and automatically available when team members pull changes.
+
+**Install for a specific project:**
+
+```bash
+# Navigate to your project directory
+cd your-project
+
+# Create the skills directory
+mkdir -p .claude/skills
+
+# Clone this repository into the skills directory
+git clone https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+
+# Commit to version control
+git add .claude/skills/pds
+git commit -m "Add PDS Claude Code skills"
+```
+
+**Or add as a git submodule** (recommended for easier updates):
+
+```bash
+cd your-project
+mkdir -p .claude/skills
+git submodule add https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+git commit -m "Add PDS Claude Code skills as submodule"
+```
+
+Team members can then pull the changes, and skills become immediately available:
+
+```bash
+git pull
+git submodule update --init --recursive  # if using submodules
+```
+
+### Option 2: Personal Skills (Available Across All Projects)
+
+Personal skills are available in all your projects, stored in your home directory.
+
+**Install globally:**
+
+```bash
+# Create personal skills directory
+mkdir -p ~/.claude/skills
+
+# Clone this repository
+git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/.claude/skills/pds
+```
+
+**Update personal skills:**
+
+```bash
+cd ~/.claude/skills/pds
+git pull
+```
+
+### Option 3: Direct Git Reference
+
+If you prefer not to install locally, you can reference skills directly from this repository URL in conversations with Claude Code. However, local installation provides better performance and offline access.
+
+## Using Skills
+
+Once installed, skills are **automatically discovered** by Claude Code. You don't need to manually invoke them.
+
+**How it works:**
+
+1. **Open Claude Code** in your project directory (CLI) or start a project in Claude Desktop
+2. **Describe your task** naturally - Claude will autonomously use relevant skills based on your request and the skill descriptions
+3. **Provide necessary inputs** as described in each skill's documentation
+
+**Example:**
+
+```bash
+# Claude will automatically use the release-notes skill
+claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
+```
+
+Claude analyzes your request, identifies that the release-notes skill is relevant, and executes it autonomously.
+
+**Available skills:**
+- `release-notes` - Generates structured GitHub release notes
+
+See individual skill documentation for detailed input specifications and examples.
+
+## Adding a New Skill
 
 1. Create a new directory: `<skill-name>/`
 2. Add a `SKILL.md` file with:
