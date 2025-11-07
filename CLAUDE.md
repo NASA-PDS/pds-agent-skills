@@ -4,90 +4,160 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains Claude Code skills for NASA's Planetary Data System (PDS). Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment.
-
-## Repository Structure
-
-- `release-notes/` - Release notes generation skill
-  - `SKILL.md` - Skill definition and prompt for generating GitHub release notes
-  - `templates/` - Template files for release note formatting
-  - `additional_resources/` - Supporting documentation including PDS label mapping
+This repository contains Claude Code skills for NASA's Planetary Data System (PDS). Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
 
 ## Skills Architecture
 
 ### What is a Skill?
 
-Skills in this repository are defined by `SKILL.md` files that contain:
-1. **Frontmatter** (YAML format) with `name` and `description` fields
-2. **Detailed instructions** for Claude Code on how to execute the skill
-3. **Input/output specifications** defining expected parameters and results
-4. **Style rules and algorithms** that govern skill behavior
+Skills are defined by `SKILL.md` files with YAML frontmatter and detailed instructions. Structure:
 
-### Release Notes Skill
+```
+skill-name/
+├── SKILL.md              # Main skill definition with frontmatter and instructions
+├── scripts/              # Optional: Node.js scripts for complex operations
+├── resources/            # Optional: Configuration files (YAML/JSON)
+└── additional files/     # Optional: Templates, documentation, references
+```
 
-Location: `release-notes/SKILL.md`
+**SKILL.md anatomy:**
+```yaml
+---
+name: skill-name
+description: Brief description triggering the skill
+---
+# Full instructions for Claude Code to execute the skill
+```
 
-This skill generates structured, user-friendly GitHub release notes with:
-- Automatic categorization of changes (Breaking Changes, New, Improvements, Fixes, Security, etc.)
-- **Breaking changes detection and prominence** - any breaking changes MUST appear first with ⚠️ warning
-- Executive summaries in "Highlights" section
-- Mandatory GitHub links for all changes
-- Optional upload to GitHub releases via `gh` CLI
+### Available Skills
 
-**Key Inputs:**
-- `repo` - GitHub org/repo (e.g., `NASA-PDS/doi-service`)
-- `tag/version` - Release version (e.g., `v1.6.0`)
-- `date` - Release date
-- `changes` - Structured list of PRs/issues with labels, numbers, URLs
-- `compare_url` - GitHub compare link
-- `upload` (optional) - Boolean to upload via `gh` CLI
+**1. release-notes-generator/** - Generates structured GitHub release notes
+- Categorizes PRs/issues by labels (Breaking → Highlights → New → Improvements → Fixes → Security → etc.)
+- **Critical rule:** Breaking changes ALWAYS appear first with ⚠️ warning
+- Requires GitHub CLI (`gh`) for optional upload to releases
+- Label mapping: `release-notes-generator/label-mapping.md`
 
-**Label Mapping:**
-The skill uses PDS-specific GitHub labels to categorize changes. See `release-notes/additional_resources/label_mapping.md` for the complete mapping of PDS labels to release note sections.
+**2. pds-status-reporter/** - Creates monthly/quarterly/annual NASA PDS status reports
+- Organizes by **Release Themes** (label:theme) - planned stakeholder priorities
+- Queries GitHub Projects portfolio backlog (#6) for closed issues
+- Scores using label-aware rubric (v2.1: base score=2, all work matters)
+- Includes releases, breaking changes, operations metrics
+- Requires GitHub CLI (`gh`) and Node.js v18+
+- Uses three scripts:
+  - `scripts/query-releases.mjs` - Query GitHub releases
+  - `scripts/score-issues.mjs` - Score and filter issues
+  - `scripts/generate-report.mjs` - Generate formatted report
+- Configuration: `resources/pds-products.yaml` (product→repo→work stream mapping)
+- See `scripts/README.md` for detailed workflow
 
-**Critical Rules:**
-1. Breaking changes ALWAYS appear first if present
-2. Every bullet point MUST include a GitHub link
-3. Highlights should be outcome-focused (3-6 bullets)
-4. Section order is strict: Breaking → Highlights → New → Improvements → Fixes → Security → Deprecations → Compatibility → Upgrade notes → Known issues → Links
+## Shared Resources
 
-## Development Workflow
+**shared-resources/pds-labels.yaml** - Canonical PDS GitHub label definitions
+- Used by multiple skills for consistent label interpretation
+- Defines semantics for priority, severity, type, status labels
+
+**pds-products.yaml schema** (used by pds-status-reporter):
+```yaml
+products:
+  product-name:
+    description: "Brief description"
+    work_stream: "core-data-services" | "web-modernization" | "planetary-data-cloud"
+    ignore: true/false  # If true, skip this product completely
+    core_backbone: true/false  # If true, +2 scoring bonus (critical infrastructure)
+    repositories:
+      - repo-name-1
+forked_repositories:
+  - repo-name  # External dependencies to exclude
+```
+
+## Key Workflows
 
 ### Adding a New Skill
 
-1. Create a new directory under the repository root: `<skill-name>/`
-2. Add a `SKILL.md` file with:
-   - YAML frontmatter containing `name` and `description`
-   - Comprehensive instructions for Claude Code
+1. Create directory: `<skill-name>/`
+2. Create `SKILL.md` with:
+   - YAML frontmatter (`name`, `description`)
+   - Comprehensive instructions for autonomous execution
    - Input/output specifications
    - Style rules and edge cases
-3. Add supporting resources in subdirectories as needed (templates, additional_resources)
+3. Add supporting resources as needed (scripts/, resources/, templates/)
+4. Update README.md "Available Skills" section
+5. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-### Testing Skills
+### Testing PDS Status Reporter Scripts
 
-Skills are invoked within Claude Code sessions. Test by:
-1. Providing sample inputs that match the skill's expected format
-2. Verifying outputs follow the specified structure and style rules
-3. Testing edge cases documented in the skill definition
+```bash
+# Full workflow
+gh search issues --owner NASA-PDS --closed "2025-10-01..2025-11-06" \
+  --limit 1000 --json number,title,url,closedAt,labels,repository \
+  > /tmp/pds-closed-issues.json
 
-### Documentation
+cd pds-status-reporter
+node scripts/query-releases.mjs 2025-10-01 2025-11-06
+node scripts/score-issues.mjs /tmp/pds-closed-issues.json
+node scripts/generate-report.mjs monthly 2025-10-01 2025-11-06 /tmp/report.md
+```
 
-- Update `CHANGELOG.md` following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
-- Use [Semantic Versioning](https://semver.org/spec/v2.0.0.html) for version numbers
-- The README.md is a template file - populate it with actual project information
+### Updating Product Mappings
+
+**Source of truth:** `pds-status-reporter/resources/pds-products.yaml`
+
+When repositories change:
+1. Edit `pds-products.yaml` (YAML is most token-efficient)
+2. Add/remove repositories under appropriate product
+3. Set `ignore: true` for archived/deprecated products
+4. Mark `core_backbone: true` for critical infrastructure (reviewed quarterly)
 
 ## PDS Context
 
-This repository is part of NASA's Planetary Data System (PDS) Engineering Node (EN). Skills are designed to support PDS development workflows, particularly around release management and GitHub operations.
+### Label System Philosophy
 
-### PDS Label System
+PDS uses GitHub labels for categorization and prioritization:
 
-PDS uses a comprehensive GitHub label system for issue/PR categorization:
-- `backwards-incompatible` / `breaking-change` - Breaking changes requiring major version bump
-- `security` - Security vulnerabilities or concerns
+**Type labels:**
+- `backwards-incompatible` / `breaking-change` - Breaking changes (major version bump)
+- `security` - Security vulnerabilities
 - `requirement` - New feature user stories
 - `enhancement` - Improvements to existing features
 - `bug` - Bug fixes
-- `maintenance` - Internal maintenance (usually omitted from release notes)
+- `theme` - Release Themes (planned stakeholder priorities)
 
-Many other labels exist for planning, triage, and project tracking but are not included in user-facing release notes. See `release-notes/additional_resources/label_mapping.md` for the complete reference.
+**Priority labels (optional):**
+- `p.must-have` / `p.should-have` / `p.could-have`
+
+**Status labels (exclusion):**
+- `duplicate` / `invalid` / `wontfix` / `icebox` - Excluded from reports
+
+**Planning labels (NOT excluded):**
+- `sprint-backlog` / `release-backlog` / `B##.#` (build tracking) / `i&t.*` (testing)
+
+Complete definitions: `shared-resources/pds-labels.yaml`
+
+### GitHub CLI Requirements
+
+Both skills use GitHub CLI (`gh`):
+```bash
+# Verify authentication
+gh auth status
+
+# Re-authenticate if needed
+gh auth login
+
+# Check rate limits (5000/hour when authenticated)
+gh api rate_limit
+```
+
+### Work Streams
+
+PDS organizes work into three streams:
+1. **Core Data Services** - Registry, validation, data dictionaries
+2. **Web Modernization** - Websites, design system, CMS
+3. **Planetary Data Cloud** - Cloud migration, infrastructure
+
+Products map to work streams via `pds-products.yaml`
+
+## Documentation Standards
+
+- **CHANGELOG.md**: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
+- **Versioning**: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
+- **Skill descriptions**: Must be clear enough for Claude Code to auto-invoke based on user requests

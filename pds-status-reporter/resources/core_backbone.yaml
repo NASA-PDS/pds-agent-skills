@@ -1,0 +1,97 @@
+# NASA-PDS Core Backbone Repositories
+#
+# These repositories receive a +2 scoring bonus in status reports due to their
+# critical role in PDS infrastructure and operations.
+#
+# IMPORTANT: Review and update this list quarterly to ensure it reflects
+# current architecture and priorities.
+
+version: "1.0"
+effective_date: "2025-11-06"
+next_review_date: "2026-02-06"
+
+core_backbone:
+  registry-tools:
+    description: "PDS Registry backend services and data loading tools"
+    work_stream: "core-data-services"
+    justification: "Core data storage, search, and retrieval infrastructure"
+    repositories:
+      - registry
+      - registry-api
+      - registry-sweepers
+      - harvest
+      - supplementer
+      - tracking-service
+      - tracking-ui
+      - pds4-graph
+      - registry-loader
+      - registry-client
+      - registry-common
+      - registry-dashboards
+      - registry-legacy-solr
+      - registry-mgr
+      - registry-operations
+      - registry-ref-data
+      - registry-stac-api
+
+  search-api:
+    description: "PDS Search API and client libraries"
+    work_stream: "core-data-services"
+    justification: "Primary public API for accessing PDS data"
+    repositories:
+      - pds-api
+      - pds-api-client
+      - search-api-notebook
+      - planetary-data-engine
+      - archive-viewer
+
+  peppi:
+    description: "Planetary Data Explorer Python (PEPPi) client library"
+    work_stream: "core-data-services"
+    justification: "Key client library for programmatic data access"
+    repositories:
+      - peppi
+
+  cloud-platform-engineering:
+    description: "Planetary Data Cloud platform infrastructure and engineering"
+    work_stream: "planetary-data-cloud"
+    justification: "Critical cloud infrastructure and platform services"
+    repositories:
+      - planetary-data-cloud
+      - pds-mcp-infra
+      - pds-tf-modules
+      - pds-thin-egress-app
+      - proxycrypt
+      - cloud-tools
+      - cosmo-sign
+      - notification-service
+
+  cloud-operations:
+    description: "Cloud operations, utilities, and authentication"
+    work_stream: "planetary-data-cloud"
+    justification: "Operational tooling and monitoring for cloud services"
+    repositories:
+      - cloud-ops
+      - PlanetPatrol
+      - monitoring
+
+# Quarterly Review Prompt
+#
+# When the next_review_date arrives, Claude should ask:
+#
+# "It's time for the quarterly core backbone review. Please review the following
+# and confirm or update:
+#
+# 1. Are all listed repositories still part of the core backbone?
+# 2. Should any repositories be added based on recent architectural changes?
+# 3. Should any repositories be removed (deprecated, merged, or reduced priority)?
+# 4. Have any product categorizations changed?
+#
+# Current core backbone includes:
+# - Registry Tools (17 repos)
+# - Search API (5 repos)
+# - peppi (1 repo)
+# - Cloud Platform Engineering (8 repos)
+# - Cloud Operations (3 repos)
+#
+# Total: 34 core backbone repositories"

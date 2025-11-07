@@ -1,0 +1,222 @@
+# PDS Claude Code Skills Catalog
+
+**Browse all available skills for NASA Planetary Data System workflows**
+
+This catalog provides an overview of all skills available in this repository. Each skill is automatically discovered by Claude Code when you install this repository.
+
+---
+
+## Table of Contents
+
+- [Quick Install](#quick-install)
+- [All Skills](#all-skills)
+  - [Release Management](#release-management)
+  - [Program Reporting](#program-reporting)
+- [By Use Case](#by-use-case)
+- [By Work Stream](#by-work-stream)
+- [Skill Status](#skill-status)
+
+---
+
+## Quick Install
+
+**Project-level (recommended for teams):**
+```bash
+cd your-project
+mkdir -p .claude/skills
+git submodule add https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+```
+
+**Personal (available everywhere):**
+```bash
+mkdir -p ~/.claude/skills
+git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/.claude/skills/pds
+```
+
+All skills become immediately available after installation. No additional setup required.
+
+---
+
+## All Skills
+
+### Release Management
+
+#### 📝 Generating Release Notes
+**Skill Name:** `generating-release-notes`
+**Location:** `generating-release-notes/`
+**Status:** ✅ Production Ready
+
+**What it does:**
+Generates structured, user-friendly GitHub release notes from merged PRs and issues with automatic categorization, breaking change detection, and optional upload to GitHub releases.
+
+**Use when:**
+- Creating release notes for software releases
+- Publishing new versions
+- Documenting changes between releases
+- Preparing changelog summaries
+- Need consistent release note formatting
+
+**Key Features:**
+- ⚠️ Automatic breaking change detection (always displayed first)
+- 🎯 Executive "Highlights" section for stakeholders
+- 🏷️ Smart categorization (Breaking → New → Improvements → Fixes → Security)
+- 🔗 Mandatory GitHub links for all changes
+- 📤 Optional upload via GitHub CLI
+- 🎨 PDS-specific label mapping
+
+**Trigger Keywords:** "release notes", "changelog", "release", "version announcement", "generate release notes"
+
+**Prerequisites:**
+- GitHub CLI (`gh`) for upload functionality (optional)
+
+**Example Usage:**
+```
+Generate release notes for NASA-PDS/doi-service version v1.6.0
+```
+
+[View Skill Documentation →](generating-release-notes/SKILL.md)
+
+---
+
+### Program Reporting
+
+#### 📊 Generating PDS Status Reports
+**Skill Name:** `pds-status-reporting`
+**Location:** `pds-status-reporter/`
+**Status:** ✅ Production Ready
+
+**What it does:**
+Generates comprehensive Monthly, Quarterly, and Annual status reports for NASA PDS program across Overall Program, Core Data Services, Web Modernization, and Planetary Data Cloud work streams.
+
+**Use when:**
+- Creating NASA PDS status reports
+- Preparing program management reports
+- Generating stakeholder reports
+- Summarizing GitHub releases and activity
+- Need executive briefings on PDS progress
+
+**Key Features:**
+- 📅 Monthly, Quarterly, and Annual reporting periods
+- 🎯 Organized by Release Themes (label:theme)
+- 🏢 Three work streams: Core Data Services, Web Modernization, Planetary Data Cloud
+- 📈 Label-aware scoring system (v2.1 rubric)
+- 🚀 Includes GitHub releases and breaking changes
+- 🔍 Product-specific deep-dives
+- 👥 Executive and technical audience modes
+
+**Trigger Keywords:** "PDS status", "program management reports", "stakeholder reports", "GitHub releases summaries", "executive briefings", "monthly report", "quarterly report"
+
+**Prerequisites:**
+- GitHub CLI (`gh`) authenticated
+- Node.js v18+ for processing scripts
+
+**Example Usage:**
+```
+Create a monthly PDS status report for October 2024
+```
+
+[View Skill Documentation →](pds-status-reporter/SKILL.md)
+
+---
+
+## By Use Case
+
+### 🚀 Software Releases
+- [Generating Release Notes](#-generating-release-notes) - Create structured release documentation
+
+### 📊 Program Management
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Monthly/Quarterly/Annual status reports
+
+### 📝 Documentation
+- [Generating Release Notes](#-generating-release-notes) - Changelog generation
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Stakeholder documentation
+
+### 🔍 GitHub Analytics
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Release and issue analysis
+
+---
+
+## By Work Stream
+
+### Core Data Services
+Skills for PDS data validation, registry, and DOI services:
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track CDS work stream progress
+
+### Web Modernization
+Skills for PDS websites, design system, and CMS:
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track web modernization progress
+
+### Planetary Data Cloud
+Skills for cloud migration and infrastructure:
+- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track PDC work stream progress
+
+### Cross-Functional
+Skills applicable across all work streams:
+- [Generating Release Notes](#-generating-release-notes) - Any PDS repository release
+
+---
+
+## Skill Status
+
+| Skill | Status | Last Updated | Version |
+|-------|--------|--------------|---------|
+| generating-release-notes | ✅ Production | 2024-11 | 1.0 |
+| pds-status-reporting | ✅ Production | 2024-11 | 2.1 |
+
+**Legend:**
+- ✅ Production Ready - Stable and tested
+- 🧪 Beta - Functional but may have rough edges
+- 🚧 In Development - Not yet ready for use
+- 📦 Archived - No longer maintained
+
+---
+
+## Shared Resources
+
+These resources are available to all skills:
+
+### 🏷️ PDS Labels (`shared-resources/pds-labels.yaml`)
+Canonical definitions for GitHub labels used across PDS projects:
+- Type labels (bug, enhancement, requirement, theme, etc.)
+- Priority labels (must-have, should-have, could-have)
+- Status labels (duplicate, invalid, wontfix, icebox)
+- Planning labels (sprint-backlog, release-backlog, build tracking)
+
+### 🗂️ PDS Products (`pds-status-reporter/resources/pds-products.yaml`)
+Mapping of NASA-PDS repositories to products and work streams:
+- Product categories and descriptions
+- Repository assignments
+- Work stream mappings
+- Core backbone infrastructure flags
+
+---
+
+## Adding Your Own Skills
+
+Want to contribute a new skill to this catalog? See [CLAUDE.md](CLAUDE.md) for developer guidance and [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md) for marketplace configuration.
+
+**Quick steps:**
+1. Create `your-skill-name/SKILL.md` with YAML frontmatter
+2. Use gerund form for naming (e.g., `processing-data`, not `data-processor`)
+3. Write clear trigger descriptions
+4. Test with sample inputs
+5. Update this catalog with your new skill
+6. Submit a pull request
+
+---
+
+## Need Help?
+
+- 📖 [Main README](README.md) - Installation and getting started
+- 🛠️ [CLAUDE.md](CLAUDE.md) - Developer guidance
+- 📋 [CHANGELOG.md](CHANGELOG.md) - Version history
+- 🐛 [Report an Issue](https://github.com/NASA-PDS/pds-claude-skills/issues)
+- 📧 Contact PDS Engineering Node team
+
+---
+
+## License
+
+Copyright (c) 2022 California Institute of Technology ("Caltech"). U.S. Government sponsorship acknowledged.
+
+Licensed under the Apache License, Version 2.0. See [LICENSE.md](LICENSE.md) for details.
