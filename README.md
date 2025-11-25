@@ -9,7 +9,7 @@
 <pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Skills](https://img.shields.io/badge/skills-2-brightgreen)
+![Skills](https://img.shields.io/badge/skills-5-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
 
@@ -53,8 +53,11 @@ Skills help automate repetitive or complex workflows, making development more ef
 |-------|-------------|-----------|
 | **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
 | **[pds-status-reporter](pds-status-reporter/SKILL.md)** | Create comprehensive PDS program status reports (monthly/quarterly/annual) | Stakeholder reports, program management, executive briefings |
+| **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
+| **[sonarcloud-security-audit](sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
+| **[sonarcloud-security-triage](sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
 
-**Total Skills:** 2 production-ready skills for PDS workflows
+**Total Skills:** 5 production-ready skills for PDS workflows
 
 ## Installation
 
@@ -180,6 +183,12 @@ pds-claude-skills/
 │   ├── SKILL.md                # Skill definition and instructions
 │   ├── scripts/                # Node.js processing scripts
 │   └── resources/              # Product mappings and config
+├── sonarcloud-security-audit/  # SonarCloud security audit skill
+│   ├── SKILL.md                # Skill definition and instructions
+│   └── scripts/                # API integration scripts
+├── sonarcloud-security-triage/ # SonarCloud triage application skill
+│   ├── SKILL.md                # Skill definition and instructions
+│   └── scripts/                # Triage application scripts
 ├── shared-resources/           # Shared across all skills
 │   └── pds-labels.yaml         # Canonical PDS label definitions
 ├── docs/                       # Marketplace documentation
