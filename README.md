@@ -9,7 +9,7 @@
 <pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Skills](https://img.shields.io/badge/skills-2-brightgreen)
+![Skills](https://img.shields.io/badge/skills-3-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
 
@@ -53,8 +53,9 @@ Skills help automate repetitive or complex workflows, making development more ef
 |-------|-------------|-----------|
 | **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
 | **[pds-status-reporter](pds-status-reporter/SKILL.md)** | Create comprehensive PDS program status reports (monthly/quarterly/annual) | Stakeholder reports, program management, executive briefings |
+| **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using official NASA-PDS templates with security sanitization | Bug reports, feature requests, I&T bugs, security vulnerabilities |
 
-**Total Skills:** 2 production-ready skills for PDS workflows
+**Total Skills:** 3 production-ready skills for PDS workflows
 
 ## Installation
 
@@ -150,10 +151,7 @@ claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 
 Claude analyzes your request, identifies that the release-notes skill is relevant, and executes it autonomously.
 
-**Available skills:**
-- `release-notes` - Generates structured GitHub release notes
-
-See individual skill documentation for detailed input specifications and examples.
+See the [Skills Catalog](SKILLS_CATALOG.md) or individual skill documentation for detailed input specifications and examples.
 
 ## Adding a New Skill
 

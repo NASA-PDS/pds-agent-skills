@@ -21,11 +21,17 @@ This skill creates GitHub issues in NASA-PDS repositories using the official org
 If the user is running this skill from within a cloned git repository, automatically detect the repository name:
 
 ```bash
-# Check if in a git repo
-git remote get-url origin 2>/dev/null
+# Check if in a git repo - try origin first, then upstream
+git remote get-url origin 2>/dev/null || git remote get-url upstream 2>/dev/null
 ```
 
-If the remote URL matches `NASA-PDS/<repo-name>`, use that as the default repository. Otherwise, ask the user which repository to create the issue in.
+If the remote URL matches `NASA-PDS/<repo-name>`, use that as the default repository.
+
+**Edge Cases:**
+- **Multiple remotes:** Prefer `origin` first, then fall back to `upstream` or other NASA-PDS remotes
+- **Forks:** If the detected repository is a fork (personal namespace), check for an `upstream` remote pointing to NASA-PDS
+- **Non-NASA-PDS repos:** If no NASA-PDS remote is found, ask the user which repository to use
+- **Ambiguous remotes:** If multiple NASA-PDS remotes exist, ask the user to clarify
 
 **Determine Issue Type:**
 
@@ -179,6 +185,9 @@ ERROR: Connection refused by database host
 
 Use GitHub CLI to create the issue with appropriate labels and metadata:
 
+**Default Assignee:**
+By default, issues requiring triage are assigned to `jordanpadams`. Users can override this by setting the `PDS_ISSUE_ASSIGNEE` environment variable or by using the `--assignee` flag.
+
 **Bug Report:**
 ```bash
 gh issue create \
@@ -186,7 +195,7 @@ gh issue create \
   --title "<title>" \
   --body "<filled-template-body>" \
   --label "bug,needs:triage" \
-  --assignee jordanpadams
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
 
 **I&T Bug Report:**
@@ -196,7 +205,7 @@ gh issue create \
   --title "<title>" \
   --body "<filled-template-body>" \
   --label "B15.1,bug,needs:triage" \
-  --assignee jordanpadams
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
 
 **Feature Request:**
@@ -206,7 +215,7 @@ gh issue create \
   --title "<title>" \
   --body "<filled-template-body>" \
   --label "needs:triage,requirement" \
-  --assignee jordanpadams
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
 
 **Task:**
@@ -225,7 +234,7 @@ gh issue create \
   --title "<title>" \
   --body "<filled-template-body>" \
   --label "security,bug,needs:triage" \
-  --assignee jordanpadams
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
 
 **Release Theme:**
@@ -289,7 +298,7 @@ After creating the issue:
 ## Important Notes
 
 - **All issues are added to project NASA-PDS/6** (PDS Engineering portfolio backlog)
-- **Default assignee is jordanpadams** for triage
+- **Default assignee is jordanpadams** for triage (configurable via `PDS_ISSUE_ASSIGNEE` environment variable)
 - **Leave internal sections blank** - "Engineering Details" and "Integration & Test" fields are filled by the PDS engineering team after triage
 - **Skip optional fields** unless user explicitly provides information
 - **Validate repository exists** before creating issue using `gh repo view NASA-PDS/<repo-name>`
@@ -303,6 +312,24 @@ Templates are cached locally in `resources/templates/` to avoid repeated GitHub 
 3. Update a timestamp file to track last cache update
 
 Cache templates on first use or if cache is older than 7 days.
+
+**Forcing Cache Refresh:**
+
+If templates have been updated in NASA-PDS/.github and you need to refresh immediately:
+
+```bash
+# Option 1: Delete cache directory and re-run caching script
+rm -rf creating-pds-issues/resources/templates/
+cd creating-pds-issues
+node scripts/cache-templates.mjs
+
+# Option 2: Delete timestamp file to trigger automatic refresh
+rm creating-pds-issues/resources/templates/.cache-timestamp
+# Next skill invocation will automatically refresh templates
+
+# Option 3: Set environment variable to force refresh
+FORCE_TEMPLATE_REFRESH=true node scripts/cache-templates.mjs
+```
 
 ## Error Handling
 
