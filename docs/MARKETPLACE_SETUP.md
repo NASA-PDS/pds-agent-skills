@@ -13,8 +13,7 @@ Add these topics to your GitHub repository to make it discoverable:
 - `pds` - NASA Planetary Data System specific
 
 ### Recommended Topics
-- `github-api` - For release-notes-generator
-- `program-management` - For pds-status-reporter
+- `github-api` - For GitHub integration (release notes, issues)
 - `nasa` - Government/space organization
 - `planetary-science` - Domain-specific
 - `automation` - Workflow automation
@@ -36,7 +35,6 @@ gh repo edit NASA-PDS/pds-claude-skills \
   --add-topic ai-agents \
   --add-topic pds \
   --add-topic github-api \
-  --add-topic program-management \
   --add-topic nasa \
   --add-topic planetary-science \
   --add-topic automation \
@@ -49,13 +47,13 @@ Update your repository description to help with search:
 
 **Recommended Description:**
 ```
-Claude Code skills marketplace for NASA PDS workflows - automated release notes, program status reports, and more
+Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more
 ```
 
 **Via GitHub CLI:**
 ```bash
 gh repo edit NASA-PDS/pds-claude-skills \
-  --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, program status reports, and more"
+  --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more"
 ```
 
 ## Repository Settings
@@ -145,7 +143,7 @@ body:
       label: Which skill?
       options:
         - generating-release-notes
-        - pds-status-reporting
+        - creating-pds-issues
     validations:
       required: true
 

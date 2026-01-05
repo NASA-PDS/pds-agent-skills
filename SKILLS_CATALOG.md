@@ -11,7 +11,6 @@ This catalog provides an overview of all skills available in this repository. Ea
 - [Quick Install](#quick-install)
 - [All Skills](#all-skills)
   - [Release Management](#release-management)
-  - [Program Reporting](#program-reporting)
   - [Issue Management](#issue-management)
 - [By Use Case](#by-use-case)
 - [By Work Stream](#by-work-stream)
@@ -79,47 +78,6 @@ Generate release notes for NASA-PDS/doi-service version v1.6.0
 
 ---
 
-### Program Reporting
-
-#### 📊 Generating PDS Status Reports
-**Skill Name:** `pds-status-reporting`
-**Location:** `pds-status-reporter/`
-**Status:** ✅ Production Ready
-
-**What it does:**
-Generates comprehensive Monthly, Quarterly, and Annual status reports for NASA PDS program across Overall Program, Core Data Services, Web Modernization, and Planetary Data Cloud work streams.
-
-**Use when:**
-- Creating NASA PDS status reports
-- Preparing program management reports
-- Generating stakeholder reports
-- Summarizing GitHub releases and activity
-- Need executive briefings on PDS progress
-
-**Key Features:**
-- 📅 Monthly, Quarterly, and Annual reporting periods
-- 🎯 Organized by Release Themes (label:theme)
-- 🏢 Three work streams: Core Data Services, Web Modernization, Planetary Data Cloud
-- 📈 Label-aware scoring system (v2.1 rubric)
-- 🚀 Includes GitHub releases and breaking changes
-- 🔍 Product-specific deep-dives
-- 👥 Executive and technical audience modes
-
-**Trigger Keywords:** "PDS status", "program management reports", "stakeholder reports", "GitHub releases summaries", "executive briefings", "monthly report", "quarterly report"
-
-**Prerequisites:**
-- GitHub CLI (`gh`) authenticated
-- Node.js v18+ for processing scripts
-
-**Example Usage:**
-```
-Create a monthly PDS status report for October 2024
-```
-
-[View Skill Documentation →](pds-status-reporter/SKILL.md)
-
----
-
 ### Issue Management
 
 #### 📝 Creating PDS Issues
@@ -169,37 +127,18 @@ Report a security vulnerability in validate
 ### 🚀 Software Releases
 - [Generating Release Notes](#-generating-release-notes) - Create structured release documentation
 
-### 📊 Program Management
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Monthly/Quarterly/Annual status reports
-
 ### 📝 Documentation
 - [Generating Release Notes](#-generating-release-notes) - Changelog generation
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Stakeholder documentation
 
 ### 🐛 Issue Tracking
 - [Creating PDS Issues](#-creating-pds-issues) - Bug reports, feature requests, vulnerabilities
-
-### 🔍 GitHub Analytics
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Release and issue analysis
 
 ---
 
 ## By Work Stream
 
-### Core Data Services
-Skills for PDS data validation, registry, and DOI services:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track CDS work stream progress
-
-### Web Modernization
-Skills for PDS websites, design system, and CMS:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track web modernization progress
-
-### Planetary Data Cloud
-Skills for cloud migration and infrastructure:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track PDC work stream progress
-
 ### Cross-Functional
-Skills applicable across all work streams:
+Skills applicable across all PDS work streams:
 - [Generating Release Notes](#-generating-release-notes) - Any PDS repository release
 - [Creating PDS Issues](#-creating-pds-issues) - Any NASA-PDS repository issue
 
@@ -210,7 +149,6 @@ Skills applicable across all work streams:
 | Skill | Status | Last Updated | Version |
 |-------|--------|--------------|---------|
 | generating-release-notes | ✅ Production | 2024-11 | 1.0 |
-| pds-status-reporting | ✅ Production | 2024-11 | 2.1 |
 | creating-pds-issues | ✅ Production | 2024-12 | 1.0 |
 
 **Legend:**
@@ -231,13 +169,6 @@ Canonical definitions for GitHub labels used across PDS projects:
 - Priority labels (must-have, should-have, could-have)
 - Status labels (duplicate, invalid, wontfix, icebox)
 - Planning labels (sprint-backlog, release-backlog, build tracking)
-
-### 🗂️ PDS Products (`pds-status-reporter/resources/pds-products.yaml`)
-Mapping of NASA-PDS repositories to products and work streams:
-- Product categories and descriptions
-- Repository assignments
-- Work stream mappings
-- Core backbone infrastructure flags
 
 ---
 

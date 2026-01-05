@@ -2,8 +2,8 @@
 #
 # Canonical reference for all PDS GitHub labels used across the organization.
 # This file is used by multiple Claude Code skills:
-# - release-notes: Maps labels to release note sections
-# - pds-status-reporter: Uses labels for scoring and prioritization
+# - generating-release-notes: Maps labels to release note sections
+# - creating-pds-issues: Template selection and issue categorization
 #
 # Derived from PDS label scheme and organizational conventions.
 
@@ -465,19 +465,18 @@ patterns:
 
 # Usage Notes for Skills
 #
-# For release-notes skill:
+# For generating-release-notes skill:
 # - Use 'release_notes_section' to map issues to sections
 # - Check 'include_in_release_notes' flag
 # - Omit labels with exclude_from_reports: true
 #
-# For pds-status-reporter skill:
-# - Use 'status_reporter_score' for prioritization
-# - Type labels: Use for baseline scoring
-# - Priority/Severity labels: Additive scoring
-# - Check 'exclude_from_reports' to filter internal labels
+# For creating-pds-issues skill:
+# - Use label definitions for template selection
+# - Apply appropriate labels based on issue type
+# - Reference 'description' and 'category' for guidance
 #
 # Quarterly Review:
-# - Review label definitions and scores
+# - Review label definitions
 # - Add new labels as they're introduced
-# - Update scores based on organizational priorities
+# - Update based on organizational priorities
 # - Check next_review_date: 2026-02-06
