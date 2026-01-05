@@ -9,6 +9,12 @@
  * Usage: node fetch-security-issues.mjs <organization> [output-file.csv]
  *
  * Environment: SONARCLOUD_TOKEN (required)
+ *
+ * Security:
+ *   - API token sourced from environment variable (never hardcoded)
+ *   - Token validated at startup before any API calls
+ *   - Token never logged or exposed in error messages
+ *   - Used only in Authorization headers for SonarCloud API
  */
 
 import { writeFileSync } from 'fs';

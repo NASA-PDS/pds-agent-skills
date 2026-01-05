@@ -8,6 +8,18 @@
  * Usage: node apply-triage.mjs <csv-file> [--dry-run]
  *
  * Environment: SONARCLOUD_TOKEN (required)
+ *
+ * Security:
+ *   - API token sourced from environment variable (never hardcoded)
+ *   - Token validated at startup before any API calls
+ *   - Token never logged or exposed in error messages
+ *
+ * Idempotency & Error Handling:
+ *   - Gracefully handles partial failures (logs error, continues processing)
+ *   - Tracks all failures with row number, project, and error details
+ *   - SonarCloud APIs are idempotent (safe to re-run on same data)
+ *   - Dry-run mode available for safe testing before applying changes
+ *   - Comprehensive error reporting at end of batch operation
  */
 
 import { readFileSync } from 'fs';
