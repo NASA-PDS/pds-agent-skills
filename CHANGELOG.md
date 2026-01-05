@@ -9,6 +9,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **sonarcloud-security-audit** skill - Audit SonarCloud security issues for NASA PDS repositories
+  - Scans all projects in nasa-pds organization for security vulnerabilities and hotspots
+  - Exports to CSV with triage columns (severity, status, rule, component, line, URL)
+  - Automatic pagination for large result sets (500 items per page)
+  - Rate limiting and retry logic with exponential backoff
+  - Priority suggestions based on severity (BLOCKER/CRITICAL highlighted)
+  - Direct links to SonarCloud UI for each issue
+  - Helper script: `fetch-security-issues.mjs` with comprehensive error handling
+- **sonarcloud-security-triage** skill - Apply triage decisions to SonarCloud security issues
+  - Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
+  - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
+  - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)
+  - Dry-run mode to preview changes before applying
+  - Comprehensive error handling and progress tracking
+  - Automatic retry logic with rate limiting (429 responses)
+  - Detailed summary with success/failure counts
+  - Helper script: `apply-triage.mjs` with idempotent operations
 - **creating-pds-issues** skill - Creates GitHub issues in NASA-PDS repositories using official templates
   - 6 template types: Bug, I&T Bug, Feature Request, Task, Vulnerability, Release Theme
   - Auto-detection of current repository from git remote (origin → upstream fallback)
@@ -16,10 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Template caching (7-day refresh) to minimize GitHub API calls
   - Configurable assignee via `PDS_ISSUE_ASSIGNEE` environment variable
 
-### Removed
+### Changed
 
-- **pds-status-reporter** skill - Moved to separate repository for focused development
-  - Product mapping configuration (`pds-products.yaml`) removed from shared resources
+- Updated README.md skills count badge from 4 to 5
+- Updated SKILLS_CATALOG.md with new Security Triage skill
+- Enhanced Security & Compliance use case with triage workflow
+- Updated repository structure documentation to include sonarcloud-security-triage
 
 ### Changed
 

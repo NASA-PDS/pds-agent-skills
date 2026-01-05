@@ -12,6 +12,7 @@ This catalog provides an overview of all skills available in this repository. Ea
 - [All Skills](#all-skills)
   - [Release Management](#release-management)
   - [Issue Management](#issue-management)
+  - [Security Auditing](#security-auditing)
 - [By Use Case](#by-use-case)
 - [By Work Stream](#by-work-stream)
 - [Skill Status](#skill-status)
@@ -122,10 +123,163 @@ Report a security vulnerability in validate
 
 ---
 
+### Issue Management
+
+#### 🎫 Creating PDS Issues
+**Skill Name:** `creating-pds-issues`
+**Location:** `creating-pds-issues/`
+**Status:** ✅ Production Ready
+
+**What it does:**
+Creates GitHub issues in NASA-PDS repositories using official organizational templates. Automatically detects the current repository, intelligently fills templates with clear and concise content, and ensures consistent issue formatting across the organization.
+
+**Use when:**
+- Filing bug reports in PDS repositories
+- Proposing new features or enhancements
+- Creating internal development tasks
+- Reporting security vulnerabilities
+- Planning release themes
+
+**Key Features:**
+- 🎯 Auto-detects current repository from git remote
+- 📋 5 template types: bug reports, feature requests, tasks, vulnerabilities, release themes
+- ✍️ Intelligent template filling with concise, clear content
+- 🏷️ Automatic label and assignee configuration
+- 📦 Local template caching to reduce API calls
+- 🔐 Built-in validation and error handling
+
+**Trigger Keywords:** "create issue", "file issue", "bug report", "feature request", "create task", "report vulnerability", "new issue"
+
+**Prerequisites:**
+- GitHub CLI (`gh`) installed and authenticated
+- Write access to target NASA-PDS repository
+
+**Example Usage:**
+```
+Create a bug report for pds-registry about validation errors
+File a feature request for the API to support batch operations
+I need to create a security vulnerability issue
+```
+
+[View Skill Documentation →](creating-pds-issues/SKILL.md)
+
+---
+
+### Security Auditing
+
+#### 🔒 SonarCloud Security Audit
+**Skill Name:** `sonarcloud-security-audit`
+**Location:** `sonarcloud-security-audit/`
+**Status:** ✅ Production Ready
+
+**What it does:**
+Fetches all security vulnerabilities and security hotspots from SonarCloud for all repositories under the NASA PDS organization and exports them to a CSV file for security triage and remediation tracking.
+
+**Use when:**
+- Conducting security audits across PDS repositories
+- Triaging security vulnerabilities
+- Preparing compliance reports
+- Tracking security technical debt
+- Prioritizing security remediation efforts
+
+**Key Features:**
+- 🔍 Scans all projects in nasa-pds organization
+- 🎯 Filters for security-specific issues only (vulnerabilities + hotspots)
+- 📊 CSV export with triage columns (severity, status, rule, file, line)
+- 🔗 Direct links to SonarCloud UI for each issue
+- 📈 Automatic pagination for large result sets
+- ⚡ Rate limiting and retry logic built-in
+- 💡 Priority suggestions based on severity (BLOCKER/CRITICAL)
+
+**Trigger Keywords:** "SonarCloud", "security audit", "vulnerability scan", "security issues", "security hotspots", "security report"
+
+**Prerequisites:**
+- SonarCloud API token with read access to nasa-pds organization
+- Node.js v18+ for fetch API support
+
+**Example Usage:**
+```
+Scan SonarCloud for all security issues in nasa-pds and export to CSV
+Run a security audit of PDS repositories using SonarCloud
+```
+
+**Output Columns:**
+- Project, Type, Severity, Status, Rule, Message, Component, Line, Created, URL
+
+**Security Context:**
+- **Vulnerabilities**: Confirmed security issues with assigned severity (BLOCKER → CRITICAL → MAJOR → MINOR → INFO)
+- **Security Hotspots**: Security-sensitive code requiring manual review (no severity until assessed)
+
+[View Skill Documentation →](sonarcloud-security-audit/SKILL.md)
+
+#### 🔧 SonarCloud Security Triage
+**Skill Name:** `sonarcloud-security-triage`
+**Location:** `sonarcloud-security-triage/`
+**Status:** ✅ Production Ready
+
+**What it does:**
+Applies triage decisions to SonarCloud security issues (vulnerabilities and hotspots) by reading a CSV file with review decisions and bulk-updating the statuses and comments in SonarCloud via the API.
+
+**Use when:**
+- Applying bulk triage decisions after security review
+- Updating SonarCloud with remediation plans
+- Marking false positives or accepted risks
+- Closing out reviewed security hotspots
+- Tracking security debt remediation
+
+**Key Features:**
+- 📝 Reads CSV with triage decisions (Action, Resolution, Comment columns)
+- 🔄 Bulk updates via SonarCloud API
+- 🎯 Supports both vulnerabilities and security hotspots
+- ✅ Dry-run mode to preview changes before applying
+- 📊 Detailed progress tracking and error reporting
+- 🔁 Automatic retry logic with rate limiting
+- 💾 Logs all successes and failures for audit trail
+
+**Trigger Keywords:** "apply triage", "update SonarCloud", "bulk remediation", "triage decisions", "security review", "apply security reviews"
+
+**Prerequisites:**
+- SonarCloud API token with **Administer Security Hotspots** and **Administer Issues** permissions
+- CSV file from sonarcloud-security-audit with added triage columns
+- Node.js v18+ for fetch API support
+
+**Example Usage:**
+```
+Apply my security triage decisions to SonarCloud
+Update SonarCloud with the reviewed security issues from my CSV
+Bulk update security hotspots with my triage decisions
+```
+
+**Workflow:**
+1. Export issues → **sonarcloud-security-audit** skill
+2. Review and add triage columns (Action, Resolution, Comment, Reviewer)
+3. Apply decisions → **This skill** updates SonarCloud
+
+**Triage Actions:**
+- **Security Hotspots**: Action=`REVIEWED`, Resolution=`SAFE` or `FIXED`
+- **Vulnerabilities**: Action=`confirm`, `falsepositive`, `wontfix`, or `resolve`
+
+**Safety Features:**
+- Dry-run mode (`--dry-run` flag) to preview all changes
+- Per-issue error handling (failures don't stop the batch)
+- Detailed error messages for troubleshooting
+- Idempotent (safe to run multiple times)
+
+[View Skill Documentation →](sonarcloud-security-triage/SKILL.md)
+
+---
+
 ## By Use Case
 
 ### 🚀 Software Releases
 - [Generating Release Notes](#-generating-release-notes) - Create structured release documentation
+
+### 🎫 Issue Tracking
+- [Creating PDS Issues](#-creating-pds-issues) - File bugs, features, tasks, vulnerabilities, and themes
+
+### 🔒 Security & Compliance
+- [SonarCloud Security Audit](#-sonarcloud-security-audit) - Security vulnerability scanning and export
+- [SonarCloud Security Triage](#-sonarcloud-security-triage) - Bulk-apply triage decisions to security issues
 
 ### 📝 Documentation
 - [Generating Release Notes](#-generating-release-notes) - Changelog generation
@@ -149,7 +303,9 @@ Skills applicable across all PDS work streams:
 | Skill | Status | Last Updated | Version |
 |-------|--------|--------------|---------|
 | generating-release-notes | ✅ Production | 2024-11 | 1.0 |
-| creating-pds-issues | ✅ Production | 2024-12 | 1.0 |
+| creating-pds-issues | ✅ Production | 2024-1 | 1.0 |
+| sonarcloud-security-audit | ✅ Production | 2025-01 | 1.0 |
+| sonarcloud-security-triage | ✅ Production | 2025-01 | 1.0 |
 
 **Legend:**
 - ✅ Production Ready - Stable and tested
