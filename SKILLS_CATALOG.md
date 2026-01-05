@@ -11,7 +11,6 @@ This catalog provides an overview of all skills available in this repository. Ea
 - [Quick Install](#quick-install)
 - [All Skills](#all-skills)
   - [Release Management](#release-management)
-  - [Program Reporting](#program-reporting)
   - [Issue Management](#issue-management)
   - [Security Auditing](#security-auditing)
 - [By Use Case](#by-use-case)
@@ -80,44 +79,47 @@ Generate release notes for NASA-PDS/doi-service version v1.6.0
 
 ---
 
-### Program Reporting
+### Issue Management
 
-#### 📊 Generating PDS Status Reports
-**Skill Name:** `pds-status-reporting`
-**Location:** `pds-status-reporter/`
+#### 📝 Creating PDS Issues
+**Skill Name:** `creating-pds-issues`
+**Location:** `creating-pds-issues/`
 **Status:** ✅ Production Ready
 
 **What it does:**
-Generates comprehensive Monthly, Quarterly, and Annual status reports for NASA PDS program across Overall Program, Core Data Services, Web Modernization, and Planetary Data Cloud work streams.
+Creates GitHub issues in NASA-PDS repositories using official organizational templates with automatic repository detection, interactive prompting, and comprehensive security sanitization.
 
 **Use when:**
-- Creating NASA PDS status reports
-- Preparing program management reports
-- Generating stakeholder reports
-- Summarizing GitHub releases and activity
-- Need executive briefings on PDS progress
+- Creating bug reports or feature requests
+- Filing I&T (Integration & Test) bug reports
+- Reporting security vulnerabilities
+- Creating development tasks or sub-tasks
+- Defining release themes (high-level epics)
+- Need consistent issue formatting across NASA-PDS
 
 **Key Features:**
-- 📅 Monthly, Quarterly, and Annual reporting periods
-- 🎯 Organized by Release Themes (label:theme)
-- 🏢 Three work streams: Core Data Services, Web Modernization, Planetary Data Cloud
-- 📈 Label-aware scoring system (v2.1 rubric)
-- 🚀 Includes GitHub releases and breaking changes
-- 🔍 Product-specific deep-dives
-- 👥 Executive and technical audience modes
+- 📋 6 template types: Bug, I&T Bug, Feature, Task, Vulnerability, Release Theme
+- 🔍 Auto-detects current repository from git remote
+- 🔒 Security-first with PII/credential sanitization guidance
+- 💾 Template caching (7-day refresh) to minimize API calls
+- 👤 Configurable assignee (defaults to jordanpadams for triage)
+- 📊 Automatic project assignment (NASA-PDS/6 portfolio backlog)
+- ✅ Repository validation before issue creation
 
-**Trigger Keywords:** "PDS status", "program management reports", "stakeholder reports", "GitHub releases summaries", "executive briefings", "monthly report", "quarterly report"
+**Trigger Keywords:** "create issue", "file issue", "submit issue", "bug report", "feature request", "security vulnerability", "create PDS issue"
 
 **Prerequisites:**
-- GitHub CLI (`gh`) authenticated
-- Node.js v18+ for processing scripts
+- GitHub CLI (`gh`) authenticated with write access
+- Node.js v18+ for caching scripts
 
 **Example Usage:**
 ```
-Create a monthly PDS status report for October 2024
+Create a bug report for pds-registry about validation errors
+File a feature request for the API to support batch operations
+Report a security vulnerability in validate
 ```
 
-[View Skill Documentation →](pds-status-reporter/SKILL.md)
+[View Skill Documentation →](creating-pds-issues/SKILL.md)
 
 ---
 
@@ -272,9 +274,6 @@ Bulk update security hotspots with my triage decisions
 ### 🚀 Software Releases
 - [Generating Release Notes](#-generating-release-notes) - Create structured release documentation
 
-### 📊 Program Management
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Monthly/Quarterly/Annual status reports
-
 ### 🎫 Issue Tracking
 - [Creating PDS Issues](#-creating-pds-issues) - File bugs, features, tasks, vulnerabilities, and themes
 
@@ -284,31 +283,18 @@ Bulk update security hotspots with my triage decisions
 
 ### 📝 Documentation
 - [Generating Release Notes](#-generating-release-notes) - Changelog generation
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Stakeholder documentation
 
-### 🔍 GitHub Analytics
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Release and issue analysis
+### 🐛 Issue Tracking
+- [Creating PDS Issues](#-creating-pds-issues) - Bug reports, feature requests, vulnerabilities
 
 ---
 
 ## By Work Stream
 
-### Core Data Services
-Skills for PDS data validation, registry, and DOI services:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track CDS work stream progress
-
-### Web Modernization
-Skills for PDS websites, design system, and CMS:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track web modernization progress
-
-### Planetary Data Cloud
-Skills for cloud migration and infrastructure:
-- [Generating PDS Status Reports](#-generating-pds-status-reports) - Track PDC work stream progress
-
 ### Cross-Functional
-Skills applicable across all work streams:
+Skills applicable across all PDS work streams:
 - [Generating Release Notes](#-generating-release-notes) - Any PDS repository release
-- [Creating PDS Issues](#-creating-pds-issues) - Any PDS repository issue management
+- [Creating PDS Issues](#-creating-pds-issues) - Any NASA-PDS repository issue
 
 ---
 
@@ -317,8 +303,7 @@ Skills applicable across all work streams:
 | Skill | Status | Last Updated | Version |
 |-------|--------|--------------|---------|
 | generating-release-notes | ✅ Production | 2024-11 | 1.0 |
-| pds-status-reporting | ✅ Production | 2024-11 | 2.1 |
-| creating-pds-issues | ✅ Production | 2024-11 | 1.0 |
+| creating-pds-issues | ✅ Production | 2024-1 | 1.0 |
 | sonarcloud-security-audit | ✅ Production | 2025-01 | 1.0 |
 | sonarcloud-security-triage | ✅ Production | 2025-01 | 1.0 |
 
@@ -340,13 +325,6 @@ Canonical definitions for GitHub labels used across PDS projects:
 - Priority labels (must-have, should-have, could-have)
 - Status labels (duplicate, invalid, wontfix, icebox)
 - Planning labels (sprint-backlog, release-backlog, build tracking)
-
-### 🗂️ PDS Products (`pds-status-reporter/resources/pds-products.yaml`)
-Mapping of NASA-PDS repositories to products and work streams:
-- Product categories and descriptions
-- Repository assignments
-- Work stream mappings
-- Core backbone infrastructure flags
 
 ---
 

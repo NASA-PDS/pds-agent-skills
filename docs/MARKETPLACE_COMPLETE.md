@@ -14,7 +14,6 @@ Your PDS Claude Code Skills repository has been successfully transformed into a 
 
 ### 2. **Skill Naming Fixed**
    - ✅ Renamed `release-notes-generator` → `generating-release-notes` (gerund form)
-   - ✅ `pds-status-reporting` already follows convention (gerund form)
    - Updated SKILL.md frontmatter to match directory names
    - All documentation references updated
 
@@ -46,8 +45,8 @@ pds-claude-skills/
 ├── MARKETPLACE_COMPLETE.md     ← This summary document
 ├── generating-release-notes/   ← Renamed from release-notes-generator
 │   └── SKILL.md               (name: generating-release-notes)
-└── pds-status-reporter/
-    └── SKILL.md               (name: pds-status-reporting)
+└── creating-pds-issues/        ← GitHub issue creation skill
+    └── SKILL.md               (name: creating-pds-issues)
 ```
 
 ## 🚀 Next Steps (To Complete Marketplace Setup)
@@ -66,7 +65,7 @@ pds-claude-skills/
 2. **Update Repository Description**:
    ```bash
    gh repo edit NASA-PDS/pds-claude-skills \
-     --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, program status reports, and more"
+     --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more"
    ```
 
 3. **Commit and Push Changes**:
@@ -134,7 +133,7 @@ git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/.claude/skills/pds
 ### Skills Are Automatically Discovered
 Once installed, Claude Code automatically finds all SKILL.md files:
 - `generating-release-notes/SKILL.md`
-- `pds-status-reporter/SKILL.md`
+- `creating-pds-issues/SKILL.md`
 
 Users just describe what they want, and Claude invokes the appropriate skill!
 
