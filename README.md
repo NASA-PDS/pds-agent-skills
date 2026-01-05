@@ -9,8 +9,13 @@
 <pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
+![Skills](https://img.shields.io/badge/skills-2-brightgreen)
+![License](https://img.shields.io/badge/license-Apache%202.0-blue)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
 
 This repository contains [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for NASA's Planetary Data System (PDS) Engineering Node. Skills are specialized AI agents that automate complex tasks within the [Claude Code CLI environment](https://claude.ai/code).
+
+**🎯 [Browse Skills Catalog →](SKILLS_CATALOG.md)** - View all available skills with detailed descriptions and use cases
 
 ## Table of Contents
 
@@ -40,25 +45,16 @@ Skills help automate repetitive or complex workflows, making development more ef
 
 ## Available Skills
 
-### 📝 Release Notes Generator
+**📖 [View Full Skills Catalog →](SKILLS_CATALOG.md)** - Browse all skills with detailed descriptions, use cases, and examples
 
-**Location:** `release-notes/`
+### Quick Overview
 
-Generates structured, user-friendly GitHub release notes from PR/issue data with:
+| Skill | Description | Use Cases |
+|-------|-------------|-----------|
+| **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
+| **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using official NASA-PDS templates with security sanitization | Bug reports, feature requests, I&T bugs, security vulnerabilities |
 
-- Automatic categorization (Breaking Changes, New Features, Improvements, Fixes, Security)
-- Prominent breaking changes warnings (⚠️)
-- Executive summaries in "Highlights" section
-- Mandatory GitHub links for all changes
-- PDS-specific label mapping
-- Optional upload to GitHub releases via `gh` CLI
-
-**Use cases:**
-- Creating release notes for PDS software releases
-- Generating changelog summaries from GitHub data
-- Ensuring consistent release note formatting across PDS projects
-
-See [release-notes/SKILL.md](release-notes/SKILL.md) for detailed documentation.
+**Total Skills:** 2 production-ready skills for PDS workflows
 
 ## Installation
 
@@ -154,39 +150,43 @@ claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 
 Claude analyzes your request, identifies that the release-notes skill is relevant, and executes it autonomously.
 
-**Available skills:**
-- `release-notes` - Generates structured GitHub release notes
-
-See individual skill documentation for detailed input specifications and examples.
+See the [Skills Catalog](SKILLS_CATALOG.md) or individual skill documentation for detailed input specifications and examples.
 
 ## Adding a New Skill
 
-1. Create a new directory: `<skill-name>/`
-2. Add a `SKILL.md` file with:
-   ```yaml
-   ---
-   name: skill-name
-   description: Brief description of what the skill does
-   ---
-   ```
-3. Add comprehensive instructions, input/output specs, and style rules
-4. Include supporting resources in subdirectories (templates, additional_resources, etc.)
-5. Update this README with your new skill in the "Available Skills" section
-6. Test thoroughly with sample inputs
+See the [Skills Catalog](SKILLS_CATALOG.md) for examples and [CLAUDE.md](CLAUDE.md) for detailed development guidance.
 
-See [CLAUDE.md](CLAUDE.md) for detailed development guidance.
+**Quick steps:**
+1. Create a new directory: `<skill-name>/` (use gerund form: `generating-*`, `processing-*`)
+2. Add a `SKILL.md` file with YAML frontmatter and instructions
+3. Test with sample inputs
+4. Update [SKILLS_CATALOG.md](SKILLS_CATALOG.md) with your new skill
+5. Submit a pull request
+
+For marketplace configuration and GitHub setup, see [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md).
 
 ## Repository Structure
 
 ```
 pds-claude-skills/
-├── release-notes/          # Release notes generation skill
-│   ├── SKILL.md           # Skill definition and instructions
-│   ├── templates/         # Release note templates
-│   └── additional_resources/  # PDS label mapping and docs
-├── CLAUDE.md              # Developer guidance for Claude Code
-├── README.md              # This file
-└── CHANGELOG.md           # Project changelog
+├── generating-release-notes/   # Release notes generation skill
+│   ├── SKILL.md                # Skill definition and instructions
+│   ├── templates/              # Release note templates
+│   └── resources/              # Supporting resources
+├── creating-pds-issues/        # GitHub issue creation skill
+│   ├── SKILL.md                # Skill definition and instructions
+│   ├── scripts/                # Helper scripts for template caching
+│   └── resources/              # Issue templates and config
+├── shared-resources/           # Shared across all skills
+│   └── pds-labels.yaml         # Canonical PDS label definitions
+├── docs/                       # Marketplace documentation
+│   ├── MARKETPLACE_SETUP.md    # GitHub configuration guide
+│   ├── MARKETPLACE_COMPLETE.md # Transformation summary
+│   └── PRODUCTS_README.md      # Product mapping documentation
+├── SKILLS_CATALOG.md           # Browse all available skills
+├── CLAUDE.md                   # Developer guidance for Claude Code
+├── README.md                   # This file
+└── CHANGELOG.md                # Project changelog
 ```
 
 ## Contributing

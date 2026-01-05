@@ -1,6 +1,6 @@
 ---
-name: release-notes
-description: Generate clear, skimmable GitHub release notes with **⚠️ Breaking Changes prominently displayed FIRST** (if any exist), followed by Highlights and detailed categorized sections. **Every listed change must include a link** to the originating issue or pull request. Can optionally upload the generated notes directly to a GitHub release using the gh CLI.
+name: generating-release-notes
+description: Generates GitHub release notes from merged PRs and issues with automated categorization, breaking change detection, and optional upload via gh CLI. Use when creating releases, publishing new versions, documenting changes, preparing release notes, or when the user mentions "release notes", "changelog", "release", or "version announcement".
 ---
 
 # User-Friendly Release Notes (with Executive Summary + Links)
@@ -33,9 +33,8 @@ description: Generate clear, skimmable GitHub release notes with **⚠️ Breaki
   6) **Security**
   7) **Deprecations**
   8) **Compatibility** (runtimes; optional matrix)
-  9) **Upgrade notes** (step-by-step)
-  10) **Known issues**
-  11) **Links** (docs, migration, artifacts, **Full changelog**)
+  9) **Known issues**
+  10) **Links** (installation/upgrade docs, migration guide, artifacts, support, **Full changelog**)
 - All bullets MUST include a GitHub link to the source PR/issue (or docs).
 - **CRITICAL**: If ANY breaking changes exist, they MUST appear as the first section with prominent warning emoji (⚠️)
 - If `upload: true`, upload the generated notes to the GitHub release using `gh release create` (if release doesn't exist) or `gh release edit` (if it exists).
@@ -47,7 +46,7 @@ description: Generate clear, skimmable GitHub release notes with **⚠️ Breaki
 - **One idea per bullet**, ≤ ~15 words if possible, link at the end.
 - **Label the audience** where useful: *Data providers*, *API consumers*, *Admins*.
 - **Numbers beat adjectives** (e.g., "~25% faster ingestion").
-- Use code fences for commands/config in Upgrade notes.
+- Use code fences for commands/config when needed.
 - Prefer present tense: "Adds…", "Fixes…", "Improves…".
 - No empty sections; consistent order across releases.
 
@@ -75,17 +74,13 @@ description: Generate clear, skimmable GitHub release notes with **⚠️ Breaki
    - Pick 3–6 biggest user-visible changes across ALL sections (including breaking changes)
    - Write benefit-first bullets; append the canonical PR/issue link.
    - NOTE: Breaking changes already have their own section, so Highlights is a summary
-5. **Synthesize Upgrade notes**
-   - Collect `upgrade_steps` from inputs or PR descriptions; format 1–n steps.
-   - Include commands/config diffs if provided.
-   - Breaking changes should reference migration steps already documented in Breaking Changes section
-6. **Add Compatibility**
+5. **Add Compatibility**
    - Include "Requires: Java 17+, Python 3.12" or a table if `compat_matrix` exists.
    - Highlight any compatibility breaks here as well
-7. **Known issues** (if any): symptom → workaround → link.
-8. **Links**: Docs, migration guide, artifacts, support, and **Full changelog** (compare_url).
-9. **Validate link coverage**: every bullet ends with at least one `https://github.com/...` link.
-10. **Upload (if requested)**:
+6. **Known issues** (if any): symptom → workaround → link.
+7. **Links**: Installation/upgrade docs (from `docs_links`), migration guide, artifacts, support, and **Full changelog** (compare_url).
+8. **Validate link coverage**: every bullet ends with at least one `https://github.com/...` link.
+9. **Upload (if requested)**:
     - Check if GitHub CLI (`gh`) is installed and authenticated
     - Check if the release already exists: `gh release view <tag> --repo <repo>`
     - If release exists: `gh release edit <tag> --notes-file <file> --repo <repo>`
@@ -101,7 +96,6 @@ description: Generate clear, skimmable GitHub release notes with **⚠️ Breaki
 - If a change has multiple links, keep one canonical link (the merged PR).
 - For multi-repo rollups, create a top-level Highlights + table of component versions; link out to each component's release.
 - If input lacks labels, infer from title (e.g., starts with `fix:` → Fixes, `BREAKING:` → Breaking Changes).
-- If no user action required, add **"No action needed."** to Upgrade notes.
 - **Upload edge cases**:
   - If `gh` is not installed or not authenticated, display error and provide setup instructions
   - If release exists but is a draft, edit the draft instead of creating new release
@@ -146,8 +140,11 @@ description: Generate clear, skimmable GitHub release notes with **⚠️ Breaki
 - Validation: no longer crashes on missing schema ([#456](https://github.com/ORG/REPO/pull/456))
 
 ## Links
+- **Documentation:** https://nasa-pds.github.io/REPO/
 - **Full changelog:** https://github.com/ORG/REPO/compare/v1.5.0...v1.6.0
 ```
 
 ## Additional Resources
-- [label_mapping.md](./additional_resources/label_mapping.md)
+- [Label Mapping Reference](./label-mapping.md) - Complete PDS GitHub label to release notes section mapping
+- [Release Notes Template](./release-notes-template.md) - Standard template structure
+- [Summary Template](./summary-template.md) - Condensed format for blog/email announcements
