@@ -25,6 +25,7 @@ node scripts/cache-templates.mjs [--force]
 **Output:**
 Templates are saved to:
 - `resources/templates/-bug_report.yml`
+- `resources/templates/i-t-bug-report.yml`
 - `resources/templates/-feature_request.yml`
 - `resources/templates/-vulnerability-issue.yml`
 - `resources/templates/task.yml`
@@ -49,7 +50,20 @@ node scripts/detect-repo.mjs
   "detected": true,
   "repo": "pds-registry",
   "org": "NASA-PDS",
-  "url": "https://github.com/NASA-PDS/pds-registry.git"
+  "url": "https://github.com/NASA-PDS/pds-registry.git",
+  "remote": "origin"
+}
+```
+
+For forked repositories:
+```json
+{
+  "detected": true,
+  "repo": "pds-registry",
+  "org": "NASA-PDS",
+  "url": "https://github.com/NASA-PDS/pds-registry.git",
+  "remote": "upstream",
+  "note": "Detected from upstream (origin is a fork)"
 }
 ```
 
@@ -57,12 +71,14 @@ Or if not in a NASA-PDS repo:
 ```json
 {
   "detected": false,
-  "reason": "Not in a git repository or no remote origin configured"
+  "reason": "Not in a git repository"
 }
 ```
 
 **What it does:**
-- Checks `git remote get-url origin`
+- Checks `git remote get-url origin` first
+- Falls back to `git remote get-url upstream` if origin doesn't exist
+- If origin is a personal fork, checks upstream for NASA-PDS repository
 - Parses the URL to extract organization and repository name
 - Validates that the organization is `NASA-PDS`
 - Handles both HTTPS and SSH remote URLs

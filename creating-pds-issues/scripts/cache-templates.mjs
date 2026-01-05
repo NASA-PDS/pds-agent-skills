@@ -26,6 +26,7 @@ const CACHE_MAX_AGE_DAYS = 7;
 
 const TEMPLATES = [
   '-bug_report.yml',
+  'i-t-bug-report.yml',
   '-feature_request.yml',
   '-vulnerability-issue.yml',
   'task.yml',
