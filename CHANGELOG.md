@@ -9,6 +9,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **pds-rdd-generator** skill (v3.0.0) - Generate Release Definition Documents (RDD) showing completed work grouped by parent tasks
+  - Simple, focused RDD generation showing what was completed in a time period
+  - Groups work by: Work Stream → Component → Parent Task → Items → "Other Improvements"
+  - Automatic parent-child relationship detection from issue body text
+  - Includes releases published during the period
+  - Minimal filtering (only excludes invalid work like duplicates, wontfix)
+  - Three simplified scripts: `query-releases.mjs`, `filter-and-group.mjs`, `generate-rdd.mjs`
+  - Replaced complex pds-status-reporter skill (v2.1)
 - **sonarcloud-security-audit** skill - Audit SonarCloud security issues for NASA PDS repositories
   - Scans all projects in nasa-pds organization for security vulnerabilities and hotspots
   - Exports to CSV with triage columns (severity, status, rule, component, line, URL)
@@ -35,16 +43,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Updated README.md skills count badge from 4 to 5
+- **BREAKING:** Refactored pds-status-reporter to pds-rdd-generator (v3.0.0)
+  - Simplified from complex status reporting to focused RDD generation
+  - Removed AI summarization, scoring rubrics, and executive summaries
+  - Removed theme tracking and complex work stream analysis
+  - New focus: Show completed work grouped by parent tasks
+  - Scripts reduced from 10 to 3 for easier maintenance
+  - Output format: Work Stream → Component → Parent Task → Items
+- Updated README.md skills count badge from 5 to 6
 - Updated SKILLS_CATALOG.md with new Security Triage skill
 - Enhanced Security & Compliance use case with triage workflow
 - Updated repository structure documentation to include sonarcloud-security-triage
 
-### Changed
+### Removed
 
-- Updated skills count badge from 3 to 2
-- Reorganized repository structure without pds-status-reporter references
-- Updated all documentation (README.md, SKILLS_CATALOG.md, CLAUDE.md) to reflect current skill set
+- pds-status-reporter AI scripts: `ai-curate-highlights.mjs`, `ai-summarize-themes.mjs`, `apply-curated-highlights.mjs`, `fetch-theme-comments.mjs`, `process-ai-summaries.mjs`
+- Complex scoring and report generation: `score-issues.mjs`, `generate-report.mjs` (replaced with simplified versions)
 
 ## [1.0.0] - 2024-11-06
 

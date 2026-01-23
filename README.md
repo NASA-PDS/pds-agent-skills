@@ -9,7 +9,7 @@
 <pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Skills](https://img.shields.io/badge/skills-5-brightgreen)
+![Skills](https://img.shields.io/badge/skills-6-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
 
@@ -53,10 +53,11 @@ Skills help automate repetitive or complex workflows, making development more ef
 |-------|-------------|-----------|
 | **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
 | **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
+| **[pds-rdd-generator](pds-status-reporter/SKILL.md)** | Generate Release Definition Documents (RDD) showing completed work grouped by parent tasks | Status reports, RDD generation, program reporting |
 | **[sonarcloud-security-audit](sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
 | **[sonarcloud-security-triage](sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
 
-**Total Skills:** 5 production-ready skills for PDS workflows
+**Total Skills:** 6 production-ready skills for PDS workflows
 
 ## Installation
 
