@@ -14,6 +14,36 @@ This skill creates GitHub issues in NASA-PDS repositories using the official org
 
 ## Workflow
 
+### 0. Detect Sub-Issue Request
+
+**Before gathering other information, determine if this is a sub-issue request.**
+
+Keywords that indicate a sub-issue relationship:
+- "child task", "child issue", "sub-task", "sub-issue"
+- "for theme", "for epic", "under issue", "part of"
+- "attached to", "linked to parent", "belongs to"
+- Explicit parent references: "for #123", "under NASA-PDS/repo#456"
+
+If a sub-issue relationship is detected:
+1. Identify the parent issue (theme, epic, or other issue)
+2. Proceed with normal issue creation workflow
+3. After creation, attach as sub-issue using GitHub GraphQL API (see Section 4)
+
+**Parent Issue Identification:**
+
+The parent can be specified as:
+- Issue URL: `https://github.com/NASA-PDS/repo/issues/123`
+- Short reference: `#123` (current repo) or `NASA-PDS/repo#123` (cross-repo)
+- Search terms: "the registry theme" or "authentication epic"
+
+If the parent is ambiguous, search for it:
+```bash
+# Search for potential parent issues by title
+gh issue list --repo NASA-PDS/<repo> --search "theme OR epic" --label "theme,Epic" --limit 10
+```
+
+Then confirm with the user which parent issue to use.
+
 ### 1. Gather Information
 
 **Detect Current Repository (if applicable):**
@@ -288,12 +318,135 @@ N/A
 [To be filled by engineering team]
 ```
 
-### 4. Confirm Success
+### 4. Attach Sub-Issue to Parent (If Applicable)
+
+If this issue should be a sub-issue of a parent (theme, epic, or other issue), attach it using GitHub's GraphQL API.
+
+**Step 1: Get the Parent Issue Node ID**
+
+```bash
+# Extract repo and issue number from parent reference
+# For URL: https://github.com/NASA-PDS/repo/issues/123 → repo=repo, number=123
+# For reference: NASA-PDS/repo#123 → repo=repo, number=123
+# For local: #123 → use current repo, number=123
+
+gh api graphql -f query='
+  query {
+    repository(owner: "NASA-PDS", name: "<parent-repo>") {
+      issue(number: <parent-number>) {
+        id
+        title
+      }
+    }
+  }
+'
+```
+
+**Step 2: Get the Child Issue Node ID**
+
+After creating the issue (from Section 3), extract the issue number from the returned URL and get its node ID:
+
+```bash
+# The gh issue create command returns: https://github.com/NASA-PDS/repo/issues/456
+# Extract number 456 from the URL
+
+gh api graphql -f query='
+  query {
+    repository(owner: "NASA-PDS", name: "<child-repo>") {
+      issue(number: <child-number>) {
+        id
+      }
+    }
+  }
+'
+```
+
+**Step 3: Add Sub-Issue Relationship**
+
+```bash
+gh api graphql -f query='
+  mutation {
+    addSubIssue(input: {
+      issueId: "<PARENT_NODE_ID>",
+      subIssueId: "<CHILD_NODE_ID>"
+    }) {
+      issue {
+        id
+        title
+      }
+      subIssue {
+        id
+        title
+      }
+    }
+  }
+'
+```
+
+**Combined Script Approach:**
+
+For convenience, you can chain these operations:
+
+```bash
+# 1. Create the issue and capture the URL
+ISSUE_URL=$(gh issue create \
+  --repo NASA-PDS/<repo> \
+  --title "<title>" \
+  --body "<body>" \
+  --label "<labels>" 2>&1)
+
+# 2. Extract issue number from URL
+CHILD_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+
+# 3. Get parent node ID
+PARENT_ID=$(gh api graphql -f query='
+  query {
+    repository(owner: "NASA-PDS", name: "<parent-repo>") {
+      issue(number: <parent-number>) { id }
+    }
+  }
+' --jq '.data.repository.issue.id')
+
+# 4. Get child node ID
+CHILD_ID=$(gh api graphql -f query="
+  query {
+    repository(owner: \"NASA-PDS\", name: \"<child-repo>\") {
+      issue(number: $CHILD_NUMBER) { id }
+    }
+  }
+" --jq '.data.repository.issue.id')
+
+# 5. Attach sub-issue to parent
+gh api graphql -f query="
+  mutation {
+    addSubIssue(input: {
+      issueId: \"$PARENT_ID\",
+      subIssueId: \"$CHILD_ID\"
+    }) {
+      issue { title }
+      subIssue { title }
+    }
+  }
+"
+```
+
+**Cross-Repository Sub-Issues:**
+
+Sub-issues can span repositories. For example, a task in `pds-registry` can be a sub-issue of a theme in `pds-swg`. The parent and child repositories do not need to match.
+
+**Error Handling:**
+
+- If the parent issue doesn't exist: "Could not resolve to an Issue with the number..."
+- If the GraphQL mutation fails: Check that both issues exist and you have write access
+- If already a sub-issue: The API will return an error; check existing relationships first
+
+### 5. Confirm Success
 
 After creating the issue:
 1. Display the issue URL to the user
 2. Confirm the issue was created successfully
-3. Remind user that internal sections (Engineering Details, I&T) will be filled by the PDS engineering team
+3. If a sub-issue relationship was created, confirm the parent-child link
+4. Remind user that internal sections (Engineering Details, I&T) will be filled by the PDS engineering team
 
 ## Important Notes
 
@@ -348,3 +501,17 @@ User: "File a feature request for the API to support batch operations"
 
 User: "I need to create a security vulnerability issue for validate"
 → Use vulnerability template, gather security details, create issue
+
+**Sub-Issue Examples:**
+
+User: "Create a child task for theme #45 about implementing the new API endpoint"
+→ Detect sub-issue request, gather task details, create issue, attach to #45 as sub-issue
+
+User: "Add a sub-task under NASA-PDS/pds-swg#123 for updating the documentation"
+→ Detect cross-repo sub-issue, gather task details, create issue, attach to parent in pds-swg
+
+User: "Create a task for the registry modernization epic"
+→ Search for "registry modernization" epic, confirm with user, gather task details, create and attach
+
+User: "File a bug as part of the B17 theme issue"
+→ Search for B17 theme, create bug report, attach as sub-issue to the theme

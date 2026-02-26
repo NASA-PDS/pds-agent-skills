@@ -4,9 +4,10 @@
  *
  * Helper script for creating GitHub issues in NASA-PDS repositories.
  * Formats issue body according to template structure and creates via gh CLI.
+ * Optionally attaches the new issue as a sub-issue of a parent issue.
  *
  * Usage:
- *   node scripts/create-issue.mjs <type> <repo> <title> <data.json>
+ *   node scripts/create-issue.mjs <type> <repo> <title> <data.json> [--parent <repo>#<number>]
  *
  * Arguments:
  *   type       Template type: bug, feature, task, vulnerability, theme
@@ -14,8 +15,20 @@
  *   title      Issue title
  *   data.json  JSON file with template field data
  *
- * Example:
+ * Options:
+ *   --parent <repo>#<number>  Attach as sub-issue of the specified parent
+ *                             Example: --parent pds-swg#123
+ *                             Example: --parent #45 (same repo as child)
+ *
+ * Examples:
+ *   # Create standalone issue
  *   node scripts/create-issue.mjs bug pds-registry "Validator fails on nested tables" bug-data.json
+ *
+ *   # Create issue and attach as sub-issue of parent in same repo
+ *   node scripts/create-issue.mjs task pds-registry "Implement API endpoint" task-data.json --parent #123
+ *
+ *   # Create issue and attach as sub-issue of parent in different repo
+ *   node scripts/create-issue.mjs task pds-registry "Implement API endpoint" task-data.json --parent pds-swg#45
  */
 
 import { execSync } from 'child_process';
@@ -193,10 +206,104 @@ function formatList(items) {
   return items.map((item, index) => `${index + 1}. ${item}`).join('\n');
 }
 
+const ORG = 'NASA-PDS';
+
+/**
+ * Get the node ID of an issue using GraphQL
+ */
+function getIssueNodeId(repo, number) {
+  const query = `
+    query {
+      repository(owner: "${ORG}", name: "${repo}") {
+        issue(number: ${number}) {
+          id
+          title
+        }
+      }
+    }
+  `;
+
+  try {
+    const result = execSync(`gh api graphql -f query='${query}'`, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
+
+    const data = JSON.parse(result);
+
+    if (!data.data?.repository?.issue) {
+      throw new Error(`Issue #${number} not found in ${ORG}/${repo}`);
+    }
+
+    return data.data.repository.issue;
+  } catch (error) {
+    throw new Error(`Failed to get issue ${ORG}/${repo}#${number}: ${error.message}`);
+  }
+}
+
+/**
+ * Attach a sub-issue to a parent issue using GraphQL mutation
+ */
+function addSubIssue(parentId, childId) {
+  const mutation = `
+    mutation {
+      addSubIssue(input: {
+        issueId: "${parentId}",
+        subIssueId: "${childId}"
+      }) {
+        issue {
+          title
+        }
+        subIssue {
+          title
+        }
+      }
+    }
+  `;
+
+  try {
+    const result = execSync(`gh api graphql -f query='${mutation}'`, {
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe']
+    });
+
+    const data = JSON.parse(result);
+
+    if (data.errors) {
+      throw new Error(data.errors.map(e => e.message).join(', '));
+    }
+
+    return data.data.addSubIssue;
+  } catch (error) {
+    throw new Error(`Failed to attach sub-issue: ${error.message}`);
+  }
+}
+
+/**
+ * Parse parent reference string into repo and number
+ * Formats: "#123", "repo#123", "NASA-PDS/repo#123"
+ */
+function parseParentRef(ref, defaultRepo) {
+  // Remove any "NASA-PDS/" prefix
+  ref = ref.replace(/^NASA-PDS\//i, '');
+
+  // Match patterns: #123, repo#123
+  const match = ref.match(/^(?:([^#]+))?#(\d+)$/);
+
+  if (!match) {
+    throw new Error(`Invalid parent reference: ${ref}. Expected format: #123 or repo#123`);
+  }
+
+  return {
+    repo: match[1] || defaultRepo,
+    number: parseInt(match[2])
+  };
+}
+
 /**
  * Create GitHub issue
  */
-function createIssue(type, repo, title, bodyData) {
+function createIssue(type, repo, title, bodyData, parentRef = null) {
   const config = TEMPLATE_CONFIGS[type];
 
   if (!config) {
@@ -224,15 +331,47 @@ function createIssue(type, repo, title, bodyData) {
   console.log(`Title: ${title}`);
   console.log(`Labels: ${config.labels}`);
 
+  if (parentRef) {
+    const parent = parseParentRef(parentRef, repo);
+    console.log(`Parent: NASA-PDS/${parent.repo}#${parent.number}`);
+  }
+
   try {
     const result = execSync(command, { encoding: 'utf8' });
+    const issueUrl = result.trim();
     console.log('\nIssue created successfully!');
-    console.log(result.trim());
+    console.log(issueUrl);
 
     // Clean up temp file
     execSync(`rm "${bodyFile}"`);
 
-    return result.trim();
+    // If parent specified, attach as sub-issue
+    if (parentRef) {
+      const parent = parseParentRef(parentRef, repo);
+
+      // Extract child issue number from URL
+      const childNumber = parseInt(issueUrl.match(/\/issues\/(\d+)$/)?.[1]);
+      if (!childNumber) {
+        throw new Error('Could not extract issue number from created issue URL');
+      }
+
+      console.log('\nAttaching as sub-issue...');
+
+      // Get parent node ID
+      const parentIssue = getIssueNodeId(parent.repo, parent.number);
+      console.log(`  Parent: "${parentIssue.title}"`);
+
+      // Get child node ID
+      const childIssue = getIssueNodeId(repo, childNumber);
+
+      // Attach sub-issue
+      const subIssueResult = addSubIssue(parentIssue.id, childIssue.id);
+      console.log(`\nSub-issue relationship created:`);
+      console.log(`  Parent: "${subIssueResult.issue.title}"`);
+      console.log(`  └── Child: "${subIssueResult.subIssue.title}"`);
+    }
+
+    return issueUrl;
   } catch (error) {
     console.error('\nError creating issue:');
     console.error(error.message);
@@ -241,11 +380,31 @@ function createIssue(type, repo, title, bodyData) {
 }
 
 // Parse arguments
-const [type, repo, title, dataFile] = process.argv.slice(2);
+const args = process.argv.slice(2);
+let parentRef = null;
+
+// Check for --parent flag
+const parentIdx = args.indexOf('--parent');
+if (parentIdx !== -1) {
+  parentRef = args[parentIdx + 1];
+  if (!parentRef) {
+    console.error('Error: --parent requires a value (e.g., --parent #123 or --parent repo#123)');
+    process.exit(1);
+  }
+  // Remove --parent and its value from args
+  args.splice(parentIdx, 2);
+}
+
+const [type, repo, title, dataFile] = args;
 
 if (!type || !repo || !title || !dataFile) {
-  console.error('Usage: node create-issue.mjs <type> <repo> <title> <data.json>');
+  console.error('Usage: node create-issue.mjs <type> <repo> <title> <data.json> [--parent <repo>#<number>]');
   console.error('Types: bug, feature, task, vulnerability, theme');
+  console.error('');
+  console.error('Examples:');
+  console.error('  node create-issue.mjs bug pds-registry "Title" data.json');
+  console.error('  node create-issue.mjs task pds-registry "Title" data.json --parent #123');
+  console.error('  node create-issue.mjs task pds-registry "Title" data.json --parent pds-swg#45');
   process.exit(1);
 }
 
@@ -261,5 +420,5 @@ try {
 // Import writeFileSync
 import { writeFileSync } from 'fs';
 
-// Create issue
-createIssue(type, repo, title, bodyData);
+// Create issue (and optionally attach as sub-issue)
+createIssue(type, repo, title, bodyData, parentRef);
