@@ -1,0 +1,82 @@
+name: ✨ Enhancement
+description: Suggest an improvement to an existing skill
+title: "[Enhancement]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting an enhancement! Please provide details below.
+
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Which skill?
+      description: Select the skill to enhance
+      options:
+        - generating-release-notes
+        - creating-pds-issues
+        - sonarcloud-security-audit
+        - sonarcloud-security-triage
+        - Documentation or repository structure
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or Limitation
+      description: What problem does this enhancement address? What limitation does it overcome?
+      placeholder: "Currently, the skill cannot... which makes it difficult to..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Proposed Solution
+      description: How would you like this to work?
+      placeholder: "The skill should be able to... by..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives Considered
+      description: Have you considered any alternative approaches?
+    validations:
+      required: false
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Describe specific scenarios where this enhancement would be valuable
+      placeholder: |
+        - When working on multi-repository releases...
+        - When generating reports for specific time periods...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: backwards-compatibility
+    attributes:
+      label: Backwards Compatibility
+      description: Would this enhancement affect existing users?
+      options:
+        - Fully backwards compatible (no breaking changes)
+        - Minor breaking changes (acceptable with migration guide)
+        - Major breaking changes (requires careful consideration)
+        - Not sure
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      options:
+        - label: I'm willing to implement this enhancement
+        - label: I can help test and provide feedback

@@ -1,0 +1,11 @@
+{
+  "name": "generating-release-notes",
+  "description": "Generate structured GitHub release notes with breaking changes, categorization, and upload",
+  "version": "1.0.0",
+  "author": {
+    "name": "NASA PDS Engineering Node"
+  },
+  "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+  "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+  "license": "Apache-2.0"
+}

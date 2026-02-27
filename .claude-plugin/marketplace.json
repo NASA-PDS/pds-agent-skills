@@ -1,0 +1,98 @@
+{
+  "name": "pds",
+  "owner": {
+    "name": "NASA Planetary Data System Engineering Node",
+    "email": "pds-operator@jpl.nasa.gov"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for NASA PDS workflows - automated release notes, GitHub issue creation, security auditing, and more",
+    "version": "1.1.0",
+    "pluginRoot": "./"
+  },
+  "plugins": [
+    {
+      "name": "generating-release-notes",
+      "source": "./generating-release-notes",
+      "description": "Generate structured GitHub release notes with breaking changes, categorization, and upload",
+      "version": "1.0.0",
+      "author": {
+        "name": "NASA PDS Engineering Node"
+      },
+      "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+      "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "release-notes",
+        "changelog",
+        "github",
+        "automation",
+        "pds",
+        "nasa"
+      ],
+      "category": "release-management"
+    },
+    {
+      "name": "creating-pds-issues",
+      "source": "./creating-pds-issues",
+      "description": "Create GitHub issues using NASA-PDS organizational templates",
+      "version": "1.0.0",
+      "author": {
+        "name": "NASA PDS Engineering Node"
+      },
+      "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+      "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "github",
+        "issues",
+        "templates",
+        "pds",
+        "nasa",
+        "bug-reports"
+      ],
+      "category": "issue-management"
+    },
+    {
+      "name": "sonarcloud-security-audit",
+      "source": "./sonarcloud-security-audit",
+      "description": "Audit SonarCloud security issues for NASA PDS repositories and export to CSV",
+      "version": "1.0.0",
+      "author": {
+        "name": "NASA PDS Engineering Node"
+      },
+      "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+      "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "security",
+        "sonarcloud",
+        "audit",
+        "vulnerability",
+        "pds",
+        "nasa"
+      ],
+      "category": "security"
+    },
+    {
+      "name": "sonarcloud-security-triage",
+      "source": "./sonarcloud-security-triage",
+      "description": "Apply triage decisions to SonarCloud security issues by bulk-updating statuses",
+      "version": "1.0.0",
+      "author": {
+        "name": "NASA PDS Engineering Node"
+      },
+      "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+      "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "security",
+        "sonarcloud",
+        "triage",
+        "remediation",
+        "pds",
+        "nasa"
+      ],
+      "category": "security"
+    }
+  ]
+}

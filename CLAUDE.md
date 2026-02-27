@@ -44,6 +44,24 @@ description: Brief description triggering the skill
 - Template caching (7-day refresh) to minimize API calls
 - Requires GitHub CLI (`gh`) and Node.js v18+ for caching scripts
 
+**3. sonarcloud-security-audit/** - Audits SonarCloud security issues for NASA PDS repositories
+- Fetches all vulnerabilities and security hotspots from nasa-pds organization
+- Exports to CSV with triage columns (severity, status, rule, component, line, URL)
+- Automatic pagination for large result sets (500 items per page)
+- Rate limiting and retry logic with exponential backoff
+- Requires SonarCloud API token and Node.js v18+
+- Helper script: `scripts/fetch-security-issues.mjs`
+
+**4. sonarcloud-security-triage/** - Applies triage decisions to SonarCloud security issues
+- Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
+- Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
+- Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)
+- Dry-run mode to preview changes before applying
+- Requires SonarCloud API token with admin permissions and Node.js v18+
+- Helper script: `scripts/apply-triage.mjs`
+
+**Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
+
 ## Shared Resources
 
 **shared-resources/pds-labels.yaml** - Canonical PDS GitHub label definitions
@@ -54,15 +72,17 @@ description: Brief description triggering the skill
 
 ### Adding a New Skill
 
-1. Create directory: `<skill-name>/`
+1. Create directory: `<skill-name>/` (use gerund form: `generating-*`, `processing-*`, `creating-*`)
 2. Create `SKILL.md` with:
    - YAML frontmatter (`name`, `description`)
    - Comprehensive instructions for autonomous execution
    - Input/output specifications
    - Style rules and edge cases
 3. Add supporting resources as needed (scripts/, resources/, templates/)
-4. Update README.md "Available Skills" section
-5. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+4. Update README.md "Available Skills" section with table entry
+5. Update SKILLS_CATALOG.md with detailed skill documentation
+6. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+7. Update this CLAUDE.md file to include the new skill in "Available Skills"
 
 ## PDS Context
 
@@ -110,8 +130,56 @@ PDS organizes work into three streams:
 2. **Web Modernization** - Websites, design system, CMS
 3. **Planetary Data Cloud** - Cloud migration, infrastructure
 
+### SonarCloud Integration
+
+PDS uses SonarCloud for code quality and security scanning:
+- **Organization**: `nasa-pds`
+- **API Authentication**: Requires `SONARCLOUD_TOKEN` environment variable
+- **Token Generation**: https://sonarcloud.io/account/security
+- **API Documentation**: https://sonarcloud.io/web-api
+- **Permissions Needed**:
+  - Read access for security audits
+  - Administer Security Hotspots + Administer Issues for triage operations
+
 ## Documentation Standards
 
 - **CHANGELOG.md**: [Keep a Changelog](https://keepachangelog.com/en/1.0.0/) format
 - **Versioning**: [Semantic Versioning](https://semver.org/spec/v2.0.0.html)
 - **Skill descriptions**: Must be clear enough for Claude Code to auto-invoke based on user requests
+
+## AI Session History
+
+This repository tracks AI-assisted development sessions in `docs/history/`.
+
+### Session Documentation
+
+When Claude Code works on this repository, session summaries are automatically saved to:
+- **Location**: `docs/history/YYYY-MM-DD-brief-description.md`
+- **Purpose**: Track changes, decisions, and context over time
+- **Format**: Includes task description, changes made, token usage, and next steps
+
+This helps with:
+- 🕐 Understanding project evolution over time
+- 👥 Onboarding new team members
+- 🔍 Finding when and why changes were made
+- 💡 Learning from past approaches and solutions
+
+### Viewing History
+
+```bash
+# List all AI sessions chronologically
+ls -lt docs/history/
+
+# View recent sessions
+cat docs/history/2026-*.md
+
+# Search for specific topics
+grep -r "authentication" docs/history/
+```
+
+### Token Budget Awareness
+
+Session histories include token usage to help monitor:
+- Complexity of tasks undertaken
+- Efficiency of approaches
+- When to break large tasks into smaller sessions

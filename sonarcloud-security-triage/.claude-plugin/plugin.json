@@ -1,0 +1,11 @@
+{
+  "name": "sonarcloud-security-triage",
+  "description": "Apply triage decisions to SonarCloud security issues by bulk-updating statuses",
+  "version": "1.0.0",
+  "author": {
+    "name": "NASA PDS Engineering Node"
+  },
+  "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+  "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+  "license": "Apache-2.0"
+}

@@ -1,0 +1,11 @@
+{
+  "name": "creating-pds-issues",
+  "description": "Create GitHub issues using NASA-PDS organizational templates",
+  "version": "1.0.0",
+  "author": {
+    "name": "NASA PDS Engineering Node"
+  },
+  "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
+  "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+  "license": "Apache-2.0"
+}

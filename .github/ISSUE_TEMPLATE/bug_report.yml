@@ -1,0 +1,86 @@
+name: 🐛 Bug Report
+description: Report a bug with an existing skill
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting a bug! Please provide details below to help us fix it.
+
+  - type: dropdown
+    id: skill
+    attributes:
+      label: Which skill?
+      description: Select the skill that has the bug
+      options:
+        - generating-release-notes
+        - creating-pds-issues
+        - sonarcloud-security-audit
+        - sonarcloud-security-triage
+        - Other (specify in description)
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Describe the bug and what you expected to happen instead
+      placeholder: "When I tried to generate release notes for v1.2.0, the skill..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: How can we reproduce this bug?
+      placeholder: |
+        1. Run command: claude "generate release notes for..."
+        2. Provide input: ...
+        3. Observe error: ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Provide environment details
+      placeholder: |
+        - Claude Code version: (run `claude --version`)
+        - Operating System: macOS, Linux, Windows
+        - Node.js version: (if applicable, run `node --version`)
+        - GitHub CLI version: (if applicable, run `gh --version`)
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Error Messages or Logs
+      description: Copy and paste any relevant error messages or logs (sanitize any sensitive information)
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that might help diagnose the issue
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      options:
+        - label: I have searched existing issues to avoid duplicates
+          required: true
+        - label: I have sanitized any sensitive information (tokens, credentials, personal data)
+          required: true
+        - label: I have included enough detail to reproduce the issue
+          required: true

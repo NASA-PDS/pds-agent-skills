@@ -9,7 +9,7 @@
 <pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Skills](https://img.shields.io/badge/skills-6-brightgreen)
+![Skills](https://img.shields.io/badge/skills-4-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
 
@@ -53,11 +53,10 @@ Skills help automate repetitive or complex workflows, making development more ef
 |-------|-------------|-----------|
 | **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
 | **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
-| **[pds-rdd-generator](pds-status-reporter/SKILL.md)** | Generate Release Definition Documents (RDD) showing completed work grouped by parent tasks | Status reports, RDD generation, program reporting |
 | **[sonarcloud-security-audit](sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
 | **[sonarcloud-security-triage](sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
 
-**Total Skills:** 6 production-ready skills for PDS workflows
+**Total Skills:** 4 production-ready skills for PDS workflows
 
 ## Installation
 
@@ -67,12 +66,111 @@ Skills help automate repetitive or complex workflows, making development more ef
   ```bash
   brew install claude
   ```
-- **Claude Desktop**: Download from [claude.ai/download](https://claude.ai/download) (skills work in projects mode)
+- **Claude Desktop**: Download from [claude.ai/download](https://claude.ai/download) (plugins work in projects mode)
 - **For release notes upload**: [GitHub CLI (`gh`)](https://cli.github.com) installed and authenticated
 
-Skills are automatically discovered by Claude Code - no manual activation required. Choose one of the installation methods below based on your needs.
+### 🆕 Recommended: Plugin Marketplace (Easy Updates & Version Management)
 
-### Option 1: Project-Level Skills (Recommended for Teams)
+The easiest way to install and manage PDS plugins with automatic updates and version control.
+
+#### Option A: Public GitHub Repository
+
+**Add the marketplace once:**
+```bash
+/plugin marketplace add NASA-PDS/pds-claude-skills
+```
+
+**Install individual plugins as needed:**
+```bash
+# List available plugins
+/plugin list @pds
+
+# Install specific plugins
+/plugin install generating-release-notes@pds
+/plugin install creating-pds-issues@pds
+/plugin install sonarcloud-security-audit@pds
+/plugin install sonarcloud-security-triage@pds
+```
+
+**Update to latest versions:**
+```bash
+/plugin marketplace update pds
+/plugin update generating-release-notes@pds
+```
+
+#### Option B: Local/Internal Installation
+
+For internal use, air-gapped environments, or testing before publishing:
+
+**Clone the repository first:**
+```bash
+# Clone to a local directory
+git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/pds-plugins
+
+# Or for internal use, clone from your internal git server
+git clone https://git.your-org.com/pds/pds-claude-skills.git ~/pds-plugins
+```
+
+**Add the local marketplace:**
+```bash
+# Add from local path (absolute or relative)
+/plugin marketplace add ~/pds-plugins
+
+# Or from current directory
+cd pds-claude-skills
+/plugin marketplace add .
+```
+
+**Install plugins:**
+```bash
+# List available plugins (marketplace name will be auto-generated from path)
+/plugin list @pds-plugins
+
+# Install plugins
+/plugin install generating-release-notes@pds-plugins
+/plugin install creating-pds-issues@pds-plugins
+```
+
+**Update from local marketplace:**
+```bash
+# Pull latest changes first
+cd ~/pds-plugins
+git pull
+
+# Then update the marketplace in Claude Code
+/plugin marketplace update pds-plugins
+/plugin update generating-release-notes@pds-plugins
+```
+
+#### Option C: Private Git Repository
+
+For private organizational repositories:
+
+```bash
+# Add private repository with authentication
+/plugin marketplace add https://git.your-org.com/pds/pds-claude-skills.git
+
+# Or use SSH
+/plugin marketplace add git@github.com:your-org/pds-claude-skills.git
+```
+
+Make sure you're authenticated with your git provider (e.g., `gh auth login` for GitHub).
+
+**Benefits of Plugin Marketplace:**
+- ✅ One command to add marketplace
+- ✅ Automatic version management
+- ✅ Easy updates with `/plugin marketplace update`
+- ✅ Install only the plugins you need
+- ✅ Works with public, private, or local repositories
+- ✅ Official Anthropic plugin system
+
+---
+
+### Alternative: Manual Installation (Legacy)
+
+For backwards compatibility or air-gapped environments, you can still manually install plugins.
+
+#### Option 1: Project-Level Skills (Recommended for Teams)
 
 Project-level skills are shared with your team via version control and automatically available when team members pull changes.
 
@@ -109,7 +207,7 @@ git pull
 git submodule update --init --recursive  # if using submodules
 ```
 
-### Option 2: Personal Skills (Available Across All Projects)
+#### Option 2: Personal Skills (Available Across All Projects)
 
 Personal skills are available in all your projects, stored in your home directory.
 
@@ -130,30 +228,47 @@ cd ~/.claude/skills/pds
 git pull
 ```
 
-### Option 3: Direct Git Reference
+#### Option 3: Direct Git Reference
 
-If you prefer not to install locally, you can reference skills directly from this repository URL in conversations with Claude Code. However, local installation provides better performance and offline access.
+**Deprecated**: Use the plugin marketplace method instead. Direct git references are kept for backwards compatibility only.
 
-## Using Skills
+## Using Plugins
 
-Once installed, skills are **automatically discovered** by Claude Code. You don't need to manually invoke them.
+Once installed via the plugin marketplace, plugins are **automatically available** in Claude Code.
 
 **How it works:**
 
-1. **Open Claude Code** in your project directory (CLI) or start a project in Claude Desktop
-2. **Describe your task** naturally - Claude will autonomously use relevant skills based on your request and the skill descriptions
-3. **Provide necessary inputs** as described in each skill's documentation
+1. **Install plugins** from the marketplace (see Installation above)
+2. **Open Claude Code** in your project directory (CLI) or start a project in Claude Desktop
+3. **Describe your task** naturally - Claude will autonomously use relevant plugins based on your request
+4. **Provide necessary inputs** as described in each plugin's documentation
 
 **Example:**
 
 ```bash
-# Claude will automatically use the release-notes skill
+# Claude will automatically use the generating-release-notes plugin
 claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 ```
 
-Claude analyzes your request, identifies that the release-notes skill is relevant, and executes it autonomously.
+**Managing Plugins:**
 
-See the [Skills Catalog](SKILLS_CATALOG.md) or individual skill documentation for detailed input specifications and examples.
+```bash
+# List installed plugins
+/plugin list
+
+# List available plugins in marketplace
+/plugin list @pds
+
+# Update a specific plugin
+/plugin update generating-release-notes@pds
+
+# Uninstall a plugin
+/plugin uninstall generating-release-notes@pds
+```
+
+See the [Skills Catalog](SKILLS_CATALOG.md) or individual plugin documentation for detailed input specifications and examples.
+
+**📚 For detailed installation scenarios** (local, private repos, air-gapped environments), see the [Plugin Marketplace Installation Guide](docs/PLUGIN_MARKETPLACE_GUIDE.md).
 
 ## Adding a New Skill
 
