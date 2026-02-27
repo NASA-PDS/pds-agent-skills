@@ -113,13 +113,18 @@ git clone https://git.your-org.com/pds/pds-claude-skills.git ~/pds-plugins
 
 **Add the local marketplace:**
 ```bash
-# Add from local path (absolute or relative)
-/plugin marketplace add ~/pds-plugins
+# Option 1: Use absolute path (recommended)
+/plugin marketplace add /Users/yourname/pds-plugins
 
-# Or from current directory
-cd pds-claude-skills
-/plugin marketplace add .
+# Option 2: Add from parent directory
+cd ~
+/plugin marketplace add pds-plugins
+
+# Option 3: Use tilde expansion
+/plugin marketplace add ~/pds-plugins
 ```
+
+**Important**: Run the `/plugin marketplace add` command from **outside** the marketplace directory, pointing to the directory that contains `.claude-plugin/`. Don't run it from inside the marketplace directory itself.
 
 **Install plugins:**
 ```bash

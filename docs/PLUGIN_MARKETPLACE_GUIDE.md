@@ -51,13 +51,14 @@ For the standard case when the repository is publicly available on GitHub:
 # Clone repository to local directory
 git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/pds-plugins
 
-# Add local marketplace
+# Add local marketplace (from OUTSIDE the directory)
 /plugin marketplace add ~/pds-plugins
 
-# Or add from current directory
-cd ~/pds-plugins
-/plugin marketplace add .
+# Or use full absolute path
+/plugin marketplace add /Users/yourname/pds-plugins
 ```
+
+**Important**: Run `/plugin marketplace add` from **outside** the marketplace directory. Don't `cd` into it first.
 
 **Marketplace name**: Claude Code auto-generates a name from the directory path (e.g., `pds-plugins`)
 
@@ -95,8 +96,9 @@ cd /path/to/your-project
 # Clone plugins to project directory
 git clone https://github.com/NASA-PDS/pds-claude-skills.git .claude/pds-plugins
 
-# Add relative marketplace
-/plugin marketplace add ./.claude/pds-plugins
+# Add marketplace (use absolute path, not relative)
+cd .claude/pds-plugins
+/plugin marketplace add $(pwd)
 
 # Install plugins
 /plugin install generating-release-notes@pds-plugins
@@ -281,21 +283,30 @@ This prevents users from adding unauthorized marketplaces.
 
 ## Troubleshooting
 
-### "Marketplace not found"
+### "Marketplace not found" or "Marketplace file not found"
 
-**Cause**: Path or URL is incorrect
+**Cause**: Path is incorrect or relative paths not resolving properly
 
 **Solution**:
 ```bash
-# Verify path exists
+# Verify marketplace.json exists
 ls -la ~/pds-plugins/.claude-plugin/marketplace.json
 
-# Try absolute path
+# Always use absolute paths (not relative paths like '.')
 /plugin marketplace add /Users/yourname/pds-plugins
+
+# Or use $(pwd) to get absolute path
+cd ~/pds-plugins
+/plugin marketplace add $(pwd)
 
 # For git URLs, verify you have access
 git clone https://github.com/NASA-PDS/pds-claude-skills.git test-clone
 ```
+
+**Known Issues**:
+- Relative paths like `.` or `./` don't work correctly with `/plugin marketplace add`
+- Must run command from **outside** the marketplace directory (don't cd into it first)
+- Always use absolute paths or reference the directory from its parent
 
 ### "Authentication failed" (Private Repos)
 
