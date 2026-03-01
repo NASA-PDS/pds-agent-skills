@@ -22,17 +22,15 @@ For the standard case when the repository is publicly available on GitHub:
 /plugin marketplace add NASA-PDS/pds-claude-skills
 
 # List available plugins
-/plugin list @pds
+/plugin list @pds-agent-skills
 
 # Install plugins
-/plugin install generating-release-notes@pds
-/plugin install creating-pds-issues@pds
-/plugin install sonarcloud-security-audit@pds
-/plugin install sonarcloud-security-triage@pds
+/plugin install pds-github-skills@pds-agent-skills      # Release notes + issue creation
+/plugin install sonarcloud-skills@pds-agent-skills      # Security audit + triage
 
 # Update marketplace and plugins
-/plugin marketplace update pds
-/plugin update generating-release-notes@pds
+/plugin marketplace update pds-agent-skills
+/plugin update pds-github-skills@pds-agent-skills sonarcloud-skills@pds-agent-skills
 ```
 
 ---
@@ -68,8 +66,8 @@ git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/pds-plugins
 /plugin list @pds-plugins
 
 # Install
-/plugin install generating-release-notes@pds-plugins
-/plugin install creating-pds-issues@pds-plugins
+/plugin install pds-github-skills@pds-plugins
+/plugin install sonarcloud-skills@pds-plugins
 ```
 
 **Update local marketplace:**
@@ -82,7 +80,7 @@ git pull origin main
 /plugin marketplace update pds-plugins
 
 # Update individual plugins
-/plugin update generating-release-notes@pds-plugins
+/plugin update pds-github-skills@pds-plugins sonarcloud-skills@pds-plugins
 ```
 
 ### Method 2: Relative Path (Project-Specific)
@@ -101,7 +99,7 @@ cd .claude/pds-plugins
 /plugin marketplace add $(pwd)
 
 # Install plugins
-/plugin install generating-release-notes@pds-plugins
+/plugin install pds-github-skills@pds-plugins
 ```
 
 **Benefits:**
@@ -230,7 +228,7 @@ Add to project's `.claude/settings.json` to prompt team members automatically:
 ```json
 {
   "extraKnownMarketplaces": {
-    "pds": {
+    "pds-agent-skills": {
       "source": {
         "source": "github",
         "repo": "NASA-PDS/pds-claude-skills"
@@ -238,8 +236,8 @@ Add to project's `.claude/settings.json` to prompt team members automatically:
     }
   },
   "enabledPlugins": {
-    "generating-release-notes@pds": true,
-    "creating-pds-issues@pds": true
+    "pds-github-skills@pds-agent-skills": true,
+    "sonarcloud-skills@pds-agent-skills": true
   }
 }
 ```

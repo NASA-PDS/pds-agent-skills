@@ -83,19 +83,22 @@ The easiest way to install and manage PDS plugins with automatic updates and ver
 **Install individual plugins as needed:**
 ```bash
 # List available plugins
-/plugin list @pds
+/plugin list @pds-agent-skills
 
-# Install specific plugins
-/plugin install generating-release-notes@pds
-/plugin install creating-pds-issues@pds
-/plugin install sonarcloud-security-audit@pds
-/plugin install sonarcloud-security-triage@pds
+# Install GitHub workflow skills
+/plugin install pds-github-skills@pds-agent-skills
+
+# Install SonarCloud security skills
+/plugin install sonarcloud-skills@pds-agent-skills
+
+# Or install both
+/plugin install pds-github-skills@pds-agent-skills sonarcloud-skills@pds-agent-skills
 ```
 
 **Update to latest versions:**
 ```bash
-/plugin marketplace update pds
-/plugin update generating-release-notes@pds
+/plugin marketplace update pds-agent-skills
+/plugin update pds-github-skills@pds-agent-skills sonarcloud-skills@pds-agent-skills
 ```
 
 #### Option B: Local/Internal Installation
@@ -131,9 +134,11 @@ cd ~
 # List available plugins (marketplace name will be auto-generated from path)
 /plugin list @pds-plugins
 
-# Install plugins
-/plugin install generating-release-notes@pds-plugins
-/plugin install creating-pds-issues@pds-plugins
+# Install GitHub workflow skills
+/plugin install pds-github-skills@pds-plugins
+
+# Install SonarCloud security skills
+/plugin install sonarcloud-skills@pds-plugins
 ```
 
 **Update from local marketplace:**
@@ -144,7 +149,7 @@ git pull
 
 # Then update the marketplace in Claude Code
 /plugin marketplace update pds-plugins
-/plugin update generating-release-notes@pds-plugins
+/plugin update pds-github-skills@pds-plugins sonarcloud-skills@pds-plugins
 ```
 
 #### Option C: Private Git Repository
@@ -251,7 +256,7 @@ Once installed via the plugin marketplace, plugins are **automatically available
 **Example:**
 
 ```bash
-# Claude will automatically use the generating-release-notes plugin
+# Claude will automatically use the generating-release-notes skill
 claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 ```
 
@@ -262,13 +267,13 @@ claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 /plugin list
 
 # List available plugins in marketplace
-/plugin list @pds
+/plugin list @pds-agent-skills
 
 # Update a specific plugin
-/plugin update generating-release-notes@pds
+/plugin update pds-github-skills@pds-agent-skills
 
 # Uninstall a plugin
-/plugin uninstall generating-release-notes@pds
+/plugin uninstall pds-github-skills@pds-agent-skills
 ```
 
 See the [Skills Catalog](SKILLS_CATALOG.md) or individual plugin documentation for detailed input specifications and examples.
@@ -292,28 +297,41 @@ For marketplace configuration and GitHub setup, see [docs/MARKETPLACE_SETUP.md](
 
 ```
 pds-claude-skills/
-├── generating-release-notes/   # Release notes generation skill
-│   ├── SKILL.md                # Skill definition and instructions
-│   ├── templates/              # Release note templates
-│   └── resources/              # Supporting resources
-├── creating-pds-issues/        # GitHub issue creation skill
-│   ├── SKILL.md                # Skill definition and instructions
-│   ├── scripts/                # Helper scripts for template caching
-│   └── resources/              # Issue templates and config
-├── sonarcloud-security-audit/  # SonarCloud security audit skill
-│   ├── SKILL.md                # Skill definition and instructions
-│   └── scripts/                # API integration scripts
-├── sonarcloud-security-triage/ # SonarCloud triage application skill
-│   ├── SKILL.md                # Skill definition and instructions
-│   └── scripts/                # Triage application scripts
-├── shared-resources/           # Shared across all skills
-│   └── pds-labels.yaml         # Canonical PDS label definitions
-├── docs/                       # Marketplace documentation
+├── .claude-plugin/             # Plugin marketplace configuration
+│   └── marketplace.json        # Marketplace catalog listing all plugins
+├── static/                     # Static marketplace content
+│   └── marketplace/            # Marketplace plugins and resources
+│       └── skills/             # All plugin skills organized here
+│           ├── generating-release-notes/    # Release notes generation
+│           │   ├── .claude-plugin/plugin.json
+│           │   ├── SKILL.md
+│           │   ├── templates/
+│           │   └── resources/
+│           ├── creating-pds-issues/         # GitHub issue creation
+│           │   ├── .claude-plugin/plugin.json
+│           │   ├── SKILL.md
+│           │   ├── scripts/
+│           │   └── resources/
+│           ├── sonarcloud-security-audit/   # Security audit
+│           │   ├── .claude-plugin/plugin.json
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           ├── sonarcloud-security-triage/  # Security triage
+│           │   ├── .claude-plugin/plugin.json
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           └── shared-resources/            # Shared across plugins
+│               └── pds-labels.yaml
+├── docs/                       # Documentation
+│   ├── history/                # AI session histories
 │   ├── MARKETPLACE_SETUP.md    # GitHub configuration guide
-│   ├── MARKETPLACE_COMPLETE.md # Transformation summary
+│   ├── PLUGIN_MARKETPLACE_GUIDE.md  # Comprehensive install guide
 │   └── PRODUCTS_README.md      # Product mapping documentation
+├── .github/                    # GitHub configuration
+│   └── ISSUE_TEMPLATE/         # Issue templates
 ├── SKILLS_CATALOG.md           # Browse all available skills
 ├── CLAUDE.md                   # Developer guidance for Claude Code
+├── CONTRIBUTING.md             # Contribution guidelines
 ├── README.md                   # This file
 └── CHANGELOG.md                # Project changelog
 ```

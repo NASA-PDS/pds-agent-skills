@@ -4,7 +4,11 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository contains Claude Code skills for NASA's Planetary Data System (PDS). Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
+This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 2 plugins grouping 4 skills by workflow theme:
+- **pds-github-skills**: Release notes generation + GitHub issue creation
+- **sonarcloud-skills**: Security audit + security triage
+
+Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
 
 ## Skills Architecture
 
@@ -29,22 +33,33 @@ description: Brief description triggering the skill
 # Full instructions for Claude Code to execute the skill
 ```
 
-### Available Skills
+### Plugin Architecture
 
-**1. generating-release-notes/** - Generates structured GitHub release notes
+**Marketplace:** `pds-agent-skills`
+**Location:** All skills in `static/marketplace/skills/` directory
+
+#### Plugin 1: pds-github-skills
+
+GitHub workflow automation for NASA PDS
+
+**1. generating-release-notes** - Generates structured GitHub release notes
 - Categorizes PRs/issues by labels (Breaking → Highlights → New → Improvements → Fixes → Security → etc.)
 - **Critical rule:** Breaking changes ALWAYS appear first with ⚠️ warning
 - Requires GitHub CLI (`gh`) for optional upload to releases
 - Label mapping: `generating-release-notes/label-mapping.md`
 
-**2. creating-pds-issues/** - Creates GitHub issues using NASA-PDS templates
+**2. creating-pds-issues** - Creates GitHub issues using NASA-PDS templates
 - Supports 6 template types: Bug, I&T Bug, Feature, Task, Vulnerability, Release Theme
 - Auto-detects repository from git remote (origin → upstream fallback)
 - Security-first with PII/credential sanitization
 - Template caching (7-day refresh) to minimize API calls
 - Requires GitHub CLI (`gh`) and Node.js v18+ for caching scripts
 
-**3. sonarcloud-security-audit/** - Audits SonarCloud security issues for NASA PDS repositories
+#### Plugin 2: sonarcloud-skills
+
+SonarCloud security workflow automation for NASA PDS
+
+**3. sonarcloud-security-audit** - Audits SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
 - Exports to CSV with triage columns (severity, status, rule, component, line, URL)
 - Automatic pagination for large result sets (500 items per page)
@@ -52,7 +67,7 @@ description: Brief description triggering the skill
 - Requires SonarCloud API token and Node.js v18+
 - Helper script: `scripts/fetch-security-issues.mjs`
 
-**4. sonarcloud-security-triage/** - Applies triage decisions to SonarCloud security issues
+**4. sonarcloud-security-triage** - Applies triage decisions to SonarCloud
 - Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
 - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
 - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)
@@ -64,25 +79,38 @@ description: Brief description triggering the skill
 
 ## Shared Resources
 
-**shared-resources/pds-labels.yaml** - Canonical PDS GitHub label definitions
+**static/marketplace/skills/shared-resources/pds-labels.yaml** - Canonical PDS GitHub label definitions
 - Used by multiple skills for consistent label interpretation
 - Defines semantics for priority, severity, type, status labels
+- Centrally located for all marketplace plugins
 
 ## Key Workflows
 
 ### Adding a New Skill
 
-1. Create directory: `<skill-name>/` (use gerund form: `generating-*`, `processing-*`, `creating-*`)
+1. Create directory: `static/marketplace/skills/<skill-name>/` (use gerund form: `generating-*`, `processing-*`, `creating-*`)
 2. Create `SKILL.md` with:
    - YAML frontmatter (`name`, `description`)
    - Comprehensive instructions for autonomous execution
    - Input/output specifications
    - Style rules and edge cases
 3. Add supporting resources as needed (scripts/, resources/, templates/)
-4. Update README.md "Available Skills" section with table entry
-5. Update SKILLS_CATALOG.md with detailed skill documentation
-6. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-7. Update this CLAUDE.md file to include the new skill in "Available Skills"
+4. Update `.claude-plugin/marketplace.json` to add the skill path to the appropriate plugin's `skills` array
+5. Update README.md "Available Skills" section with table entry
+6. Update SKILLS_CATALOG.md with detailed skill documentation
+7. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+8. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
+
+### Creating a New Plugin Group
+
+To create a new thematic plugin (e.g., "pds-infrastructure-skills"):
+
+1. Add skills to `static/marketplace/skills/` as described above
+2. Add a new plugin entry to `.claude-plugin/marketplace.json`:
+   - Set `name` to the plugin identifier (e.g., "pds-infrastructure-skills")
+   - Set `source` to `"./static/marketplace/"`
+   - List skill paths in `skills` array (e.g., `["./skills/new-skill-1", "./skills/new-skill-2"]`)
+3. Update all documentation to reference the new plugin
 
 ## PDS Context
 

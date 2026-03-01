@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **🔄 Plugin Marketplace Restructure** - Reorganized into logical plugin groupings under `pds-agent-skills` marketplace
+  - **Marketplace name**: Changed from `pds-marketplace` to `pds-agent-skills`
+  - **Plugin grouping**: Organized 4 skills into 2 thematic plugins:
+    - `pds-github-skills`: Release notes generation + GitHub issue creation
+    - `sonarcloud-skills`: Security audit + security triage
+  - Each plugin uses the `skills` field to specify its subset of skills
+  - Both plugins share the same `./static/marketplace/` source directory
+  - Users install plugins by theme: `/plugin install pds-github-skills@pds-agent-skills`
+  - Updated all documentation with new marketplace and plugin names
+  - Version bumped to 2.0.0 to reflect new plugin architecture
+- **📁 Repository Reorganization** - Moved all skills to `static/marketplace/skills/` structure
+  - Organized skills under unified marketplace directory
+  - Maintains clean separation of marketplace content from documentation
+  - Facilitates future additions (agents, hooks, commands)
+  - Updated marketplace.json paths to point to new location
+  - Added README in `static/marketplace/` explaining organization
+
 ### Added
 
 - **🆕 Plugin Marketplace** - Transformed repository into official Claude Code plugin marketplace
