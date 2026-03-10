@@ -205,7 +205,8 @@ git clone pds-plugins.git ~/pds-plugins
 
 # Install plugins
 /plugin list @pds-plugins
-/plugin install generating-release-notes@pds-plugins
+/plugin install pds-github-skills@pds-plugins
+/plugin install sonarcloud-skills@pds-plugins
 ```
 
 **Step 3: Update process**
@@ -329,7 +330,7 @@ export GITHUB_TOKEN=ghp_xxxxxxxxxxxx
 ```bash
 # Verify marketplace structure
 cd ~/pds-plugins
-ls -la generating-release-notes/SKILL.md
+ls -la static/marketplace/skills/generating-release-notes/SKILL.md
 ls -la .claude-plugin/marketplace.json
 
 # Validate marketplace

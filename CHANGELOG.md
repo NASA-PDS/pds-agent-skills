@@ -65,10 +65,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Manual installation (git clone/submodule) moved to "Alternative" section
   - Added plugin management commands documentation
 - Updated README.md with plugin terminology (skills → plugins)
-- Updated README.md table to show only 4 active production plugins
-- Updated README.md badge to accurately reflect 4 active plugins
+- Updated README.md table to show 2 plugins with 4 active production skills
+- Updated README.md badges to reflect plugin marketplace structure
 - Updated CLAUDE.md with all 4 active plugins and SonarCloud integration details
-- Updated SKILLS_CATALOG.md with new Security Triage plugin
+- Deprecated SKILLS_CATALOG.md (moved to backup/) in favor of README.md plugin listing
 - Enhanced Security & Compliance use case with triage workflow
 - Updated repository structure documentation to include sonarcloud-security-triage
 

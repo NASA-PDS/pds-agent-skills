@@ -2,30 +2,31 @@
 
 <div align="center">
 
-<h1 align="center">PDS Claude Code Skills</h1>
+<h1 align="center">PDS Claude Code Plugin Marketplace</h1>
 
 </div>
 
-<pre align="center">Reusable AI agents for NASA Planetary Data System workflows in Claude Code</pre>
+<pre align="center">Specialized AI workflow plugins for NASA Planetary Data System in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
+![Plugins](https://img.shields.io/badge/plugins-2-blue)
 ![Skills](https://img.shields.io/badge/skills-4-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
-[![Claude Code](https://img.shields.io/badge/Claude%20Code-Compatible-purple)](https://claude.ai/code)
+[![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
-This repository contains [Claude Code skills](https://docs.claude.com/en/docs/claude-code/skills) for NASA's Planetary Data System (PDS) Engineering Node. Skills are specialized AI agents that automate complex tasks within the [Claude Code CLI environment](https://claude.ai/code).
+This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 4 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
 
-**🎯 [Browse Skills Catalog →](SKILLS_CATALOG.md)** - View all available skills with detailed descriptions and use cases
+**🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `sonarcloud-skills` (Security workflows)
 
 ## Table of Contents
 
 - [What are Claude Code Skills?](#what-are-claude-code-skills)
-- [Available Skills](#available-skills)
+- [Available Plugins & Skills](#available-plugins--skills)
 - [Installation](#installation)
-  - [Option 1: Project-Level Skills (Recommended for Teams)](#option-1-project-level-skills-recommended-for-teams)
-  - [Option 2: Personal Skills (Available Across All Projects)](#option-2-personal-skills-available-across-all-projects)
-  - [Option 3: Direct Git Reference](#option-3-direct-git-reference)
-- [Using Skills](#using-skills)
+  - [🆕 Recommended: Plugin Marketplace](#-recommended-plugin-marketplace-easy-updates--version-management)
+  - [Alternative: Manual Installation (Legacy)](#alternative-manual-installation-legacy)
+- [Using Plugins](#using-plugins)
+- [Adding a New Skill](#adding-a-new-skill)
 - [Repository Structure](#repository-structure)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -43,20 +44,23 @@ Claude Code skills are reusable prompts that enable Claude Code to perform speci
 
 Skills help automate repetitive or complex workflows, making development more efficient and consistent across the PDS organization.
 
-## Available Skills
+## Available Plugins & Skills
 
-**📖 [View Full Skills Catalog →](SKILLS_CATALOG.md)** - Browse all skills with detailed descriptions, use cases, and examples
-
-### Quick Overview
+### 🔌 Plugin 1: pds-github-skills (GitHub Workflows)
 
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
-| **[generating-release-notes](generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
-| **[creating-pds-issues](creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
-| **[sonarcloud-security-audit](sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
-| **[sonarcloud-security-triage](sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
+| **[generating-release-notes](static/marketplace/skills/generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
+| **[creating-pds-issues](static/marketplace/skills/creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
 
-**Total Skills:** 4 production-ready skills for PDS workflows
+### 🔒 Plugin 2: sonarcloud-skills (Security Workflows)
+
+| Skill | Description | Use Cases |
+|-------|-------------|-----------|
+| **[sonarcloud-security-audit](static/marketplace/skills/sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
+| **[sonarcloud-security-triage](static/marketplace/skills/sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
+
+**Total:** 2 plugins • 4 production-ready skills
 
 ## Installation
 
@@ -276,22 +280,26 @@ claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 /plugin uninstall pds-github-skills@pds-agent-skills
 ```
 
-See the [Skills Catalog](SKILLS_CATALOG.md) or individual plugin documentation for detailed input specifications and examples.
+See individual skill documentation (linked in table above) for detailed input specifications and examples.
 
 **📚 For detailed installation scenarios** (local, private repos, air-gapped environments), see the [Plugin Marketplace Installation Guide](docs/PLUGIN_MARKETPLACE_GUIDE.md).
 
 ## Adding a New Skill
 
-See the [Skills Catalog](SKILLS_CATALOG.md) for examples and [CLAUDE.md](CLAUDE.md) for detailed development guidance.
+See [CLAUDE.md](CLAUDE.md) for comprehensive development guidance and the existing skills in `static/marketplace/skills/` for examples.
 
 **Quick steps:**
-1. Create a new directory: `<skill-name>/` (use gerund form: `generating-*`, `processing-*`)
+1. Create a new directory: `static/marketplace/skills/<skill-name>/` (use gerund form: `generating-*`, `processing-*`)
 2. Add a `SKILL.md` file with YAML frontmatter and instructions
-3. Test with sample inputs
-4. Update [SKILLS_CATALOG.md](SKILLS_CATALOG.md) with your new skill
-5. Submit a pull request
+3. Add supporting files (scripts, templates, resources) as needed
+4. Update `.claude-plugin/marketplace.json` to add the skill to the appropriate plugin
+5. Update [README.md](README.md) Available Plugins & Skills section
+6. Update [CHANGELOG.md](CHANGELOG.md) following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+7. Test with sample inputs
+8. Submit a pull request
 
-For marketplace configuration and GitHub setup, see [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md).
+**For new plugin groups:** See [CLAUDE.md](CLAUDE.md) section "Creating a New Plugin Group"
+**For marketplace configuration:** See [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md)
 
 ## Repository Structure
 
@@ -329,10 +337,10 @@ pds-claude-skills/
 │   └── PRODUCTS_README.md      # Product mapping documentation
 ├── .github/                    # GitHub configuration
 │   └── ISSUE_TEMPLATE/         # Issue templates
-├── SKILLS_CATALOG.md           # Browse all available skills
+├── backup/                     # Deprecated/experimental skills
 ├── CLAUDE.md                   # Developer guidance for Claude Code
 ├── CONTRIBUTING.md             # Contribution guidelines
-├── README.md                   # This file
+├── README.md                   # This file (marketplace overview)
 └── CHANGELOG.md                # Project changelog
 ```
 

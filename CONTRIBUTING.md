@@ -22,7 +22,7 @@ This project follows NASA's open source code of conduct. By participating, you a
 
 The best way to contribute is by adding new skills that help automate PDS workflows! Before creating a new skill:
 
-1. **Check existing skills** in [SKILLS_CATALOG.md](SKILLS_CATALOG.md) to avoid duplication
+1. **Check existing skills** in [README.md](README.md#available-plugins--skills) to avoid duplication
 2. **Open an issue** using the "New Skill Request" template to discuss your idea
 3. **Get feedback** from maintainers before investing significant development time
 
@@ -58,8 +58,8 @@ Have an idea to improve an existing skill?
 
 2. **Create the Skill Directory**
    ```bash
-   # Use gerund form (action + -ing)
-   mkdir <action>-<object>
+   # Use gerund form (action + -ing) in the marketplace skills directory
+   mkdir -p static/marketplace/skills/<action>-<object>
    # Examples: generating-reports, validating-data, deploying-services
    ```
 
@@ -96,9 +96,9 @@ Have an idea to improve an existing skill?
    - Ensure it works autonomously without manual intervention
 
 6. **Update Documentation**
-   - Add entry to [SKILLS_CATALOG.md](SKILLS_CATALOG.md)
-   - Add row to README.md skills table
-   - Update [CLAUDE.md](CLAUDE.md) available skills section
+   - Add skill path to `.claude-plugin/marketplace.json` in the appropriate plugin's `skills` array
+   - Add row to [README.md](README.md) "Available Plugins & Skills" section
+   - Update [CLAUDE.md](CLAUDE.md) "Plugin Architecture" section
    - Add entry to [CHANGELOG.md](CHANGELOG.md) under "Unreleased"
 
 ### Skill Quality Standards
@@ -202,7 +202,8 @@ If your skill includes Node.js scripts:
 Maintainers will check:
 - ✅ Skill follows naming conventions
 - ✅ SKILL.md is clear and complete
-- ✅ Documentation is updated (SKILLS_CATALOG.md, README.md, CLAUDE.md, CHANGELOG.md)
+- ✅ Documentation is updated (marketplace.json, README.md, CLAUDE.md, CHANGELOG.md)
+- ✅ Skill is added to appropriate plugin group or new plugin created if needed
 - ✅ Skill solves a real PDS workflow problem
 - ✅ Code is clean and well-commented (if scripts included)
 - ✅ No security concerns or credential exposure
@@ -210,7 +211,7 @@ Maintainers will check:
 ## Getting Help
 
 - **Questions about skill development?** Review [CLAUDE.md](CLAUDE.md)
-- **Need examples?** Browse existing skills in [SKILLS_CATALOG.md](SKILLS_CATALOG.md)
+- **Need examples?** Browse existing skills in [README.md](README.md#available-plugins--skills) or `static/marketplace/skills/` directory
 - **Stuck on implementation?** Open an issue with the "help wanted" label
 - **Want to discuss ideas?** Tag maintainers in an issue
 
