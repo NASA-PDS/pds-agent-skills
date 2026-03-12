@@ -55,11 +55,24 @@ GitHub workflow automation for NASA PDS
 - Template caching (7-day refresh) to minimize API calls
 - Requires GitHub CLI (`gh`) and Node.js v18+ for caching scripts
 
+**3. creating-pds-pull-requests** - Creates GitHub pull requests in NASA-PDS repositories
+- Auto-detects current repository and branch from git context
+- Intelligent base branch detection (main/master/develop)
+- Uses cached NASA-PDS official PR template (7-day refresh)
+- Auto-links to related issues with `Closes #123` syntax
+- Supports reviewer/assignee assignment and label management
+- Includes AI assistance disclosure (NASA-PDS requirement)
+- Draft PR support for work-in-progress
+- Breaking change detection and documentation requirements
+- Security-first with PII/credential sanitization
+- Helper scripts: `detect-context.mjs`, `cache-pr-template.mjs`
+- Requires GitHub CLI (`gh`) and Node.js v18+
+
 #### Plugin 2: sonarcloud-skills
 
 SonarCloud security workflow automation for NASA PDS
 
-**3. sonarcloud-security-audit** - Audits SonarCloud security issues
+**4. sonarcloud-security-audit** - Audits SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
 - Exports to CSV with triage columns (severity, status, rule, component, line, URL)
 - Automatic pagination for large result sets (500 items per page)
@@ -67,7 +80,7 @@ SonarCloud security workflow automation for NASA PDS
 - Requires SonarCloud API token and Node.js v18+
 - Helper script: `scripts/fetch-security-issues.mjs`
 
-**4. sonarcloud-security-triage** - Applies triage decisions to SonarCloud
+**5. sonarcloud-security-triage** - Applies triage decisions to SonarCloud
 - Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
 - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
 - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)

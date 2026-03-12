@@ -10,11 +10,11 @@
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
 ![Plugins](https://img.shields.io/badge/plugins-2-blue)
-![Skills](https://img.shields.io/badge/skills-4-brightgreen)
+![Skills](https://img.shields.io/badge/skills-5-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
-This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 4 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
+This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 5 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
 
 **🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `sonarcloud-skills` (Security workflows)
 
@@ -25,6 +25,7 @@ This repository is a **Claude Code plugin marketplace** for NASA's Planetary Dat
 - [Installation](#installation)
   - [🆕 Recommended: Plugin Marketplace](#-recommended-plugin-marketplace-easy-updates--version-management)
   - [Alternative: Manual Installation (Legacy)](#alternative-manual-installation-legacy)
+- [Troubleshooting](#troubleshooting)
 - [Using Plugins](#using-plugins)
 - [Adding a New Skill](#adding-a-new-skill)
 - [Repository Structure](#repository-structure)
@@ -52,6 +53,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 |-------|-------------|-----------|
 | **[generating-release-notes](static/marketplace/skills/generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
 | **[creating-pds-issues](static/marketplace/skills/creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
+| **[creating-pds-pull-requests](static/marketplace/skills/creating-pds-pull-requests/SKILL.md)** | Create GitHub pull requests with auto-detection of repo/branch, issue linking, reviewer assignment, and label management | Opening PRs, submitting code changes, linking issues to PRs, draft PRs |
 
 ### 🔒 Plugin 2: sonarcloud-skills (Security Workflows)
 
@@ -60,7 +62,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[sonarcloud-security-audit](static/marketplace/skills/sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
 | **[sonarcloud-security-triage](static/marketplace/skills/sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
 
-**Total:** 2 plugins • 4 production-ready skills
+**Total:** 2 plugins • 5 production-ready skills
 
 ## Installation
 
@@ -245,6 +247,120 @@ git pull
 #### Option 3: Direct Git Reference
 
 **Deprecated**: Use the plugin marketplace method instead. Direct git references are kept for backwards compatibility only.
+
+## Troubleshooting
+
+### Issue: "Failed to load marketplace" or "Invalid schema" Error
+
+**Symptoms:**
+```bash
+/plugin install pds-github-skills@pds-agent-skills
+⎿  Failed to load marketplace "claude-plugins-official" from source (github): Failed to parse
+   marketplace file at .../claude-plugins-official/.claude-plugin/marketplace.json: Invalid schema
+```
+
+**Cause:** The official Claude plugins marketplace (`claude-plugins-official`) may have a corrupted or outdated schema that prevents plugin installation.
+
+**Solution 1: Remove and re-add the official marketplace**
+
+```bash
+# Remove the corrupted marketplace
+claude plugin marketplace remove claude-plugins-official
+
+# Try to re-add it (if this fails, proceed to Solution 2)
+claude plugin marketplace add anthropics/claude-plugins-official
+```
+
+**Solution 2: Install plugins without the official marketplace**
+
+The PDS plugins can be installed independently without the official marketplace:
+
+```bash
+# Remove the corrupted marketplace
+claude plugin marketplace remove claude-plugins-official
+
+# Install PDS plugins directly
+claude plugin install pds-github-skills@pds-agent-skills
+claude plugin install sonarcloud-skills@pds-agent-skills
+```
+
+**Solution 3: Manually clean up the marketplace directory**
+
+If the above solutions don't work:
+
+```bash
+# Remove the corrupted marketplace directory
+rm -rf ~/.claude/plugins/marketplaces/claude-plugins-official
+
+# Update your PDS marketplace
+claude plugin marketplace update pds-agent-skills
+
+# Install PDS plugins
+claude plugin install pds-github-skills@pds-agent-skills
+claude plugin install sonarcloud-skills@pds-agent-skills
+```
+
+### Issue: Plugin Not Found
+
+**Symptoms:**
+```bash
+/plugin install pds-github-skills@pds-agent-skills
+Error: Plugin not found
+```
+
+**Solution:** Ensure the marketplace is added and updated:
+
+```bash
+# Add the marketplace if not already added
+/plugin marketplace add NASA-PDS/pds-claude-skills
+
+# Update the marketplace to fetch latest plugin catalog
+/plugin marketplace update pds-agent-skills
+
+# List available plugins to verify
+/plugin list @pds-agent-skills
+
+# Install the plugin
+/plugin install pds-github-skills@pds-agent-skills
+```
+
+### Issue: Marketplace Name Mismatch
+
+**Problem:** When adding from GitHub, the marketplace name is `pds-agent-skills` (derived from the repository name), not `pds-claude-skills`.
+
+**Solution:** Always use `pds-agent-skills` as the marketplace identifier:
+
+```bash
+# Correct
+/plugin install pds-github-skills@pds-agent-skills
+
+# Incorrect (will fail)
+/plugin install pds-github-skills@pds-claude-skills
+```
+
+### Verify Installation
+
+To confirm plugins are installed correctly:
+
+```bash
+# Check installed plugins
+/plugin list
+
+# Should show both plugins with version 2.0.0 or higher
+# ✓ pds-github-skills@pds-agent-skills (v2.0.0)
+# ✓ sonarcloud-skills@pds-agent-skills (v2.0.0)
+
+# View installation details
+cat ~/.claude/plugins/installed_plugins.json
+```
+
+### Getting Help
+
+If issues persist:
+1. Check Claude Code version: `claude --version` (requires v1.0.0+)
+2. Review Claude Code logs: `~/.claude/logs/`
+3. Open an issue in this repository with error details
+4. Contact PDS Engineering Node team
 
 ## Using Plugins
 
