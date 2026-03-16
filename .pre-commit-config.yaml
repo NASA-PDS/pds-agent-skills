@@ -1,0 +1,8 @@
+repos:
+-   repo: local
+    hooks:
+    -   id: detect-secrets
+        name: detect-secrets
+        entry: scripts/detect_secrets_baseline.sh
+        language: script
+        pass_filenames: true
