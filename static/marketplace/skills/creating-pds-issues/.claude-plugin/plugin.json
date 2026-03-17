@@ -5,7 +5,7 @@
   "author": {
     "name": "NASA PDS Engineering Node"
   },
-  "homepage": "https://github.com/NASA-PDS/pds-claude-skills",
-  "repository": "https://github.com/NASA-PDS/pds-claude-skills",
+  "homepage": "https://github.com/NASA-PDS/pds-agent-skills",
+  "repository": "https://github.com/NASA-PDS/pds-agent-skills",
   "license": "Apache-2.0"
 }

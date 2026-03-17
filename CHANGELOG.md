@@ -31,7 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **🆕 Plugin Marketplace** - Transformed repository into official Claude Code plugin marketplace
   - Created `.claude-plugin/marketplace.json` catalog for easy distribution
   - Added `plugin.json` manifests to all 4 plugins
-  - Users can now install with `/plugin marketplace add NASA-PDS/pds-claude-skills`
+  - Users can now install with `/plugin marketplace add NASA-PDS/pds-agent-skills`
   - Automatic version management and updates
   - Follows official Anthropic plugin marketplace specification
 - **sonarcloud-security-audit** plugin - Audit SonarCloud security issues for NASA PDS repositories

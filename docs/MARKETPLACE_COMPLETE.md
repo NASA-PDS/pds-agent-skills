@@ -39,7 +39,7 @@ Your PDS Claude Code Skills repository has been successfully transformed into a 
 ## 📂 New Files Created
 
 ```
-pds-claude-skills/
+pds-agent-skills/
 ├── SKILLS_CATALOG.md           ← Browsable skills catalog (main marketplace page)
 ├── MARKETPLACE_SETUP.md        ← GitHub configuration guide
 ├── MARKETPLACE_COMPLETE.md     ← This summary document
@@ -54,7 +54,7 @@ pds-claude-skills/
 ### Immediate (Required)
 1. **Add GitHub Topics** for discoverability:
    ```bash
-   gh repo edit NASA-PDS/pds-claude-skills \
+   gh repo edit NASA-PDS/pds-agent-skills \
      --add-topic claude-code \
      --add-topic claude-skills \
      --add-topic ai-agents \
@@ -64,7 +64,7 @@ pds-claude-skills/
 
 2. **Update Repository Description**:
    ```bash
-   gh repo edit NASA-PDS/pds-claude-skills \
+   gh repo edit NASA-PDS/pds-agent-skills \
      --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more"
    ```
 
@@ -124,10 +124,10 @@ With topics added, users can find your repository by searching:
 Users install with one command:
 ```bash
 # Project-level
-git submodule add https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+git submodule add https://github.com/NASA-PDS/pds-agent-skills.git .claude/skills/pds
 
 # Personal
-git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/.claude/skills/pds
+git clone https://github.com/NASA-PDS/pds-agent-skills.git ~/.claude/skills/pds
 ```
 
 ### Skills Are Automatically Discovered

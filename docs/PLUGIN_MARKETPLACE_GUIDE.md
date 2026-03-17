@@ -19,7 +19,7 @@ For the standard case when the repository is publicly available on GitHub:
 
 ```bash
 # Add marketplace
-/plugin marketplace add NASA-PDS/pds-claude-skills
+/plugin marketplace add NASA-PDS/pds-agent-skills
 
 # List available plugins
 /plugin list @pds-agent-skills
@@ -47,7 +47,7 @@ For the standard case when the repository is publicly available on GitHub:
 
 ```bash
 # Clone repository to local directory
-git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/pds-plugins
+git clone https://github.com/NASA-PDS/pds-agent-skills.git ~/pds-plugins
 
 # Add local marketplace (from OUTSIDE the directory)
 /plugin marketplace add ~/pds-plugins
@@ -92,7 +92,7 @@ For project-specific plugin configurations:
 cd /path/to/your-project
 
 # Clone plugins to project directory
-git clone https://github.com/NASA-PDS/pds-claude-skills.git .claude/pds-plugins
+git clone https://github.com/NASA-PDS/pds-agent-skills.git .claude/pds-plugins
 
 # Add marketplace (use absolute path, not relative)
 cd .claude/pds-plugins
@@ -129,13 +129,13 @@ cd .claude/pds-plugins
 gh auth login
 
 # Add private marketplace
-/plugin marketplace add your-org/pds-claude-skills
+/plugin marketplace add your-org/pds-agent-skills
 
 # Or use full URL
-/plugin marketplace add https://github.com/your-org/pds-claude-skills.git
+/plugin marketplace add https://github.com/your-org/pds-agent-skills.git
 
 # Or use SSH
-/plugin marketplace add git@github.com:your-org/pds-claude-skills.git
+/plugin marketplace add git@github.com:your-org/pds-agent-skills.git
 ```
 
 **For automatic updates**, set GitHub token:
@@ -151,7 +151,7 @@ export GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
 gl auth login
 
 # Add marketplace
-/plugin marketplace add https://gitlab.com/your-org/pds-claude-skills.git
+/plugin marketplace add https://gitlab.com/your-org/pds-agent-skills.git
 
 # Set token for auto-updates
 export GITLAB_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
@@ -161,7 +161,7 @@ export GITLAB_TOKEN=glpat-xxxxxxxxxxxxxxxxxxxx
 
 ```bash
 # Add marketplace
-/plugin marketplace add https://bitbucket.org/your-org/pds-claude-skills.git
+/plugin marketplace add https://bitbucket.org/your-org/pds-agent-skills.git
 
 # Set token for auto-updates
 export BITBUCKET_TOKEN=xxxxxxxxxxxxxxxxxxxx
@@ -171,10 +171,10 @@ export BITBUCKET_TOKEN=xxxxxxxxxxxxxxxxxxxx
 
 ```bash
 # Add marketplace from internal git server
-/plugin marketplace add https://git.your-company.com/pds/pds-claude-skills.git
+/plugin marketplace add https://git.your-company.com/pds/pds-agent-skills.git
 
 # Or use SSH
-/plugin marketplace add git@git.your-company.com:pds/pds-claude-skills.git
+/plugin marketplace add git@git.your-company.com:pds/pds-agent-skills.git
 ```
 
 Make sure your git credentials are configured (SSH keys or credential helper).
@@ -188,7 +188,7 @@ Make sure your git credentials are configured (SSH keys or credential helper).
 **Step 1: Transfer repository to air-gapped environment**
 ```bash
 # On internet-connected machine
-git clone --mirror https://github.com/NASA-PDS/pds-claude-skills.git pds-plugins.git
+git clone --mirror https://github.com/NASA-PDS/pds-agent-skills.git pds-plugins.git
 tar -czf pds-plugins.tar.gz pds-plugins.git
 
 # Transfer pds-plugins.tar.gz to air-gapped machine via approved method
@@ -232,7 +232,7 @@ Add to project's `.claude/settings.json` to prompt team members automatically:
     "pds-agent-skills": {
       "source": {
         "source": "github",
-        "repo": "NASA-PDS/pds-claude-skills"
+        "repo": "NASA-PDS/pds-agent-skills"
       }
     }
   },
@@ -250,7 +250,7 @@ Add to project's `.claude/settings.json` to prompt team members automatically:
     "pds-plugins": {
       "source": {
         "source": "url",
-        "url": "https://git.your-org.com/pds/pds-claude-skills.git"
+        "url": "https://git.your-org.com/pds/pds-agent-skills.git"
       }
     }
   }
@@ -266,7 +266,7 @@ For organizations requiring strict control, use managed settings:
   "strictKnownMarketplaces": [
     {
       "source": "github",
-      "repo": "NASA-PDS/pds-claude-skills"
+      "repo": "NASA-PDS/pds-agent-skills"
     },
     {
       "source": "url",
@@ -299,7 +299,7 @@ cd ~/pds-plugins
 /plugin marketplace add $(pwd)
 
 # For git URLs, verify you have access
-git clone https://github.com/NASA-PDS/pds-claude-skills.git test-clone
+git clone https://github.com/NASA-PDS/pds-agent-skills.git test-clone
 ```
 
 **Known Issues**:
@@ -312,7 +312,7 @@ git clone https://github.com/NASA-PDS/pds-claude-skills.git test-clone
 **Solution**:
 ```bash
 # Verify git authentication works
-git clone https://github.com/your-org/pds-claude-skills.git test-clone
+git clone https://github.com/your-org/pds-agent-skills.git test-clone
 
 # For GitHub
 gh auth status
@@ -391,5 +391,5 @@ After installation:
 ## Support
 
 - **Documentation**: See [CLAUDE.md](../CLAUDE.md) for developer guidance
-- **Issues**: Report problems at https://github.com/NASA-PDS/pds-claude-skills/issues
+- **Issues**: Report problems at https://github.com/NASA-PDS/pds-agent-skills/issues
 - **Plugin Docs**: https://code.claude.com/docs/en/plugin-marketplaces

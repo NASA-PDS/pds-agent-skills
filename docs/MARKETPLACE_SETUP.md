@@ -22,14 +22,14 @@ Add these topics to your GitHub repository to make it discoverable:
 ### How to Add Topics
 
 **Via GitHub Web UI:**
-1. Go to your repository: https://github.com/NASA-PDS/pds-claude-skills
+1. Go to your repository: https://github.com/NASA-PDS/pds-agent-skills
 2. Click the ⚙️ gear icon next to "About" (top right)
 3. Add topics in the "Topics" field
 4. Click "Save changes"
 
 **Via GitHub CLI:**
 ```bash
-gh repo edit NASA-PDS/pds-claude-skills \
+gh repo edit NASA-PDS/pds-agent-skills \
   --add-topic claude-code \
   --add-topic claude-skills \
   --add-topic ai-agents \
@@ -52,7 +52,7 @@ Claude Code skills marketplace for NASA PDS workflows - automated release notes,
 
 **Via GitHub CLI:**
 ```bash
-gh repo edit NASA-PDS/pds-claude-skills \
+gh repo edit NASA-PDS/pds-agent-skills \
   --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more"
 ```
 

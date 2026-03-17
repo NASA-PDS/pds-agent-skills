@@ -81,7 +81,7 @@ The easiest way to install and manage PDS plugins with automatic updates and ver
 
 **Add the marketplace once:**
 ```bash
-/plugin marketplace add NASA-PDS/pds-claude-skills
+/plugin marketplace add NASA-PDS/pds-agent-skills
 ```
 
 **Install individual plugins as needed:**
@@ -112,10 +112,10 @@ For internal use, air-gapped environments, or testing before publishing:
 **Clone the repository first:**
 ```bash
 # Clone to a local directory
-git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/pds-plugins
+git clone https://github.com/NASA-PDS/pds-agent-skills.git ~/pds-plugins
 
 # Or for internal use, clone from your internal git server
-git clone https://git.your-org.com/pds/pds-claude-skills.git ~/pds-plugins
+git clone https://git.your-org.com/pds/pds-agent-skills.git ~/pds-plugins
 ```
 
 **Add the local marketplace:**
@@ -162,10 +162,10 @@ For private organizational repositories:
 
 ```bash
 # Add private repository with authentication
-/plugin marketplace add https://git.your-org.com/pds/pds-claude-skills.git
+/plugin marketplace add https://git.your-org.com/pds/pds-agent-skills.git
 
 # Or use SSH
-/plugin marketplace add git@github.com:your-org/pds-claude-skills.git
+/plugin marketplace add git@github.com:your-org/pds-agent-skills.git
 ```
 
 Make sure you're authenticated with your git provider (e.g., `gh auth login` for GitHub).
@@ -198,7 +198,7 @@ cd your-project
 mkdir -p .claude/skills
 
 # Clone this repository into the skills directory
-git clone https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+git clone https://github.com/NASA-PDS/pds-agent-skills.git .claude/skills/pds
 
 # Commit to version control
 git add .claude/skills/pds
@@ -210,7 +210,7 @@ git commit -m "Add PDS Claude Code skills"
 ```bash
 cd your-project
 mkdir -p .claude/skills
-git submodule add https://github.com/NASA-PDS/pds-claude-skills.git .claude/skills/pds
+git submodule add https://github.com/NASA-PDS/pds-agent-skills.git .claude/skills/pds
 git commit -m "Add PDS Claude Code skills as submodule"
 ```
 
@@ -232,7 +232,7 @@ Personal skills are available in all your projects, stored in your home director
 mkdir -p ~/.claude/skills
 
 # Clone this repository
-git clone https://github.com/NASA-PDS/pds-claude-skills.git ~/.claude/skills/pds
+git clone https://github.com/NASA-PDS/pds-agent-skills.git ~/.claude/skills/pds
 ```
 
 **Update personal skills:**
@@ -304,7 +304,7 @@ See [CLAUDE.md](CLAUDE.md) for comprehensive development guidance and the existi
 ## Repository Structure
 
 ```
-pds-claude-skills/
+pds-agent-skills/
 ├── .claude-plugin/             # Plugin marketplace configuration
 │   └── marketplace.json        # Marketplace catalog listing all plugins
 ├── static/                     # Static marketplace content
