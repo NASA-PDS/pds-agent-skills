@@ -32,8 +32,18 @@ DETECT_SECRETS_ARGS=(
 
 compare_secrets() {
     diff \
-        <(jq -r '.results | keys[] as $key | "\($key),\(.[$key] | .[] | .hashed_secret)"' "$1" | sort) \
-        <(jq -r '.results | keys[] as $key | "\($key),\(.[$key] | .[] | .hashed_secret)"' "$2" | sort) \
+        <(python3 -c "
+import json, sys
+with open(sys.argv[1]) as f: data = json.load(f)
+lines = [f\"{k},{s['hashed_secret']}\" for k, v in data.get('results', {}).items() for s in v]
+print('\n'.join(sorted(lines)))
+" "$1") \
+        <(python3 -c "
+import json, sys
+with open(sys.argv[1]) as f: data = json.load(f)
+lines = [f\"{k},{s['hashed_secret']}\" for k, v in data.get('results', {}).items() for s in v]
+print('\n'.join(sorted(lines)))
+" "$2") \
         >/dev/null
 }
 
@@ -45,7 +55,12 @@ elif [ "$1" = "audit" ]; then
     detect-secrets audit .secrets.baseline
 else
     # Check 1: Fail if any secrets in the baseline have not been audited
-    unaudited=$(jq '[.results[][] | select(has("is_secret") | not)] | length' .secrets.baseline)
+    unaudited=$(python3 -c "
+import json, sys
+with open('.secrets.baseline') as f: data = json.load(f)
+count = sum(1 for v in data.get('results', {}).values() for s in v if 'is_secret' not in s)
+print(count)
+")
     if [ "$unaudited" -gt 0 ]; then
         echo "⚠️ Attention Required! ⚠️" >&2
         echo "$unaudited secret(s) in .secrets.baseline have not been audited." >&2
