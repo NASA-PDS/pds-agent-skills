@@ -9,7 +9,6 @@
 set -e
 
 DETECT_SECRETS_ARGS=(
-    --disable-plugin AbsolutePathDetectorExperimental
     --exclude-files '\.secrets..*'
     --exclude-files '\.git.*'
     --exclude-files '\.pre-commit-config\.yaml'
