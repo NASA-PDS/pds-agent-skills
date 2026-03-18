@@ -7,12 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **creating-pds-pull-requests** skill - Create GitHub pull requests in NASA-PDS repositories
+  - Auto-detects current repository and branch from git context
+  - Intelligent base branch detection (main/master/develop)
+  - Uses cached NASA-PDS official PR template (7-day refresh)
+  - Auto-links to related issues with `Closes #123` syntax
+  - Supports reviewer and assignee assignment
+  - Applies appropriate labels based on PR type (feature, bugfix, hotfix, refactor, docs, chore)
+  - Includes AI assistance disclosure (NASA-PDS requirement)
+  - Draft PR support for work-in-progress changes
+  - Breaking change detection and documentation requirements
+  - Security sanitization warnings for PII and credentials
+  - Comprehensive validation: uncommitted changes, commits ahead, branch pushed status
+  - Large PR warnings (>50 files or >20 commits)
+  - Helper scripts: `detect-context.mjs` (auto-detect git state), `cache-pr-template.mjs` (template caching)
+  - Added to `pds-github-skills` plugin (version 2.0.0 → 2.1.0)
+
 ### Changed
 
 - **🔄 Plugin Marketplace Restructure** - Reorganized into logical plugin groupings under `pds-agent-skills` marketplace
   - **Marketplace name**: Changed from `pds-marketplace` to `pds-agent-skills`
-  - **Plugin grouping**: Organized 4 skills into 2 thematic plugins:
-    - `pds-github-skills`: Release notes generation + GitHub issue creation
+  - **Plugin grouping**: Organized 5 skills into 2 thematic plugins:
+    - `pds-github-skills`: Release notes generation + pull request creation + GitHub issue creation
     - `sonarcloud-skills`: Security audit + security triage
   - Each plugin uses the `skills` field to specify its subset of skills
   - Both plugins share the same `./static/marketplace/` source directory

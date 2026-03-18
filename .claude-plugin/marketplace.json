@@ -5,16 +5,16 @@
     "email": "pds-operator@jpl.nasa.gov"
   },
   "metadata": {
-    "description": "Claude Code plugins for NASA PDS workflows - automated release notes, GitHub issue creation, security auditing, and more",
-    "version": "2.0.0",
+    "description": "Claude Code plugins for NASA PDS workflows - automated release notes, pull request creation, GitHub issue creation, security auditing, and more",
+    "version": "2.1.0",
     "pluginRoot": "./static/marketplace"
   },
   "plugins": [
     {
       "name": "pds-github-skills",
       "source": "./static/marketplace/",
-      "description": "NASA PDS GitHub workflow automation: release notes generation and issue creation using organizational templates",
-      "version": "2.0.0",
+      "description": "NASA PDS GitHub workflow automation: release notes generation, pull request creation, and issue creation using organizational templates",
+      "version": "2.1.0",
       "author": {
         "name": "NASA PDS Engineering Node"
       },
@@ -26,6 +26,8 @@
         "changelog",
         "github",
         "issues",
+        "pull-requests",
+        "pr",
         "templates",
         "automation",
         "pds",
@@ -34,7 +36,8 @@
       "category": "release-management",
       "skills": [
         "./skills/generating-release-notes",
-        "./skills/creating-pds-issues"
+        "./skills/creating-pds-issues",
+        "./skills/creating-pds-pull-requests"
       ]
     },
     {
