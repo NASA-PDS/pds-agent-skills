@@ -1,6 +1,6 @@
 ---
 name: creating-pds-pull-requests
-description: Create GitHub pull requests in NASA-PDS repositories with auto-detection of repo/branch, issue linking, reviewer assignment, and label management. Use when user requests to create, open, or submit a pull request, PR, or merge request in PDS repositories.
+description: Create GitHub pull requests in NASA-PDS repositories with auto-detection of repo/branch, issue linking, reviewer assignment, and label management. Use when user requests to create, open, submit, or make a pull request, PR, merge request, or says "create a PR", "open a PR", "make a PR", "submit a PR", "push a PR", or any variation of creating a pull request in PDS repositories.
 ---
 
 # Creating PDS Pull Requests Skill
