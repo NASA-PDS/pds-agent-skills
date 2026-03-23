@@ -213,7 +213,18 @@ ERROR: Connection refused by database host
 
 ### 3. Create the Issue
 
-Use GitHub CLI to create the issue with appropriate labels and metadata:
+Use GitHub CLI to create the issue with appropriate labels and metadata.
+
+**IMPORTANT: Always use `--body-file` to avoid shell quoting errors.** Never pass the body inline with `--body` — markdown content with single quotes, backticks, or special characters will break the shell command. Always write the body to a temp file first:
+
+```bash
+# Write the filled template body to a temp file
+cat > /tmp/pds_issue_body.md << 'ISSUE_BODY_EOF'
+<filled-template-body>
+ISSUE_BODY_EOF
+```
+
+Then reference it with `--body-file /tmp/pds_issue_body.md` in all `gh issue create` calls below.
 
 **Default Assignee:**
 By default, issues requiring triage are assigned to `jordanpadams`. Users can override this by setting the `PDS_ISSUE_ASSIGNEE` environment variable or by using the `--assignee` flag.
@@ -223,7 +234,7 @@ By default, issues requiring triage are assigned to `jordanpadams`. Users can ov
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
@@ -233,7 +244,7 @@ gh issue create \
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "B15.1,bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
@@ -243,7 +254,7 @@ gh issue create \
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "needs:triage,requirement" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
@@ -253,7 +264,7 @@ gh issue create \
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "task,i&t.skip"
 ```
 
@@ -262,7 +273,7 @@ gh issue create \
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "security,bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
 ```
@@ -272,7 +283,7 @@ gh issue create \
 gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body "<filled-template-body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "theme,Epic,i&t.skip"
 ```
 
@@ -388,11 +399,11 @@ gh api graphql -f query='
 For convenience, you can chain these operations:
 
 ```bash
-# 1. Create the issue and capture the URL
+# 1. Create the issue and capture the URL (body already written to /tmp/pds_issue_body.md)
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo> \
   --title "<title>" \
-  --body "<body>" \
+  --body-file /tmp/pds_issue_body.md \
   --label "<labels>" 2>&1)
 
 # 2. Extract issue number from URL
