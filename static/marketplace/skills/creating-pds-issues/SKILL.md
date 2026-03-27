@@ -215,14 +215,9 @@ ERROR: Connection refused by database host
 
 Use GitHub CLI to create the issue with appropriate labels and metadata.
 
-**IMPORTANT: Always use `--body-file` to avoid shell quoting errors.** Never pass the body inline with `--body` — markdown content with single quotes, backticks, or special characters will break the shell command. Always write the body to a temp file first:
+**IMPORTANT: Always use `--body-file` to avoid shell quoting errors.** Never pass the body inline with `--body` — markdown content with single quotes, backticks, or special characters will break the shell command.
 
-```bash
-# Write the filled template body to a temp file
-cat > /tmp/pds_issue_body.md << 'ISSUE_BODY_EOF'
-<filled-template-body>
-ISSUE_BODY_EOF
-```
+**Always write the body using the `Write` tool** (not a bash heredoc or `cat` command) to `/tmp/pds_issue_body.md`. Using the `Write` tool bypasses shell parsing entirely and avoids heredoc delimiter collisions or unmatched quote errors.
 
 Then reference it with `--body-file /tmp/pds_issue_body.md` in all `gh issue create` calls below.
 
