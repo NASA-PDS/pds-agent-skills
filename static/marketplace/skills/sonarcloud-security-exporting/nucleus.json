@@ -1,0 +1,869 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-17T00:10:25.080Z",
+    "organization": "nasa-pds",
+    "totalIssues": 22,
+    "totalVulnerabilities": 3,
+    "totalHotspots": 19,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_nucleus",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZyROy-gsh1l-QulJ6OU",
+      "project": "NASA-PDS_nucleus",
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "rule": {
+        "key": "pythonsecurity:S5145"
+      },
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/lambda/pds-nucleus-s3-file-event-processor.py",
+        "line": 29,
+        "textRange": {
+          "startLine": 29,
+          "endLine": 29,
+          "startOffset": 4,
+          "endOffset": 34
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"k\">def</span> <span class=\"sym-16 sym\">lambda_handler</span>(<span class=\"sym-17 sym\">event</span>, <span class=\"sym-18 sym\">context</span>):",
+            ""
+          ],
+          "flagged": "    <span class=\"sym-7 sym\">logger</span>.info(f\"event: {<span class=\"sym-17 sym\">event</span>}\")",
+          "after": [
+            "",
+            "    <span class=\"sym-19 sym\">s3_key</span> = <span class=\"k\">None</span>"
+          ]
+        }
+      },
+      "message": "Change this code to not log user-controlled data.",
+      "created": "2025-03-25T07:44:10+0000",
+      "updated": "2026-02-24T19:57:53+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZyROy-gsh1l-QulJ6OU&id=NASA-PDS_nucleus",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/lambda/pds-nucleus-s3-file-event-processor.py",
+              "textRange": {
+                "startLine": 29,
+                "endLine": 29,
+                "startOffset": 4,
+                "endOffset": 34
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/lambda/pds-nucleus-s3-file-event-processor.py",
+              "textRange": {
+                "startLine": 27,
+                "endLine": 27,
+                "startOffset": 19,
+                "endOffset": 24
+              },
+              "msg": "Source: a user can craft an HTTP request with malicious content"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "AZTdbD0L7K5s7bxCzwZB",
+      "project": "NASA-PDS_nucleus",
+      "type": "VULNERABILITY",
+      "severity": "CRITICAL",
+      "status": "RESOLVED",
+      "rule": {
+        "key": "python:S5659"
+      },
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/cognito-auth/lambda/pds_nucleus_alb_auth.py",
+        "line": 185,
+        "textRange": {
+          "startLine": 185,
+          "endLine": 185,
+          "startOffset": 45,
+          "endOffset": 56
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"k\">try</span>:",
+            ""
+          ],
+          "flagged": "        <span class=\"sym-74 sym\">headers</span> = <span class=\"sym-11 sym\">jwt</span>.get_unverified_headers(<span class=\"sym-71 sym\">encoded_jwt</span>)",
+          "after": [
+            "        <span class=\"sym-75 sym\">kid</span> = <span class=\"sym-74 sym\">headers</span>[<span class=\"s\">'kid'</span>]",
+            "        <span class=\"sym-76 sym\">alg</span> = <span class=\"sym-74 sym\">headers</span>[<span class=\"s\">'alg'</span>]"
+          ]
+        }
+      },
+      "message": "Don't use a JWT token without verifying its signature.",
+      "created": "2025-02-04T08:44:36+0000",
+      "updated": "2025-08-02T04:53:03+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZTdbD0L7K5s7bxCzwZB&id=NASA-PDS_nucleus",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZk0k6pTviqOMEUtImlc",
+      "project": "NASA-PDS_nucleus",
+      "type": "VULNERABILITY",
+      "severity": "MAJOR",
+      "status": "OPEN",
+      "rule": {
+        "key": "python:S7608"
+      },
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/lambda/pds-nucleus-s3-file-event-processor.py",
+        "line": 232,
+        "textRange": {
+          "startLine": 232,
+          "endLine": 232,
+          "startOffset": 22,
+          "endOffset": 42
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "    <span class=\"k\">try</span>:"
+          ],
+          "flagged": "        <span class=\"sym-70 sym\">s3_response</span> = <span class=\"sym-9 sym\">s3_client</span>.get_object(Bucket=<span class=\"sym-67 sym\">bucket</span>, Key=<span class=\"sym-68 sym\">key</span>)",
+          "after": [
+            "",
+            "    <span class=\"k\">except</span> Exception <span class=\"k\">as</span> <span class=\"sym-71 sym\">e</span>:"
+          ]
+        }
+      },
+      "message": "Add the 'ExpectedBucketOwner' parameter to verify S3 bucket ownership.",
+      "created": "2023-12-15T09:00:11+0000",
+      "updated": "2025-09-10T17:01:30+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "5min",
+      "url": "https://sonarcloud.io/project/issues?open=AZk0k6pTviqOMEUtImlc&id=NASA-PDS_nucleus",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xFDB-mGJ5XcH7bj",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/common/common.tf",
+        "line": 3,
+        "textRange": {
+          "startLine": 3,
+          "endLine": 3,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># Terraform script to create the common resources for PDS Nucleus</span>",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_airflow_dags_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">bucket</span>        = <span class=\"k\">var.mwaa_dag_s3_bucket_name</span>",
+            "  <span class=\"a\">force_destroy</span> = <span class=\"c\">true</span>"
+          ]
+        }
+      },
+      "message": "No Public Access Block configuration prevents public ACL/policies to be set on this S3 bucket. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-06T05:27:16+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xFDB-mGJ5XcH7bj",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEtB-mGJ5XcH7bG",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/product-copy-completion-checker.tf",
+        "line": 133,
+        "textRange": {
+          "startLine": 133,
+          "endLine": 133,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "}",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_s3_config_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span>         = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">bucket</span>        = \"${lower(replace(<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>], <span class=\"s\">\"_\"</span>, <span class=\"s\">\"-\"</span>))}<span class=\"s\">-</span>${<span class=\"k\">var.pds_nucleus_config_bucket_name_postfix</span>}\""
+          ]
+        }
+      },
+      "message": "No Public Access Block configuration prevents public ACL/policies to be set on this S3 bucket. Make sure it is safe here.",
+      "created": "2024-05-30T20:15:13+0000",
+      "updated": "2025-05-06T05:27:32+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEtB-mGJ5XcH7bG",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZhpII5s_AdG1TyLpPZI",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/cognito-auth/lambda/Dockerfile",
+        "line": 3,
+        "textRange": {
+          "startLine": 3,
+          "endLine": 3,
+          "startOffset": 0,
+          "endOffset": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># Use an AWS Lambda image for a consistent build environment</span>",
+            "<span class=\"cd\"># This image is explicitly for the x86_64 architecture, which is what we need for Lambda function.</span>"
+          ],
+          "flagged": "<span class=\"k\">FROM</span> public.ecr.aws/lambda/python:3.12-x86_64",
+          "after": [
+            "",
+            "<span class=\"cd\"># Set the working directory inside the container</span>"
+          ]
+        }
+      },
+      "message": "This image might run with \"root\" as the default user. Make sure it is safe here.",
+      "created": "2025-08-02T04:28:41+0000",
+      "updated": "2025-08-02T04:34:48+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZhpII5s_AdG1TyLpPZI",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEmB-mGJ5XcH7bE",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/docker/config-init/Dockerfile",
+        "line": 31,
+        "textRange": {
+          "startLine": 31,
+          "endLine": 31,
+          "startOffset": 0,
+          "endOffset": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># POSSIBILITY OF SUCH DAMAGE.</span>",
+            ""
+          ],
+          "flagged": "<span class=\"k\">FROM</span> public.ecr.aws/amazonlinux/amazonlinux:latest",
+          "after": [
+            "<span class=\"k\">RUN</span> yum -y install unzip \\",
+            "    &amp;&amp; curl \"https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip\" -o \"awscliv2.zip\" \\"
+          ]
+        }
+      },
+      "message": "This image might run with \"root\" as the default user. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:53:03+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEmB-mGJ5XcH7bE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEiB-mGJ5XcH7bB",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/docker/s3-to-efs-copy/Dockerfile",
+        "line": 31,
+        "textRange": {
+          "startLine": 31,
+          "endLine": 31,
+          "startOffset": 0,
+          "endOffset": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># POSSIBILITY OF SUCH DAMAGE.</span>",
+            ""
+          ],
+          "flagged": "<span class=\"k\">FROM</span> public.ecr.aws/amazonlinux/amazonlinux:latest",
+          "after": [
+            "<span class=\"k\">RUN</span> yum -y install unzip &amp;&amp; yum -y install make &amp;&amp; yum -y install tar &amp;&amp; yum -y groupinstall 'Development Tools'",
+            ""
+          ]
+        }
+      },
+      "message": "This image might run with \"root\" as the default user. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:53:08+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEiB-mGJ5XcH7bB",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xFDB-mGJ5XcH7bk",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/common/common.tf",
+        "line": 3,
+        "textRange": {
+          "startLine": 3,
+          "endLine": 3,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># Terraform script to create the common resources for PDS Nucleus</span>",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_airflow_dags_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">bucket</span>        = <span class=\"k\">var.mwaa_dag_s3_bucket_name</span>",
+            "  <span class=\"a\">force_destroy</span> = <span class=\"c\">true</span>"
+          ]
+        }
+      },
+      "message": "No bucket policy enforces HTTPS-only access to this bucket. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:51:43+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xFDB-mGJ5XcH7bk",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEtB-mGJ5XcH7bJ",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/product-copy-completion-checker.tf",
+        "line": 133,
+        "textRange": {
+          "startLine": 133,
+          "endLine": 133,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "}",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_s3_config_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span>         = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">bucket</span>        = \"${lower(replace(<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>], <span class=\"s\">\"_\"</span>, <span class=\"s\">\"-\"</span>))}<span class=\"s\">-</span>${<span class=\"k\">var.pds_nucleus_config_bucket_name_postfix</span>}\""
+          ]
+        }
+      },
+      "message": "No bucket policy enforces HTTPS-only access to this bucket. Make sure it is safe here.",
+      "created": "2024-05-30T20:15:13+0000",
+      "updated": "2025-05-08T17:51:48+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEtB-mGJ5XcH7bJ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf6o2VLqOlKaiQP9lL",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:21+0000",
+      "updated": "2025-11-26T18:13:12+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZnf6o2VLqOlKaiQP9lL",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf6o2VLqOlKaiQP9lM",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:21+0000",
+      "updated": "2025-11-26T18:13:18+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZnf6o2VLqOlKaiQP9lM",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZm_eEHLCMAY0KH3YbME",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:.github/workflows/terraform-cicd.yaml",
+        "line": 29,
+        "textRange": {
+          "startLine": 29,
+          "endLine": 29,
+          "startOffset": 12,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Configure AWS Credentials</span>"
+          ],
+          "flagged": "      <span class=\"k\">uses</span>: <span class=\"s\">aws-actions/configure-aws-credentials@v5</span>",
+          "after": [
+            "      <span class=\"k\">with</span>:",
+            "        <span class=\"k\">aws-region</span>: <span class=\"s\">\"${{ secrets.AWS_REGION }}\"</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-09-10T17:02:50+0000",
+      "updated": "2025-11-26T18:13:24+0000",
+      "author": "49699333+dependabot[bot]@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZm_eEHLCMAY0KH3YbME",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZm_eEHLCMAY0KH3YbMF",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:.github/workflows/terraform-cicd.yaml",
+        "line": 36,
+        "textRange": {
+          "startLine": 36,
+          "endLine": 36,
+          "startOffset": 12,
+          "endOffset": 40
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Setup Terraform</span>"
+          ],
+          "flagged": "      <span class=\"k\">uses</span>: <span class=\"s\">hashicorp/setup-terraform@v3</span>",
+          "after": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Terraform Fmt, Init &amp; Validate</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2024-06-07T14:09:48+0000",
+      "updated": "2025-11-26T18:13:29+0000",
+      "author": "49699333+dependabot[bot]@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZm_eEHLCMAY0KH3YbMF",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEtB-mGJ5XcH7bK",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/product-copy-completion-checker.tf",
+        "line": 42,
+        "textRange": {
+          "startLine": 42,
+          "endLine": 42,
+          "startOffset": 2,
+          "endOffset": 34
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"a\">master_username</span>              = <span class=\"k\">var.database_user</span>",
+            "  <span class=\"a\">master_password</span>              = <span class=\"k\"><span class=\"k\">aws_secretsmanager_secret_version.pds_nucleus_rds_password</span>.secret_string</span>"
+          ],
+          "flagged": "  <span class=\"a\">backup_retention_period</span>      = <span class=\"h\">5</span>",
+          "after": [
+            "  <span class=\"a\">preferred_backup_window</span>      = <span class=\"s\">\"07:00-09:00\"</span>",
+            "  <span class=\"a\">preferred_maintenance_window</span> = <span class=\"s\">\"Mon:00:00-Mon:02:00\"</span>"
+          ]
+        }
+      },
+      "message": "Make sure that defining a short backup retention duration is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:56:43+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEtB-mGJ5XcH7bK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZTdbD0s7K5s7bxCzwZE",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/common/common.tf",
+        "line": 3,
+        "textRange": {
+          "startLine": 3,
+          "endLine": 3,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># Terraform script to create the common resources for PDS Nucleus</span>",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_airflow_dags_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">bucket</span>        = <span class=\"k\">var.mwaa_dag_s3_bucket_name</span>",
+            "  <span class=\"a\">force_destroy</span> = <span class=\"c\">true</span>"
+          ]
+        }
+      },
+      "message": "Omitting \"logging\" or acl=\"log-delivery-write\" makes logs incomplete. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-11-26T19:22:27+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZTdbD0s7K5s7bxCzwZE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZTdbDy87K5s7bxCzwYz",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/product-copy-completion-checker.tf",
+        "line": 133,
+        "textRange": {
+          "startLine": 133,
+          "endLine": 133,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "}",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_s3_bucket\"</span> <span class=\"k\">\"pds_nucleus_s3_config_bucket\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span>         = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">bucket</span>        = \"${lower(replace(<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>], <span class=\"s\">\"_\"</span>, <span class=\"s\">\"-\"</span>))}<span class=\"s\">-</span>${<span class=\"k\">var.pds_nucleus_config_bucket_name_postfix</span>}\""
+          ]
+        }
+      },
+      "message": "Omitting \"logging\" or acl=\"log-delivery-write\" makes logs incomplete. Make sure it is safe here.",
+      "created": "2024-05-30T20:15:13+0000",
+      "updated": "2025-02-05T03:38:42+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZTdbDy87K5s7bxCzwYz",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xELB-mGJ5XcH7a7",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/ecs_ecr.tf",
+        "line": 160,
+        "textRange": {
+          "startLine": 160,
+          "endLine": 160,
+          "startOffset": 9,
+          "endOffset": 35
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># CloudWatch Log Group for PDS Registry Loader Harvest ECS Task</span>"
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"pds-registry-loader-harvest-log-group\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span> = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">name</span>  = \"${<span class=\"k\">var.pds_registry_loader_harvest_cloudwatch_logs_group</span>}<span class=\"s\">-</span>${<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>]}\""
+          ]
+        }
+      },
+      "message": "Omitting \"retention_in_days\" results in a short log retention duration. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:57:21+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xELB-mGJ5XcH7a7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xELB-mGJ5XcH7a8",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/ecs_ecr.tf",
+        "line": 252,
+        "textRange": {
+          "startLine": 252,
+          "endLine": 252,
+          "startOffset": 9,
+          "endOffset": 35
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># CloudWatch Log Group for PDS Validate ECS Task</span>"
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"pds-validate-log-group\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span>    = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">name</span> = \"${<span class=\"k\">var.pds_validate_cloudwatch_logs_group</span>}<span class=\"s\">-</span>${<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>]}\""
+          ]
+        }
+      },
+      "message": "Omitting \"retention_in_days\" results in a short log retention duration. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:57:25+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xELB-mGJ5XcH7a8",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xELB-mGJ5XcH7a9",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/ecs_ecr.tf",
+        "line": 310,
+        "textRange": {
+          "startLine": 310,
+          "endLine": 310,
+          "startOffset": 9,
+          "endOffset": 35
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># CloudWatch Log Group for PDS Validate Ref ECS Task</span>"
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"pds-validate-ref-log-group\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span>    = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">name</span> = \"${<span class=\"k\">var.pds_validate_ref_cloudwatch_logs_group</span>}<span class=\"s\">-</span>${<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>]}\""
+          ]
+        }
+      },
+      "message": "Omitting \"retention_in_days\" results in a short log retention duration. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:57:46+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xELB-mGJ5XcH7a9",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xELB-mGJ5XcH7a-",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/ecs-ecr/ecs_ecr.tf",
+        "line": 335,
+        "textRange": {
+          "startLine": 335,
+          "endLine": 335,
+          "startOffset": 9,
+          "endOffset": 35
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># CloudWatch Log Group for PDS Nucleus Config Init ECS Task</span>"
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"pds-nucleus-config-init-log-group\"</span> {",
+          "after": [
+            "  <span class=\"a\">count</span> = length(<span class=\"k\">var.pds_node_names</span>)",
+            "  <span class=\"a\">name</span> = \"${<span class=\"k\">var.pds_nucleus_config_init_cloudwatch_logs_group</span>}<span class=\"s\">-</span>${<span class=\"k\">var.pds_node_names</span>[<span class=\"k\">count.index</span>]}\""
+          ]
+        }
+      },
+      "message": "Omitting \"retention_in_days\" results in a short log retention duration. Make sure it is safe here.",
+      "created": "2024-05-10T00:29:03+0000",
+      "updated": "2025-05-08T17:57:51+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xELB-mGJ5XcH7a-",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1xEtB-mGJ5XcH7bM",
+      "project": "NASA-PDS_nucleus",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nucleus:terraform/terraform-modules/product-copy-completion-checker/product-copy-completion-checker.tf",
+        "line": 366,
+        "textRange": {
+          "startLine": 366,
+          "endLine": 366,
+          "startOffset": 9,
+          "endOffset": 35
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># Create CloudWatch Log Group for pds_nucleus_s3_file_file_event_processor_function for each PDS Node</span>"
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"pds_nucleus_product_processing_status_tracker_function_log_group\"</span> {",
+          "after": [
+            "  <span class=\"a\">name</span> = <span class=\"s\">\"/aws/lambda/pds_nucleus_product_processing_status_tracker\"</span>",
+            "  <span class=\"a\">tags</span> = <span class=\"k\">var.tags</span>"
+          ]
+        }
+      },
+      "message": "Omitting \"retention_in_days\" results in a short log retention duration. Make sure it is safe here.",
+      "created": "2024-07-16T18:48:31+0000",
+      "updated": "2025-05-08T17:57:16+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nucleus&hotspots=AZPV1xEtB-mGJ5XcH7bM",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

@@ -1,31 +1,81 @@
 ---
-name: sonarcloud-security-triage
-description: Apply triage decisions to SonarCloud security issues by reading a CSV with review decisions and updating issue/hotspot statuses via the SonarCloud API. Use when the user has reviewed security issues and wants to bulk-update SonarCloud with their triage decisions.
+name: sonarcloud-security-updating
+description: Update SonarCloud security issues by applying triage decisions from JSON or CSV files. Use when the user has reviewed security issues and wants to bulk-update SonarCloud with their triage decisions, apply security review outcomes, or change issue statuses.
 ---
 
-# SonarCloud Security Triage Skill
+# SonarCloud Security Updating Skill
 
-This skill applies triage decisions to SonarCloud security issues (vulnerabilities and hotspots) by reading a CSV file with review decisions and updating the statuses in SonarCloud via the API.
+This skill applies triage decisions to SonarCloud security issues (vulnerabilities and hotspots) by reading JSON or CSV files with review decisions and updating the statuses in SonarCloud via the API.
 
 ## Prerequisites
 
 - Node.js v18 or higher
 - SonarCloud API token with **Administer Security Hotspots** and **Administer Issues** permissions
-- CSV file with triage decisions (output from `sonarcloud-security-audit` skill with added columns)
+- **JSON file with triage decisions (RECOMMENDED)** - output from `sonarcloud-security-triaging` skill
+  - Or CSV file with triage columns (legacy format)
 
 ## Workflow
 
-This skill complements the **sonarcloud-security-audit** skill:
+This skill complements the export and triage skills:
 
-1. **Export** security issues → `sonarcloud-security-audit` skill generates CSV
-2. **Review** in spreadsheet → User adds triage columns (Action, Resolution, Comment, Reviewer)
-3. **Apply** decisions → This skill updates SonarCloud with the triage decisions
+### JSON Workflow (Recommended)
+1. **Export** → `sonarcloud-security-exporting` generates JSON with rich data
+2. **Triage** → `sonarcloud-security-triaging` populates triage fields
+3. **Apply** → This skill reads triage decisions from JSON and updates SonarCloud
 
-## CSV Format Required
+### CSV Workflow (Legacy)
+1. **Export** → `sonarcloud-security-exporting` generates CSV
+2. **Review** → User adds triage columns in spreadsheet (Action, Resolution, Comment, Reviewer)
+3. **Apply** → This skill reads CSV and updates SonarCloud
 
-The input CSV must have these columns (typically the output of `sonarcloud-security-audit` plus 4 additional columns):
+## Input Formats
 
-**Original columns from audit:**
+### JSON Format (Recommended)
+
+The JSON file should contain issues with populated `triage` fields (output from `sonarcloud-security-triaging` skill):
+
+```json
+{
+  "exportMetadata": { ... },
+  "issues": [
+    {
+      "key": "AZPV1fTprahIrD-njDRb",
+      "project": "NASA-PDS_doi-ui",
+      "type": "SECURITY_HOTSPOT",
+      "url": "https://sonarcloud.io/...",
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "This is a namespace URI, not an HTTP connection",
+        "reviewer": "claude-code",
+        "confidence": "HIGH"
+      }
+    },
+    {
+      "key": "AZnP1S0b_yFrdYV3Iu6e",
+      "project": "NASA-PDS_data-upload",
+      "type": "VULNERABILITY",
+      "url": "https://sonarcloud.io/...",
+      "triage": {
+        "action": "wontfix",
+        "comment": "Scheduled for future sprint",
+        "reviewer": "claude-code"
+      }
+    }
+  ]
+}
+```
+
+**What gets applied:**
+- Issues with `triage` field populated (not `null`) are processed
+- `action`, `resolution`, and `comment` from triage object
+- Issue `key` used directly (no URL parsing needed)
+
+### CSV Format (Legacy)
+
+The CSV must have these columns (export + 4 triage columns):
+
+**Original columns:**
 - Project, Type, Severity, Status, Rule, Message, Component, Line, Created, URL
 
 **Added triage columns:**
@@ -34,11 +84,11 @@ The input CSV must have these columns (typically the output of `sonarcloud-secur
 - **Comment** - Review explanation (optional but recommended)
 - **Reviewer** - Email or name of reviewer (optional, for tracking)
 
-**Example rows:**
+**Example:**
 ```csv
 Project,Type,Severity,Status,Rule,Message,Component,Line,Created,URL,Action,Resolution,Comment,Reviewer
-NASA-PDS_doi-ui,SECURITY_HOTSPOT,,TO_REVIEW,,Using http protocol...,src/file.jsx,119,2021-01-28T19:38:04+0000,https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-ui&hotspots=AZPV1fTprahIrD-njDRb,REVIEWED,SAFE,"False positive. This is a URI not a URL.",jordan@jpl.nasa.gov
-NASA-PDS_data-upload,VULNERABILITY,MAJOR,OPEN,python:S7608,Add ExpectedBucketOwner...,src/sync.py,134,2025-10-10T20:33:50+0000,https://sonarcloud.io/project/issues?open=AZnP1S0b_yFrdYV3Iu6e&id=NASA-PDS_data-upload,wontfix,,"Scheduled for future sprint",jane@jpl.nasa.gov
+NASA-PDS_doi-ui,SECURITY_HOTSPOT,,TO_REVIEW,,Using http protocol...,src/file.jsx,119,2021-01-28T19:38:04+0000,https://sonarcloud.io/.../hotspots=AZPV1fTprahIrD-njDRb,REVIEWED,SAFE,"URI not URL",jordan@jpl.nasa.gov
+NASA-PDS_data-upload,VULNERABILITY,MAJOR,OPEN,python:S7608,Add ExpectedBucketOwner...,src/sync.py,134,2025-10-10T20:33:50+0000,https://sonarcloud.io/.../open=AZnP1S0b_yFrdYV3Iu6e&...,wontfix,,"Scheduled for future sprint",jane@jpl.nasa.gov
 ```
 
 ## Execution Steps
@@ -52,26 +102,55 @@ env | grep SONARCLOUD_TOKEN
 
 If not set, prompt the user to set it (same token used for audit skill).
 
-### Step 2: Validate CSV
+### Step 2: Validate Input File
 
-Check that the CSV file exists and has the required columns:
+**For JSON:**
+Check that the file exists and has valid structure:
+- Must have `issues` array
+- Issues should have `triage` field populated (not `null`)
+- Issues with `triage.action` will be processed
+
+**For CSV:**
+Check that the file exists and has required columns:
 - Must have URL column (to extract issue/hotspot keys)
 - Must have Action column (identifies rows to process)
 - For SECURITY_HOTSPOT rows with Action=REVIEWED, must have Resolution column
 
-### Step 3: Run the Triage Script
+### Step 3: Run the Update Script
 
-Execute the script:
+Execute the script (auto-detects format):
+
+#### JSON Input
 ```bash
-cd sonarcloud-security-triage
-node scripts/apply-triage.mjs <path-to-csv> [--dry-run]
+cd sonarcloud-security-updating
+node scripts/apply-triage.mjs <path-to-triaged.json> [--dry-run]
+```
+
+#### CSV Input
+```bash
+cd sonarcloud-security-updating
+node scripts/apply-triage.mjs <path-to-triaged.csv> [--dry-run]
 ```
 
 **Parameters:**
-- `<path-to-csv>` (required): Path to CSV file with triage decisions
+- `<path-to-file>` (required): Path to JSON or CSV file with triage decisions
 - `--dry-run` (optional): Preview changes without actually updating SonarCloud
 
+**Format detection:** Automatic based on file extension (`.json` or `.csv`) or content inspection
+
 **The script will:**
+
+**For JSON input:**
+1. Parse the JSON file
+2. Filter issues where `triage` is not `null` and `triage.action` is set
+3. Use issue `key` directly (no URL parsing)
+4. For each issue:
+   - **SECURITY_HOTSPOT** → Call `POST /api/hotspots/change_status`
+     - Parameters: `hotspot=key`, `status=REVIEWED`, `resolution=triage.resolution`, `comment=triage.comment`
+   - **VULNERABILITY** → Call `POST /api/issues/do_transition`
+     - Parameters: `issue=key`, `transition=triage.action`, `comment=triage.comment`
+
+**For CSV input:**
 1. Parse the CSV file
 2. Filter rows where Action column is not empty
 3. Extract issue/hotspot key from the URL column
@@ -185,6 +264,12 @@ https://sonarcloud.io/project/issues?open=AZnP1S0b_yFrdYV3Iu6e&id=NASA-PDS_data-
 
 Before applying changes, use `--dry-run` to preview:
 
+**JSON:**
+```bash
+node scripts/apply-triage.mjs issues-triaged.json --dry-run
+```
+
+**CSV:**
 ```bash
 node scripts/apply-triage.mjs triage.csv --dry-run
 ```
@@ -211,11 +296,29 @@ Summary: 2 updates would be applied (0 errors)
 1. **Always run dry-run first** to preview changes
 2. **Add meaningful comments** to explain triage decisions (helps future reviewers)
 3. **Start small** - test with 5-10 issues before processing thousands
-4. **Track reviewer** - include email/name in Reviewer column for accountability
-5. **Backup CSV** - keep original audit CSV before adding triage columns
+4. **Track reviewer** - include email/name for accountability (JSON: `triage.reviewer`, CSV: Reviewer column)
+5. **Backup original** - keep original export before adding triage decisions
 6. **Verify sample** - Check a few issues in SonarCloud UI after bulk update
+7. **Use JSON when possible** - Cleaner workflow, no URL parsing errors, full traceability
 
 ## Troubleshooting
+
+### JSON Format Issues
+
+**"No issues with triage decisions found"**
+- All `triage` fields are `null`
+- Run `sonarcloud-security-triaging` skill first to populate triage decisions
+
+**"Invalid triage action"**
+- `triage.action` must be valid for the issue type
+- SECURITY_HOTSPOT: action=`REVIEWED`, resolution=`SAFE`|`FIXED`
+- VULNERABILITY: action=`confirm`|`falsepositive`|`wontfix`|`resolve`
+
+**"JSON parse error"**
+- File is corrupted or not valid JSON
+- Use `jq '.' file.json` to validate JSON syntax
+
+### CSV Format Issues
 
 **"Column 'Action' not found"**
 - CSV is missing the Action column
@@ -225,6 +328,7 @@ Summary: 2 updates would be applied (0 errors)
 - URL format may have changed
 - Verify URL column contains valid SonarCloud URLs
 - Check if URL contains `hotspots=` or `open=` parameter
+- **Solution:** Use JSON format instead (no URL parsing needed)
 
 **"No rows to process"**
 - All Action columns are empty
@@ -234,15 +338,53 @@ Summary: 2 updates would be applied (0 errors)
 - For SECURITY_HOTSPOT with Action=REVIEWED, Resolution must be `SAFE` or `FIXED`
 - Check spelling and capitalization
 
-## Example Workflow
+## Example Workflows
 
-### 1. Export security issues
+### JSON Workflow (Recommended - Fast & Automated)
+
+#### 1. Export security issues
 ```bash
-cd sonarcloud-security-audit
+cd sonarcloud-security-exporting
+node scripts/fetch-security-issues.mjs nasa-pds issues.json --format json --include-snippets
+```
+
+Output: `issues.json` with code context and rule details
+
+#### 2. Analyze and suggest triage decisions
+```bash
+# Use sonarcloud-security-triaging skill
+# Claude reads issues.json, analyzes code context, suggests decisions
+# Output: issues-triaged.json with populated triage fields
+```
+
+#### 3. Dry run to preview
+```bash
+cd sonarcloud-security-updating
+node scripts/apply-triage.mjs ../issues-triaged.json --dry-run
+```
+
+#### 4. Apply triage decisions
+```bash
+node scripts/apply-triage.mjs ../issues-triaged.json
+```
+
+#### 5. Verify in SonarCloud
+- Open a few updated issues in SonarCloud UI
+- Confirm status changes and comments appear correctly
+
+**Total time:** ~15-30 minutes for thousands of issues (mostly automated)
+
+---
+
+### CSV Workflow (Legacy - Manual Review)
+
+#### 1. Export security issues
+```bash
+cd sonarcloud-security-exporting
 node scripts/fetch-security-issues.mjs nasa-pds security-audit.csv
 ```
 
-### 2. Review and add triage columns
+#### 2. Review and add triage columns
 
 Open `security-audit.csv` in Excel/Google Sheets and add 4 columns:
 
@@ -253,20 +395,22 @@ Open `security-audit.csv` in Excel/Google Sheets and add 4 columns:
 
 Save as `security-triage.csv`
 
-### 3. Dry run to preview
+#### 3. Dry run to preview
 ```bash
-cd sonarcloud-security-triage
+cd sonarcloud-security-updating
 node scripts/apply-triage.mjs ../security-triage.csv --dry-run
 ```
 
-### 4. Apply triage decisions
+#### 4. Apply triage decisions
 ```bash
 node scripts/apply-triage.mjs ../security-triage.csv
 ```
 
-### 5. Verify in SonarCloud
+#### 5. Verify in SonarCloud
 - Open a few updated issues in SonarCloud UI
 - Confirm status changes and comments appear correctly
+
+**Total time:** Several hours to days (manual spreadsheet review, URL parsing)
 
 ## Output
 

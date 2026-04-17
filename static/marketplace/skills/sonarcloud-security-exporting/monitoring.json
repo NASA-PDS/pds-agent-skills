@@ -1,0 +1,209 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-17T15:57:53.750Z",
+    "organization": "nasa-pds",
+    "totalIssues": 5,
+    "totalVulnerabilities": 0,
+    "totalHotspots": 5,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_monitoring",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZnf7zit6gn8I_eQXfNE",
+      "project": "NASA-PDS_monitoring",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_monitoring:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:36:41+0000",
+      "updated": "2025-11-26T18:12:31+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_monitoring&hotspots=AZnf7zit6gn8I_eQXfNE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf7zit6gn8I_eQXfNF",
+      "project": "NASA-PDS_monitoring",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_monitoring:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:36:41+0000",
+      "updated": "2025-11-26T18:12:36+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_monitoring&hotspots=AZnf7zit6gn8I_eQXfNF",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZm_droIm-0OLoEbi1Q6",
+      "project": "NASA-PDS_monitoring",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_monitoring:.github/workflows/terraform-cicd.yaml",
+        "line": 29,
+        "textRange": {
+          "startLine": 29,
+          "endLine": 29,
+          "startOffset": 12,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Configure AWS Credentials</span>"
+          ],
+          "flagged": "      <span class=\"k\">uses</span>: <span class=\"s\">aws-actions/configure-aws-credentials@v2</span>",
+          "after": [
+            "      <span class=\"k\">with</span>:",
+            "        <span class=\"k\">aws-region</span>: <span class=\"s\">\"${{ secrets.AWS_REGION }}\"</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2023-08-03T21:16:16+0000",
+      "updated": "2025-11-26T18:12:38+0000",
+      "author": "130496396+sjoshi-jpl@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_monitoring&hotspots=AZm_droIm-0OLoEbi1Q6",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZm_droIm-0OLoEbi1Q7",
+      "project": "NASA-PDS_monitoring",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_monitoring:.github/workflows/terraform-cicd.yaml",
+        "line": 36,
+        "textRange": {
+          "startLine": 36,
+          "endLine": 36,
+          "startOffset": 12,
+          "endOffset": 40
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Setup Terraform</span>"
+          ],
+          "flagged": "      <span class=\"k\">uses</span>: <span class=\"s\">hashicorp/setup-terraform@v2</span>",
+          "after": [
+            "",
+            "    - <span class=\"k\">name</span>: <span class=\"s\">Terraform Fmt, Init &amp; Validate</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2023-08-03T21:16:16+0000",
+      "updated": "2025-11-26T18:12:41+0000",
+      "author": "130496396+sjoshi-jpl@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_monitoring&hotspots=AZm_droIm-0OLoEbi1Q7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2CKI4hUXbtuPnJrp",
+      "project": "NASA-PDS_monitoring",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_monitoring:terraform/provenance-alarm/alarm.tf",
+        "line": 32,
+        "textRange": {
+          "startLine": 32,
+          "endLine": 32,
+          "startOffset": 2,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"c\">resource</span> <span class=\"k\">\"aws_cloudwatch_log_group\"</span> <span class=\"k\">\"provenance_logs\"</span> {",
+            "  <span class=\"a\">name</span>              = <span class=\"s\">\"/ecs/pds-en-provenance-failure-logs\"</span>"
+          ],
+          "flagged": "  <span class=\"a\">retention_in_days</span> = <span class=\"h\">7</span>",
+          "after": [
+            "",
+            "  <span class=\"a\">tags</span> = {"
+          ]
+        }
+      },
+      "message": "Make sure that defining a short log retention duration is safe here.",
+      "created": "2023-05-24T17:28:52+0000",
+      "updated": "2025-05-05T19:42:03+0000",
+      "author": "sagar.joshi@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_monitoring&hotspots=AZPV2CKI4hUXbtuPnJrp",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

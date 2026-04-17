@@ -1,0 +1,2799 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-17T15:19:05.438Z",
+    "organization": "nasa-pds",
+    "totalIssues": 75,
+    "totalVulnerabilities": 0,
+    "totalHotspots": 75,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_nasa-pds.github.io",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZPV0i2uE3FaRQAXp3vO",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 628,
+        "textRange": {
+          "startLine": 628,
+          "endLine": 629,
+          "startOffset": 21,
+          "endOffset": 19
+        },
+        "codeSnippet": {
+          "before": [
+            "\t<span class=\"cd\">// Leading and non-escaped trailing whitespace, capturing some non-whitespace characters preceding the latter</span>",
+            "\t<span class=\"sym-258 sym\">rwhitespace</span> = <span class=\"k\">new</span> RegExp( <span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"+\"</span>, <span class=\"s\">\"g\"</span> ),"
+          ],
+          "flagged": "\t<span class=\"sym-259 sym\">rtrim</span> = <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^\"</span> + <span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"+|((?:^|[^\\\\\\\\])(?:\\\\\\\\.)*)\"</span> +",
+          "after": [
+            "\t\t<span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"+$\"</span>, <span class=\"s\">\"g\"</span> ),",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:03+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2uE3FaRQAXp3vO",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2uE3FaRQAXp3vb",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 645,
+        "textRange": {
+          "startLine": 645,
+          "endLine": 647,
+          "startOffset": 23,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "\t\t<span class=\"s\">\"ATTR\"</span>: <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^\"</span> + <span class=\"sym-256 sym\">attributes</span> ),",
+            "\t\t<span class=\"s\">\"PSEUDO\"</span>: <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^\"</span> + <span class=\"sym-257 sym\">pseudos</span> ),"
+          ],
+          "flagged": "\t\t<span class=\"s\">\"CHILD\"</span>: <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^:(only|first|last|nth|nth-last)-(child|of-type)(?:\\\\(\"</span> +",
+          "after": [
+            "\t\t\t<span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"*(even|odd|(([+-]|)(\\\\d*)n|)\"</span> + <span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"*(?:([+-]|)\"</span> +",
+            "\t\t\t<span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"*(\\\\d+)|))\"</span> + <span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"*\\\\)|)\"</span>, <span class=\"s\">\"i\"</span> ),"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:10+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2uE3FaRQAXp3vb",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2uE3FaRQAXp3vd",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 652,
+        "textRange": {
+          "startLine": 652,
+          "endLine": 654,
+          "startOffset": 30,
+          "endOffset": 55
+        },
+        "codeSnippet": {
+          "before": [
+            "\t\t<span class=\"cd\">// For use in libraries implementing .is()</span>",
+            "\t\t<span class=\"cd\">// We use this for POS matching in `select`</span>"
+          ],
+          "flagged": "\t\t<span class=\"s\">\"needsContext\"</span>: <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^\"</span> + <span class=\"sym-254 sym\">whitespace</span> +",
+          "after": [
+            "\t\t\t<span class=\"s\">\"*[&gt;+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\\\\(\"</span> + <span class=\"sym-254 sym\">whitespace</span> +",
+            "\t\t\t<span class=\"s\">\"*((?:-\\\\d)?\\\\d*)\"</span> + <span class=\"sym-254 sym\">whitespace</span> + <span class=\"s\">\"*\\\\)|)(?=[^-]|$)\"</span>, <span class=\"s\">\"i\"</span> )"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:16+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2uE3FaRQAXp3vd",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2vE3FaRQAXp3ze",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 4690,
+        "textRange": {
+          "startLine": 4690,
+          "endLine": 4690,
+          "startOffset": 13,
+          "endOffset": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "\t<span class=\"sym-1640 sym\">}</span>",
+            "<span class=\"sym-1623 sym\">}</span> );"
+          ],
+          "flagged": "<span class=\"k\">var</span> <span class=\"sym-1652 sym\">pnum</span> = ( <span class=\"s\">/[+-]?(?:\\d*\\.|)\\d+(?:[eE][+-]?\\d+|)/</span> ).source;",
+          "after": [
+            "",
+            "<span class=\"k\">var</span> <span class=\"sym-1653 sym\">rcssNum</span> = <span class=\"k\">new</span> RegExp( <span class=\"s\">\"^(?:([+-])=|)(\"</span> + <span class=\"sym-1652 sym\">pnum</span> + <span class=\"s\">\")([a-z%]*)$\"</span>, <span class=\"s\">\"i\"</span> );"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:21+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2vE3FaRQAXp3ze",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2vE3FaRQAXp321",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 9004,
+        "textRange": {
+          "startLine": 9004,
+          "endLine": 9004,
+          "startOffset": 9,
+          "endOffset": 15
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"k\">var</span>",
+            "\t<span class=\"sym-3221 sym\">r20</span> = <span class=\"s\">/%20/g</span>,"
+          ],
+          "flagged": "\t<span class=\"sym-3222 sym\">rhash</span> = <span class=\"s\">/#.*$/</span>,",
+          "after": [
+            "\t<span class=\"sym-3223 sym\">rantiCache</span> = <span class=\"s\">/([?&amp;])_=[^&amp;]*/</span>,",
+            "\t<span class=\"sym-3224 sym\">rheaders</span> = <span class=\"s\">/^(.*?):[ \\t]*([^\\r\\n]*)$/mg</span>,"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:29+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2vE3FaRQAXp321",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2vE3FaRQAXp322",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 9006,
+        "textRange": {
+          "startLine": 9006,
+          "endLine": 9006,
+          "startOffset": 12,
+          "endOffset": 40
+        },
+        "codeSnippet": {
+          "before": [
+            "\t<span class=\"sym-3222 sym\">rhash</span> = <span class=\"s\">/#.*$/</span>,",
+            "\t<span class=\"sym-3223 sym\">rantiCache</span> = <span class=\"s\">/([?&amp;])_=[^&amp;]*/</span>,"
+          ],
+          "flagged": "\t<span class=\"sym-3224 sym\">rheaders</span> = <span class=\"s\">/^(.*?):[ \\t]*([^\\r\\n]*)$/mg</span>,",
+          "after": [
+            "",
+            "\t<span class=\"cd\">// #7653, #8125, #8152: local protocol detection</span>"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:35+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2vE3FaRQAXp322",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2vE3FaRQAXp33q",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 10747,
+        "textRange": {
+          "startLine": 10747,
+          "endLine": 10747,
+          "startOffset": 12,
+          "endOffset": 48
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\">// Support: Android &lt;=4.0 only</span>",
+            "<span class=\"cd\">// Make sure we trim BOM and NBSP</span>"
+          ],
+          "flagged": "<span class=\"k\">var</span> <span class=\"sym-3799 sym\">rtrim</span> = <span class=\"s\">/^[\\s\\uFEFF\\xA0]+|[\\s\\uFEFF\\xA0]+$/g</span>;",
+          "after": [
+            "",
+            "<span class=\"cd\">// Bind a function to a context, optionally partially applying any</span>"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to super-linear runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:43:41+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2vE3FaRQAXp33q",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i3UE3FaRQAXp38Q",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/doctools.js",
+        "line": 67,
+        "textRange": {
+          "startLine": 67,
+          "endLine": 67,
+          "startOffset": 36,
+          "endOffset": 44
+        },
+        "codeSnippet": {
+          "before": [
+            "  addTranslations: (<span class=\"sym-21 sym\">catalog</span>) =&gt; <span class=\"sym-22 sym\">{</span>",
+            "    Object.assign(<span class=\"sym-7 sym\">Documentation</span>.TRANSLATIONS, <span class=\"sym-21 sym\">catalog</span>.messages);"
+          ],
+          "flagged": "    <span class=\"sym-7 sym\">Documentation</span>.PLURAL_EXPR = <span class=\"k\">new</span> Function(",
+          "after": [
+            "      <span class=\"s\">\"n\"</span>,",
+            "      <span class=\"s\">`return (${</span><span class=\"sym-21 sym\">catalog</span>.plural_expr<span class=\"s\">})`</span>"
+          ]
+        }
+      },
+      "message": "Make sure that this dynamic injection or execution of code is safe.",
+      "created": "2024-05-31T01:28:04+0000",
+      "updated": "2025-05-05T19:43:54+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i3UE3FaRQAXp38Q",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i3ME3FaRQAXp356",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.12.0.js",
+        "line": 915,
+        "textRange": {
+          "startLine": 915,
+          "endLine": 915,
+          "startOffset": 19,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"k\">var</span> <span class=\"sym-456 sym\">render</span>;",
+            "    <span class=\"k\">try</span> <span class=\"sym-457 sym\">{</span>"
+          ],
+          "flagged": "      <span class=\"sym-456 sym\">render</span> = <span class=\"k\">new</span> Function(<span class=\"sym-440 sym\">settings</span>.variable || <span class=\"s\">'obj'</span>, <span class=\"s\">'_'</span>, <span class=\"sym-446 sym\">source</span>);",
+          "after": [
+            "    <span class=\"sym-457 sym\">}</span> <span class=\"k\">catch</span> (<span class=\"sym-458 sym\">e</span>) <span class=\"sym-459 sym\">{</span>",
+            "      <span class=\"sym-458 sym\">e</span>.source = <span class=\"sym-446 sym\">source</span>;"
+          ]
+        }
+      },
+      "message": "Make sure that this dynamic injection or execution of code is safe.",
+      "created": "2021-05-10T18:04:28+0000",
+      "updated": "2025-05-05T19:43:59+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i3ME3FaRQAXp356",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i4TE3FaRQAXp4Bn",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.13.1.js",
+        "line": 931,
+        "textRange": {
+          "startLine": 931,
+          "endLine": 931,
+          "startOffset": 19,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"k\">var</span> <span class=\"sym-460 sym\">render</span>;",
+            "    <span class=\"k\">try</span> <span class=\"sym-461 sym\">{</span>"
+          ],
+          "flagged": "      <span class=\"sym-460 sym\">render</span> = <span class=\"k\">new</span> Function(<span class=\"sym-457 sym\">argument</span>, <span class=\"s\">'_'</span>, <span class=\"sym-447 sym\">source</span>);",
+          "after": [
+            "    <span class=\"sym-461 sym\">}</span> <span class=\"k\">catch</span> (<span class=\"sym-462 sym\">e</span>) <span class=\"sym-463 sym\">{</span>",
+            "      <span class=\"sym-462 sym\">e</span>.source = <span class=\"sym-447 sym\">source</span>;"
+          ]
+        }
+      },
+      "message": "Make sure that this dynamic injection or execution of code is safe.",
+      "created": "2023-01-17T16:54:38+0000",
+      "updated": "2025-05-05T19:44:05+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i4TE3FaRQAXp4Bn",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i3oE3FaRQAXp3-r",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.3.1.js",
+        "line": 928,
+        "textRange": {
+          "startLine": 928,
+          "endLine": 928,
+          "startOffset": 19,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "         .replace(<span class=\"s\">/\\t/g</span>, <span class=\"s\">'\\\\t'</span>)",
+            "         + <span class=\"s\">\"');}return __p.join('');\"</span>;"
+          ],
+          "flagged": "    <span class=\"k\">var</span> <span class=\"sym-491 sym\">func</span> = <span class=\"k\">new</span> Function(<span class=\"s\">'obj'</span>, <span class=\"s\">'_'</span>, <span class=\"sym-481 sym\">tmpl</span>);",
+          "after": [
+            "    <span class=\"k\">if</span> (<span class=\"sym-478 sym\">data</span>) <span class=\"k\">return</span> <span class=\"sym-491 sym\">func</span>(<span class=\"sym-478 sym\">data</span>, <span class=\"sym-25 sym\">_</span>);",
+            "    <span class=\"k\">return</span> <span class=\"k\">function</span>(<span class=\"sym-492 sym\">data</span>) <span class=\"sym-493 sym\">{</span>"
+          ]
+        }
+      },
+      "message": "Make sure that this dynamic injection or execution of code is safe.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:44:10+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i3oE3FaRQAXp3-r",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZr_XodyHyEtWVNPNP15",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.3.1.js",
+        "line": 929,
+        "textRange": {
+          "startLine": 929,
+          "endLine": 929,
+          "startOffset": 21,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "         + <span class=\"s\">\"');}return __p.join('');\"</span>;",
+            "    <span class=\"k\">var</span> <span class=\"sym-491 sym\">func</span> = <span class=\"k\">new</span> Function(<span class=\"s\">'obj'</span>, <span class=\"s\">'_'</span>, <span class=\"sym-481 sym\">tmpl</span>);"
+          ],
+          "flagged": "    <span class=\"k\">if</span> (<span class=\"sym-478 sym\">data</span>) <span class=\"k\">return</span> <span class=\"sym-491 sym\">func</span>(<span class=\"sym-478 sym\">data</span>, <span class=\"sym-25 sym\">_</span>);",
+          "after": [
+            "    <span class=\"k\">return</span> <span class=\"k\">function</span>(<span class=\"sym-492 sym\">data</span>) <span class=\"sym-493 sym\">{</span>",
+            "      <span class=\"k\">return</span> <span class=\"sym-491 sym\">func</span>.call(<span class=\"k\">this</span>, <span class=\"sym-492 sym\">data</span>, <span class=\"sym-25 sym\">_</span>);"
+          ]
+        }
+      },
+      "message": "Make sure that this dynamic injection or execution of code is safe.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-12-08T19:08:35+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZr_XodyHyEtWVNPNP15",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2uE3FaRQAXp3u-",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 328,
+        "textRange": {
+          "startLine": 328,
+          "endLine": 328,
+          "startOffset": 33,
+          "endOffset": 46
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "\t<span class=\"cd\">// Unique for each copy of jQuery on the page</span>"
+          ],
+          "flagged": "\texpando: <span class=\"s\">\"jQuery\"</span> + ( <span class=\"sym-56 sym\">version</span> + Math.random() ).replace( <span class=\"s\">/\\D/g</span>, <span class=\"s\">\"\"</span> ),",
+          "after": [
+            "",
+            "\t<span class=\"cd\">// Assume jQuery is ready without the ready module</span>"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:44:36+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2uE3FaRQAXp3u-",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i2vE3FaRQAXp3x3",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/jquery-3.5.1.js",
+        "line": 2682,
+        "textRange": {
+          "startLine": 2682,
+          "endLine": 2682,
+          "startOffset": 61,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "\t\t\t\t<span class=\"cd\">// Use integer dirruns iff this is the outermost matcher</span>"
+          ],
+          "flagged": "\t\t\t\t<span class=\"sym-990 sym\">dirrunsUnique</span> = ( <span class=\"sym-226 sym\">dirruns</span> += <span class=\"sym-988 sym\">contextBackup</span> == null ? <span class=\"c\">1</span> : Math.random() || <span class=\"c\">0.1</span> ),",
+          "after": [
+            "\t\t\t\t<span class=\"sym-991 sym\">len</span> = <span class=\"sym-989 sym\">elems</span>.length;",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:44:44+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i2vE3FaRQAXp3x3",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i3ME3FaRQAXp35n",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.12.0.js",
+        "line": 798,
+        "textRange": {
+          "startLine": 798,
+          "endLine": 798,
+          "startOffset": 28,
+          "endOffset": 41
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-407 sym\">min</span> = <span class=\"c\">0</span>;",
+            "    <span class=\"sym-410 sym\">}</span>"
+          ],
+          "flagged": "    <span class=\"k\">return</span> <span class=\"sym-407 sym\">min</span> + Math.floor(Math.random() * (<span class=\"sym-408 sym\">max</span> - <span class=\"sym-407 sym\">min</span> + <span class=\"c\">1</span>));",
+          "after": [
+            "  <span class=\"sym-409 sym\">}</span>",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2021-05-10T18:04:28+0000",
+      "updated": "2025-05-05T19:45:30+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i3ME3FaRQAXp35n",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i4TE3FaRQAXp4BS",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.13.1.js",
+        "line": 798,
+        "textRange": {
+          "startLine": 798,
+          "endLine": 798,
+          "startOffset": 28,
+          "endOffset": 41
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-407 sym\">min</span> = <span class=\"c\">0</span>;",
+            "    <span class=\"sym-410 sym\">}</span>"
+          ],
+          "flagged": "    <span class=\"k\">return</span> <span class=\"sym-407 sym\">min</span> + Math.floor(Math.random() * (<span class=\"sym-408 sym\">max</span> - <span class=\"sym-407 sym\">min</span> + <span class=\"c\">1</span>));",
+          "after": [
+            "  <span class=\"sym-409 sym\">}</span>",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2023-01-17T16:54:38+0000",
+      "updated": "2025-05-05T19:45:37+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i4TE3FaRQAXp4BS",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0i3oE3FaRQAXp39h",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:_static/underscore-1.3.1.js",
+        "line": 256,
+        "textRange": {
+          "startLine": 256,
+          "endLine": 256,
+          "startOffset": 26,
+          "endOffset": 39
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-166 sym\">shuffled</span>[<span class=\"c\">0</span>] = <span class=\"sym-168 sym\">value</span>;",
+            "      <span class=\"sym-172 sym\">}</span> <span class=\"k\">else</span> <span class=\"sym-173 sym\">{</span>"
+          ],
+          "flagged": "        <span class=\"sym-167 sym\">rand</span> = Math.floor(Math.random() * (<span class=\"sym-169 sym\">index</span> + <span class=\"c\">1</span>));",
+          "after": [
+            "        <span class=\"sym-166 sym\">shuffled</span>[<span class=\"sym-169 sym\">index</span>] = <span class=\"sym-166 sym\">shuffled</span>[<span class=\"sym-167 sym\">rand</span>];",
+            "        <span class=\"sym-166 sym\">shuffled</span>[<span class=\"sym-167 sym\">rand</span>] = <span class=\"sym-168 sym\">value</span>;"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2020-10-09T16:26:52+0000",
+      "updated": "2025-05-05T19:45:47+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZPV0i3oE3FaRQAXp39h",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf7q6la_7lVHfGdYML",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:35:21+0000",
+      "updated": "2025-11-26T18:12:51+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnf7q6la_7lVHfGdYML",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf7q6la_7lVHfGdYMM",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:35:21+0000",
+      "updated": "2025-11-26T18:12:54+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnf7q6la_7lVHfGdYMM",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZjPhIRk4l-x5viIjYSz",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:.github/workflows/rdd-gen.yml",
+        "line": 34,
+        "textRange": {
+          "startLine": 34,
+          "endLine": 34,
+          "startOffset": 29,
+          "endOffset": 62
+        },
+        "codeSnippet": {
+          "before": [
+            "      - <span class=\"k\">name</span>: <span class=\"s\">Generate RDD</span>",
+            "        <span class=\"k\">run</span>: <span class=\"s\">|</span>"
+          ],
+          "flagged": "<span class=\"s\">          pds-issues --token ${{ secrets.ADMIN_GITHUB_TOKEN }} --format rst --issue_state closed --build B${{matrix.build-number}}</span>",
+          "after": [
+            "<span class=\"s\">          mkdir -p docs/source/releases/${{matrix.build-number}}</span>",
+            "<span class=\"s\">          mv pdsen_issues.rst docs/source/releases/${{matrix.build-number}}/rdd.rst</span>"
+          ]
+        }
+      },
+      "message": "Avoid expanding secrets in a run block.",
+      "created": "2023-05-16T20:35:37+0000",
+      "updated": "2025-11-26T18:29:48+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZjPhIRk4l-x5viIjYSz",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AchK4taT0-RBaq2",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:collaborate/contribute.html",
+        "line": 157,
+        "textRange": {
+          "startLine": 157,
+          "endLine": 157,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:43+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AchK4taT0-RBaq2",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AcuK4taT0-RBaq5",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:collaborate/developer.html",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:45+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AcuK4taT0-RBaq5",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AdJK4taT0-RBaq_",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:collaborate/forum.html",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:48+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AdJK4taT0-RBaq_",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9Ac7K4taT0-RBaq8",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:collaborate/jpl-pds-oss-policy.html",
+        "line": 179,
+        "textRange": {
+          "startLine": 179,
+          "endLine": 179,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:50+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9Ac7K4taT0-RBaq8",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AdtK4taT0-RBarF",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:genindex.html",
+        "line": 130,
+        "textRange": {
+          "startLine": 130,
+          "endLine": 130,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:53+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AdtK4taT0-RBarF",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AeUK4taT0-RBarI",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:index.html",
+        "line": 555,
+        "textRange": {
+          "startLine": 555,
+          "endLine": 555,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:56+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AeUK4taT0-RBarI",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AS6K4taT0-RBaqf",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/10.1/index.html",
+        "line": 341,
+        "textRange": {
+          "startLine": 341,
+          "endLine": 341,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:26:59+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AS6K4taT0-RBaqf",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ARxK4taT0-RBaqW",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/11.0/index.html",
+        "line": 352,
+        "textRange": {
+          "startLine": 352,
+          "endLine": 352,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:01+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ARxK4taT0-RBaqW",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9APKK4taT0-RBaqK",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/11.1/index.html",
+        "line": 374,
+        "textRange": {
+          "startLine": 374,
+          "endLine": 374,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:04+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9APKK4taT0-RBaqK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AOaK4taT0-RBaqE",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/11.1/plan.html",
+        "line": 873,
+        "textRange": {
+          "startLine": 873,
+          "endLine": 873,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:07+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AOaK4taT0-RBaqE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AOyK4taT0-RBaqH",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/11.1/rdd.html",
+        "line": 1307,
+        "textRange": {
+          "startLine": 1307,
+          "endLine": 1307,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:09+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AOyK4taT0-RBaqH",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ALUK4taT0-RBaps",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.0/index.html",
+        "line": 363,
+        "textRange": {
+          "startLine": 363,
+          "endLine": 363,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:11+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ALUK4taT0-RBaps",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AMEK4taT0-RBapy",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.0/plan.html",
+        "line": 765,
+        "textRange": {
+          "startLine": 765,
+          "endLine": 765,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:14+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AMEK4taT0-RBapy",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ALwK4taT0-RBapv",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.0/rdd.html",
+        "line": 2256,
+        "textRange": {
+          "startLine": 2256,
+          "endLine": 2256,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:16+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ALwK4taT0-RBapv",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AKLK4taT0-RBapi",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.1/index.html",
+        "line": 484,
+        "textRange": {
+          "startLine": 484,
+          "endLine": 484,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:19+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AKLK4taT0-RBapi",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AKeK4taT0-RBapm",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.1/plan.html",
+        "line": 874,
+        "textRange": {
+          "startLine": 874,
+          "endLine": 874,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:21+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AKeK4taT0-RBapm",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AK9K4taT0-RBapp",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/12.1/rdd.html",
+        "line": 3228,
+        "textRange": {
+          "startLine": 3228,
+          "endLine": 3228,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:24+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AK9K4taT0-RBapp",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AQtK4taT0-RBaqN",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.0/index.html",
+        "line": 495,
+        "textRange": {
+          "startLine": 495,
+          "endLine": 495,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:27+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AQtK4taT0-RBaqN",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ARZK4taT0-RBaqT",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.0/plan.html",
+        "line": 623,
+        "textRange": {
+          "startLine": 623,
+          "endLine": 623,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:30+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ARZK4taT0-RBaqT",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ARHK4taT0-RBaqQ",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.0/rdd.html",
+        "line": 1715,
+        "textRange": {
+          "startLine": 1715,
+          "endLine": 1715,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:33+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ARHK4taT0-RBaqQ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AG0K4taT0-RBapK",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.1/index.html",
+        "line": 495,
+        "textRange": {
+          "startLine": 495,
+          "endLine": 495,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:34+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AG0K4taT0-RBapK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AHoK4taT0-RBapQ",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.1/plan.html",
+        "line": 694,
+        "textRange": {
+          "startLine": 694,
+          "endLine": 694,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:37+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AHoK4taT0-RBapQ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AHUK4taT0-RBapN",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/13.1/rdd.html",
+        "line": 2295,
+        "textRange": {
+          "startLine": 2295,
+          "endLine": 2295,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:40+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AHUK4taT0-RBapN",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ASRK4taT0-RBaqc",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.0-SNAPSHOT/index.html",
+        "line": 1214,
+        "textRange": {
+          "startLine": 1214,
+          "endLine": 1214,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:42+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ASRK4taT0-RBaqc",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AGgK4taT0-RBapH",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.0/index.html",
+        "line": 452,
+        "textRange": {
+          "startLine": 452,
+          "endLine": 452,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:44+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AGgK4taT0-RBapH",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AGMK4taT0-RBapE",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.0/plan.html",
+        "line": 843,
+        "textRange": {
+          "startLine": 843,
+          "endLine": 843,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:47+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AGMK4taT0-RBapE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AF1K4taT0-RBapB",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.0/rdd.html",
+        "line": 2613,
+        "textRange": {
+          "startLine": 2613,
+          "endLine": 2613,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:49+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AF1K4taT0-RBapB",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AENK4taT0-RBao4",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.1-SNAPSHOT/index.html",
+        "line": 1215,
+        "textRange": {
+          "startLine": 1215,
+          "endLine": 1215,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:52+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AENK4taT0-RBao4",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AJfK4taT0-RBapc",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.1/index.html",
+        "line": 452,
+        "textRange": {
+          "startLine": 452,
+          "endLine": 452,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:54+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AJfK4taT0-RBapc",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AJzK4taT0-RBapf",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.1/plan.html",
+        "line": 989,
+        "textRange": {
+          "startLine": 989,
+          "endLine": 989,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:57+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AJzK4taT0-RBapf",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AJLK4taT0-RBapZ",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/14.1/rdd.html",
+        "line": 2428,
+        "textRange": {
+          "startLine": 2428,
+          "endLine": 2428,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:27:59+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AJLK4taT0-RBapZ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ASBK4taT0-RBaqZ",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.0-SNAPSHOT/index.html",
+        "line": 1215,
+        "textRange": {
+          "startLine": 1215,
+          "endLine": 1215,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:03+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ASBK4taT0-RBaqZ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ANSK4taT0-RBap7",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.0/index.html",
+        "line": 452,
+        "textRange": {
+          "startLine": 452,
+          "endLine": 452,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:06+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ANSK4taT0-RBap7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ANAK4taT0-RBap4",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.0/plan.html",
+        "line": 725,
+        "textRange": {
+          "startLine": 725,
+          "endLine": 725,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:09+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ANAK4taT0-RBap4",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ANvK4taT0-RBap-",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.0/rdd.html",
+        "line": 2323,
+        "textRange": {
+          "startLine": 2323,
+          "endLine": 2323,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:11+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ANvK4taT0-RBap-",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AH9K4taT0-RBapT",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.1/index.html",
+        "line": 463,
+        "textRange": {
+          "startLine": 463,
+          "endLine": 463,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:13+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AH9K4taT0-RBapT",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AIiK4taT0-RBapW",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/15.1/rdd.html",
+        "line": 2657,
+        "textRange": {
+          "startLine": 2657,
+          "endLine": 2657,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:16+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AIiK4taT0-RBapW",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZqjMgWtrW-SzXhFUuUQ",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/16.0-SNAPSHOT/index.html",
+        "line": 29461,
+        "textRange": {
+          "startLine": 29461,
+          "endLine": 29461,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-11-20T21:33:45+0000",
+      "updated": "2025-11-26T18:28:19+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZqjMgWtrW-SzXhFUuUQ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZqkZncKMwgon586UAkx",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/16/index.html",
+        "line": 465,
+        "textRange": {
+          "startLine": 465,
+          "endLine": 465,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-11-21T02:54:56+0000",
+      "updated": "2025-11-26T18:28:21+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZqkZncKMwgon586UAkx",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AMsK4taT0-RBap1",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/16/rdd.html",
+        "line": 3447,
+        "textRange": {
+          "startLine": 3447,
+          "endLine": 3447,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:24+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AMsK4taT0-RBap1",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZyRg9T3RO7eeEQv92r6",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/17/rdd.html",
+        "line": 3010,
+        "textRange": {
+          "startLine": 3010,
+          "endLine": 3010,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2026-02-24T21:16:33+0000",
+      "updated": "2026-02-24T21:16:41+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZyRg9T3RO7eeEQv92r6",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AFSK4taT0-RBao-",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/current/index.html",
+        "line": 465,
+        "textRange": {
+          "startLine": 465,
+          "endLine": 465,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:26+0000",
+      "author": "",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AFSK4taT0-RBao-",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AE-K4taT0-RBao7",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/current/rdd.html",
+        "line": 3447,
+        "textRange": {
+          "startLine": 3447,
+          "endLine": 3447,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:29+0000",
+      "author": "",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AE-K4taT0-RBao7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AOBK4taT0-RBaqB",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:releases/releases.html",
+        "line": 172,
+        "textRange": {
+          "startLine": 172,
+          "endLine": 172,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:31+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AOBK4taT0-RBaqB",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AdYK4taT0-RBarC",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:search.html",
+        "line": 137,
+        "textRange": {
+          "startLine": 137,
+          "endLine": 137,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:34+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AdYK4taT0-RBarC",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9Ab1K4taT0-RBaqt",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/contact.html",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:36+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9Ab1K4taT0-RBaqt",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9Aa7K4taT0-RBaqm",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/discipline_nodes/dois/faqs.html",
+        "line": 210,
+        "textRange": {
+          "startLine": 210,
+          "endLine": 210,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:38+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9Aa7K4taT0-RBaqm",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AbdK4taT0-RBaqq",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/discipline_nodes/dois/index.html",
+        "line": 159,
+        "textRange": {
+          "startLine": 159,
+          "endLine": 159,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:41+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AbdK4taT0-RBaqq",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AbPK4taT0-RBaqn",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/discipline_nodes/dois/metadata_guide.html",
+        "line": 1290,
+        "textRange": {
+          "startLine": 1290,
+          "endLine": 1290,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:43+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AbPK4taT0-RBaqn",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AasK4taT0-RBaqj",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/discipline_nodes/index.html",
+        "line": 141,
+        "textRange": {
+          "startLine": 141,
+          "endLine": 141,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:46+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AasK4taT0-RBaqj",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AcEK4taT0-RBaqw",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/documentation.html",
+        "line": 159,
+        "textRange": {
+          "startLine": 159,
+          "endLine": 159,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:48+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AcEK4taT0-RBaqw",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AcRK4taT0-RBaqz",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:support/help.html",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:51+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AcRK4taT0-RBaqz",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ADfK4taT0-RBaoy",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:teams/pds-swg.html",
+        "line": 155,
+        "textRange": {
+          "startLine": 155,
+          "endLine": 155,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:53+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ADfK4taT0-RBaoy",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9AA-K4taT0-RBaov",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:teams/pdsen-operations.html",
+        "line": 140,
+        "textRange": {
+          "startLine": 140,
+          "endLine": 140,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:56+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9AA-K4taT0-RBaov",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnF9ADuK4taT0-RBao1",
+      "project": "NASA-PDS_nasa-pds.github.io",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_nasa-pds.github.io:teams/pmc.html",
+        "line": 135,
+        "textRange": {
+          "startLine": 135,
+          "endLine": 135,
+          "startOffset": 4,
+          "endOffset": 81
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">&lt;/script&gt;</span>",
+            "    <span class=\"cd\">&lt;!-- Theme Analytics --&gt;</span>"
+          ],
+          "flagged": "    <span class=\"k\">&lt;script</span> async src=<span class=\"s\">\"https://www.googletagmanager.com/gtag/js?id=G-Q1K210DS5W\"</span><span class=\"k\">&gt;</span><span class=\"k\">&lt;/script&gt;</span>",
+          "after": [
+            "    <span class=\"k\">&lt;script&gt;</span>",
+            "      window.dataLayer = window.dataLayer || [];"
+          ]
+        }
+      },
+      "message": "Make sure not using resource integrity feature is safe here.",
+      "created": "2025-10-08T22:31:35+0000",
+      "updated": "2025-11-26T18:28:58+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_nasa-pds.github.io&hotspots=AZnF9ADuK4taT0-RBao1",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

@@ -10,11 +10,11 @@
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
 ![Plugins](https://img.shields.io/badge/plugins-2-blue)
-![Skills](https://img.shields.io/badge/skills-5-brightgreen)
+![Skills](https://img.shields.io/badge/skills-6-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
-This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 5 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
+This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 6 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
 
 **🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `sonarcloud-skills` (Security workflows)
 
@@ -59,10 +59,11 @@ Skills help automate repetitive or complex workflows, making development more ef
 
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
-| **[sonarcloud-security-audit](static/marketplace/skills/sonarcloud-security-audit/SKILL.md)** | Audit SonarCloud security issues for NASA PDS repositories and export to CSV | Security audits, vulnerability triage, compliance reporting |
-| **[sonarcloud-security-triage](static/marketplace/skills/sonarcloud-security-triage/SKILL.md)** | Apply triage decisions to SonarCloud security issues by bulk-updating statuses and comments | Security triage, bulk remediation, compliance tracking |
+| **[sonarcloud-security-exporting](static/marketplace/skills/sonarcloud-security-exporting/SKILL.md)** | Export SonarCloud security issues for NASA PDS repositories to CSV | Security audits, vulnerability reports, data export |
+| **[sonarcloud-security-triaging](static/marketplace/skills/sonarcloud-security-triaging/SKILL.md)** | Analyze security issues and suggest triage decisions with code context and explanations | Security review, making triage decisions, identifying false positives |
+| **[sonarcloud-security-updating](static/marketplace/skills/sonarcloud-security-updating/SKILL.md)** | Apply triage decisions to SonarCloud by bulk-updating security issue statuses and comments | Applying triage outcomes, bulk remediation, compliance tracking |
 
-**Total:** 2 plugins • 5 production-ready skills
+**Total:** 2 plugins • 6 production-ready skills
 
 ## Installation
 

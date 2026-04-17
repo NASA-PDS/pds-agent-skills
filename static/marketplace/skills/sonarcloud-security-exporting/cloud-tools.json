@@ -1,0 +1,431 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T23:11:00.957Z",
+    "organization": "nasa-pds",
+    "totalIssues": 11,
+    "totalVulnerabilities": 0,
+    "totalHotspots": 11,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_cloud-tools",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZaxQ_UyuTmZK-IveOs_",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:terraform/main.tf",
+        "line": 16,
+        "textRange": {
+          "startLine": 16,
+          "endLine": 16,
+          "startOffset": 9,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "}",
+            ""
+          ],
+          "flagged": "<span class=\"c\">resource</span> <span class=\"k\">\"aws_instance\"</span> <span class=\"k\">\"app_server\"</span> {",
+          "after": [
+            "  <span class=\"a\">ami</span>           = <span class=\"k\">var.ami</span>",
+            "  <span class=\"a\">instance_type</span> = <span class=\"k\">var.instance_type</span>"
+          ]
+        }
+      },
+      "message": "Omitting \"associate_public_ip_address\" allows network access from the Internet. Make sure it is safe here.",
+      "created": "2025-03-26T21:23:38+0000",
+      "updated": "2025-11-26T18:17:47+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZaxQ_UyuTmZK-IveOs_",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZu9iED68wNZa7MTSmBl",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:src/pds/cognito/common.py",
+        "line": 44,
+        "textRange": {
+          "startLine": 44,
+          "endLine": 44,
+          "startOffset": 8,
+          "endOffset": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"cd\"># Ensure at least one each upper and lower characters, one digit and one punctuation mark</span>",
+            "    <span class=\"sym-21 sym\">random_string_list</span> = ["
+          ],
+          "flagged": "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_lowercase),",
+          "after": [
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_uppercase),",
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.digits),"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2026-01-14T17:18:19+0000",
+      "updated": "2026-01-14T17:22:23+0000",
+      "author": "jimmie.d.young@gmail.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZu9iED68wNZa7MTSmBl",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZu9iED68wNZa7MTSmBm",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:src/pds/cognito/common.py",
+        "line": 45,
+        "textRange": {
+          "startLine": 45,
+          "endLine": 45,
+          "startOffset": 8,
+          "endOffset": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"sym-21 sym\">random_string_list</span> = [",
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_lowercase),"
+          ],
+          "flagged": "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_uppercase),",
+          "after": [
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.digits),",
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-17 sym\">random_punct_set</span>),"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2026-01-14T17:18:19+0000",
+      "updated": "2026-01-14T17:22:23+0000",
+      "author": "jimmie.d.young@gmail.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZu9iED68wNZa7MTSmBm",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZu9iED68wNZa7MTSmBn",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:src/pds/cognito/common.py",
+        "line": 46,
+        "textRange": {
+          "startLine": 46,
+          "endLine": 46,
+          "startOffset": 8,
+          "endOffset": 36
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_lowercase),",
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_uppercase),"
+          ],
+          "flagged": "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.digits),",
+          "after": [
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-17 sym\">random_punct_set</span>),",
+            "    ]"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2026-01-14T17:18:19+0000",
+      "updated": "2026-01-14T17:22:23+0000",
+      "author": "jimmie.d.young@gmail.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZu9iED68wNZa7MTSmBn",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZu9iED68wNZa7MTSmBo",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:src/pds/cognito/common.py",
+        "line": 47,
+        "textRange": {
+          "startLine": 47,
+          "endLine": 47,
+          "startOffset": 8,
+          "endOffset": 39
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.ascii_uppercase),",
+            "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-4 sym\">string</span>.digits),"
+          ],
+          "flagged": "        <span class=\"sym-2 sym\">random</span>.choice(<span class=\"sym-17 sym\">random_punct_set</span>),",
+          "after": [
+            "    ]",
+            "    <span class=\"k\">if</span> <span class=\"sym-20 sym\">length</span> &gt; <span class=\"c\">4</span>:"
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2026-01-14T17:18:19+0000",
+      "updated": "2026-01-14T17:22:23+0000",
+      "author": "jimmie.d.young@gmail.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZu9iED68wNZa7MTSmBo",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZu9iED68wNZa7MTSmBp",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:src/pds/cognito/common.py",
+        "line": 50,
+        "textRange": {
+          "startLine": 50,
+          "endLine": 50,
+          "startOffset": 50,
+          "endOffset": 100
+        },
+        "codeSnippet": {
+          "before": [
+            "    ]",
+            "    <span class=\"k\">if</span> <span class=\"sym-20 sym\">length</span> &gt; <span class=\"c\">4</span>:"
+          ],
+          "flagged": "        <span class=\"sym-21 sym\">random_string_list</span> = <span class=\"sym-21 sym\">random_string_list</span> + <span class=\"sym-2 sym\">random</span>.choices(<span class=\"sym-18 sym\">random_character_set</span>, k=<span class=\"sym-20 sym\">length</span> - <span class=\"c\">3</span>)",
+          "after": [
+            "    <span class=\"k\">return</span> <span class=\"s\">\"\"</span>.join(<span class=\"sym-21 sym\">random_string_list</span>)",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure that using this pseudorandom number generator is safe here.",
+      "created": "2026-01-14T17:18:19+0000",
+      "updated": "2026-01-14T17:22:23+0000",
+      "author": "jimmie.d.young@gmail.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZu9iED68wNZa7MTSmBp",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf7o_Efxz3LLlkEEtw",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:34+0000",
+      "updated": "2025-11-26T18:09:54+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZnf7o_Efxz3LLlkEEtw",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf7o_Efxz3LLlkEEtx",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:34+0000",
+      "updated": "2025-11-26T18:09:57+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZnf7o_Efxz3LLlkEEtx",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnAB-k3pdkRMEnN-A-_",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:.github/workflows/stable-cicd.yaml",
+        "line": 69,
+        "textRange": {
+          "startLine": 69,
+          "endLine": 69,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">stable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-03-26T21:23:38+0000",
+      "updated": "2025-11-26T18:10:01+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZnAB-k3pdkRMEnN-A-_",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnAB-pEpdkRMEnN-A_A",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:.github/workflows/unstable-cicd.yaml",
+        "line": 74,
+        "textRange": {
+          "startLine": 74,
+          "endLine": 74,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">unstable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-03-26T21:23:38+0000",
+      "updated": "2025-11-26T18:10:05+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZnAB-pEpdkRMEnN-A_A",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnAB-pEpdkRMEnN-A_B",
+      "project": "NASA-PDS_cloud-tools",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_cloud-tools:.github/workflows/unstable-cicd.yaml",
+        "line": 83,
+        "textRange": {
+          "startLine": 83,
+          "endLine": 83,
+          "startOffset": 22,
+          "endOffset": 58
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🛏️ Upload Coverag</span>e"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">SonarSource/sonarqube-scan-action@v5</span>",
+          "after": [
+            "                <span class=\"k\">env</span>:",
+            "                    <span class=\"k\">SONAR_TOKEN</span>: <span class=\"s\">${{secrets.SONAR_TOKEN}}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-04T13:14:39+0000",
+      "updated": "2025-11-26T18:10:08+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_cloud-tools&hotspots=AZnAB-pEpdkRMEnN-A_B",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

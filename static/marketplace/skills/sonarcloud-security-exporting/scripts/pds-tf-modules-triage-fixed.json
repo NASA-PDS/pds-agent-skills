@@ -1,0 +1,210 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T23:00:00Z",
+    "organization": "nasa-pds",
+    "totalIssues": 6,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json"
+  },
+  "issues": [
+    {
+      "key": "AZvn2L03kbtONb-kp7ej",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:.github/workflows/branch_cicd.yaml",
+        "line": 45,
+        "textRange": {
+          "startLine": 45,
+          "endLine": 45,
+          "startOffset": 22,
+          "endOffset": 50
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-07-31T21:40:30+0000",
+      "updated": "2026-01-22T22:34:34+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZvn2L03kbtONb-kp7ej",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "Using trusted GitHub Actions from known sources (actions/*, etc.). Risk is low for established actions with version tags. Full SHA hashes would add minimal security benefit given the trusted source.",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    },
+    {
+      "key": "AZvn2L2UkbtONb-kp7ek",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2026-01-22T22:34:25+0000",
+      "updated": "2026-01-22T22:34:34+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZvn2L2UkbtONb-kp7ek",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "Using trusted GitHub Actions from known sources (actions/*, etc.). Risk is low for established actions with version tags. Full SHA hashes would add minimal security benefit given the trusted source.",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    },
+    {
+      "key": "AZvn2L2UkbtONb-kp7el",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2026-01-22T22:34:25+0000",
+      "updated": "2026-01-22T22:34:34+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZvn2L2UkbtONb-kp7el",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "Using trusted GitHub Actions from known sources (actions/*, etc.). Risk is low for established actions with version tags. Full SHA hashes would add minimal security benefit given the trusted source.",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    },
+    {
+      "key": "AZvn2LypkbtONb-kp7eh",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:.github/workflows/terraform_cicd.yaml",
+        "line": 38,
+        "textRange": {
+          "startLine": 38,
+          "endLine": 38,
+          "startOffset": 12,
+          "endOffset": 52
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2023-10-23T23:06:52+0000",
+      "updated": "2026-01-22T22:34:34+0000",
+      "author": "130496396+sjoshi-jpl@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZvn2LypkbtONb-kp7eh",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "Using trusted GitHub Actions from known sources (actions/*, etc.). Risk is low for established actions with version tags. Full SHA hashes would add minimal security benefit given the trusted source.",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    },
+    {
+      "key": "AZvn2LypkbtONb-kp7ei",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:.github/workflows/terraform_cicd.yaml",
+        "line": 45,
+        "textRange": {
+          "startLine": 45,
+          "endLine": 45,
+          "startOffset": 12,
+          "endOffset": 40
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2023-09-21T17:40:07+0000",
+      "updated": "2026-01-22T22:34:34+0000",
+      "author": "130496396+sjoshi-jpl@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZvn2LypkbtONb-kp7ei",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "SAFE",
+        "comment": "Using trusted GitHub Actions from known sources (actions/*, etc.). Risk is low for established actions with version tags. Full SHA hashes would add minimal security benefit given the trusted source.",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    },
+    {
+      "key": "AZaxQZ_XJCJ5OvULFRGU",
+      "project": "NASA-PDS_pds-tf-modules",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds-tf-modules:terraform/modules/s3/bucket/main.tf",
+        "line": 2,
+        "textRange": {
+          "startLine": 2,
+          "endLine": 2,
+          "startOffset": 9,
+          "endOffset": 24
+        }
+      },
+      "message": "Omitting \"logging\" or acl=\"log-delivery-write\" makes logs incomplete. Make sure it is safe here.",
+      "created": "2025-01-05T16:35:12+0000",
+      "updated": "2025-05-08T18:55:54+0000",
+      "author": "22924433+viviant100@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds-tf-modules&hotspots=AZaxQZ_XJCJ5OvULFRGU",
+      "flows": [],
+      "triage": {
+        "action": "REVIEWED",
+        "resolution": "ACKNOWLEDGED",
+        "comment": "Valid security concern. Created issue #39 for remediation: https://github.com/NASA-PDS/pds-tf-modules/issues/39",
+        "reviewer": "jordanpadams",
+        "confidence": "HIGH",
+        "analyzedAt": "2026-04-16T23:00:00Z"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2762 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T22:38:34.108Z",
+    "organization": "nasa-pds",
+    "totalIssues": 74,
+    "totalVulnerabilities": 0,
+    "totalHotspots": 74,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_validate",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZXJDCog30oVesw53bgn",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ri/CommandLineInterface.java",
+        "line": 66,
+        "textRange": {
+          "startLine": 66,
+          "endLine": 66,
+          "startOffset": 8,
+          "endOffset": 39
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"s\">\"with two variables, 'user' and 'password' for example: \\n\"</span> +",
+            "        <span class=\"s\">\"      user=janedoe\\n\"</span> +"
+          ],
+          "flagged": "        <span class=\"s\">\"      password=mypassword\\n\\n\"</span>,",
+          "after": [
+            "        <span class=\"k\">true</span>);",
+            "  }"
+          ]
+        }
+      },
+      "message": "'password' detected in this expression, review this potentially hard-coded password.",
+      "created": "2025-03-24T16:45:02+0000",
+      "updated": "2025-04-30T16:29:49+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZXJDCog30oVesw53bgn",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s6SqhWcvWgz9ssK",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/constants/ApplicationConstants.java",
+        "line": 27,
+        "textRange": {
+          "startLine": 27,
+          "endLine": 27,
+          "startOffset": 29,
+          "endOffset": 47
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">final</span> String <span class=\"sym-12 sym\">MYSQL_USER_DEFAULT</span> = <span class=\"s\">\"root\"</span>;",
+            ""
+          ],
+          "flagged": "  <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">final</span> String <span class=\"sym-13 sym\">MYSQL_PASSWORD_KEY</span> = <span class=\"s\">\"mysql.pass\"</span>;",
+          "after": [
+            "",
+            "  <span class=\"k\">public</span> <span class=\"k\">static</span> <span class=\"k\">final</span> String <span class=\"sym-14 sym\">MYSQL_PASSWORD_DEFAULT</span> = <span class=\"s\">\"\"</span>;"
+          ]
+        }
+      },
+      "message": "'PASSWORD' detected in this expression, review this potentially hard-coded password.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-05-08T18:21:22+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s6SqhWcvWgz9ssK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0szjqhWcvWgz9scX",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/content/table/FieldValueValidator.java",
+        "line": 68,
+        "textRange": {
+          "startLine": 68,
+          "endLine": 68,
+          "startOffset": 66,
+          "endOffset": 73
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-35 sym\">formatPattern</span> =",
+            "      <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"%([\\\\+,-])?([0-9]+)(\\\\.([0-9]+))?([doxfeEs])\"</span>);"
+          ],
+          "flagged": "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-36 sym\">leadingWhiteSpacePattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"\\\\s+.*\"</span>);",
+          "after": [
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-37 sym\">trailingWhiteSpacePattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\".*\\\\s+\"</span>);",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-38 sym\">asciiBibCodePattern</span> ="
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2022-10-06T21:39:19+0000",
+      "updated": "2025-05-08T18:21:41+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0szjqhWcvWgz9scX",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0szjqhWcvWgz9scY",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/content/table/FieldValueValidator.java",
+        "line": 69,
+        "textRange": {
+          "startLine": 69,
+          "endLine": 69,
+          "startOffset": 67,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"%([\\\\+,-])?([0-9]+)(\\\\.([0-9]+))?([doxfeEs])\"</span>);",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-36 sym\">leadingWhiteSpacePattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"\\\\s+.*\"</span>);"
+          ],
+          "flagged": "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-37 sym\">trailingWhiteSpacePattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\".*\\\\s+\"</span>);",
+          "after": [
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-38 sym\">asciiBibCodePattern</span> =",
+            "      <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"\\\\d{4}[A-Za-z\\\\d\\\\.\\\\&amp;]{5}[A-Za-z\\\\d\\\\.]{9}[A-Z]\"</span>);"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2022-10-06T21:39:19+0000",
+      "updated": "2025-05-08T18:21:46+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0szjqhWcvWgz9scY",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0szjqhWcvWgz9scZ",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/content/table/FieldValueValidator.java",
+        "line": 80,
+        "textRange": {
+          "startLine": 80,
+          "endLine": 80,
+          "startOffset": 57,
+          "endOffset": 64
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-44 sym\">asciiNumericBase16Pattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"[0-9a-fA-F]{1,255}\"</span>);",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-45 sym\">asciiMd5ChecksumPattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"[0-9a-fA-F]{32}\"</span>);"
+          ],
+          "flagged": "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-46 sym\">asciiDoiPattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"10\\\\.\\\\S+/\\\\S+\"</span>);",
+          "after": [
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-47 sym\">asciiLidPattern</span> =",
+            "      <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"urn:[a-z]+:[a-z]+:([0-9a-z-._]:?)+\"</span>);"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2022-10-06T21:39:19+0000",
+      "updated": "2025-05-08T18:21:51+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0szjqhWcvWgz9scZ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0szjqhWcvWgz9sca",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/content/table/FieldValueValidator.java",
+        "line": 110,
+        "textRange": {
+          "startLine": 110,
+          "endLine": 110,
+          "startOffset": 14,
+          "endOffset": 21
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\">   */</span>",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-52 sym\">asciiFileNamePattern</span> ="
+          ],
+          "flagged": "      <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"^[A-Za-z0-9]+[A-Za-z0-9-_\\\\.]*\\\\.[A-Za-z0-9-_]*[A-Za-z0-9]+$\"</span>);",
+          "after": [
+            "",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">final</span> <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-53 sym\">dirPattern</span> ="
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2023-05-09T17:27:35+0000",
+      "updated": "2025-05-08T18:21:58+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0szjqhWcvWgz9sca",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s6oqhWcvWgz9ssx",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/containers/LabelContainer.java",
+        "line": 323,
+        "textRange": {
+          "startLine": 323,
+          "endLine": 323,
+          "startOffset": 24,
+          "endOffset": 31
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"cd\">// However, in some labels the table pointer was formatted as follows</span>",
+            "    <span class=\"cd\">// ^TABLE = \"(DATA, &lt;BYTES&gt;)\"</span>"
+          ],
+          "flagged": "    <span class=\"sym-12 sym\">Pattern</span> <span class=\"sym-141 sym\">p</span> = <span class=\"sym-12 sym\">Pattern</span>.compile(<span class=\"s\">\"(.*)\\\\(([^,]+),([0-9]+)\\\\)\"</span>);",
+          "after": [
+            "    <span class=\"sym-11 sym\">Matcher</span> <span class=\"sym-142 sym\">m</span> = <span class=\"sym-141 sym\">p</span>.matcher(<span class=\"sym-140 sym\">entry</span>.getValue().toString());",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-05-08T18:22:03+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s6oqhWcvWgz9ssx",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s2pqhWcvWgz9sjZ",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/label/CachedLSResourceResolver.java",
+        "line": 209,
+        "textRange": {
+          "startLine": 209,
+          "endLine": 209,
+          "startOffset": 12,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "              <span class=\"sym-14 sym\">ProblemType</span>.LABEL_UNRESOLVABLE_RESOURCE, <span class=\"sym-70 sym\">e</span>.getMessage()), <span class=\"sym-71 sym\">u</span>));",
+            "        } <span class=\"k\">else</span> {"
+          ],
+          "flagged": "          <span class=\"sym-70 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        }",
+            "      } <span class=\"k\">finally</span> {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:21:31+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s2pqhWcvWgz9sjZ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1SqhWcvWgz9sf5",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/DocumentUtil.java",
+        "line": 194,
+        "textRange": {
+          "startLine": 194,
+          "endLine": 194,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-3 sym\">FileNotFoundException</span> <span class=\"sym-37 sym\">ex</span>) {",
+            "      <span class=\"sym-18 sym\">LOG</span>.error(<span class=\"s\">\"readFile: Cannot find file {}\"</span>, <span class=\"sym-34 sym\">fileUrl</span>);"
+          ],
+          "flagged": "      <span class=\"sym-37 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-19T16:10:43+0000",
+      "updated": "2025-11-26T18:21:34+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1SqhWcvWgz9sf5",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1SqhWcvWgz9sf6",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/DocumentUtil.java",
+        "line": 209,
+        "textRange": {
+          "startLine": 209,
+          "endLine": 209,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-5 sym\">IOException</span> <span class=\"sym-40 sym\">ex</span>) {",
+            "      <span class=\"sym-18 sym\">LOG</span>.error(<span class=\"s\">\"readFile: Cannot read file {}\"</span>, <span class=\"sym-34 sym\">fileUrl</span>);"
+          ],
+          "flagged": "      <span class=\"sym-40 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-19T16:10:43+0000",
+      "updated": "2025-11-26T18:21:37+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1SqhWcvWgz9sf6",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1SqhWcvWgz9sf7",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/DocumentUtil.java",
+        "line": 216,
+        "textRange": {
+          "startLine": 216,
+          "endLine": 216,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-5 sym\">IOException</span> <span class=\"sym-41 sym\">ex</span>) {",
+            "      <span class=\"sym-18 sym\">LOG</span>.error(<span class=\"s\">\"readFile: Cannot close file {}\"</span>, <span class=\"sym-34 sym\">fileUrl</span>);"
+          ],
+          "flagged": "      <span class=\"sym-41 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "    <span class=\"k\">return</span> (<span class=\"k\">null</span>);"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-19T19:07:00+0000",
+      "updated": "2025-11-26T18:21:40+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1SqhWcvWgz9sf7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s2AqhWcvWgz9siK",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/FileService.java",
+        "line": 83,
+        "textRange": {
+          "startLine": 83,
+          "endLine": 83,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-23 sym\">writer</span>.close();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-3 sym\">IOException</span> <span class=\"sym-25 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-25 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      System.exit(<span class=\"c\">1</span>);",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-26 sym\">e</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-03-05T22:58:53+0000",
+      "updated": "2025-11-26T18:21:46+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s2AqhWcvWgz9siK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s2AqhWcvWgz9siL",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/FileService.java",
+        "line": 86,
+        "textRange": {
+          "startLine": 86,
+          "endLine": 86,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      System.exit(<span class=\"c\">1</span>);",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-26 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-26 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      System.exit(<span class=\"c\">1</span>);",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-03-05T22:58:53+0000",
+      "updated": "2025-11-26T18:21:50+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s2AqhWcvWgz9siL",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1MqhWcvWgz9sfv",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/FilenameUtility.java",
+        "line": 48,
+        "textRange": {
+          "startLine": 48,
+          "endLine": 48,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-9 sym\">ex</span>) {",
+            "      <span class=\"sym-5 sym\">LOG</span>.error(<span class=\"s\">\"Cannot convert '%20' to ' ' for filename {}\"</span>, <span class=\"sym-7 sym\">filename</span>);"
+          ],
+          "flagged": "      <span class=\"sym-9 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "    <span class=\"k\">return</span> (<span class=\"sym-8 sym\">decodedName</span>);"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-11-09T19:42:50+0000",
+      "updated": "2025-11-26T18:21:43+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1MqhWcvWgz9sfv",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1pqhWcvWgz9shE",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/LabelUtil.java",
+        "line": 462,
+        "textRange": {
+          "startLine": 462,
+          "endLine": 462,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-102 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-102 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-03-24T18:46:20+0000",
+      "updated": "2025-11-26T18:21:53+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1pqhWcvWgz9shE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1WqhWcvWgz9sf_",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/PDFUtil.java",
+        "line": 65,
+        "textRange": {
+          "startLine": 65,
+          "endLine": 65,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-23 sym\">externalErrorFilename</span> = <span class=\"k\">null</span>; <span class=\"cd\">// Reset back to null since writing of file was not</span>",
+            "                                         <span class=\"cd\">// successful.</span>"
+          ],
+          "flagged": "      <span class=\"sym-35 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-11T15:08:08+0000",
+      "updated": "2025-11-26T18:21:57+0000",
+      "author": "62894092+qchaupds@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1WqhWcvWgz9sf_",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1WqhWcvWgz9sgB",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/PDFUtil.java",
+        "line": 78,
+        "textRange": {
+          "startLine": 78,
+          "endLine": 78,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"k\">this</span>.<span class=\"sym-23 sym\">externalErrorFilename</span> = <span class=\"k\">null</span>; <span class=\"cd\">// Reset back to null since writing of file was not</span>",
+            "                                           <span class=\"cd\">// successful.</span>"
+          ],
+          "flagged": "        <span class=\"sym-38 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    } <span class=\"cd\">// end for (TestAssertion error : result.getTestAssertions())</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-11T15:08:08+0000",
+      "updated": "2025-11-26T18:22:00+0000",
+      "author": "62894092+qchaupds@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1WqhWcvWgz9sgB",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1WqhWcvWgz9sgD",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/PDFUtil.java",
+        "line": 86,
+        "textRange": {
+          "startLine": 86,
+          "endLine": 86,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-39 sym\">e</span>) {",
+            "      <span class=\"sym-22 sym\">LOG</span>.error(<span class=\"s\">\"Cannot close file {}\"</span>, <span class=\"k\">this</span>.<span class=\"sym-23 sym\">externalErrorFilename</span>);"
+          ],
+          "flagged": "      <span class=\"sym-39 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-23 sym\">externalErrorFilename</span> = <span class=\"k\">null</span>; <span class=\"cd\">// Reset back to null since writing of file was not</span>",
+            "                                         <span class=\"cd\">// successful.</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-11T15:08:08+0000",
+      "updated": "2025-11-26T18:22:03+0000",
+      "author": "62894092+qchaupds@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1WqhWcvWgz9sgD",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1jqhWcvWgz9sgT",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/ReferentialIntegrityUtil.java",
+        "line": 333,
+        "textRange": {
+          "startLine": 333,
+          "endLine": 333,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-56 sym\">getListener</span>().addProblem(<span class=\"sym-73 sym\">p1</span>);",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-74 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-74 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-06-22T22:12:51+0000",
+      "updated": "2025-11-26T18:22:07+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1jqhWcvWgz9sgT",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1jqhWcvWgz9sgV",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/ReferentialIntegrityUtil.java",
+        "line": 467,
+        "textRange": {
+          "startLine": 467,
+          "endLine": 467,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"cd\">// end for loop</span>",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-89 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-89 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-06-22T22:12:51+0000",
+      "updated": "2025-11-26T18:22:10+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1jqhWcvWgz9sgV",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1uqhWcvWgz9shd",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/VersionInfo.java",
+        "line": 197,
+        "textRange": {
+          "startLine": 197,
+          "endLine": 197,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">return</span> <span class=\"sym-77 sym\">getResourceListing</span>(<span class=\"sym-73 sym\">path</span>);",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">URISyntaxException</span> <span class=\"sym-74 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-74 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">IOException</span> <span class=\"sym-75 sym\">e</span>) {",
+            "      <span class=\"sym-75 sym\">e</span>.printStackTrace();"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:13+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1uqhWcvWgz9shd",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1uqhWcvWgz9she",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/VersionInfo.java",
+        "line": 199,
+        "textRange": {
+          "startLine": 199,
+          "endLine": 199,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-74 sym\">e</span>.printStackTrace();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">IOException</span> <span class=\"sym-75 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-75 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    } <span class=\"k\">catch</span> (UnsupportedOperationException <span class=\"sym-76 sym\">e</span>) {",
+            "      <span class=\"sym-76 sym\">e</span>.printStackTrace();"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:16+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1uqhWcvWgz9she",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1uqhWcvWgz9shf",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/VersionInfo.java",
+        "line": 201,
+        "textRange": {
+          "startLine": 201,
+          "endLine": 201,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-75 sym\">e</span>.printStackTrace();",
+            "    } <span class=\"k\">catch</span> (UnsupportedOperationException <span class=\"sym-76 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-76 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "    <span class=\"k\">return</span> <span class=\"k\">null</span>;"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:19+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1uqhWcvWgz9shf",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s0CqhWcvWgz9sdy",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/AggregateManager.java",
+        "line": 762,
+        "textRange": {
+          "startLine": 762,
+          "endLine": 762,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-132 sym\">e</span>) {",
+            "      <span class=\"cd\">// Print stack trace for developer to inspect.</span>"
+          ],
+          "flagged": "      <span class=\"sym-132 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"sym-18 sym\">LOG</span>.error(<span class=\"s\">\" Cannot crawl for files in: \"</span> + <span class=\"sym-123 sym\">urlCrawl</span> + <span class=\"s\">\": \"</span> + <span class=\"sym-132 sym\">e</span>.getMessage());",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-06T20:18:46+0000",
+      "updated": "2025-11-26T18:22:23+0000",
+      "author": "62894092+qchaupds@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s0CqhWcvWgz9sdy",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s08qhWcvWgz9sfC",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/InMemoryRegistrar.java",
+        "line": 67,
+        "textRange": {
+          "startLine": 67,
+          "endLine": 67,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">MalformedURLException</span> <span class=\"sym-31 sym\">e</span>) {",
+            "      <span class=\"cd\">// TODO Auto-generated catch block</span>"
+          ],
+          "flagged": "      <span class=\"sym-31 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2022-09-16T16:08:33+0000",
+      "updated": "2025-11-26T18:22:26+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s08qhWcvWgz9sfC",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s0cqhWcvWgz9sef",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/TargetExaminer.java",
+        "line": 125,
+        "textRange": {
+          "startLine": 125,
+          "endLine": 125,
+          "startOffset": 12,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"k\">if</span> (!<span class=\"sym-47 sym\">ignoreErrors</span>) {",
+            "          <span class=\"sym-20 sym\">LOG</span>.error(<span class=\"s\">\"Exception encountered in tagMatches:url {},{}\"</span>, <span class=\"sym-45 sym\">url</span>, <span class=\"sym-53 sym\">e</span>.getMessage());"
+          ],
+          "flagged": "          <span class=\"sym-53 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        }",
+            "      }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-10-27T21:48:57+0000",
+      "updated": "2025-11-26T18:23:03+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s0cqhWcvWgz9sef",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s0cqhWcvWgz9seg",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/TargetExaminer.java",
+        "line": 131,
+        "textRange": {
+          "startLine": 131,
+          "endLine": 131,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">if</span> (!<span class=\"sym-47 sym\">ignoreErrors</span>) {",
+            "        <span class=\"sym-20 sym\">LOG</span>.error(<span class=\"s\">\"Exception encountered in tagMatches:url {},{}\"</span>, <span class=\"sym-45 sym\">url</span>, <span class=\"sym-54 sym\">e</span>.getMessage());"
+          ],
+          "flagged": "        <span class=\"sym-54 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-10-27T21:48:57+0000",
+      "updated": "2025-11-26T18:23:07+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s0cqhWcvWgz9seg",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s0cqhWcvWgz9sej",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/TargetExaminer.java",
+        "line": 186,
+        "textRange": {
+          "startLine": 186,
+          "endLine": 186,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-67 sym\">e</span>) {",
+            "        <span class=\"sym-20 sym\">LOG</span>.error(<span class=\"s\">\"Exception encountered in getTargetContent:url {},{}\"</span>, <span class=\"sym-56 sym\">url</span>, <span class=\"sym-67 sym\">e</span>.getMessage());"
+          ],
+          "flagged": "        <span class=\"sym-67 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-68 sym\">e</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-10-30T23:29:10+0000",
+      "updated": "2025-11-26T18:23:10+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s0cqhWcvWgz9sej",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s0cqhWcvWgz9sek",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/TargetExaminer.java",
+        "line": 190,
+        "textRange": {
+          "startLine": 190,
+          "endLine": 190,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-68 sym\">e</span>) {",
+            "      <span class=\"sym-20 sym\">LOG</span>.error(<span class=\"s\">\"Exception encountered in getTargetContent:url {},{}\"</span>, <span class=\"sym-56 sym\">url</span>, <span class=\"sym-68 sym\">e</span>.getMessage());"
+          ],
+          "flagged": "      <span class=\"sym-68 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-10-30T23:29:10+0000",
+      "updated": "2025-11-26T18:23:13+0000",
+      "author": "qchau@pds-dev3.jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s0cqhWcvWgz9sek",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0syrqhWcvWgz9sZ7",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/AbstractFileSubtreeWalker.java",
+        "line": 43,
+        "textRange": {
+          "startLine": 43,
+          "endLine": 43,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-12 sym\">e</span>) {",
+            "        <span class=\"cd\">// TODO Log the exception</span>"
+          ],
+          "flagged": "        <span class=\"sym-12 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    } <span class=\"k\">else</span> {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:29+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0syrqhWcvWgz9sZ7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0syrqhWcvWgz9sZ9",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/AbstractFileSubtreeWalker.java",
+        "line": 56,
+        "textRange": {
+          "startLine": 56,
+          "endLine": 56,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-17 sym\">e</span>) {",
+            "        <span class=\"cd\">// TODO log the exception</span>"
+          ],
+          "flagged": "        <span class=\"sym-17 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:32+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0syrqhWcvWgz9sZ9",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0swoqhWcvWgz9sWQ",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/ContextProductReferenceValidationRule.java",
+        "line": 306,
+        "textRange": {
+          "startLine": 306,
+          "endLine": 306,
+          "startOffset": 16,
+          "endOffset": 31
+        },
+        "codeSnippet": {
+          "before": [
+            "            } <span class=\"k\">catch</span> (Exception <span class=\"sym-58 sym\">e</span>) {",
+            "              System.out.println(<span class=\"sym-58 sym\">e</span>);"
+          ],
+          "flagged": "              <span class=\"sym-58 sym\">e</span>.printStackTrace();",
+          "after": [
+            "            }",
+            "          }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-09-25T23:21:20+0000",
+      "updated": "2025-11-26T18:22:36+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0swoqhWcvWgz9sWQ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0sx4qhWcvWgz9sYX",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/FileReferenceValidationRule.java",
+        "line": 365,
+        "textRange": {
+          "startLine": 365,
+          "endLine": 365,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-113 sym\">e</span>) {",
+            "      <span class=\"cd\">// Print the stack trace for debugging and log the error message.</span>"
+          ],
+          "flagged": "      <span class=\"sym-113 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      String <span class=\"sym-114 sym\">message</span> = <span class=\"s\">\"Error occurred while reading the uri: \"</span> + <span class=\"sym-113 sym\">e</span>.getMessage();",
+            "      <span class=\"sym-44 sym\">LOG</span>.error(<span class=\"s\">\"validate:\"</span> + <span class=\"sym-114 sym\">message</span>);"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2022-10-31T05:06:52+0000",
+      "updated": "2025-11-26T18:22:39+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0sx4qhWcvWgz9sYX",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0syJqhWcvWgz9sY5",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/FindUnreferencedFiles.java",
+        "line": 58,
+        "textRange": {
+          "startLine": 58,
+          "endLine": 58,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-28 sym\">e</span>) {",
+            "        <span class=\"cd\">// TODO Auto-generated catch block</span>"
+          ],
+          "flagged": "        <span class=\"sym-28 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      } <span class=\"k\">finally</span> {",
+            "        <span class=\"k\">if</span> (<span class=\"sym-20 sym\">uis</span> != <span class=\"k\">null</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-03-30T23:13:49+0000",
+      "updated": "2025-11-26T18:22:42+0000",
+      "author": "1130658+al-niessner@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0syJqhWcvWgz9sY5",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0sxZqhWcvWgz9sXg",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/LabelInFolderRule.java",
+        "line": 152,
+        "textRange": {
+          "startLine": 152,
+          "endLine": 152,
+          "startOffset": 16,
+          "endOffset": 31
+        },
+        "codeSnippet": {
+          "before": [
+            "            } <span class=\"k\">catch</span> (Exception <span class=\"sym-58 sym\">e</span>) {",
+            "              reportError(<span class=\"sym-23 sym\">GenericProblems</span>.UNCAUGHT_EXCEPTION, <span class=\"sym-55 sym\">t</span>.getUrl(), -<span class=\"c\">1</span>, -<span class=\"c\">1</span>, <span class=\"sym-58 sym\">e</span>.getMessage());"
+          ],
+          "flagged": "              <span class=\"sym-58 sym\">e</span>.printStackTrace();",
+          "after": [
+            "            }",
+            "          }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-01-30T23:37:44+0000",
+      "updated": "2025-11-26T18:22:46+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0sxZqhWcvWgz9sXg",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0sxZqhWcvWgz9sXi",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/LabelInFolderRule.java",
+        "line": 169,
+        "textRange": {
+          "startLine": 169,
+          "endLine": 169,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-29 sym\">validateThreadExecutor</span>.shutdown();",
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-60 sym\">e</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-60 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "      getListener().addProblem(<span class=\"k\">new</span> <span class=\"sym-20 sym\">ValidationProblem</span>(<span class=\"k\">new</span> <span class=\"sym-16 sym\">ProblemDefinition</span>(<span class=\"sym-13 sym\">ExceptionType</span>.DEBUG,"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-11-27T19:41:33+0000",
+      "updated": "2025-11-26T18:22:49+0000",
+      "author": "galen.a.hollins@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0sxZqhWcvWgz9sXi",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0syFqhWcvWgz9sY0",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/SubdirectoryNamingRule.java",
+        "line": 63,
+        "textRange": {
+          "startLine": 63,
+          "endLine": 63,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-26 sym\">url</span> = <span class=\"k\">new</span> <span class=\"sym-3 sym\">URL</span>(<span class=\"sym-25 sym\">location</span>);",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">MalformedURLException</span> <span class=\"sym-27 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-27 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">return</span> <span class=\"k\">false</span>;",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:22:52+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0syFqhWcvWgz9sY0",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0swZqhWcvWgz9sVo",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/TableValidator.java",
+        "line": 195,
+        "textRange": {
+          "startLine": 195,
+          "endLine": 195,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"cd\">// Print the stack trace to an external file for inspection.</span>",
+            "      <span class=\"sym-22 sym\">FileService</span>.printStackTraceToFile(<span class=\"k\">null</span>, <span class=\"sym-62 sym\">e</span>);"
+          ],
+          "flagged": "      <span class=\"sym-62 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    } <span class=\"k\">finally</span> {",
+            "      <span class=\"k\">if</span> (<span class=\"k\">this</span>.<span class=\"sym-36 sym\">currentTableReader</span> != <span class=\"k\">null</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2022-10-31T05:06:52+0000",
+      "updated": "2025-11-26T18:22:55+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0swZqhWcvWgz9sVo",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0swZqhWcvWgz9sVv",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/rule/pds4/TableValidator.java",
+        "line": 301,
+        "textRange": {
+          "startLine": 301,
+          "endLine": 301,
+          "startOffset": 11,
+          "endOffset": 26
+        },
+        "codeSnippet": {
+          "before": [
+            "                                                     <span class=\"cd\">// file that ends with .txt or .log</span>",
+            "      <span class=\"sym-32 sym\">LOG</span>.error(<span class=\"s\">\"Unxpected exeption reached while reading data file {}\"</span>, <span class=\"sym-66 sym\">dataFile</span>);"
+          ],
+          "flagged": "      <span class=\"sym-76 sym\">ioEx</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">throw</span> <span class=\"k\">new</span> <span class=\"sym-1 sym\">IOException</span>(<span class=\"s\">\"Unexpected exception reached while reading data object '\"</span>",
+            "          + <span class=\"k\">this</span>.<span class=\"sym-38 sym\">tableObject</span>.getDataObjectLocation().getDataObject() + <span class=\"s\">\"', record '\"</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2022-10-31T05:06:52+0000",
+      "updated": "2025-11-26T18:22:59+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0swZqhWcvWgz9sVv",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0szFqhWcvWgz9saX",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/validate/task/ValidationTask.java",
+        "line": 132,
+        "textRange": {
+          "startLine": 132,
+          "endLine": 132,
+          "startOffset": 9,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-21 sym\">rule</span>.execute(<span class=\"sym-24 sym\">context</span>);",
+            "    } <span class=\"k\">catch</span> (Throwable <span class=\"sym-43 sym\">ex</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-43 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">try</span> {",
+            "        <span class=\"sym-23 sym\">problemListener</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-09-25T23:20:51+0000",
+      "updated": "2025-11-26T18:23:16+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0szFqhWcvWgz9saX",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9sop",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 577,
+        "textRange": {
+          "startLine": 577,
+          "endLine": 577,
+          "startOffset": 11,
+          "endOffset": 26
+        },
+        "codeSnippet": {
+          "before": [
+            "            <span class=\"sym-123 sym\">registeredProductsFile</span>.toURI().toURL());",
+            "        <span class=\"sym-101 sym\">report</span>.record(<span class=\"sym-123 sym\">registeredProductsFile</span>.toURI(), <span class=\"sym-179 sym\">p</span>);"
+          ],
+          "flagged": "        <span class=\"sym-178 sym\">ex</span>.printStackTrace();",
+          "after": [
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-180 sym\">e</span>) {",
+            "        <span class=\"sym-180 sym\">e</span>.printStackTrace();"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2024-10-17T21:47:37+0000",
+      "updated": "2025-11-26T18:23:53+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9sop",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9soq",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 579,
+        "textRange": {
+          "startLine": 579,
+          "endLine": 579,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-178 sym\">ex</span>.printStackTrace();",
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-180 sym\">e</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-180 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-181 sym\">e</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-07-17T23:54:50+0000",
+      "updated": "2025-11-26T18:23:56+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9soq",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9sos",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 582,
+        "textRange": {
+          "startLine": 582,
+          "endLine": 582,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-181 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-181 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    } <span class=\"k\">finally</span> {",
+            "      <span class=\"sym-168 sym\">reader</span>.close();"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-07-17T23:54:50+0000",
+      "updated": "2025-11-26T18:23:59+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9sos",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9sor",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 593,
+        "textRange": {
+          "startLine": 593,
+          "endLine": 593,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "          <span class=\"sym-162 sym\">pList</span>);",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-182 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-182 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2020-03-27T00:49:27+0000",
+      "updated": "2025-11-26T18:24:03+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9sor",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9sou",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 616,
+        "textRange": {
+          "startLine": 616,
+          "endLine": 616,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-6 sym\">IOException</span> <span class=\"sym-192 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-192 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-07-17T17:35:10+0000",
+      "updated": "2025-11-26T18:24:07+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9sou",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9sov",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 670,
+        "textRange": {
+          "startLine": 670,
+          "endLine": 670,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-193 sym\">jsonWriter</span>.close();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-6 sym\">IOException</span> <span class=\"sym-202 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-202 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-07-17T17:35:10+0000",
+      "updated": "2025-11-26T18:24:09+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9sov",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9so8",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 1194,
+        "textRange": {
+          "startLine": 1194,
+          "endLine": 1194,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (Exception <span class=\"sym-301 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-301 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      System.out.println(<span class=\"sym-301 sym\">e</span>.getMessage()",
+            "          + <span class=\"s\">\"\\nInvalid JSON File: Verify format and values match that in RegisteredProducts File JSON file: \"</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-09-27T14:42:16+0000",
+      "updated": "2025-11-26T18:24:12+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9so8",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9spJ",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 1541,
+        "textRange": {
+          "startLine": 1541,
+          "endLine": 1541,
+          "startOffset": 14,
+          "endOffset": 29
+        },
+        "codeSnippet": {
+          "before": [
+            "          } <span class=\"k\">else</span> {",
+            "            <span class=\"cd\">// Print stack trace for developer to inspect.</span>"
+          ],
+          "flagged": "            <span class=\"sym-341 sym\">e</span>.printStackTrace();",
+          "after": [
+            "            <span class=\"sym-88 sym\">LOG</span>.error(<span class=\"s\">\"ValidateLauncher:doValidation:Stack trace content is above\"</span>);",
+            "            <span class=\"sym-342 sym\">p</span> = <span class=\"k\">new</span> <span class=\"sym-72 sym\">ValidationProblem</span>(<span class=\"k\">new</span> <span class=\"sym-68 sym\">ProblemDefinition</span>(<span class=\"sym-53 sym\">ExceptionType</span>.FATAL,"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2021-10-06T20:18:46+0000",
+      "updated": "2025-11-26T18:24:15+0000",
+      "author": "62894092+qchaupds@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9spJ",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s5HqhWcvWgz9spL",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ValidateLauncher.java",
+        "line": 1580,
+        "textRange": {
+          "startLine": 1580,
+          "endLine": 1580,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"k\">this</span>.<span class=\"sym-101 sym\">report</span>.record(<span class=\"k\">new</span> <span class=\"sym-9 sym\">URI</span>(getClass().getName()), <span class=\"sym-349 sym\">p1</span>);",
+            "      } <span class=\"k\">catch</span> (Exception <span class=\"sym-350 sym\">e</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-350 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2022-06-26T19:14:09+0000",
+      "updated": "2025-11-26T18:24:19+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s5HqhWcvWgz9spL",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9slV",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 79,
+        "textRange": {
+          "startLine": 79,
+          "endLine": 79,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.name(<span class=\"s\">\"label\"</span>).value(<span class=\"sym-29 sym\">target</span>);",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-30 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-30 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:19+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9slV",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9slW",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 90,
+        "textRange": {
+          "startLine": 90,
+          "endLine": 90,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-33 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-33 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:23+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9slW",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9sla",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startOffset": 11,
+          "endOffset": 26
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.endObject();",
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-46 sym\">io</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-46 sym\">io</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    } <span class=\"k\">else</span> <span class=\"k\">if</span> (<span class=\"sym-45 sym\">problem</span> <span class=\"k\">instanceof</span> <span class=\"sym-8 sym\">ContentProblem</span>) {"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2017-08-22T16:40:49+0000",
+      "updated": "2025-11-26T18:23:27+0000",
+      "author": "mcayanan@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9sla",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9sld",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 226,
+        "textRange": {
+          "startLine": 226,
+          "endLine": 226,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-64 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-64 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:30+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9sld",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9sle",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 263,
+        "textRange": {
+          "startLine": 263,
+          "endLine": 263,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      }",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-68 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-68 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:33+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9sle",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9slf",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 275,
+        "textRange": {
+          "startLine": 275,
+          "endLine": 275,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.name(<span class=\"s\">\"deprecatedFlagWarning\"</span>).value(<span class=\"sym-73 sym\">msg</span>);",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-74 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-74 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:36+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9slf",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9slg",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 288,
+        "textRange": {
+          "startLine": 288,
+          "endLine": 288,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.endObject();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-80 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-80 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:40+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9slg",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9slh",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 301,
+        "textRange": {
+          "startLine": 301,
+          "endLine": 301,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.endObject();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-86 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-86 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:43+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9slh",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s3yqhWcvWgz9sli",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/report/JSONReport.java",
+        "line": 311,
+        "textRange": {
+          "startLine": 311,
+          "endLine": 311,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">this</span>.<span class=\"sym-21 sym\">stream</span>.name(<span class=\"s\">\"totalWarnings\"</span>).value(<span class=\"sym-90 sym\">warnings</span>);",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-91 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-91 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-12-19T17:52:05+0000",
+      "updated": "2025-11-26T18:23:46+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s3yqhWcvWgz9sli",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s4hqhWcvWgz9sn5",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/validate/ri/UserInput.java",
+        "line": 52,
+        "textRange": {
+          "startLine": 52,
+          "endLine": 52,
+          "startOffset": 12,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "          <span class=\"k\">return</span> <span class=\"k\">true</span>;",
+            "        } <span class=\"k\">catch</span> (Exception <span class=\"sym-34 sym\">e</span>) {"
+          ],
+          "flagged": "          <span class=\"sym-34 sym\">e</span>.printStackTrace();",
+          "after": [
+            "          <span class=\"k\">return</span> <span class=\"k\">false</span>;",
+            "        }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-11-03T17:04:56+0000",
+      "updated": "2025-11-26T18:23:49+0000",
+      "author": "al.niessner@xxx.xxx",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s4hqhWcvWgz9sn5",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s6oqhWcvWgz9sss",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/containers/LabelContainer.java",
+        "line": 88,
+        "textRange": {
+          "startLine": 88,
+          "endLine": 88,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">IOException</span> <span class=\"sym-51 sym\">e</span>) {",
+            "      <span class=\"cd\">// this.errors.add(e);</span>"
+          ],
+          "flagged": "      <span class=\"sym-51 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">return</span> <span class=\"k\">false</span>;",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:22+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s6oqhWcvWgz9sss",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s66qhWcvWgz9stI",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/containers/LabelFragmentContainer.java",
+        "line": 51,
+        "textRange": {
+          "startLine": 51,
+          "endLine": 51,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">IOException</span> <span class=\"sym-22 sym\">e</span>) {",
+            "      <span class=\"cd\">// this.errors.add(e);</span>"
+          ],
+          "flagged": "      <span class=\"sym-22 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      <span class=\"k\">return</span> <span class=\"k\">false</span>;",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:26+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s66qhWcvWgz9stI",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s7AqhWcvWgz9stN",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/managers/PropsManager.java",
+        "line": 26,
+        "textRange": {
+          "startLine": 26,
+          "endLine": 26,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-9 sym\">is</span>.close();",
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-10 sym\">e</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-10 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:29+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s7AqhWcvWgz9stN",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqf",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 938,
+        "textRange": {
+          "startLine": 938,
+          "endLine": 938,
+          "startOffset": 12,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "        } <span class=\"k\">catch</span> (<span class=\"sym-19 sym\">LabelParserException</span> <span class=\"sym-267 sym\">e</span>) {",
+            "          <span class=\"cd\">// TODO: push parse exceptions into the Dictionary container</span>"
+          ],
+          "flagged": "          <span class=\"sym-267 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-268 sym\">e</span>) {",
+            "          <span class=\"cd\">// TODO Auto-generated catch block</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:33+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqf",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqh",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 941,
+        "textRange": {
+          "startLine": 941,
+          "endLine": 941,
+          "startOffset": 12,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "        } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-268 sym\">e</span>) {",
+            "          <span class=\"cd\">// TODO Auto-generated catch block</span>"
+          ],
+          "flagged": "          <span class=\"sym-268 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        }",
+            "      }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:36+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqh",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqj",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 960,
+        "textRange": {
+          "startLine": 960,
+          "endLine": 960,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\">// TODO: consider what to do with parse issues, note that won't</span>",
+            "        <span class=\"cd\">// be thrown in figure, just added to container</span>"
+          ],
+          "flagged": "        <span class=\"sym-271 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-272 sym\">e</span>) {",
+            "        <span class=\"cd\">// shouldn't happen</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:39+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqj",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sql",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 963,
+        "textRange": {
+          "startLine": 963,
+          "endLine": 963,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-272 sym\">e</span>) {",
+            "        <span class=\"cd\">// shouldn't happen</span>"
+          ],
+          "flagged": "        <span class=\"sym-272 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:42+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sql",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqm",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 979,
+        "textRange": {
+          "startLine": 979,
+          "endLine": 979,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\">// TODO: consider what to do with parse issues, note that won't</span>",
+            "        <span class=\"cd\">// be thrown in figure, just added to container</span>"
+          ],
+          "flagged": "        <span class=\"sym-276 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-277 sym\">e</span>) {",
+            "        <span class=\"cd\">// shouldn't happen</span>"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:45+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqm",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqo",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 982,
+        "textRange": {
+          "startLine": 982,
+          "endLine": 982,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-277 sym\">e</span>) {",
+            "        <span class=\"cd\">// shouldn't happen</span>"
+          ],
+          "flagged": "        <span class=\"sym-277 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:48+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqo",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqq",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 1003,
+        "textRange": {
+          "startLine": 1003,
+          "endLine": 1003,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-46 sym\">masterDDSerialized</span> = <span class=\"sym-280 sym\">baos</span>.toByteArray();",
+            "      } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-282 sym\">e</span>) {"
+          ],
+          "flagged": "        <span class=\"sym-282 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:51+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqq",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqr",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 1017,
+        "textRange": {
+          "startLine": 1017,
+          "endLine": 1017,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"k\">return</span> <span class=\"sym-286 sym\">deepCopy</span>;",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-4 sym\">IOException</span> <span class=\"sym-287 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-287 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    } <span class=\"k\">catch</span> (ClassNotFoundException <span class=\"sym-288 sym\">e</span>) {",
+            "      <span class=\"sym-288 sym\">e</span>.printStackTrace();"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:54+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqr",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s52qhWcvWgz9sqs",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/DataSetValidator.java",
+        "line": 1019,
+        "textRange": {
+          "startLine": 1019,
+          "endLine": 1019,
+          "startOffset": 8,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-287 sym\">e</span>.printStackTrace();",
+            "    } <span class=\"k\">catch</span> (ClassNotFoundException <span class=\"sym-288 sym\">e</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-288 sym\">e</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "    <span class=\"k\">return</span> <span class=\"k\">null</span>;"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:24:57+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s52qhWcvWgz9sqs",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s6DqhWcvWgz9srY",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/web/ui/utils/TabularData.java",
+        "line": 210,
+        "textRange": {
+          "startLine": 210,
+          "endLine": 210,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      } <span class=\"k\">catch</span> (<span class=\"k\">final</span> Exception <span class=\"sym-92 sym\">e</span>) {",
+            "        <span class=\"cd\">// TODO: anything else to do here?</span>"
+          ],
+          "flagged": "        <span class=\"sym-92 sym\">e</span>.printStackTrace();",
+          "after": [
+            "      }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:25:00+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s6DqhWcvWgz9srY",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s2GqhWcvWgz9sie",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/MD5Checksum.java",
+        "line": 62,
+        "textRange": {
+          "startLine": 62,
+          "endLine": 62,
+          "startOffset": 38,
+          "endOffset": 49
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"j\">   */</span>",
+            "  <span class=\"k\">private</span> <span class=\"k\">static</span> <span class=\"k\">byte</span>[] <span class=\"sym-16 sym\">createChecksum</span>(<span class=\"sym-3 sym\">URL</span> <span class=\"sym-17 sym\">url</span>) <span class=\"k\">throws</span> Exception {"
+          ],
+          "flagged": "    <span class=\"sym-7 sym\">MessageDigest</span> <span class=\"sym-18 sym\">md5</span> = <span class=\"sym-7 sym\">MessageDigest</span>.getInstance(<span class=\"s\">\"MD5\"</span>);",
+          "after": [
+            "    <span class=\"k\">int</span> <span class=\"sym-19 sym\">bytesRead</span> = <span class=\"c\">0</span>;",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this weak hash algorithm is not used in a sensitive context here.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:19:24+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s2GqhWcvWgz9sie",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0s1uqhWcvWgz9shj",
+      "project": "NASA-PDS_validate",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_validate:src/main/java/gov/nasa/pds/tools/util/VersionInfo.java",
+        "line": 232,
+        "textRange": {
+          "startLine": 232,
+          "endLine": 232,
+          "startOffset": 42,
+          "endOffset": 49
+        },
+        "codeSnippet": {
+          "before": [
+            "                                                                                     <span class=\"cd\">// file</span>",
+            "      <span class=\"sym-15 sym\">JarFile</span> <span class=\"sym-82 sym\">jar</span> = <span class=\"k\">new</span> <span class=\"sym-15 sym\">JarFile</span>(<span class=\"sym-6 sym\">URLDecoder</span>.decode(<span class=\"sym-81 sym\">jarPath</span>, <span class=\"s\">\"UTF-8\"</span>));"
+          ],
+          "flagged": "      <span class=\"sym-9 sym\">Enumeration</span>&lt;<span class=\"sym-14 sym\">JarEntry</span>&gt; <span class=\"sym-83 sym\">entries</span> = <span class=\"sym-82 sym\">jar</span>.entries(); <span class=\"cd\">// gives ALL entries in jar</span>",
+          "after": [
+            "      <span class=\"sym-13 sym\">Set</span>&lt;String&gt; <span class=\"sym-84 sym\">result</span> = <span class=\"k\">new</span> <span class=\"sym-10 sym\">HashSet</span>&lt;&gt;(); <span class=\"cd\">// avoid duplicates in case it</span>",
+            "      <span class=\"cd\">// is a subdirectory</span>"
+          ]
+        }
+      },
+      "message": "Make sure that expanding this archive file is safe here.",
+      "created": "2019-06-27T01:42:37+0000",
+      "updated": "2025-11-26T18:25:42+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_validate&hotspots=AZPV0s1uqhWcvWgz9shj",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

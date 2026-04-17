@@ -1,0 +1,358 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T23:28:15.860Z",
+    "organization": "nasa-pds",
+    "totalIssues": 9,
+    "totalVulnerabilities": 1,
+    "totalHotspots": 8,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_registry",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZubM79LQ22-6k6wwuo0",
+      "project": "NASA-PDS_registry",
+      "type": "VULNERABILITY",
+      "severity": "CRITICAL",
+      "status": "OPEN",
+      "rule": {
+        "key": "shell:S4830"
+      },
+      "location": {
+        "component": "NASA-PDS_registry:docker/scripts/elasticsearch-init.sh",
+        "line": 53,
+        "textRange": {
+          "startLine": 53,
+          "endLine": 53,
+          "startOffset": 0,
+          "endOffset": 122
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"h\">echo</span> <span class=\"s\">\"Create aliases, until registry-manager does it\"</span>"
+          ],
+          "flagged": "<span class=\"h\">curl</span> -X POST  -H <span class=\"s\">\"Content-Type: application/json\"</span> -d @/usr/local/bin/aliases/alias_registry.json -u admin:admin --insecure https://elasticsearch:9200/_aliases",
+          "after": [
+            ""
+          ]
+        }
+      },
+      "message": "Enable server certificate validation on this SSL/TLS connection.",
+      "created": "2025-04-24T15:57:02+0000",
+      "updated": "2026-01-08T01:23:03+0000",
+      "author": "thomas.loubrieu@jpl.nasa.gov",
+      "effort": "5min",
+      "url": "https://sonarcloud.io/project/issues?open=AZubM79LQ22-6k6wwuo0&id=NASA-PDS_registry",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZubM7-cQ22-6k6wwuo1",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:docker/default-config/rabbitmq-definitions.json",
+        "line": 6,
+        "textRange": {
+          "startLine": 6,
+          "endLine": 6,
+          "startOffset": 23,
+          "endOffset": 73
+        },
+        "codeSnippet": {
+          "before": [
+            "    {",
+            "      \"name\": \"harvest\","
+          ],
+          "flagged": "      \"password_hash\": \"d/hQxz0npBVirMPzW821BijSvzlozRiWAynAzgPzyXNhpqa4\",",
+          "after": [
+            "      \"hashing_algorithm\": \"rabbit_password_hashing_sha256\",",
+            "      \"tags\": \"administrator\""
+          ]
+        }
+      },
+      "message": "\"password\" detected here, make sure this is not a hard-coded credential.",
+      "created": "2022-02-08T22:10:42+0000",
+      "updated": "2026-04-02T21:42:45+0000",
+      "author": "94033485+ramesh-maddegoda@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZubM7-cQ22-6k6wwuo1",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1zH_piLa2Ttx58_7",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:src/pds/registry/utils/treks/product_collection_builder.py",
+        "line": 16,
+        "textRange": {
+          "startLine": 16,
+          "endLine": 16,
+          "startOffset": 10,
+          "endOffset": 23
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"j\">    \"\"\"</span>",
+            "    <span class=\"cd\"># create env</span>"
+          ],
+          "flagged": "    <span class=\"sym-6 sym\">env</span> = <span class=\"sym-2 sym\">Environment</span>()",
+          "after": [
+            "",
+            "    <span class=\"k\">with</span> <span class=\"sym-1 sym\">importlib</span>.resources.open_text(<span class=\"sym-3 sym\">templates</span>, <span class=\"s\">\"product-collection-template.xml\"</span>) <span class=\"k\">as</span> <span class=\"sym-7 sym\">io</span>:"
+          ]
+        }
+      },
+      "message": "Make sure disabling auto-escaping feature is safe here.",
+      "created": "2024-07-18T20:32:59+0000",
+      "updated": "2025-05-08T18:32:48+0000",
+      "author": "matt.anikiej@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZPV1zH_piLa2Ttx58_7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV1zIUpiLa2Ttx58_-",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:src/pds/registry/utils/treks/product_service_builder.py",
+        "line": 63,
+        "textRange": {
+          "startLine": 63,
+          "endLine": 63,
+          "startOffset": 14,
+          "endOffset": 27
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "        <span class=\"cd\"># create env</span>"
+          ],
+          "flagged": "        <span class=\"sym-37 sym\">env</span> = <span class=\"sym-6 sym\">Environment</span>()",
+          "after": [
+            "",
+            "        <span class=\"cd\"># get template</span>"
+          ]
+        }
+      },
+      "message": "Make sure disabling auto-escaping feature is safe here.",
+      "created": "2024-08-21T22:38:15+0000",
+      "updated": "2025-05-08T18:32:54+0000",
+      "author": "56848215+mattanikiej@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZPV1zIUpiLa2Ttx58_-",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf_p2DeP3CofD65ykt",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:35:00+0000",
+      "updated": "2025-11-26T18:15:57+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZnf_p2DeP3CofD65ykt",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf_p2DeP3CofD65yku",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:35:00+0000",
+      "updated": "2025-11-26T18:15:59+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZnf_p2DeP3CofD65yku",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZjxWwyQs2euO4-uLfho",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:.github/workflows/stable-cicd.yaml",
+        "line": 69,
+        "textRange": {
+          "startLine": 69,
+          "endLine": 69,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">stable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2021-12-03T22:05:53+0000",
+      "updated": "2025-11-26T18:16:02+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZjxWwyQs2euO4-uLfho",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZjxWw1qs2euO4-uLfhp",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:.github/workflows/unstable-cicd.yaml",
+        "line": 71,
+        "textRange": {
+          "startLine": 71,
+          "endLine": 71,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">unstable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2021-12-03T22:06:20+0000",
+      "updated": "2025-11-26T18:16:04+0000",
+      "author": "33492486+jordanpadams@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZjxWw1qs2euO4-uLfhp",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnACR94slEUk_EAjIXc",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry:.github/workflows/unstable-cicd.yaml",
+        "line": 81,
+        "textRange": {
+          "startLine": 81,
+          "endLine": 81,
+          "startOffset": 22,
+          "endOffset": 58
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🛏️ Upload Coverag</span>e"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">SonarSource/sonarqube-scan-action@v6</span>",
+          "after": [
+            "                <span class=\"k\">env</span>:",
+            "                    <span class=\"k\">SONAR_TOKEN</span>: <span class=\"s\">${{secrets.SONAR_TOKEN}}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-04T16:00:02+0000",
+      "updated": "2025-11-26T18:16:07+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=AZnACR94slEUk_EAjIXc",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

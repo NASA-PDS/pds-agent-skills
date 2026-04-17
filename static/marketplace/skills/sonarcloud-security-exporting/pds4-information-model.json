@@ -1,0 +1,246 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-17T15:58:39.579Z",
+    "organization": "nasa-pds",
+    "totalIssues": 6,
+    "totalVulnerabilities": 0,
+    "totalHotspots": 6,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_pds4-information-model",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZPV0qXGBw0ECPX7zB-a",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/LDDDOMParser.java",
+        "line": 212,
+        "textRange": {
+          "startLine": 212,
+          "endLine": 212,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-66 sym\">se</span>.printStackTrace();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-3 sym\">IOException</span> <span class=\"sym-67 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-67 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2019-07-10T16:57:48+0000",
+      "updated": "2025-05-08T17:48:25+0000",
+      "author": "steve.hughes@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qXGBw0ECPX7zB-a",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0qUHBw0ECPX7zBuT",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/WriteDOMDDJSONFileLib.java",
+        "line": 755,
+        "textRange": {
+          "startLine": 755,
+          "endLine": 755,
+          "startOffset": 14,
+          "endOffset": 29
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "        } <span class=\"k\">catch</span> (<span class=\"sym-2 sym\">IOException</span> <span class=\"sym-169 sym\">e</span>) {"
+          ],
+          "flagged": "            <span class=\"sym-169 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-08-03T20:36:09+0000",
+      "updated": "2025-05-08T17:48:31+0000",
+      "author": "jshughes@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qUHBw0ECPX7zBuT",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0qTnBw0ECPX7zBr7",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/WriteDOMTermEntryJSON.java",
+        "line": 172,
+        "textRange": {
+          "startLine": 172,
+          "endLine": 172,
+          "startOffset": 14,
+          "endOffset": 29
+        },
+        "codeSnippet": {
+          "before": [
+            "            <span class=\"sym-38 sym\">jsonFileWriter</span>.close();",
+            "        } <span class=\"k\">catch</span> (IOException <span class=\"sym-39 sym\">e</span>) {"
+          ],
+          "flagged": "            <span class=\"sym-39 sym\">e</span>.printStackTrace();",
+          "after": [
+            "        }",
+            "    }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2023-02-16T21:12:18+0000",
+      "updated": "2025-05-08T17:48:35+0000",
+      "author": "jshughes@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qTnBw0ECPX7zBr7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0qWRBw0ECPX7zB6F",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/XMLDocParserDomMDPTNConfig.java",
+        "line": 91,
+        "textRange": {
+          "startLine": 91,
+          "endLine": 91,
+          "startOffset": 10,
+          "endOffset": 25
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-20 sym\">se</span>.printStackTrace();",
+            "    } <span class=\"k\">catch</span> (<span class=\"sym-1 sym\">IOException</span> <span class=\"sym-21 sym\">ioe</span>) {"
+          ],
+          "flagged": "      <span class=\"sym-21 sym\">ioe</span>.printStackTrace();",
+          "after": [
+            "    }",
+            "  }"
+          ]
+        }
+      },
+      "message": "Make sure this debug feature is deactivated before delivering the code in production.",
+      "created": "2014-06-19T20:54:51+0000",
+      "updated": "2025-05-08T17:48:40+0000",
+      "author": "kelly@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qWRBw0ECPX7zB6F",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0qSiBw0ECPX7zBjh",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/DMDocument.java",
+        "line": 153,
+        "textRange": {
+          "startLine": 153,
+          "endLine": 153,
+          "startOffset": 35,
+          "endOffset": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">static</span> String <span class=\"sym-47 sym\">LDDToolVersionId</span> = <span class=\"s\">\"0.0.0\"</span>;",
+            "  <span class=\"k\">static</span> String <span class=\"sym-48 sym\">buildDate</span> = <span class=\"s\">\"\"</span>;"
+          ],
+          "flagged": "  <span class=\"k\">static</span> String <span class=\"sym-49 sym\">buildIMVersionId</span> = <span class=\"s\">\"1.26.0.0\"</span>;",
+          "after": [
+            "  <span class=\"k\">static</span> String <span class=\"sym-50 sym\">buildIMVersionFolderId</span> = <span class=\"s\">\"1Q00\"</span>;",
+            "  <span class=\"k\">static</span> <span class=\"k\">final</span> String <span class=\"sym-51 sym\">VERSION_ID_DEFAULT_PART1</span> = <span class=\"s\">\"1.0.0\"</span>;"
+          ]
+        }
+      },
+      "message": "Make sure using this hardcoded IP address is safe here.",
+      "created": "2024-05-22T21:45:36+0000",
+      "updated": "2025-05-08T17:48:59+0000",
+      "author": "jshughes@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qSiBw0ECPX7zBjh",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0qSiBw0ECPX7zBjj",
+      "project": "NASA-PDS_pds4-information-model",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_pds4-information-model:model-dmdocument/src/main/java/gov/nasa/pds/model/plugin/DMDocument.java",
+        "line": 667,
+        "textRange": {
+          "startLine": 667,
+          "endLine": 667,
+          "startOffset": 22,
+          "endOffset": 32
+        },
+        "codeSnippet": {
+          "before": [
+            "\t  <span class=\"sym-47 sym\">LDDToolVersionId</span> = <span class=\"s\">\"0.0.0\"</span>;",
+            "\t  <span class=\"sym-48 sym\">buildDate</span> = <span class=\"s\">\"\"</span>;"
+          ],
+          "flagged": "\t  <span class=\"sym-49 sym\">buildIMVersionId</span> = <span class=\"s\">\"1.26.0.0\"</span>;",
+          "after": [
+            "\t  <span class=\"sym-50 sym\">buildIMVersionFolderId</span> = <span class=\"s\">\"1Q00\"</span>;",
+            "\t  <span class=\"sym-53 sym\">classVersionIdDefault</span> = <span class=\"sym-52 sym\">VERSION_ID_DEFAULT</span>;"
+          ]
+        }
+      },
+      "message": "Make sure using this hardcoded IP address is safe here.",
+      "created": "2024-07-30T21:52:11+0000",
+      "updated": "2025-05-08T17:49:11+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_pds4-information-model&hotspots=AZPV0qSiBw0ECPX7zBjj",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

@@ -1,0 +1,1360 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-17T15:28:26.490Z",
+    "organization": "nasa-pds",
+    "totalIssues": 22,
+    "totalVulnerabilities": 2,
+    "totalHotspots": 20,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_doi-service",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZxJknFuChEwwt2-RKlq",
+      "project": "NASA-PDS_doi-service",
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "rule": {
+        "key": "pythonsecurity:S5145"
+      },
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+        "line": 143,
+        "textRange": {
+          "startLine": 143,
+          "endLine": 143,
+          "startOffset": 8,
+          "endOffset": 91
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-26 sym\">parsed_url</span> = <span class=\"sym-8 sym\">urlparse</span>(<span class=\"sym-5 sym\">unescape</span>(<span class=\"sym-7 sym\">unquote</span>(<span class=\"sym-24 sym\">site_url</span>)))",
+            "    <span class=\"k\">except</span> Exception <span class=\"k\">as</span> <span class=\"sym-27 sym\">err</span>:"
+          ],
+          "flagged": "        <span class=\"sym-20 sym\">logger</span>.warning(<span class=\"s\">'Could not parse provided URL \"%s\", Reason: %s'</span>, <span class=\"sym-24 sym\">site_url</span>, str(<span class=\"sym-27 sym\">err</span>))",
+          "after": [
+            "",
+            "    <span class=\"cd\"># Must have query portion for there to be any identifier to parse</span>"
+          ]
+        }
+      },
+      "message": "Change this code to not log user-controlled data.",
+      "created": "2021-10-07T19:42:15+0000",
+      "updated": "2026-03-11T01:27:27+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZxJknFuChEwwt2-RKlq&id=NASA-PDS_doi-service",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 143,
+                "endLine": 143,
+                "startOffset": 8,
+                "endOffset": 91
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 35,
+                "endOffset": 43
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 4,
+                "endOffset": 34
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 331,
+                "endLine": 331,
+                "startOffset": 25,
+                "endOffset": 70
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 331,
+                "endLine": 331,
+                "startOffset": 56,
+                "endOffset": 69
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 267,
+                "endLine": 267,
+                "startOffset": 30,
+                "endOffset": 36
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 267,
+                "endLine": 267,
+                "startOffset": 8,
+                "endOffset": 29
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 527,
+                "endLine": 527,
+                "startOffset": 24,
+                "endOffset": 88
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 527,
+                "endLine": 527,
+                "startOffset": 67,
+                "endOffset": 87
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 526,
+                "endLine": 537,
+                "startOffset": 8,
+                "endOffset": 4
+              },
+              "msg": "A malicious value can be assigned to variable ‘record’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 526,
+                "endLine": 526,
+                "startOffset": 12,
+                "endOffset": 18
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 515,
+                "endLine": 515,
+                "startOffset": 12,
+                "endOffset": 39
+              },
+              "msg": "A malicious value can be assigned to variable ‘records’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 515,
+                "endLine": 515,
+                "startOffset": 22,
+                "endOffset": 39
+              },
+              "msg": "Source: a user can craft an HTTP request with malicious content"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 143,
+                "endLine": 143,
+                "startOffset": 8,
+                "endOffset": 91
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 35,
+                "endOffset": 43
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 4,
+                "endOffset": 34
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 492,
+                "endLine": 492,
+                "startOffset": 25,
+                "endOffset": 75
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 492,
+                "endLine": 492,
+                "startOffset": 56,
+                "endOffset": 74
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 479,
+                "endLine": 479,
+                "startOffset": 24,
+                "endOffset": 30
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 479,
+                "endLine": 479,
+                "startOffset": 8,
+                "endOffset": 23
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 612,
+                "endLine": 612,
+                "startOffset": 15,
+                "endOffset": 59
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 611,
+                "endLine": 620,
+                "startOffset": 8,
+                "endOffset": 8
+              },
+              "msg": "A malicious value can be assigned to variable ‘record’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 611,
+                "endLine": 611,
+                "startOffset": 12,
+                "endOffset": 18
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 606,
+                "endLine": 606,
+                "startOffset": 12,
+                "endOffset": 39
+              },
+              "msg": "A malicious value can be assigned to variable ‘records’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 606,
+                "endLine": 606,
+                "startOffset": 22,
+                "endOffset": 39
+              },
+              "msg": "Source: a user can craft an HTTP request with malicious content"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "AZxJknFuChEwwt2-RKlr",
+      "project": "NASA-PDS_doi-service",
+      "type": "VULNERABILITY",
+      "severity": "MINOR",
+      "status": "OPEN",
+      "rule": {
+        "key": "pythonsecurity:S5145"
+      },
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+        "line": 172,
+        "textRange": {
+          "startLine": 172,
+          "endLine": 175,
+          "startOffset": 12,
+          "endOffset": 13
+        },
+        "codeSnippet": {
+          "before": [
+            "            <span class=\"sym-20 sym\">logger</span>.debug(<span class=\"s\">'Parsed PDS3 ID \"%s\" from site_url \"%s\"'</span>, <span class=\"sym-25 sym\">identifier</span>, <span class=\"sym-24 sym\">site_url</span>)",
+            "        <span class=\"k\">else</span>:"
+          ],
+          "flagged": "            <span class=\"sym-20 sym\">logger</span>.warning(",
+          "after": [
+            "                <span class=\"s\">'Could not parse identifier from URL \"%s\", URL does not conform to expected PDS3 or PDS4 format.'</span>,",
+            "                <span class=\"sym-24 sym\">site_url</span>,"
+          ]
+        }
+      },
+      "message": "Change this code to not log user-controlled data.",
+      "created": "2021-10-07T19:42:15+0000",
+      "updated": "2026-03-11T01:27:27+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZxJknFuChEwwt2-RKlr&id=NASA-PDS_doi-service",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 172,
+                "endLine": 175,
+                "startOffset": 12,
+                "endOffset": 13
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 35,
+                "endOffset": 43
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 4,
+                "endOffset": 34
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 331,
+                "endLine": 331,
+                "startOffset": 25,
+                "endOffset": 70
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 331,
+                "endLine": 331,
+                "startOffset": 56,
+                "endOffset": 69
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 267,
+                "endLine": 267,
+                "startOffset": 30,
+                "endOffset": 36
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 267,
+                "endLine": 267,
+                "startOffset": 8,
+                "endOffset": 29
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 527,
+                "endLine": 527,
+                "startOffset": 24,
+                "endOffset": 88
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 527,
+                "endLine": 527,
+                "startOffset": 67,
+                "endOffset": 87
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 526,
+                "endLine": 537,
+                "startOffset": 8,
+                "endOffset": 4
+              },
+              "msg": "A malicious value can be assigned to variable ‘record’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 526,
+                "endLine": 526,
+                "startOffset": 12,
+                "endOffset": 18
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 515,
+                "endLine": 515,
+                "startOffset": 12,
+                "endOffset": 39
+              },
+              "msg": "A malicious value can be assigned to variable ‘records’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/datacite/datacite_web_parser.py",
+              "textRange": {
+                "startLine": 515,
+                "endLine": 515,
+                "startOffset": 22,
+                "endOffset": 39
+              },
+              "msg": "Source: a user can craft an HTTP request with malicious content"
+            }
+          ]
+        },
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 172,
+                "endLine": 175,
+                "startOffset": 12,
+                "endOffset": 13
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 35,
+                "endOffset": 43
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/general_util.py",
+              "textRange": {
+                "startLine": 116,
+                "endLine": 116,
+                "startOffset": 4,
+                "endOffset": 34
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 492,
+                "endLine": 492,
+                "startOffset": 25,
+                "endOffset": 75
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 492,
+                "endLine": 492,
+                "startOffset": 56,
+                "endOffset": 74
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 479,
+                "endLine": 479,
+                "startOffset": 24,
+                "endOffset": 30
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 479,
+                "endLine": 479,
+                "startOffset": 8,
+                "endOffset": 23
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 612,
+                "endLine": 612,
+                "startOffset": 15,
+                "endOffset": 59
+              },
+              "msg": "This instruction can propagate malicious content"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 611,
+                "endLine": 620,
+                "startOffset": 8,
+                "endOffset": 8
+              },
+              "msg": "A malicious value can be assigned to variable ‘record’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 611,
+                "endLine": 611,
+                "startOffset": 12,
+                "endOffset": 18
+              },
+              "msg": "A malicious value was previously assigned to this data structure"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 606,
+                "endLine": 606,
+                "startOffset": 12,
+                "endOffset": 39
+              },
+              "msg": "A malicious value can be assigned to variable ‘records’"
+            },
+            {
+              "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/osti/osti_web_parser.py",
+              "textRange": {
+                "startLine": 606,
+                "endLine": 606,
+                "startOffset": 22,
+                "endOffset": 39
+              },
+              "msg": "Source: a user can craft an HTTP request with malicious content"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jM9u3xBPNvmXVZo",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/db/transaction_on_disk.py",
+        "line": 141,
+        "textRange": {
+          "startLine": 141,
+          "endLine": 141,
+          "startOffset": 30,
+          "endOffset": 36
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\"># Set up the appropriate umask in-case os.makedirs needs to create any</span>",
+            "        <span class=\"cd\"># intermediate parent directories (its mask arg only affects the created leaf directory)</span>"
+          ],
+          "flagged": "        <span class=\"sym-38 sym\">prev_umask</span> = <span class=\"sym-2 sym\">os</span>.umask(<span class=\"c\">0o0002</span>)",
+          "after": [
+            "",
+            "        <span class=\"cd\"># Create the new transaction history directory with group-rw enabled</span>"
+          ]
+        }
+      },
+      "message": "Make sure this permission is safe.",
+      "created": "2021-11-18T21:03:01+0000",
+      "updated": "2025-05-05T18:59:04+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jM9u3xBPNvmXVZo",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jM9u3xBPNvmXVZp",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/db/transaction_on_disk.py",
+        "line": 174,
+        "textRange": {
+          "startLine": 174,
+          "endLine": 174,
+          "startOffset": 42,
+          "endOffset": 48
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "                <span class=\"cd\"># Set up permissions for copied input</span>"
+          ],
+          "flagged": "                <span class=\"sym-2 sym\">os</span>.chmod(<span class=\"sym-41 sym\">full_input_name</span>, <span class=\"c\">0o0664</span>)",
+          "after": [
+            "",
+            "        <span class=\"cd\"># Write output file with provided content</span>"
+          ]
+        }
+      },
+      "message": "Make sure this permission is safe.",
+      "created": "2021-11-18T21:03:01+0000",
+      "updated": "2025-05-05T18:59:16+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jM9u3xBPNvmXVZp",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jM9u3xBPNvmXVZq",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/db/transaction_on_disk.py",
+        "line": 185,
+        "textRange": {
+          "startLine": 185,
+          "endLine": 185,
+          "startOffset": 39,
+          "endOffset": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "            <span class=\"cd\"># Set up permissions for copied output</span>"
+          ],
+          "flagged": "            <span class=\"sym-2 sym\">os</span>.chmod(<span class=\"sym-44 sym\">full_output_name</span>, <span class=\"c\">0o0664</span>)",
+          "after": [
+            "",
+            "        <span class=\"sym-10 sym\">logger</span>.info(f\"Transaction files saved to {<span class=\"sym-34 sym\">transaction_dir</span>}\")"
+          ]
+        }
+      },
+      "message": "Make sure this permission is safe.",
+      "created": "2021-11-18T21:03:01+0000",
+      "updated": "2025-05-05T18:59:26+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jM9u3xBPNvmXVZq",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jP1u3xBPNvmXVbK",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:docker/Dockerfile",
+        "line": 31,
+        "textRange": {
+          "startLine": 31,
+          "endLine": 31,
+          "startOffset": 0,
+          "endOffset": 21
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"cd\"># POSSIBILITY OF SUCH DAMAGE.</span>",
+            ""
+          ],
+          "flagged": "<span class=\"k\">FROM</span> python:3.12-slim",
+          "after": [
+            "",
+            "<span class=\"k\">RUN</span> mkdir --parents /usr/src/app"
+          ]
+        }
+      },
+      "message": "The \"python\" image runs with \"root\" as the default user. Make sure it is safe here.",
+      "created": "2021-09-15T23:12:56+0000",
+      "updated": "2025-05-05T21:21:29+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jP1u3xBPNvmXVbK",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jPLu3xBPNvmXVap",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/api/test/test_dois_controller.py",
+        "line": 824,
+        "textRange": {
+          "startLine": 824,
+          "endLine": 824,
+          "startOffset": 20,
+          "endOffset": 41
+        },
+        "codeSnippet": {
+          "before": [
+            "            (<span class=\"s\">\"node\"</span>, <span class=\"s\">\"img\"</span>),",
+            "            (<span class=\"s\">\"identifier\"</span>, <span class=\"s\">\"urn:nasa:pds:insight_cameras::1.1\"</span>),"
+          ],
+          "flagged": "            (<span class=\"s\">\"url\"</span>, <span class=\"s\">\"http://fake.url.net\"</span>),",
+          "after": [
+            "        ]",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-09-14T20:19:58+0000",
+      "updated": "2025-05-05T19:01:17+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jPLu3xBPNvmXVap",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jPLu3xBPNvmXVaq",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/api/test/test_dois_controller.py",
+        "line": 895,
+        "textRange": {
+          "startLine": 895,
+          "endLine": 895,
+          "startOffset": 80,
+          "endOffset": 102
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\"># return a 403 \"forbidden\" error</span>",
+            "        <span class=\"sym-191 sym\">response</span> = <span class=\"sym-190 sym\">self</span>.<span class=\"sym-92 sym\">client</span>.open("
+          ],
+          "flagged": "            <span class=\"s\">\"/PDS_APIs/pds_doi_api/0.2/dois\"</span>, method=<span class=\"s\">\"GET\"</span>, headers={<span class=\"s\">\"Referer\"</span>: <span class=\"s\">\"http://www.zombo.com\"</span>}",
+          "after": [
+            "        )",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-09-14T20:19:58+0000",
+      "updated": "2025-05-05T19:01:28+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jPLu3xBPNvmXVaq",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jPLu3xBPNvmXVar",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/api/test/test_dois_controller.py",
+        "line": 908,
+        "textRange": {
+          "startLine": 908,
+          "endLine": 908,
+          "startOffset": 80,
+          "endOffset": 96
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\"># Providing a valid referrer should make everything work again</span>",
+            "        <span class=\"sym-191 sym\">response</span> = <span class=\"sym-190 sym\">self</span>.<span class=\"sym-92 sym\">client</span>.open("
+          ],
+          "flagged": "            <span class=\"s\">\"/PDS_APIs/pds_doi_api/0.2/dois\"</span>, method=<span class=\"s\">\"GET\"</span>, headers={<span class=\"s\">\"Referer\"</span>: <span class=\"s\">\"http://0.0.0.0\"</span>}",
+          "after": [
+            "        )",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-09-14T20:19:58+0000",
+      "updated": "2025-05-05T19:01:51+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jPLu3xBPNvmXVar",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZlyYsH0E-R43BU_k5qa",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/input/pds4_util.py",
+        "line": 214,
+        "textRange": {
+          "startLine": 214,
+          "endLine": 214,
+          "startOffset": 34,
+          "endOffset": 67
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"cd\"># For default namespace, we need to use a different approach</span>",
+            "        <span class=\"cd\"># The XML uses default namespace, so we don't need namespace mapping for XPath</span>"
+          ],
+          "flagged": "        <span class=\"sym-43 sym\">pds4_namespace</span> = {<span class=\"s\">\"pds4\"</span>: <span class=\"s\">\"http://pds.nasa.gov/pds4/pds/v1\"</span>}",
+          "after": [
+            "        <span class=\"sym-44 sym\">pds4_namespace_prefix</span> = <span class=\"s\">\"{http://pds.nasa.gov/pds4/pds/v1}\"</span>",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2025-08-25T16:06:27+0000",
+      "updated": "2025-09-19T20:10:29+0000",
+      "author": "63060872+rsjoyner@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZlyYsH0E-R43BU_k5qa",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jOpu3xBPNvmXVac",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/input/pds4_util.py",
+        "line": 391,
+        "textRange": {
+          "startLine": 391,
+          "endLine": 391,
+          "startOffset": 34,
+          "endOffset": 67
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"sym-82 sym\">pds4_field_value_dict</span> = {}",
+            ""
+          ],
+          "flagged": "        <span class=\"sym-83 sym\">pds4_namespace</span> = {<span class=\"s\">\"pds4\"</span>: <span class=\"s\">\"http://pds.nasa.gov/pds4/pds/v1\"</span>}",
+          "after": [
+            "",
+            "        <span class=\"k\">for</span> <span class=\"sym-84 sym\">key</span>, <span class=\"sym-85 sym\">xpath</span> <span class=\"k\">in</span> <span class=\"sym-80 sym\">self</span>.<span class=\"sym-23 sym\">xpath_dict</span>.items():"
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-09-14T20:19:58+0000",
+      "updated": "2025-05-05T19:02:15+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jOpu3xBPNvmXVac",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jKnu3xBPNvmXVZD",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/schemaentities/rights.py",
+        "line": 80,
+        "textRange": {
+          "startLine": 80,
+          "endLine": 80,
+          "startOffset": 8,
+          "endOffset": 59
+        },
+        "codeSnippet": {
+          "before": [
+            "    identifier_scheme=<span class=\"s\">\"SPDX\"</span>,",
+            "    identifier=<span class=\"s\">\"CC0-1.0\"</span>,"
+          ],
+          "flagged": "    uri=<span class=\"s\">\"http://creativecommons.org/publicdomain/zero/1.0/\"</span>,",
+          "after": [
+            ")",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2022-08-31T00:09:13+0000",
+      "updated": "2025-05-05T19:02:42+0000",
+      "author": "alexander.e.dunn@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jKnu3xBPNvmXVZD",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jJEu3xBPNvmXVYi",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/test/doi_validator_test.py",
+        "line": 423,
+        "textRange": {
+          "startLine": 423,
+          "endLine": 423,
+          "startOffset": 21,
+          "endOffset": 46
+        },
+        "codeSnippet": {
+          "before": [
+            "            doi=<span class=\"sym-89 sym\">self</span>.<span class=\"sym-39 sym\">doi</span>,",
+            "            status=<span class=\"sym-7 sym\">DoiStatus</span>.Draft,"
+          ],
+          "flagged": "            site_url=<span class=\"s\">\"http://fakewebsite.fake\"</span>,",
+          "after": [
+            "        )",
+            ""
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-11-02T18:36:33+0000",
+      "updated": "2025-05-05T19:03:14+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jJEu3xBPNvmXVYi",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jJEu3xBPNvmXVYj",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/outputs/test/doi_validator_test.py",
+        "line": 430,
+        "textRange": {
+          "startLine": 430,
+          "endLine": 430,
+          "startOffset": 27,
+          "endOffset": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "        <span class=\"cd\"># Now try again with a valid URL</span>"
+          ],
+          "flagged": "        <span class=\"sym-90 sym\">doi_obj</span>.site_url = <span class=\"s\">\"http://www.google.com\"</span>",
+          "after": [
+            "",
+            "        <span class=\"sym-89 sym\">self</span>.<span class=\"sym-25 sym\">_doi_validator</span>._check_field_site_url(<span class=\"sym-90 sym\">doi_obj</span>)"
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2021-11-01T21:51:52+0000",
+      "updated": "2025-05-05T19:03:27+0000",
+      "author": "collinss@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jJEu3xBPNvmXVYj",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jPdu3xBPNvmXVau",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/api/__main__.py",
+        "line": 114,
+        "textRange": {
+          "startLine": 114,
+          "endLine": 114,
+          "startOffset": 8,
+          "endOffset": 21
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"j\">    \"\"\"</span>",
+            "    <span class=\"k\">if</span> <span class=\"k\">not</span> <span class=\"sym-10 sym\">app</span>.initialized:"
+          ],
+          "flagged": "        <span class=\"sym-5 sym\">CORS</span>(<span class=\"sym-10 sym\">app</span>.app)",
+          "after": [
+            "        <span class=\"sym-10 sym\">app</span>.app.json_encoder = <span class=\"sym-6 sym\">encoder</span>.JSONEncoder",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure this permissive CORS policy is safe here.",
+      "created": "2021-07-21T23:57:38+0000",
+      "updated": "2025-05-05T19:08:38+0000",
+      "author": "72415379+collinss-jpl@users.noreply.github.com",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jPdu3xBPNvmXVau",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf8OSZe3hwoP8sagtx",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:.github/workflows/issue-project-automation.yml",
+        "line": 11,
+        "textRange": {
+          "startLine": 11,
+          "endLine": 11,
+          "startOffset": 10,
+          "endOffset": 74
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">add-new-issue-to-project</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'opened'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/add-issue-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:07+0000",
+      "updated": "2025-11-26T18:10:59+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZnf8OSZe3hwoP8sagtx",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZnf8OSZe3hwoP8sagty",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:.github/workflows/issue-project-automation.yml",
+        "line": 28,
+        "textRange": {
+          "startLine": 28,
+          "endLine": 28,
+          "startOffset": 10,
+          "endOffset": 70
+        },
+        "codeSnippet": {
+          "before": [
+            "  <span class=\"k\">handle-label</span>:",
+            "    <span class=\"k\">if</span>: <span class=\"s\">github.event.action == 'labeled' || github.event.action == 'unlabeled'</span>"
+          ],
+          "flagged": "    <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/.github/.github/workflows/label-to-project.yml@main</span>",
+          "after": [
+            "    <span class=\"k\">with</span>:",
+            "      <span class=\"k\">issue_number</span>: <span class=\"s\">${{ github.event.issue.number }}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-13T23:31:07+0000",
+      "updated": "2025-11-26T18:11:01+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZnf8OSZe3hwoP8sagty",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZjiLrPsZu8zJD7VbQLG",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:.github/workflows/stable-cicd.yaml",
+        "line": 69,
+        "textRange": {
+          "startLine": 69,
+          "endLine": 69,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">stable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2021-12-01T15:17:01+0000",
+      "updated": "2025-11-26T18:11:06+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZjiLrPsZu8zJD7VbQLG",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZjiLrQVZu8zJD7VbQLI",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:.github/workflows/unstable-cicd.yaml",
+        "line": 73,
+        "textRange": {
+          "startLine": 73,
+          "endLine": 73,
+          "startOffset": 22,
+          "endOffset": 52
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🤠 Roundu</span>p"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">NASA-PDS/roundup-action@stable</span>",
+          "after": [
+            "                <span class=\"k\">with</span>:",
+            "                    <span class=\"k\">assembly</span>: <span class=\"s\">unstable</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2021-12-01T15:17:01+0000",
+      "updated": "2025-11-26T18:11:09+0000",
+      "author": "pdsen-ci@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZjiLrQVZu8zJD7VbQLI",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZm7ksZ8RjUN7yib8zTl",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:.github/workflows/unstable-cicd.yaml",
+        "line": 84,
+        "textRange": {
+          "startLine": 84,
+          "endLine": 84,
+          "startOffset": 22,
+          "endOffset": 58
+        },
+        "codeSnippet": {
+          "before": [
+            "            -",
+            "                <span class=\"k\">name</span>: <span class=\"s\">🛏️ Upload Coverag</span>e"
+          ],
+          "flagged": "                <span class=\"k\">uses</span>: <span class=\"s\">SonarSource/sonarqube-scan-action@v7</span>",
+          "after": [
+            "                <span class=\"k\">env</span>:",
+            "                    <span class=\"k\">SONAR_TOKEN</span>: <span class=\"s\">${{secrets.SONAR_TOKEN}}</span>"
+          ]
+        }
+      },
+      "message": "Use full commit SHA hash for this dependency.",
+      "created": "2025-10-04T13:41:29+0000",
+      "updated": "2025-11-26T18:11:12+0000",
+      "author": "kelly@seankelly.biz",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZm7ksZ8RjUN7yib8zTl",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZosqUKQzMClXfq9d1xY",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/util/keyword_tokenizer.py",
+        "line": 8,
+        "textRange": {
+          "startLine": 8,
+          "endLine": 8,
+          "startOffset": 48,
+          "endOffset": 51
+        },
+        "codeSnippet": {
+          "before": [
+            "",
+            "<span class=\"cd\"># Monkeypatch nltk.downloader.md5 to include usedforsecurity=False</span>"
+          ],
+          "flagged": "<span class=\"sym-4 sym\">nltk</span>.downloader.md5 = <span class=\"sym-1 sym\">functools</span>.partial(<span class=\"sym-2 sym\">hashlib</span>.md5, usedforsecurity=False)",
+          "after": [
+            "",
+            "<span class=\"sym-4 sym\">nltk</span>.download(<span class=\"s\">\"stopwords\"</span>, quiet=True)"
+          ]
+        }
+      },
+      "message": "Make sure that hashing data is safe here.",
+      "created": "2025-10-28T20:40:15+0000",
+      "updated": "2025-11-26T18:25:29+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZosqUKQzMClXfq9d1xY",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV0jLyu3xBPNvmXVZU",
+      "project": "NASA-PDS_doi-service",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_doi-service:src/pds_doi_service/core/actions/test/util/email.py",
+        "line": 81,
+        "textRange": {
+          "startLine": 81,
+          "endLine": 81,
+          "startOffset": 12,
+          "endOffset": 19
+        },
+        "codeSnippet": {
+          "before": [
+            "        <span class=\"k\">finally</span>:",
+            "            <span class=\"cd\"># Send the debug smtp server a ctrl+C and wait for it to stop</span>"
+          ],
+          "flagged": "            <span class=\"sym-2 sym\">os</span>.kill(<span class=\"sym-21 sym\">debug_email_proc</span>.pid, <span class=\"sym-3 sym\">signal</span>.SIGINT)",
+          "after": [
+            "            <span class=\"sym-21 sym\">debug_email_proc</span>.wait()",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure that sending signals is safe here.",
+      "created": "2022-09-13T22:27:20+0000",
+      "updated": "2025-05-05T19:09:51+0000",
+      "author": "alexander.e.dunn@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-service&hotspots=AZPV0jLyu3xBPNvmXVZU",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

@@ -1,0 +1,599 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T23:20:48.542Z",
+    "organization": "nasa-pds",
+    "totalIssues": 13,
+    "totalVulnerabilities": 2,
+    "totalHotspots": 11,
+    "totalProjects": 1,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": "NASA-PDS_registry-legacy-solr",
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZsPQAu5Yg8aEnvBmsvd",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "VULNERABILITY",
+      "severity": "BLOCKER",
+      "status": "OPEN",
+      "rule": {
+        "key": "javasecurity:S6096"
+      },
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+        "line": 37,
+        "textRange": {
+          "startLine": 37,
+          "endLine": 37,
+          "startOffset": 4,
+          "endOffset": 30
+        },
+        "codeSnippet": {
+          "before": [
+            "\t\t\t<span class=\"sym-2 sym\">File</span> <span class=\"sym-20 sym\">file</span> = <span class=\"k\">new</span> <span class=\"sym-2 sym\">File</span>(<span class=\"sym-16 sym\">targetFile</span>, <span class=\"sym-19 sym\">zipEntry</span>.getName());",
+            "\t\t\t<span class=\"k\">if</span> (<span class=\"sym-19 sym\">zipEntry</span>.isDirectory()) {"
+          ],
+          "flagged": "\t\t\t\t<span class=\"sym-10 sym\">FileUtils</span>.forceMkdir(<span class=\"sym-20 sym\">file</span>);",
+          "after": [
+            "\t\t\t}",
+            "\t\t\t<span class=\"k\">else</span> {"
+          ]
+        }
+      },
+      "message": "Change this code to not construct the path from file name entry of an archive.",
+      "created": "2019-05-23T21:10:56+0000",
+      "updated": "2025-12-11T21:09:22+0000",
+      "author": "galen.a.hollins@jpl.nasa.gov",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZsPQAu5Yg8aEnvBmsvd&id=NASA-PDS_registry-legacy-solr",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 37,
+                "endLine": 37,
+                "startOffset": 4,
+                "endOffset": 30
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 3,
+                "endOffset": 56
+              },
+              "msg": "A malicious value can be assigned to variable ‘file’"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 15,
+                "endOffset": 55
+              },
+              "msg": "This constructor can propagate malicious content to the newly created object"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 36,
+                "endOffset": 54
+              },
+              "msg": "Source: a user can craft an archive file with malicious content"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "AZsPQAu5Yg8aEnvBmsve",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "VULNERABILITY",
+      "severity": "BLOCKER",
+      "status": "OPEN",
+      "rule": {
+        "key": "javasecurity:S6096"
+      },
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+        "line": 41,
+        "textRange": {
+          "startLine": 41,
+          "endLine": 41,
+          "startOffset": 26,
+          "endOffset": 58
+        },
+        "codeSnippet": {
+          "before": [
+            "\t\t\t<span class=\"k\">else</span> {",
+            "\t\t\t\t<span class=\"sym-5 sym\">InputStream</span> <span class=\"sym-21 sym\">is</span> = <span class=\"sym-17 sym\">zipFile</span>.getInputStream(<span class=\"sym-19 sym\">zipEntry</span>);"
+          ],
+          "flagged": "\t\t\t\t<span class=\"sym-3 sym\">FileOutputStream</span> <span class=\"sym-22 sym\">os</span> = <span class=\"sym-10 sym\">FileUtils</span>.openOutputStream(<span class=\"sym-20 sym\">file</span>);",
+          "after": [
+            "\t\t\t\t<span class=\"k\">try</span> {",
+            "\t\t\t\t\t<span class=\"sym-9 sym\">IOUtils</span>.copy(<span class=\"sym-21 sym\">is</span>, <span class=\"sym-22 sym\">os</span>);"
+          ]
+        }
+      },
+      "message": "Change this code to not construct the path from file name entry of an archive.",
+      "created": "2019-05-23T21:10:56+0000",
+      "updated": "2025-12-11T21:09:22+0000",
+      "author": "galen.a.hollins@jpl.nasa.gov",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=AZsPQAu5Yg8aEnvBmsve&id=NASA-PDS_registry-legacy-solr",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 41,
+                "endLine": 41,
+                "startOffset": 26,
+                "endOffset": 58
+              },
+              "msg": "Sink: this invocation is not safe; a malicious value can be used as argument"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 3,
+                "endOffset": 56
+              },
+              "msg": "A malicious value can be assigned to variable ‘file’"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 15,
+                "endOffset": 55
+              },
+              "msg": "This constructor can propagate malicious content to the newly created object"
+            },
+            {
+              "component": "NASA-PDS_registry-legacy-solr:registry-mgr-legacy/src/main/java/gov/nasa/pds/search/util/UnzipUtility.java",
+              "textRange": {
+                "startLine": 35,
+                "endLine": 35,
+                "startOffset": 36,
+                "endOffset": 54
+              },
+              "msg": "Source: a user can craft an archive file with malicious content"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hgitVhivv2czQMV",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:catalog-legacy/src/main/java/gov/nasa/pds/citool/ingestor/CatalogDB.java",
+        "line": 5536,
+        "textRange": {
+          "startLine": 5536,
+          "endLine": 5536,
+          "startOffset": 19,
+          "endOffset": 29
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"j\">     */</span>",
+            "    <span class=\"k\">protected</span> String <span class=\"sym-1083 sym\">rtrim</span>(String <span class=\"sym-1084 sym\">source</span>) {"
+          ],
+          "flagged": "    \t<span class=\"k\">return</span> <span class=\"sym-1084 sym\">source</span>.replaceAll(<span class=\"s\">\"\\\\s+$\"</span>, <span class=\"s\">\"\"</span>);",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2012-01-30T21:09:25+0000",
+      "updated": "2025-04-30T18:46:09+0000",
+      "author": "shardman@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hgitVhivv2czQMV",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hbntVhivv2czQAV",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:catalog-legacy/src/main/java/gov/nasa/pds/citool/util/Utility.java",
+        "line": 124,
+        "textRange": {
+          "startLine": 124,
+          "endLine": 124,
+          "startOffset": 19,
+          "endOffset": 29
+        },
+        "codeSnippet": {
+          "before": [
+            "<span class=\"j\">     */</span>",
+            "    <span class=\"k\">public</span> <span class=\"k\">static</span> String <span class=\"sym-36 sym\">rtrim</span>(String <span class=\"sym-37 sym\">source</span>) {"
+          ],
+          "flagged": "    \t<span class=\"k\">return</span> <span class=\"sym-37 sym\">source</span>.replaceAll(<span class=\"s\">\"\\\\s+$\"</span>, <span class=\"s\">\"\"</span>);",
+          "after": [
+            "    }",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2013-10-10T19:40:45+0000",
+      "updated": "2025-04-30T18:46:01+0000",
+      "author": "hyunlee@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hbntVhivv2czQAV",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hh4tVhivv2czQO7",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:catalog-legacy/src/main/java/gov/nasa/pds/citool/validate/ReferenceFinderValidator.java",
+        "line": 166,
+        "textRange": {
+          "startLine": 166,
+          "endLine": 166,
+          "startOffset": 34,
+          "endOffset": 41
+        },
+        "codeSnippet": {
+          "before": [
+            "        String <span class=\"sym-55 sym\">regularExpression</span> =",
+            "            <span class=\"s\">\"(\\\\[{1}[a-zA-Z0-9]+[&amp;-]?[a-zA-Z0-9]+[0-9]{4,}[a-zA-Z]?\\\\]{1})\"</span>;"
+          ],
+          "flagged": "        <span class=\"sym-17 sym\">Pattern</span> <span class=\"sym-56 sym\">pattern</span> = <span class=\"sym-17 sym\">Pattern</span>.compile(<span class=\"sym-55 sym\">regularExpression</span>);",
+          "after": [
+            "        <span class=\"sym-16 sym\">Matcher</span> <span class=\"sym-57 sym\">matcher</span> = <span class=\"sym-56 sym\">pattern</span>.matcher(<span class=\"sym-52 sym\">attribute</span>.getValue().toString());",
+            ""
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2012-01-30T21:09:25+0000",
+      "updated": "2025-04-30T18:45:49+0000",
+      "author": "shardman@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hh4tVhivv2czQO7",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hprtVhivv2czQbC",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/util/PathUtils.java",
+        "line": 185,
+        "textRange": {
+          "startLine": 185,
+          "endLine": 185,
+          "startOffset": 17,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "            <span class=\"sym-12 sym\">Metadata</span> <span class=\"sym-52 sym\">metadata</span>) <span class=\"k\">throws</span> <span class=\"sym-1 sym\">ParseException</span>, <span class=\"sym-10 sym\">CasMetadataException</span>, <span class=\"sym-11 sym\">CommonsException</span> {",
+            "        <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-53 sym\">dateFormatPattern</span> = <span class=\"sym-8 sym\">Pattern</span>"
+          ],
+          "flagged": "                .compile(<span class=\"s\">\"\\\\[\\\\s*DATE_ADD\\\\s*\\\\(.{1,}?,.{1,}?,.{1,}?,.{1,}?\\\\)\\\\s*\\\\]\"</span>);",
+          "after": [
+            "        <span class=\"sym-7 sym\">Matcher</span> <span class=\"sym-54 sym\">dateFormatMatcher</span> = <span class=\"sym-53 sym\">dateFormatPattern</span>.matcher(<span class=\"sym-51 sym\">string</span>);",
+            "        <span class=\"k\">while</span> (<span class=\"sym-54 sym\">dateFormatMatcher</span>.find()) {"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2024-07-20T19:28:06+0000",
+      "updated": "2025-04-30T18:44:05+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hprtVhivv2czQbC",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hprtVhivv2czQbD",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/util/PathUtils.java",
+        "line": 237,
+        "textRange": {
+          "startLine": 237,
+          "endLine": 237,
+          "startOffset": 17,
+          "endOffset": 24
+        },
+        "codeSnippet": {
+          "before": [
+            "            <span class=\"sym-12 sym\">Metadata</span> <span class=\"sym-68 sym\">metadata</span>) <span class=\"k\">throws</span> <span class=\"sym-1 sym\">ParseException</span>, <span class=\"sym-10 sym\">CasMetadataException</span>, <span class=\"sym-11 sym\">CommonsException</span> {",
+            "        <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-69 sym\">dateFormatPattern</span> = <span class=\"sym-8 sym\">Pattern</span>"
+          ],
+          "flagged": "                .compile(<span class=\"s\">\"\\\\[\\\\s*FORMAT\\\\s*\\\\(.{1,}?,.{1,}?,.{1,}?\\\\)\\\\s*\\\\]\"</span>);",
+          "after": [
+            "        <span class=\"sym-7 sym\">Matcher</span> <span class=\"sym-70 sym\">dateFormatMatcher</span> = <span class=\"sym-69 sym\">dateFormatPattern</span>.matcher(<span class=\"sym-67 sym\">string</span>);",
+            "        <span class=\"k\">while</span> (<span class=\"sym-70 sym\">dateFormatMatcher</span>.find()) {"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2024-07-20T19:28:06+0000",
+      "updated": "2025-04-30T18:44:14+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hprtVhivv2czQbD",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hprtVhivv2czQbE",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/util/PathUtils.java",
+        "line": 297,
+        "textRange": {
+          "startLine": 297,
+          "endLine": 297,
+          "startOffset": 42,
+          "endOffset": 49
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"k\">public</span> <span class=\"k\">static</span> String <span class=\"sym-88 sym\">doDynamicDateToSecsReplacement</span>(String <span class=\"sym-89 sym\">string</span>,",
+            "            <span class=\"sym-12 sym\">Metadata</span> <span class=\"sym-90 sym\">metadata</span>) <span class=\"k\">throws</span> <span class=\"sym-11 sym\">CommonsException</span>, <span class=\"sym-1 sym\">ParseException</span>, <span class=\"sym-10 sym\">CasMetadataException</span> {"
+          ],
+          "flagged": "        <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-91 sym\">utcToTaiPattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"\\\\[\\\\s*DATE_TO_SECS\\\\s*\\\\(.{1,}?\\\\,.{1,}?,.{1,}?\\\\)\\\\s*\\\\]\"</span>);",
+          "after": [
+            "        <span class=\"sym-7 sym\">Matcher</span> <span class=\"sym-92 sym\">matcher</span> = <span class=\"sym-91 sym\">utcToTaiPattern</span>.matcher(<span class=\"sym-89 sym\">string</span>);",
+            "        <span class=\"k\">while</span> (<span class=\"sym-92 sym\">matcher</span>.find()) {"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2024-07-20T19:28:06+0000",
+      "updated": "2025-04-30T18:44:24+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hprtVhivv2czQbE",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hprtVhivv2czQbF",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/util/PathUtils.java",
+        "line": 325,
+        "textRange": {
+          "startLine": 325,
+          "endLine": 325,
+          "startOffset": 42,
+          "endOffset": 49
+        },
+        "codeSnippet": {
+          "before": [
+            "    <span class=\"k\">public</span> <span class=\"k\">static</span> String <span class=\"sym-103 sym\">doDynamicDateToMillisReplacement</span>(String <span class=\"sym-104 sym\">string</span>,",
+            "            <span class=\"sym-12 sym\">Metadata</span> <span class=\"sym-105 sym\">metadata</span>) <span class=\"k\">throws</span> <span class=\"sym-1 sym\">ParseException</span>, <span class=\"sym-11 sym\">CommonsException</span>, <span class=\"sym-10 sym\">CasMetadataException</span> {"
+          ],
+          "flagged": "        <span class=\"sym-8 sym\">Pattern</span> <span class=\"sym-106 sym\">utcToTaiPattern</span> = <span class=\"sym-8 sym\">Pattern</span>.compile(<span class=\"s\">\"\\\\[\\\\s*DATE_TO_MILLIS\\\\s*\\\\(.{1,}?\\\\,.{1,}?,.{1,}?\\\\)\\\\s*\\\\]\"</span>);",
+          "after": [
+            "        <span class=\"sym-7 sym\">Matcher</span> <span class=\"sym-107 sym\">matcher</span> = <span class=\"sym-106 sym\">utcToTaiPattern</span>.matcher(<span class=\"sym-104 sym\">string</span>);",
+            "        <span class=\"k\">while</span> (<span class=\"sym-107 sym\">matcher</span>.find()) {"
+          ]
+        }
+      },
+      "message": "Make sure the regex used here, which is vulnerable to polynomial runtime due to backtracking, cannot lead to denial of service.",
+      "created": "2024-07-20T19:28:06+0000",
+      "updated": "2025-04-30T18:44:32+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hprtVhivv2czQbF",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hthtVhivv2czQfB",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:src/main/resources/bin/export_solr_registry_pds3.py",
+        "line": 73,
+        "textRange": {
+          "startLine": 73,
+          "endLine": 73,
+          "startOffset": 46,
+          "endOffset": 76
+        },
+        "codeSnippet": {
+          "before": [
+            "                <span class=\"k\">for</span> <span class=\"sym-40 sym\">value</span> <span class=\"k\">in</span> <span class=\"sym-37 sym\">doc</span>[<span class=\"sym-39 sym\">key</span>]:",
+            "                    <span class=\"k\">if</span> <span class=\"sym-39 sym\">key</span> == <span class=\"s\">'file_ref_url'</span>:"
+          ],
+          "flagged": "                        <span class=\"sym-40 sym\">value</span> = <span class=\"sym-40 sym\">value</span>.replace(<span class=\"s\">'http://starbase.jpl.nasa.gov'</span>, <span class=\"s\">'https://pds.nasa.gov/data'</span>)",
+          "after": [
+            "                    <span class=\"k\">elif</span> <span class=\"sym-38 sym\">is_data_set</span>:",
+            "                        <span class=\"k\">if</span> <span class=\"sym-39 sym\">key</span> == <span class=\"s\">'investigation_name'</span>:"
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead",
+      "created": "2024-10-07T17:01:20+0000",
+      "updated": "2025-04-30T18:16:30+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hthtVhivv2czQfB",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hfctVhivv2czQDs",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:catalog-legacy/src/main/java/gov/nasa/pds/citool/file/MD5Checksum.java",
+        "line": 47,
+        "textRange": {
+          "startLine": 47,
+          "endLine": 47,
+          "startOffset": 40,
+          "endOffset": 51
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-11 sym\">input</span> =  <span class=\"k\">new</span> <span class=\"sym-1 sym\">FileInputStream</span>(<span class=\"sym-10 sym\">filename</span>);",
+            "      <span class=\"k\">byte</span>[] <span class=\"sym-12 sym\">buffer</span> = <span class=\"k\">new</span> <span class=\"k\">byte</span>[<span class=\"c\">1024</span>];"
+          ],
+          "flagged": "      <span class=\"sym-3 sym\">MessageDigest</span> <span class=\"sym-13 sym\">md5</span> = <span class=\"sym-3 sym\">MessageDigest</span>.getInstance(<span class=\"s\">\"MD5\"</span>);",
+          "after": [
+            "      <span class=\"k\">int</span> <span class=\"sym-14 sym\">bytesRead</span> = <span class=\"c\">0</span>;",
+            "      <span class=\"k\">do</span> {"
+          ]
+        }
+      },
+      "message": "Make sure this weak hash algorithm is not used in a sensitive context here.",
+      "created": "2012-01-30T21:09:25+0000",
+      "updated": "2025-04-30T18:17:28+0000",
+      "author": "shardman@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hfctVhivv2czQDs",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hq9tVhivv2czQcP",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/file/MD5Checksum.java",
+        "line": 46,
+        "textRange": {
+          "startLine": 46,
+          "endLine": 46,
+          "startOffset": 40,
+          "endOffset": 51
+        },
+        "codeSnippet": {
+          "before": [
+            "      <span class=\"sym-11 sym\">input</span> =  <span class=\"k\">new</span> <span class=\"sym-1 sym\">FileInputStream</span>(<span class=\"sym-10 sym\">filename</span>);",
+            "      <span class=\"k\">byte</span>[] <span class=\"sym-12 sym\">buffer</span> = <span class=\"k\">new</span> <span class=\"k\">byte</span>[<span class=\"c\">1024</span>];"
+          ],
+          "flagged": "      <span class=\"sym-3 sym\">MessageDigest</span> <span class=\"sym-13 sym\">md5</span> = <span class=\"sym-3 sym\">MessageDigest</span>.getInstance(<span class=\"s\">\"MD5\"</span>);",
+          "after": [
+            "      <span class=\"k\">int</span> <span class=\"sym-14 sym\">bytesRead</span> = <span class=\"c\">0</span>;",
+            "      <span class=\"k\">do</span> {"
+          ]
+        }
+      },
+      "message": "Make sure this weak hash algorithm is not used in a sensitive context here.",
+      "created": "2012-01-30T19:03:59+0000",
+      "updated": "2025-04-30T18:17:40+0000",
+      "author": "shardman@45d5965c-88be-4637-9056-144873d6cd01",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hq9tVhivv2czQcP",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AZPV2hrItVhivv2czQcW",
+      "project": "NASA-PDS_registry-legacy-solr",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "REVIEWED",
+      "rule": {},
+      "location": {
+        "component": "NASA-PDS_registry-legacy-solr:harvest-legacy/src/main/java/gov/nasa/pds/harvest/search/registry/FileDataLoader.java",
+        "line": 31,
+        "textRange": {
+          "startLine": 31,
+          "endLine": 31,
+          "startOffset": 39,
+          "endOffset": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "        ",
+            "        <span class=\"cd\">// Calculate MD5 hash</span>"
+          ],
+          "flagged": "        <span class=\"k\">byte</span>[] <span class=\"sym-13 sym\">md5hash</span> = <span class=\"sym-3 sym\">MessageDigest</span>.getInstance(<span class=\"s\">\"MD5\"</span>).digest(<span class=\"sym-12 sym\">fileContent</span>);",
+          "after": [
+            "        <span class=\"sym-11 sym\">data</span>.md5Base64 = <span class=\"sym-4 sym\">Base64</span>.getEncoder().encodeToString(<span class=\"sym-13 sym\">md5hash</span>);",
+            "        "
+          ]
+        }
+      },
+      "message": "Make sure this weak hash algorithm is not used in a sensitive context here.",
+      "created": "2019-12-05T00:27:27+0000",
+      "updated": "2025-04-30T18:17:49+0000",
+      "author": "jordan.h.padams@jpl.nasa.gov",
+      "effort": "",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry-legacy-solr&hotspots=AZPV2hrItVhivv2czQcW",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

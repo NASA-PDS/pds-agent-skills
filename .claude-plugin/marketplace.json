@@ -43,8 +43,8 @@
     {
       "name": "sonarcloud-skills",
       "source": "./static/marketplace/",
-      "description": "SonarCloud security workflow automation: audit security issues and apply triage decisions in bulk",
-      "version": "2.0.0",
+      "description": "SonarCloud security workflow automation: export security issues, assist with triage decisions, and apply triage outcomes in bulk",
+      "version": "3.0.0",
       "author": {
         "name": "NASA PDS Engineering Node"
       },
@@ -63,8 +63,9 @@
       ],
       "category": "security",
       "skills": [
-        "./skills/sonarcloud-security-audit",
-        "./skills/sonarcloud-security-triage"
+        "./skills/sonarcloud-security-exporting",
+        "./skills/sonarcloud-security-triaging",
+        "./skills/sonarcloud-security-updating"
       ]
     }
   ]
