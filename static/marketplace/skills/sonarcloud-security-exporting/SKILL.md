@@ -27,6 +27,21 @@ This skill fetches all security-related issues (vulnerabilities and security hot
 
 ## Execution Steps
 
+### Step 0: Confirm Output Directory
+
+Before writing any files, ask the user where to save output:
+
+```
+Where should I save the export files?
+  1. Current directory: <show $PWD>
+  2. /tmp
+  3. Custom path (enter below)
+```
+
+Use their choice as the output directory for all files written in this session. Store it as `OUTPUT_DIR`.
+
+**Important:** Never write output files inside the skill's own directory (the directory containing this SKILL.md).
+
 ### Step 1: Check for API Token
 
 Check if `SONARCLOUD_TOKEN` environment variable is set:
@@ -46,15 +61,15 @@ Execute the main script:
 
 #### CSV Export (Default)
 ```bash
-cd sonarcloud-security-exporting
-node scripts/fetch-security-issues.mjs nasa-pds [output-file.csv]
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/sonarcloud-security-issues-$(date +%Y%m%d).csv"
 ```
 
 #### JSON Export (Rich Format)
 ```bash
-cd sonarcloud-security-exporting
-node scripts/fetch-security-issues.mjs nasa-pds [output-file.json] --format json
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/sonarcloud-security-issues-$(date +%Y%m%d).json" --format json
 ```
+
+Where `<skill-dir>` is the absolute path to the directory containing this SKILL.md.
 
 **Parameters:**
 - `nasa-pds` (required): Organization key
@@ -251,27 +266,27 @@ Structured format for AI-assisted triage with full context:
 
 ```bash
 # Export only high-severity vulnerabilities
-node scripts/fetch-security-issues.mjs nasa-pds output.json \
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --severity BLOCKER,CRITICAL
 
 # Export only open/confirmed issues
-node scripts/fetch-security-issues.mjs nasa-pds output.json \
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --status OPEN,CONFIRMED
 
 # Export issues created after specific date
-node scripts/fetch-security-issues.mjs nasa-pds output.json \
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --created-after 2025-01-01
 
 # Export specific project only
-node scripts/fetch-security-issues.mjs nasa-pds output.json \
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --project NASA-PDS_registry
 
 # Skip code snippets for faster export
-node scripts/fetch-security-issues.mjs nasa-pds output.json \
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --no-snippets
 ```
@@ -280,8 +295,8 @@ node scripts/fetch-security-issues.mjs nasa-pds output.json \
 
 **JSON to CSV:**
 ```bash
-# Generate CSV from JSON
-jq -r '.issues[] | [.project, .type, .severity, .status, .rule.key, .message, .location.component, .location.line, .created, .url] | @csv' output.json > output.csv
+# Generate CSV from JSON (use $OUTPUT_DIR paths from Step 0)
+jq -r '.issues[] | [.project, .type, .severity, .status, .rule.key, .message, .location.component, .location.line, .created, .url] | @csv' "$OUTPUT_DIR/output.json" > "$OUTPUT_DIR/output.csv"
 ```
 
 **CSV to JSON (limited, loses rich data):**
