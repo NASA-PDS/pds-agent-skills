@@ -380,9 +380,20 @@ After dismissals are applied, commit the triage artifacts to `NASA-PDS/outlaw-tr
 #### Steps
 
 ```bash
-# 1. Clone outlaw-tracker (or use existing clone)
-git clone --depth=1 https://github.com/NASA-PDS/outlaw-tracker.git /tmp/outlaw-tracker
-cd /tmp/outlaw-tracker
+# 1. Detect whether we're already inside the outlaw-tracker repo
+REPO_ROOT=$(git rev-parse --show-toplevel 2>/dev/null)
+REMOTE=$(git remote get-url origin 2>/dev/null)
+
+if echo "$REMOTE" | grep -q "outlaw-tracker"; then
+  # Already in the repo — use it directly
+  OUTLAW_DIR="$REPO_ROOT"
+else
+  # Clone it
+  git clone --depth=1 https://github.com/NASA-PDS/outlaw-tracker.git /tmp/outlaw-tracker
+  OUTLAW_DIR="/tmp/outlaw-tracker"
+fi
+
+cd "$OUTLAW_DIR"
 
 # 2. Create a branch named for the session date and scope
 BRANCH="dependabot-triage-$(date +%Y%m%d)"
