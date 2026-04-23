@@ -116,25 +116,30 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
   }
 }
 
+// Parse the Link header for cursor-based pagination (used by Dependabot alerts API)
+function parseNextUrl(linkHeader) {
+  if (!linkHeader) return null;
+  const match = linkHeader.match(/<([^>]+)>;\s*rel="next"/);
+  return match ? match[1] : null;
+}
+
 async function fetchAllPages(urlBase) {
   const results = [];
-  let page = 1;
   const perPage = 100;
+  const sep = urlBase.includes('?') ? '&' : '?';
+  let url = `${urlBase}${sep}per_page=${perPage}`;
 
-  while (true) {
-    const sep = urlBase.includes('?') ? '&' : '?';
-    const url = `${urlBase}${sep}per_page=${perPage}&page=${page}`;
+  while (url) {
     const response = await fetchWithRetry(url);
     const data = await response.json();
 
     if (!Array.isArray(data) || data.length === 0) break;
     results.push(...data);
 
-    if (data.length < perPage) break;
-    page++;
+    // Follow Link header for cursor-based pagination
+    url = parseNextUrl(response.headers.get('link'));
 
-    // Brief pause between pages to be respectful of rate limits
-    await sleep(200);
+    if (url) await sleep(200);
   }
 
   return results;

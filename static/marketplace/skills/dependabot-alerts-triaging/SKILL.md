@@ -1,11 +1,11 @@
 ---
 name: dependabot-alerts-triaging
-description: Analyze GitHub Dependabot dependency vulnerability alerts and suggest triage decisions (dismiss/fix/escalate) with explanations. Use when the user needs help reviewing Dependabot alerts, deciding whether dependencies are exploitable, or bulk-triaging CVEs across NASA PDS repositories.
+description: Analyze GitHub Dependabot dependency vulnerability alerts and suggest triage decisions (dismiss/fix/escalate) with explanations. Use when the user needs help reviewing Dependabot alerts, deciding whether dependencies are exploitable, or triaging CVEs across NASA PDS repositories.
 ---
 
 # Dependabot Alerts Triaging Skill
 
-This skill helps you make informed triage decisions on GitHub Dependabot dependency vulnerability alerts by analyzing each CVE in the context of how the affected package is actually used in NASA-PDS code.
+This skill helps you make informed triage decisions on GitHub Dependabot dependency vulnerability alerts by analyzing each CVE — **one at a time** — in the context of how the affected package is actually used in NASA-PDS code. You review and approve every decision before anything is recorded or applied.
 
 ## Prerequisites
 
@@ -17,237 +17,229 @@ This skill helps you make informed triage decisions on GitHub Dependabot depende
 
 ```
 1. dependabot-alerts-exporting  → Export alerts to JSON
-2. dependabot-alerts-triaging   → THIS SKILL: Analyze & suggest decisions
-3. (Manual or scripted)         → Dismiss alerts via GitHub UI or API
+2. dependabot-alerts-triaging   → THIS SKILL: Analyze & decide one by one
+3. dismiss-alerts.mjs           → Apply dismissal decisions to GitHub
 ```
-
-## What This Skill Does
-
-For each Dependabot alert, this skill:
-1. **Explains the CVE** — what vulnerability class, what attack vector, what impact
-2. **Assesses exploitability** — is the vulnerable code path actually reachable in PDS?
-3. **Checks for a fix** — is a patched version available? Is it a breaking upgrade?
-4. **Recommends an action** — fix, dismiss with reason, or escalate to outlaw-tracker
-5. **Groups similar alerts** — bulk-triage identical CVEs across multiple repos
 
 ## Triage Actions
 
 | Action | When to Use | GitHub API Value |
 |--------|-------------|-----------------|
-| **Fix** | Patched version available, upgrade is straightforward | Keep open, open outlaw-tracker issue |
-| **Tolerable risk** | Real CVE but attack vector not applicable to PDS (e.g., server-side RCE in a CLI tool) | `tolerable_risk` |
-| **Not used** | Vulnerable code path is never called in PDS code | `inaccurate` |
-| **Inaccurate** | CVE doesn't actually affect this package version or usage | `inaccurate` |
-| **No bandwidth** | Real issue, low severity, deprioritized for now | `no_bandwidth` |
+| **fix** | Patched version available; upgrade is feasible | Keep open, create outlaw-tracker issue |
+| **tolerable_risk** | Real CVE but attack vector doesn't apply to PDS usage | `tolerable_risk` |
+| **inaccurate** | CVE doesn't affect this package/version, or vulnerable function is never called | `inaccurate` |
+| **no_bandwidth** | Real issue, acceptable risk for now, defer to backlog | `no_bandwidth` |
 
 ## Workflow
 
 ### Step 1: Load the Export
 
-Ask the user for the path to the JSON file from `dependabot-alerts-exporting`:
+Ask the user for the path to their Dependabot alerts JSON file. Parse it and show a brief summary:
 
 ```
-What is the path to your Dependabot alerts JSON file?
+Loaded 5 alerts for nasa-pds/registry-legacy-solr
+  HIGH:   1
+  MEDIUM: 3
+  LOW:    1
+
+I'll go through each one individually, starting with the highest severity.
+Ready? [yes]
 ```
 
-Parse the file and show a summary:
+Wait for the user to confirm before starting.
+
+### Step 2: Order the Queue
+
+Sort alerts: CRITICAL → HIGH → MEDIUM → LOW. Within the same severity, sort by CVSS score descending.
+
+If the same CVE appears in multiple repos, note it when presenting the first instance ("This CVE also affects 2 other repos — after you decide here, I can apply the same decision to those"). Present each repo's alert individually — never assume the same decision applies without the user confirming.
+
+### Step 3: Triage Each Alert — One at a Time
+
+Present **one alert** using this format, then stop and wait:
 
 ```
-Loaded 127 alerts across 18 repositories
-  CRITICAL: 3
-  HIGH: 24
-  MEDIUM: 61
-  LOW: 39
+Alert #1/5 — nasa-pds/registry-legacy-solr — Alert #33
+────────────────────────────────────────────────────────
+Package:   lxml (pip)
+Severity:  HIGH — CVSS 7.5
+CVE:       CVE-2026-41066
+Advisory:  https://github.com/advisories/GHSA-xxxx-xxxx-xxxx
+Alert URL: https://github.com/NASA-PDS/registry-legacy-solr/security/dependabot/33
 
-Recommend starting with CRITICAL and HIGH (27 alerts).
-Proceed? [yes / no / custom filter]
-```
-
-### Step 2: Prioritize by Severity
-
-Always start with CRITICAL, then HIGH. Within each severity, group by CVE ID — the same vulnerability often appears in multiple repos and can be bulk-triaged.
-
-```bash
-# Show unique CVEs at critical/high severity
-jq '[.alerts[] | select(.advisory.severity == "critical" or .advisory.severity == "high")] 
-    | group_by(.advisory.cveId) 
-    | map({cve: .[0].advisory.cveId, count: length, repos: map(.repository), summary: .[0].advisory.summary})' \
-    alerts.json
-```
-
-### Step 3: Analyze Each Alert (or CVE Group)
-
-For each alert or CVE group, present:
-
-```
-─────────────────────────────────────────────
-CVE-2021-23337 — Command Injection in lodash
-Severity: HIGH (CVSS 7.2)
-Affected repos: nasa-pds/registry, nasa-pds/harvest (2 repos, 2 alerts)
-Package: lodash < 4.17.21 → fix: 4.17.21
-CWE: CWE-77 (Command Injection)
-Advisory: https://github.com/advisories/GHSA-35jh-r3h4-6jhm
+Vulnerable: < 6.1.0 | Fixed: 6.1.0
+Manifest:   src/main/resources/requirements.txt (runtime)
 
 WHAT IS IT:
-lodash's template() function passes user-supplied strings to Function() constructor,
-enabling arbitrary code execution if untrusted input reaches template().
+lxml's iterparse() and ETCompatXMLParser() use a default libxml2 configuration
+that allows XML External Entity (XXE) processing. If untrusted XML is passed to
+these functions, an attacker can read arbitrary local files or trigger SSRF.
 
-EXPLOITABILITY IN PDS:
-- Is lodash.template() called with user input? [check repo if available]
-- If lodash is only used for _.merge(), _.cloneDeep(), etc. → not exploitable via this CVE
-- Patched version (4.17.21) is available and likely not a breaking change
+WHAT I FOUND IN THE REPO:
+[Search the repo for lxml imports and usages. Report specifically:
+ - Which functions are called (parse, iterparse, fromstring, etc.)
+ - Whether the input comes from user-supplied data or internal sources
+ - E.g.: "lxml.etree.parse() is called on PDS4 labels in src/harvest/xml_parser.py.
+          Labels are submitted by external users — XXE is reachable."]
 
-RECOMMENDATION:
-  Action: fix
-  Reason: Patched version available. Upgrade is non-breaking (patch release).
-  Comment: "CVE-2021-23337 affects lodash.template() with untrusted input.
-            Upgrade to 4.17.21. — Triaged with assistance from Claude"
-  Confidence: HIGH
-  → Create outlaw-tracker issue: YES (HIGH severity, fixable)
-─────────────────────────────────────────────
+EXPLOITABILITY:
+[Based on the code findings, assess whether the vulnerable API is reachable
+ with attacker-controlled input. Be specific.
+ E.g.: "HIGH — external XML is parsed without disabling entity resolution."]
 
-How would you like to proceed?
-1. Accept recommendation (fix, create outlaw-tracker issue)
-2. Dismiss as tolerable_risk
-3. Dismiss as not_used (we don't use lodash.template with user input)
-4. Skip for now
+MY RECOMMENDATION:
+  Action:     fix
+  Reason:     Patch available (6.1.0). Runtime dep. Likely reachable with external XML.
+  Comment:    "CVE-2026-41066: lxml XXE via iterparse(). Upgrade to >=6.1.0.
+               — Triaged with assistance from Claude"
+  Confidence: medium (awaiting code confirmation)
+  outlaw-tracker: YES
+
+Do you want to:
+1. ✅ Fix — keep open + create outlaw-tracker issue
+2. 🟡 Dismiss — tolerable_risk (attack vector not applicable to PDS)
+3. 🟡 Dismiss — inaccurate (vulnerable function not used / CVE doesn't apply)
+4. 🟡 Dismiss — no_bandwidth (real issue, defer)
+5. 🔍 Investigate more first
+6. ⏭️  Skip for now
 ```
 
-### Step 4: Common False Positive Patterns
+**Do not present the next alert until the user responds to this one.**
 
-Use these patterns to identify alerts that are likely safe to dismiss:
+If the user picks option 5 (investigate more), search the repository using available tools:
+- Look for imports and usages of the flagged package/function
+- Check if the dep appears in test/dev scope only
+- Check the manifest for version pinning and transitive dep chains
+- Report findings clearly, then re-present options 1–6.
 
-**Not used (inaccurate)**
-- The vulnerable function/method is never called in PDS code
-- The package is a transitive dependency of a dev-only tool (e.g., jest, webpack)
-- The package is listed in `devDependencies` and not bundled into production artifacts
+### Step 4: Record the Decision
 
-**Tolerable risk**
-- The CVE requires network access, but the tool only runs locally (CLI tools, validators)
-- The CVE requires authenticated access, and PDS services require authentication
-- The CVE affects a server-side component but the package is used client-side only
-- CVSS score is inflated (e.g., network-accessible vector but PDS usage is local-only)
+After the user responds, immediately update the `triage` field for that alert in the working JSON and confirm:
 
-**Inaccurate**
-- The CVE was fixed in a version older than what's actually installed (version confusion)
-- The advisory was later withdrawn or revised
+```
+✅ Recorded: dismiss (inaccurate) — lxml is only used via lxml.etree.fromstring() on
+   internally-generated XML, not user input. Vulnerable iterparse() is never called.
 
-**Test/dev dependencies (lower priority)**
-- Package only appears in `devDependencies`, `test`, or `requirements-dev.txt`
-- Not present in production Docker image or deployed artifact
-
-### Step 5: For True Positives — Create outlaw-tracker Issues
-
-For any alert where the recommended action is **fix** or that represents a genuine HIGH/CRITICAL risk, create a GitHub issue in the private `NASA-PDS/outlaw-tracker` repository:
-
-```bash
-gh issue create \
-  --repo NASA-PDS/outlaw-tracker \
-  --title "CVE-YYYY-NNNNN: <package> vulnerability in <repo>" \
-  --label "security" \
-  --body-file /tmp/dependabot_issue_body.md
+Progress: 1/5 done — 4 remaining
 ```
 
-Issue body should include:
-- CVE ID and GHSA ID
-- Affected repository and manifest path
-- Affected package, vulnerable version range, and patched version
-- CVSS score and severity
-- Brief description of the vulnerability and attack vector
-- Whether it is exploitable in the PDS context
-- Recommended fix (upgrade command if applicable)
-- Link to the GitHub Dependabot alert
-- Link to the GitHub advisory
-
-Record the created issue URL in the `triage.githubIssueUrl` field of the alert JSON.
-
-**Comment signature:** All dismissal comments must end with:
-```
-— Triaged with assistance from Claude
-```
-
-### Step 6: Update the Triage JSON
-
-After each decision, populate the `triage` field:
+Fill the triage object:
 
 ```json
 {
   "triage": {
     "action": "dismiss",
-    "dismissedReason": "not_used",
-    "comment": "lodash is used only for _.merge() and _.cloneDeep() in this repo. The vulnerable template() function is never called with user input. — Triaged with assistance from Claude",
+    "dismissedReason": "inaccurate",
+    "comment": "lxml.iterparse() is never called in this repo. Only fromstring() is used on internally-generated XML. — Triaged with assistance from Claude",
     "githubIssueUrl": null,
     "reviewer": "jordanpadams",
-    "triageDate": "2026-04-23T...",
+    "triageDate": "2026-04-23T15:30:00Z",
     "confidence": "high"
   }
 }
 ```
 
 Valid `dismissedReason` values (GitHub API):
-- `tolerable_risk` — Real risk, acceptable for PDS context
-- `inaccurate` — CVE doesn't apply (not_used, version mismatch, withdrawn)
+- `tolerable_risk` — Risk is real but acceptable in PDS context
+- `inaccurate` — CVE doesn't apply (wrong function, version confusion, not used)
 - `no_bandwidth` — Real issue, low priority, deferred
 
-### Step 7: Track Metrics
+### Step 5: Create outlaw-tracker Issue (When action = fix)
 
-Maintain a `dependabot-triage-metrics.json` file:
+When the user approves **fix**, immediately create a GitHub issue before moving to the next alert. Write the body to `/tmp/dependabot_issue_body.md` using the Write tool, then:
 
-```json
-{
-  "triageSession": {
-    "startDate": "2026-04-23T...",
-    "organization": "nasa-pds",
-    "totalAlertsExported": 127,
-    "totalAlertsTriage d": 27,
-    "alertsRemaining": 100,
-    "tokenUsage": {
-      "total": 0,
-      "notes": "Track cumulative token usage across the triage session"
-    }
-  },
-  "remediationSummary": {
-    "fix": 4,
-    "tolerable_risk": 10,
-    "inaccurate": 8,
-    "no_bandwidth": 3,
-    "pending": 102,
-    "outlaw_tracker_issues_created": 4
-  },
-  "cveGroups": [
-    {
-      "cveId": "CVE-2021-23337",
-      "package": "lodash",
-      "affectedRepos": ["nasa-pds/registry", "nasa-pds/harvest"],
-      "severity": "high",
-      "action": "fix",
-      "outlaw_tracker_url": "https://github.com/NASA-PDS/outlaw-tracker/issues/42"
-    }
-  ]
-}
+```bash
+gh issue create \
+  --repo NASA-PDS/outlaw-tracker \
+  --title "CVE-YYYY-NNNNN: <package> vulnerability in NASA-PDS/<repo>" \
+  --label "security" \
+  --body-file /tmp/dependabot_issue_body.md
 ```
 
-Update token usage after each repository batch using the Claude Code token counter.
+Issue body must include:
+- CVE ID and GHSA ID
+- Affected repository and manifest path
+- Affected package, vulnerable version range, and patched version
+- CVSS score and severity
+- Brief description of the vulnerability and attack vector
+- Exploitability assessment from the code investigation
+- Recommended fix command (e.g., `pip install "lxml>=6.1.0"`)
+- Link to the Dependabot alert
+- Link to the GitHub advisory
 
-## Output Format
+Record the returned issue URL in `triage.githubIssueUrl`. Confirm the issue was created, then immediately advance to the next alert.
 
-Always produce:
+**All comments must end with:**
+```
+— Triaged with assistance from Claude
+```
 
-1. **Summary** — "Triaged 27 alerts: 4 fix, 18 dismiss, 5 pending"
-2. **Updated JSON** — Input JSON with `triage` fields populated
-3. **Metrics file** — `dependabot-triage-metrics.json`
-4. **outlaw-tracker issues** — Created for all fix/escalate decisions
+### Step 6: Advance to the Next Alert
+
+After recording a decision (and creating any outlaw-tracker issue), present the next alert using the same Step 3 format. Repeat until all alerts are done or the user says stop.
+
+### Step 7: Session Summary and Save
+
+When all alerts are triaged (or the user types "done"/"save"), show a summary and write the updated JSON:
+
+```
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Triage Complete — nasa-pds/registry-legacy-solr
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Total:          5
+  fix:            2  → outlaw-tracker issues: #42, #43
+  tolerable_risk: 1
+  inaccurate:     1
+  no_bandwidth:   1
+  skipped:        0
+
+Saved: dependabot-registry-legacy-solr-triaged.json
+
+Next — apply dismissals:
+  node scripts/dismiss-alerts.mjs dependabot-registry-legacy-solr-triaged.json --dry-run
+```
+
+Write the updated JSON appending `-triaged` before `.json` (e.g., `dependabot-alerts.json` → `dependabot-alerts-triaged.json`).
+
+### Step 8: Apply Dismissals
+
+Offer to run the dismissal script after saving:
+
+```bash
+# Preview first
+node scripts/dismiss-alerts.mjs dependabot-alerts-triaged.json --dry-run
+
+# Apply
+node scripts/dismiss-alerts.mjs dependabot-alerts-triaged.json
+```
+
+The script PATCHes each alert where `triage.action === "dismiss"` via the GitHub API with the recorded `dismissedReason` and `comment`. Requires `GITHUB_TOKEN` (same as the export step).
+
+## Common False Positive Patterns
+
+**inaccurate — not used**
+- The vulnerable function/method is never imported or called in the codebase
+- The package is a transitive dep of a dev-only tool (jest, webpack, sphinx)
+- The package appears only in `devDependencies` / `requirements-dev.txt`, not in the production artifact
+
+**tolerable_risk**
+- CVE requires network exposure but the tool only runs locally (CLI validators, data pipeline tools)
+- CVE requires unauthenticated access but PDS services require auth
+- CVSS inflated — network-accessible vector described in advisory doesn't match PDS deployment model
+- No patch available and the code is EOL legacy with no active maintainer
+
+**inaccurate — version or advisory mismatch**
+- Advisory later withdrawn or revised
+- Fix already backported to the installed version
+
+**no_bandwidth**
+- Real vulnerability, no patch available, EOL library (e.g., commons-lang 2.x)
+- Low CVSS, low exploitability, lower priority than other active work
 
 ## Notes
 
-- **Group by CVE first** — the same CVE across 10 repos = one triage decision, not ten
-- **Dev dependencies are lower priority** — triage production dependencies first
-- **Patched version available = strong signal to fix** — upgrade effort is usually low
-- **When unsure** — recommend human review rather than dismissing; false negatives (missed real vulnerabilities) are worse than false positives
-- **Bulk dismiss** — after human approval, you can apply decisions using the GitHub API:
-  ```bash
-  gh api --method PATCH /repos/NASA-PDS/{repo}/dependabot/alerts/{number} \
-    -f state=dismissed \
-    -f dismissed_reason=tolerable_risk \
-    -f dismissed_comment="..."
-  ```
+- **One at a time, always** — never present multiple alerts at once; wait for the user to respond to each
+- **Investigate before guessing** — use available tools to read the code; a specific finding beats a generic assessment
+- **"legacy" repo names are a signal** — `no_bandwidth` and `tolerable_risk` are more likely appropriate; call this out explicitly
+- **Same CVE, multiple repos** — mention cross-repo impact, but confirm the decision per repo unless the user says "apply to all"
+- **When unsure** — say so and recommend human review; a missed real vulnerability is worse than over-caution
