@@ -4,9 +4,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 2 plugins grouping 4 skills by workflow theme:
-- **pds-github-skills**: Release notes generation + GitHub issue creation
-- **sonarcloud-skills**: Security audit + security triage
+This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 3 plugins grouping 8 skills by workflow theme:
+- **pds-github-skills**: Release notes generation + GitHub issue creation + pull request creation
+- **sonarcloud-skills**: SonarCloud security export + triage + update
+- **dependabot-skills**: Dependabot alert export + triage
 
 Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
 
@@ -98,6 +99,27 @@ SonarCloud security workflow automation for NASA PDS
 - Helper script: `scripts/apply-triage.mjs`
 
 **Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
+
+#### Plugin 3: dependabot-skills
+
+GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
+
+**7. dependabot-alerts-exporting** - Exports GitHub Dependabot alerts
+- Fetches all open dependency vulnerability alerts from nasa-pds organization via GitHub API
+- Exports to JSON with CVE ID, CVSS score, affected package, version range, fix version, manifest path, and advisory URL
+- Supports filtering by severity, state, ecosystem, and single repository
+- Automatic pagination, rate limiting, and retry logic
+- Requires `GITHUB_TOKEN` with `security_events` scope and Node.js v18+
+- Helper script: `scripts/fetch-dependabot-alerts.mjs`
+
+**8. dependabot-alerts-triaging** - Analyzes Dependabot alerts and suggests triage decisions
+- Reads exported JSON and analyzes each CVE in PDS context
+- Assesses exploitability: is the vulnerable code path reachable?
+- Groups identical CVEs across multiple repos for bulk triage efficiency
+- Recommends action: fix, tolerable_risk, inaccurate, no_bandwidth
+- Creates GitHub issues in `NASA-PDS/outlaw-tracker` for confirmed HIGH/CRITICAL vulnerabilities
+- Generates updated JSON with `triage` fields populated
+- Tracks token usage in metrics
 
 ## Shared Resources
 
