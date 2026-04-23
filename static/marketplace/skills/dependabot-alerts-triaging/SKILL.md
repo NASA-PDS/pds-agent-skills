@@ -367,6 +367,109 @@ node scripts/dismiss-alerts.mjs dependabot-alerts-triaged.json
 
 The script PATCHes each alert where `triage.action === "dismiss"` via the GitHub API with the recorded `dismissedReason` and `comment`. Requires `GITHUB_TOKEN` (same as the export step).
 
+### Step 10: Create a PR on outlaw-tracker with Triage Results
+
+After dismissals are applied, commit the triage artifacts to `NASA-PDS/outlaw-tracker` and open a pull request so the session is permanently recorded and reviewable.
+
+#### Files to include
+
+- `dependabot-alerts-triaged.json` — full alert data with triage decisions
+- `dependabot-triage-metrics.json` — structured session metrics
+- `DEPENDABOT_TRIAGE_METRICS.md` — human-readable dashboard
+
+#### Steps
+
+```bash
+# 1. Clone outlaw-tracker (or use existing clone)
+git clone --depth=1 https://github.com/NASA-PDS/outlaw-tracker.git /tmp/outlaw-tracker
+cd /tmp/outlaw-tracker
+
+# 2. Create a branch named for the session date and scope
+BRANCH="dependabot-triage-$(date +%Y%m%d)"
+git checkout -b "$BRANCH"
+
+# 3. Create the triage-reports directory structure
+REPORT_DIR="triage-reports/dependabot/$(date +%Y%m%d)"
+mkdir -p "$REPORT_DIR"
+
+# 4. Copy triage artifacts into the report directory
+cp /path/to/dependabot-alerts-triaged.json         "$REPORT_DIR/"
+cp /path/to/dependabot-triage-metrics.json         "$REPORT_DIR/"
+cp /path/to/DEPENDABOT_TRIAGE_METRICS.md           "$REPORT_DIR/"
+
+# 5. Commit
+git add "$REPORT_DIR"
+git commit -m "Add Dependabot triage results for nasa-pds (<date>)
+
+Triaged <N> alerts across <M> repositories.
+  fix:            <N>  (outlaw-tracker issues created: <N>)
+  inaccurate:     <N>
+  tolerable_risk: <N>
+  no_bandwidth:   <N>
+
+Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+
+# 6. Push
+git push -u origin "$BRANCH"
+```
+
+#### PR Body
+
+Write the PR body to `/tmp/triage_pr_body.md` using the Write tool, then create the PR:
+
+```bash
+gh pr create \
+  --repo NASA-PDS/outlaw-tracker \
+  --base main \
+  --head "$BRANCH" \
+  --title "Dependabot triage results — nasa-pds (<date>)" \
+  --body-file /tmp/triage_pr_body.md \
+  --label "security"
+```
+
+The PR body should include:
+- Session date and organization
+- Summary table (total alerts, decisions breakdown, outlaw-tracker issues created)
+- Links to each outlaw-tracker issue created during the session
+- List of repositories triaged with alert counts
+- Token usage for the session
+- Note that dismissals have already been applied to GitHub
+
+```markdown
+## Summary
+
+Dependabot triage session for `nasa-pds` organization on <date>.
+
+| Metric | Count |
+|--------|-------|
+| Repositories triaged | <N> |
+| Total alerts | <N> |
+| fix | <N> |
+| inaccurate | <N> |
+| tolerable_risk | <N> |
+| no_bandwidth | <N> |
+| outlaw-tracker issues created | <N> |
+| Token usage | <N> |
+
+## outlaw-tracker Issues Created
+
+- #<N> — CVE-XXXX-XXXXX: <package> in <repo>
+
+## Repositories Triaged
+
+- `nasa-pds/<repo>` — <N> alerts (<N> fix, <N> dismissed)
+
+## Artifacts
+
+- `triage-reports/dependabot/<date>/dependabot-alerts-triaged.json`
+- `triage-reports/dependabot/<date>/dependabot-triage-metrics.json`
+- `triage-reports/dependabot/<date>/DEPENDABOT_TRIAGE_METRICS.md`
+
+Dismissals have been applied to GitHub via the Dependabot API.
+
+— Triaged with assistance from Claude
+```
+
 ## Common False Positive Patterns
 
 **inaccurate — not used**
