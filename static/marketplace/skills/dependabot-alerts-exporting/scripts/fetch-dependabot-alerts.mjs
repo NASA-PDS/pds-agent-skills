@@ -89,8 +89,10 @@ async function fetchWithRetry(url, options = {}, retries = 3) {
     try {
       const response = await fetch(url, { ...options, headers });
 
-      // Rate limiting
-      if (response.status === 429 || response.status === 403) {
+      // Rate limiting: 429 always means rate limit; 403 only when x-ratelimit-remaining is 0
+      const isRateLimited = response.status === 429 ||
+        (response.status === 403 && response.headers.get('x-ratelimit-remaining') === '0');
+      if (isRateLimited) {
         const retryAfter = parseInt(response.headers.get('retry-after') || '60', 10);
         const resetTime = response.headers.get('x-ratelimit-reset');
         const waitMs = resetTime
@@ -326,7 +328,11 @@ async function main() {
   console.log(`   Output: ${outputFile}`);
   console.log(`   Total alerts: ${allAlerts.length}`);
   console.log('   By severity:');
-  for (const [sev, count] of Object.entries(output.summary.bySeverity).sort()) {
+  const severityOrder = ['critical', 'high', 'medium', 'low'];
+  const bySeveritySorted = severityOrder
+    .filter(s => output.summary.bySeverity[s] !== undefined)
+    .map(s => [s, output.summary.bySeverity[s]]);
+  for (const [sev, count] of bySeveritySorted) {
     console.log(`     ${sev.toUpperCase()}: ${count}`);
   }
 }
