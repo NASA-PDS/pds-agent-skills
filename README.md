@@ -371,17 +371,51 @@ Once installed via the plugin marketplace, plugins are **automatically available
 
 1. **Install plugins** from the marketplace (see Installation above)
 2. **Open Claude Code** in your project directory (CLI) or start a project in Claude Desktop
-3. **Describe your task** naturally - Claude will autonomously use relevant plugins based on your request
+3. **Describe your task** naturally — Claude will autonomously use relevant plugins based on your request
 4. **Provide necessary inputs** as described in each plugin's documentation
 
-**Example:**
+### pds-github-skills examples
 
 ```bash
-# Claude will automatically use the generating-release-notes skill
+# Generate release notes for a specific version
 claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
+
+# Create a GitHub issue from a template
+claude "Create a bug report issue in NASA-PDS/registry"
+
+# Open a pull request for the current branch
+claude "Create a PR for this branch, closes issue #42"
 ```
 
-**Managing Plugins:**
+### sonarcloud-skills examples
+
+The SonarCloud skills follow a three-step pipeline: **export → triage → update**.
+
+**Export all security issues for NASA PDS:**
+```
+Export all SonarCloud security issues for nasa-pds to JSON in ~/security-audit
+```
+
+**Triage the exported issues:**
+```
+Help me triage the SonarCloud issues in ~/security-audit/sonarcloud-security-issues-20260418.json
+```
+
+**Apply approved decisions to SonarCloud:**
+```
+Apply the triage decisions from ~/security-audit/sonarcloud-security-triaged-20260418.json — dry run first
+```
+
+**Run the full pipeline in one session:**
+```
+Do a complete SonarCloud security audit and triage for NASA PDS.
+Export all issues to JSON, triage them repository by repository, then apply approved decisions.
+Save everything to ~/pds-security-audit.
+```
+
+> **Prerequisites for sonarcloud-skills:** Node.js v18+, and a SonarCloud API token set as `SONARCLOUD_TOKEN` in your environment. See the [SonarCloud Skills Guide](docs/SONARCLOUD_SKILLS_GUIDE.md) for setup instructions and a full list of example prompts.
+
+### Managing Plugins
 
 ```bash
 # List installed plugins
@@ -391,15 +425,15 @@ claude "Generate release notes for NASA-PDS/doi-service version v1.6.0"
 /plugin list @pds-agent-skills
 
 # Update a specific plugin
-/plugin update pds-github-skills@pds-agent-skills
+/plugin update sonarcloud-skills@pds-agent-skills
 
 # Uninstall a plugin
-/plugin uninstall pds-github-skills@pds-agent-skills
+/plugin uninstall sonarcloud-skills@pds-agent-skills
 ```
 
-See individual skill documentation (linked in table above) for detailed input specifications and examples.
-
-**📚 For detailed installation scenarios** (local, private repos, air-gapped environments), see the [Plugin Marketplace Installation Guide](docs/PLUGIN_MARKETPLACE_GUIDE.md).
+**📚 Detailed guides:**
+- [SonarCloud Skills Guide](docs/SONARCLOUD_SKILLS_GUIDE.md) — installation, example prompts, full workflow, troubleshooting
+- [Plugin Marketplace Installation Guide](docs/PLUGIN_MARKETPLACE_GUIDE.md) — local, private repo, and air-gapped install scenarios
 
 ## Adding a New Skill
 
