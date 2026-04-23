@@ -179,6 +179,14 @@ Determine if the issue is:
 - → Action: Keep OPEN (for vulnerabilities) or REVIEWED+FIXED (for hotspots after fix)
 - → Resolution: (varies)
 - → Comment: "Confirmed security issue. Needs remediation. — Triaged with assistance from Claude"
+- → **Create GitHub issue** in `NASA-PDS/outlaw-tracker` (private repo for tracking security vulnerabilities):
+  ```bash
+  gh issue create --repo NASA-PDS/outlaw-tracker \
+    --title "<brief description of vulnerability>" \
+    --label "security" \
+    --body "..."
+  ```
+  Issue body should include: affected repository, SonarCloud rule, file/line, severity, and a link to the SonarCloud issue. Record the created issue URL in the triage metrics and in the SonarCloud comment.
 
 **False Positive (Safe)**
 - Code is secure but flagged incorrectly
@@ -325,7 +333,7 @@ Save as `sonarcloud-security-triaged-{timestamp}.csv`
 **My recommendation:**
 - **Action:** <REVIEWED/falsepositive/wontfix/resolve>
 - **Resolution:** <SAFE/FIXED> (if hotspot)
-- **GitHub Issue:** <If created, link to issue>
+- **GitHub Issue:** <If true positive: link to issue created in NASA-PDS/outlaw-tracker>
 - **Comment:** "<explanation> — Triaged with assistance from Claude"
 
 **How would you like to proceed?**
