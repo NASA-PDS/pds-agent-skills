@@ -72,7 +72,7 @@ GitHub workflow automation for NASA PDS
 
 SonarCloud security workflow automation for NASA PDS
 
-**4. sonarcloud-security-audit** - Audits SonarCloud security issues
+**4. sonarcloud-security-exporting** - Exports SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
 - Exports to CSV with triage columns (severity, status, rule, component, line, URL)
 - Automatic pagination for large result sets (500 items per page)
@@ -80,7 +80,16 @@ SonarCloud security workflow automation for NASA PDS
 - Requires SonarCloud API token and Node.js v18+
 - Helper script: `scripts/fetch-security-issues.mjs`
 
-**5. sonarcloud-security-triage** - Applies triage decisions to SonarCloud
+**5. sonarcloud-security-triaging** - Analyzes security issues and suggests triage decisions
+- Reads exported CSV and analyzes each security issue
+- Examines code context around flagged lines
+- Identifies false positive patterns (test fixtures, URIs, dev code)
+- Suggests Action, Resolution, and Comment for each issue with reasoning
+- Groups similar issues for bulk triage efficiency
+- Generates triage recommendations CSV with confidence levels
+- Helps distinguish true positives from false positives
+
+**6. sonarcloud-security-updating** - Applies triage decisions to SonarCloud
 - Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
 - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
 - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)

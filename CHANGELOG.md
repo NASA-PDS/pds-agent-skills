@@ -9,6 +9,36 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **sonarcloud-security-triaging** skill - Analyze security issues and suggest triage decisions
+  - Reads exported CSV from sonarcloud-security-exporting skill
+  - Analyzes code context around each flagged security issue
+  - Understands SonarCloud security rules and common false positive patterns
+  - Suggests Action, Resolution, and Comment for each issue with reasoning
+  - Identifies patterns like URI literals, test fixtures, dev code, example configurations
+  - Groups similar issues for bulk triage efficiency
+  - Generates recommendations CSV with confidence levels
+  - Provides detailed rationale for each triage recommendation
+  - Added to `sonarcloud-skills` plugin (version 2.0.0 → 3.0.0)
+
+### Changed
+
+- **🔄 SonarCloud Skills Renamed for Clarity** - Improved skill naming to reflect actual functionality
+  - `sonarcloud-security-audit` → `sonarcloud-security-exporting` (exports data to CSV)
+  - `sonarcloud-security-triage` → `sonarcloud-security-updating` (applies decisions back to SonarCloud)
+  - New naming uses `sonarcloud-*` prefix for namespace grouping and easy discovery
+  - All skill descriptions updated to clarify export/triage/update workflow
+  - Documentation updated across README, CLAUDE.md, and skill files
+  - Workflow now clear: export → triage → update
+
+- **sonarcloud-security-triaging** - Added token usage tracking to metrics
+  - Tracks cumulative token usage across entire triage session
+  - `tokenUsage.total` field added to JSON metrics schema
+  - Token usage displayed in TRIAGE_METRICS.md dashboard
+  - Helps monitor AI processing cost and complexity for budgeting
+  - Enables efficiency analysis across different triage sessions
+
+### Added
+
 - **creating-pds-pull-requests** skill - Create GitHub pull requests in NASA-PDS repositories
   - Auto-detects current repository and branch from git context
   - Intelligent base branch detection (main/master/develop)
