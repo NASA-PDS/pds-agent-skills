@@ -9,14 +9,14 @@
 <pre align="center">Specialized AI workflow plugins for NASA Planetary Data System in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Plugins](https://img.shields.io/badge/plugins-2-blue)
-![Skills](https://img.shields.io/badge/skills-6-brightgreen)
+![Plugins](https://img.shields.io/badge/plugins-3-blue)
+![Skills](https://img.shields.io/badge/skills-8-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
-This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 6 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
+This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 3 thematic plugins grouping 8 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
 
-**🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `sonarcloud-skills` (Security workflows)
+**🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `sonarcloud-skills` (SonarCloud security) • `dependabot-skills` (Dependabot vulnerabilities)
 
 ## Table of Contents
 
@@ -62,8 +62,10 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[sonarcloud-security-exporting](static/marketplace/skills/sonarcloud-security-exporting/SKILL.md)** | Export SonarCloud security issues for NASA PDS repositories to CSV | Security audits, vulnerability reports, data export |
 | **[sonarcloud-security-triaging](static/marketplace/skills/sonarcloud-security-triaging/SKILL.md)** | Analyze security issues and suggest triage decisions with code context and explanations | Security review, making triage decisions, identifying false positives |
 | **[sonarcloud-security-updating](static/marketplace/skills/sonarcloud-security-updating/SKILL.md)** | Apply triage decisions to SonarCloud by bulk-updating security issue statuses and comments | Applying triage outcomes, bulk remediation, compliance tracking |
+| **[dependabot-alerts-exporting](static/marketplace/skills/dependabot-alerts-exporting/SKILL.md)** | Export GitHub Dependabot dependency vulnerability alerts for NASA PDS repositories to JSON | Dependency audits, CVE exports, vulnerability reports |
+| **[dependabot-alerts-triaging](static/marketplace/skills/dependabot-alerts-triaging/SKILL.md)** | Analyze Dependabot alerts and suggest triage decisions with exploitability assessment | CVE triage, dependency review, identifying false positives |
 
-**Total:** 2 plugins • 6 production-ready skills
+**Total:** 3 plugins • 8 production-ready skills
 
 ## Installation
 

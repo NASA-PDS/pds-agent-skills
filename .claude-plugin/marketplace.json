@@ -41,6 +41,33 @@
       ]
     },
     {
+      "name": "dependabot-skills",
+      "source": "./static/marketplace/",
+      "description": "GitHub Dependabot workflow automation: export dependency vulnerability alerts and assist with triage decisions for NASA PDS repositories",
+      "version": "1.0.0",
+      "author": {
+        "name": "NASA PDS Engineering Node"
+      },
+      "homepage": "https://github.com/NASA-PDS/pds-agent-skills",
+      "repository": "https://github.com/NASA-PDS/pds-agent-skills",
+      "license": "Apache-2.0",
+      "keywords": [
+        "security",
+        "dependabot",
+        "dependency",
+        "vulnerability",
+        "cve",
+        "triage",
+        "pds",
+        "nasa"
+      ],
+      "category": "security",
+      "skills": [
+        "./skills/dependabot-alerts-exporting",
+        "./skills/dependabot-alerts-triaging"
+      ]
+    },
+    {
       "name": "sonarcloud-skills",
       "source": "./static/marketplace/",
       "description": "SonarCloud security workflow automation: export security issues, assist with triage decisions, and apply triage outcomes in bulk",
