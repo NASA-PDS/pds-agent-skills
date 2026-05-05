@@ -1,6 +1,6 @@
 # SonarCloud Skills User Guide
 
-This guide explains how to install and use the `sonarcloud-skills` plugin to audit, triage, and update security issues for NASA PDS repositories.
+This guide explains how to install and use the `security-skills` plugin to audit, triage, and update SonarCloud security issues for NASA PDS repositories.
 
 ## Table of Contents
 
@@ -19,7 +19,7 @@ This guide explains how to install and use the `sonarcloud-skills` plugin to aud
 
 ## Overview
 
-The `sonarcloud-skills` plugin provides three skills that work together as a pipeline:
+The `security-skills` plugin includes three SonarCloud skills that work together as a pipeline:
 
 | Step | Skill | What It Does |
 |------|-------|-------------|
@@ -86,21 +86,21 @@ If you're only auditing and not applying changes, a read-only token is sufficien
 /plugin marketplace add NASA-PDS/pds-agent-skills
 
 # Install the SonarCloud plugin
-/plugin install sonarcloud-skills@pds-agent-skills
+/plugin install security-skills@pds-agent-skills
 ```
 
 ### Verify installation
 
 ```bash
 /plugin list
-# Should show: ✓ sonarcloud-skills@pds-agent-skills
+# Should show: ✓ security-skills@pds-agent-skills
 ```
 
 ### Update to latest version
 
 ```bash
 /plugin marketplace update pds-agent-skills
-/plugin update sonarcloud-skills@pds-agent-skills
+/plugin update security-skills@pds-agent-skills
 ```
 
 ---

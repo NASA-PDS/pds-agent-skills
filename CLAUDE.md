@@ -4,10 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 3 plugins grouping 8 skills by workflow theme:
+This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 2 plugins grouping 8 skills by workflow theme:
 - **pds-github-skills**: Release notes generation + GitHub issue creation + pull request creation
-- **sonarcloud-skills**: SonarCloud security export + triage + update
-- **dependabot-skills**: Dependabot alert export + triage
+- **security-skills**: SonarCloud security export + triage + update + Dependabot alert export + triage
 
 Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
 
@@ -69,9 +68,9 @@ GitHub workflow automation for NASA PDS
 - Helper scripts: `detect-context.mjs`, `cache-pr-template.mjs`
 - Requires GitHub CLI (`gh`) and Node.js v18+
 
-#### Plugin 2: sonarcloud-skills
+#### Plugin 2: security-skills
 
-SonarCloud security workflow automation for NASA PDS
+Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot)
 
 **4. sonarcloud-security-exporting** - Exports SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
@@ -98,12 +97,6 @@ SonarCloud security workflow automation for NASA PDS
 - Requires SonarCloud API token with admin permissions and Node.js v18+
 - Helper script: `scripts/apply-triage.mjs`
 
-**Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
-
-#### Plugin 3: dependabot-skills
-
-GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
-
 **7. dependabot-alerts-exporting** - Exports GitHub Dependabot alerts
 - Fetches all open dependency vulnerability alerts from nasa-pds organization via GitHub API
 - Exports to JSON with CVE ID, CVSS score, affected package, version range, fix version, manifest path, and advisory URL
@@ -120,6 +113,8 @@ GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
 - Creates GitHub issues in `NASA-PDS/outlaw-tracker` for confirmed HIGH/CRITICAL vulnerabilities
 - Generates updated JSON with `triage` fields populated
 - Tracks token usage in metrics
+
+**Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
 
 ## Shared Resources
 

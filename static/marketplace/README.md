@@ -10,35 +10,46 @@ The marketplace contains **2 plugins** organized by theme:
 GitHub workflow automation for NASA PDS
 - **generating-release-notes** - Generate structured GitHub release notes
 - **creating-pds-issues** - Create issues using PDS organizational templates
+- **creating-pds-pull-requests** - Create pull requests with auto-detection and issue linking
 
-### 2. sonarcloud-skills
-SonarCloud security workflow automation for NASA PDS
-- **sonarcloud-security-audit** - Audit security issues and export to CSV
-- **sonarcloud-security-triage** - Apply triage decisions in bulk
+### 2. security-skills
+Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot)
+- **sonarcloud-security-exporting** - Export SonarCloud security issues to CSV/JSON
+- **sonarcloud-security-triaging** - Analyze SonarCloud issues and suggest triage decisions
+- **sonarcloud-security-updating** - Apply triage decisions back to SonarCloud in bulk
+- **dependabot-alerts-exporting** - Export GitHub Dependabot vulnerability alerts to JSON
+- **dependabot-alerts-triaging** - Analyze Dependabot CVEs and suggest triage decisions
 
 ## Directory Structure
 
 ```
 marketplace/
-├── .claude-plugin/            # (Could contain unified plugin manifest, currently in individual skills)
 └── skills/                    # All skills organized by plugin
-    ├── generating-release-notes/      # pds-github-skills
-    │   ├── .claude-plugin/plugin.json
+    ├── generating-release-notes/          # pds-github-skills
     │   ├── SKILL.md
     │   └── ...
-    ├── creating-pds-issues/           # pds-github-skills
-    │   ├── .claude-plugin/plugin.json
+    ├── creating-pds-issues/               # pds-github-skills
     │   ├── SKILL.md
     │   └── ...
-    ├── sonarcloud-security-audit/     # sonarcloud-skills
-    │   ├── .claude-plugin/plugin.json
+    ├── creating-pds-pull-requests/        # pds-github-skills
     │   ├── SKILL.md
     │   └── ...
-    ├── sonarcloud-security-triage/    # sonarcloud-skills
-    │   ├── .claude-plugin/plugin.json
+    ├── sonarcloud-security-exporting/     # security-skills
     │   ├── SKILL.md
-    │   └── ...
-    └── shared-resources/              # Shared across all plugins
+    │   └── scripts/
+    ├── sonarcloud-security-triaging/      # security-skills
+    │   ├── SKILL.md
+    │   └── scripts/
+    ├── sonarcloud-security-updating/      # security-skills
+    │   ├── SKILL.md
+    │   └── scripts/
+    ├── dependabot-alerts-exporting/       # security-skills
+    │   ├── SKILL.md
+    │   └── scripts/
+    ├── dependabot-alerts-triaging/        # security-skills
+    │   ├── SKILL.md
+    │   └── scripts/
+    └── shared-resources/                  # Shared across all plugins
         └── pds-labels.yaml
 ```
 
@@ -51,17 +62,21 @@ Both plugins point to the same `source: ./static/marketplace/` directory but spe
 {
   "skills": [
     "./skills/generating-release-notes",
-    "./skills/creating-pds-issues"
+    "./skills/creating-pds-issues",
+    "./skills/creating-pds-pull-requests"
   ]
 }
 ```
 
-**sonarcloud-skills:**
+**security-skills:**
 ```json
 {
   "skills": [
-    "./skills/sonarcloud-security-audit",
-    "./skills/sonarcloud-security-triage"
+    "./skills/sonarcloud-security-exporting",
+    "./skills/sonarcloud-security-triaging",
+    "./skills/sonarcloud-security-updating",
+    "./skills/dependabot-alerts-exporting",
+    "./skills/dependabot-alerts-triaging"
   ]
 }
 ```
@@ -78,10 +93,9 @@ This structure is designed to accommodate future plugin types:
 When adding a new skill to an existing plugin:
 
 1. Create a new directory under `skills/` with your skill name
-2. Add `.claude-plugin/plugin.json` manifest (optional, for skill metadata)
-3. Create `SKILL.md` with skill definition
-4. Update `/.claude-plugin/marketplace.json` to add the skill path to the appropriate plugin's `skills` array
-5. Update documentation (README.md, SKILLS_CATALOG.md, CLAUDE.md)
+2. Create `SKILL.md` with skill definition
+3. Update `/.claude-plugin/marketplace.json` to add the skill path to the appropriate plugin's `skills` array
+4. Update documentation (README.md, CLAUDE.md)
 
 ## Creating New Plugins
 

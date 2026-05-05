@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **🔄 Merged `sonarcloud-skills` + `dependabot-skills` → `security-skills`** - Consolidated both security plugins into a single thematic plugin
+  - New plugin name: `security-skills` (version 1.0.0)
+  - Install with: `/plugin install security-skills@pds-agent-skills`
+  - Contains all 5 security skills: sonarcloud-security-exporting, sonarcloud-security-triaging, sonarcloud-security-updating, dependabot-alerts-exporting, dependabot-alerts-triaging
+  - Plugin count reduced from 3 to 2; skill count unchanged at 8
+  - Updated README, CLAUDE.md, and marketplace.json
+
 ### Added
 
 - **sonarcloud-security-triaging** skill - Analyze security issues and suggest triage decisions
