@@ -25,12 +25,12 @@ For the standard case when the repository is publicly available on GitHub:
 /plugin list @pds-agent-skills
 
 # Install plugins
-/plugin install pds-github-skills@pds-agent-skills      # Release notes + issue creation
+/plugin install pds-agent-skills@pds-agent-skills      # Release notes + issue creation
 /plugin install security-skills@pds-agent-skills      # SonarCloud + Dependabot security
 
 # Update marketplace and plugins
 /plugin marketplace update pds-agent-skills
-/plugin update pds-github-skills@pds-agent-skills security-skills@pds-agent-skills
+/plugin update pds-agent-skills@pds-agent-skills security-skills@pds-agent-skills
 ```
 
 ---
@@ -66,7 +66,7 @@ git clone https://github.com/NASA-PDS/pds-agent-skills.git ~/pds-plugins
 /plugin list @pds-plugins
 
 # Install
-/plugin install pds-github-skills@pds-plugins
+/plugin install pds-agent-skills@pds-plugins
 /plugin install security-skills@pds-plugins
 ```
 
@@ -80,7 +80,7 @@ git pull origin main
 /plugin marketplace update pds-plugins
 
 # Update individual plugins
-/plugin update pds-github-skills@pds-plugins security-skills@pds-plugins
+/plugin update pds-agent-skills@pds-plugins security-skills@pds-plugins
 ```
 
 ### Method 2: Relative Path (Project-Specific)
@@ -99,7 +99,7 @@ cd .claude/pds-plugins
 /plugin marketplace add $(pwd)
 
 # Install plugins
-/plugin install pds-github-skills@pds-plugins
+/plugin install pds-agent-skills@pds-plugins
 ```
 
 **Benefits:**
@@ -205,7 +205,7 @@ git clone pds-plugins.git ~/pds-plugins
 
 # Install plugins
 /plugin list @pds-plugins
-/plugin install pds-github-skills@pds-plugins
+/plugin install pds-agent-skills@pds-plugins
 /plugin install security-skills@pds-plugins
 ```
 
@@ -237,7 +237,7 @@ Add to project's `.claude/settings.json` to prompt team members automatically:
     }
   },
   "enabledPlugins": {
-    "pds-github-skills@pds-agent-skills": true,
+    "pds-agent-skills@pds-agent-skills": true,
     "security-skills@pds-agent-skills": true
   }
 }

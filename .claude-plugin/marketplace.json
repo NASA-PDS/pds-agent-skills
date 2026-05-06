@@ -11,7 +11,7 @@
   },
   "plugins": [
     {
-      "name": "pds-github-skills",
+      "name": "pds-agent-skills",
       "source": "./static/marketplace/",
       "description": "NASA PDS GitHub workflow automation: release notes generation, pull request creation, and issue creation using organizational templates",
       "version": "2.1.0",

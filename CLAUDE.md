@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Repository Overview
 
 This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 2 plugins grouping 8 skills by workflow theme:
-- **pds-github-skills**: Release notes generation + GitHub issue creation + pull request creation
+- **pds-agent-skills**: Release notes generation + GitHub issue creation + pull request creation
 - **security-skills**: SonarCloud security export + triage + update + Dependabot alert export + triage
 
 Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
@@ -38,7 +38,7 @@ description: Brief description triggering the skill
 **Marketplace:** `pds-agent-skills`
 **Location:** All skills in `static/marketplace/skills/` directory
 
-#### Plugin 1: pds-github-skills
+#### Plugin 1: pds-agent-skills
 
 GitHub workflow automation for NASA PDS
 

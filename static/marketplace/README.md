@@ -6,7 +6,7 @@ This directory contains all plugins distributed through the PDS Claude Code Plug
 
 The marketplace contains **2 plugins** organized by theme:
 
-### 1. pds-github-skills
+### 1. pds-agent-skills
 GitHub workflow automation for NASA PDS
 - **generating-release-notes** - Generate structured GitHub release notes
 - **creating-pds-issues** - Create issues using PDS organizational templates
@@ -25,13 +25,13 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 ```
 marketplace/
 └── skills/                    # All skills organized by plugin
-    ├── generating-release-notes/          # pds-github-skills
+    ├── generating-release-notes/          # pds-agent-skills
     │   ├── SKILL.md
     │   └── ...
-    ├── creating-pds-issues/               # pds-github-skills
+    ├── creating-pds-issues/               # pds-agent-skills
     │   ├── SKILL.md
     │   └── ...
-    ├── creating-pds-pull-requests/        # pds-github-skills
+    ├── creating-pds-pull-requests/        # pds-agent-skills
     │   ├── SKILL.md
     │   └── ...
     ├── sonarcloud-security-exporting/     # security-skills
@@ -57,7 +57,7 @@ marketplace/
 
 Both plugins point to the same `source: ./static/marketplace/` directory but specify different skill subsets:
 
-**pds-github-skills:**
+**pds-agent-skills:**
 ```json
 {
   "skills": [

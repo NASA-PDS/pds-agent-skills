@@ -16,7 +16,7 @@
 
 This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 8 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
 
-**🔌 Plugins:** `pds-github-skills` (GitHub workflows) • `security-skills` (SonarCloud + Dependabot security)
+**🔌 Plugins:** `pds-agent-skills` (GitHub workflows) • `security-skills` (SonarCloud + Dependabot security)
 
 ## Table of Contents
 
@@ -47,7 +47,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 
 ## Available Plugins & Skills
 
-### 🔌 Plugin 1: pds-github-skills (GitHub Workflows)
+### 🔌 Plugin 1: pds-agent-skills (GitHub Workflows)
 
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
@@ -95,19 +95,19 @@ The easiest way to install and manage PDS plugins with automatic updates and ver
 /plugin list @pds-agent-skills
 
 # Install GitHub workflow skills
-/plugin install pds-github-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills
 
 # Install security skills (SonarCloud + Dependabot)
 /plugin install security-skills@pds-agent-skills
 
 # Or install both
-/plugin install pds-github-skills@pds-agent-skills security-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills security-skills@pds-agent-skills
 ```
 
 **Update to latest versions:**
 ```bash
 /plugin marketplace update pds-agent-skills
-/plugin update pds-github-skills@pds-agent-skills security-skills@pds-agent-skills
+/plugin update pds-agent-skills@pds-agent-skills security-skills@pds-agent-skills
 ```
 
 #### Option B: Local/Internal Installation
@@ -144,7 +144,7 @@ cd ~
 /plugin list @pds-plugins
 
 # Install GitHub workflow skills
-/plugin install pds-github-skills@pds-plugins
+/plugin install pds-agent-skills@pds-plugins
 
 # Install security skills (SonarCloud + Dependabot)
 /plugin install security-skills@pds-plugins
@@ -158,7 +158,7 @@ git pull
 
 # Then update the marketplace in Claude Code
 /plugin marketplace update pds-plugins
-/plugin update pds-github-skills@pds-plugins security-skills@pds-plugins
+/plugin update pds-agent-skills@pds-plugins security-skills@pds-plugins
 ```
 
 #### Option C: Private Git Repository
@@ -257,7 +257,7 @@ git pull
 
 **Symptoms:**
 ```bash
-/plugin install pds-github-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills
 ⎿  Failed to load marketplace "claude-plugins-official" from source (github): Failed to parse
    marketplace file at .../claude-plugins-official/.claude-plugin/marketplace.json: Invalid schema
 ```
@@ -283,7 +283,7 @@ The PDS plugins can be installed independently without the official marketplace:
 claude plugin marketplace remove claude-plugins-official
 
 # Install PDS plugins directly
-claude plugin install pds-github-skills@pds-agent-skills
+claude plugin install pds-agent-skills@pds-agent-skills
 claude plugin install security-skills@pds-agent-skills
 ```
 
@@ -299,7 +299,7 @@ rm -rf ~/.claude/plugins/marketplaces/claude-plugins-official
 claude plugin marketplace update pds-agent-skills
 
 # Install PDS plugins
-claude plugin install pds-github-skills@pds-agent-skills
+claude plugin install pds-agent-skills@pds-agent-skills
 claude plugin install security-skills@pds-agent-skills
 ```
 
@@ -307,7 +307,7 @@ claude plugin install security-skills@pds-agent-skills
 
 **Symptoms:**
 ```bash
-/plugin install pds-github-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills
 Error: Plugin not found
 ```
 
@@ -324,7 +324,7 @@ Error: Plugin not found
 /plugin list @pds-agent-skills
 
 # Install the plugin
-/plugin install pds-github-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills
 ```
 
 ### Issue: Marketplace Name Mismatch
@@ -335,10 +335,10 @@ Error: Plugin not found
 
 ```bash
 # Correct
-/plugin install pds-github-skills@pds-agent-skills
+/plugin install pds-agent-skills@pds-agent-skills
 
 # Incorrect (will fail)
-/plugin install pds-github-skills@pds-claude-skills
+/plugin install pds-agent-skills@pds-claude-skills
 ```
 
 ### Verify Installation
@@ -350,7 +350,7 @@ To confirm plugins are installed correctly:
 /plugin list
 
 # Should show both plugins with version 2.0.0 or higher
-# ✓ pds-github-skills@pds-agent-skills (v2.0.0)
+# ✓ pds-agent-skills@pds-agent-skills (v2.0.0)
 # ✓ security-skills@pds-agent-skills (v2.0.0)
 
 # View installation details
@@ -376,7 +376,7 @@ Once installed via the plugin marketplace, plugins are **automatically available
 3. **Describe your task** naturally — Claude will autonomously use relevant plugins based on your request
 4. **Provide necessary inputs** as described in each plugin's documentation
 
-### pds-github-skills examples
+### pds-agent-skills examples
 
 ```bash
 # Generate release notes for a specific version

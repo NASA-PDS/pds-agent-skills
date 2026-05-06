@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **🔄 Renamed `pds-github-skills` → `pds-agent-skills`** - Plugin name now matches the marketplace identifier
+  - Install with: `/plugin install pds-agent-skills@pds-agent-skills`
+  - All documentation updated
+
 - **🔄 Merged `sonarcloud-skills` + `dependabot-skills` → `security-skills`** - Consolidated both security plugins into a single thematic plugin
   - New plugin name: `security-skills` (version 1.0.0)
   - Install with: `/plugin install security-skills@pds-agent-skills`
