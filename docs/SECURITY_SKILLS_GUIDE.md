@@ -1,6 +1,6 @@
-# SonarCloud Skills User Guide
+# Security Skills User Guide
 
-This guide explains how to install and use the `security-skills` plugin to audit, triage, and update SonarCloud security issues for NASA PDS repositories.
+This guide explains how to install and use the `security-skills` plugin to audit, triage, and update SonarCloud security issues and Dependabot dependency vulnerability alerts for NASA PDS repositories.
 
 ## Table of Contents
 

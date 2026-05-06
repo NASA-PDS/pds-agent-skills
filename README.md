@@ -350,8 +350,8 @@ To confirm plugins are installed correctly:
 /plugin list
 
 # Should show both plugins with version 2.0.0 or higher
-# ✓ pds-agent-skills@pds-agent-skills (v2.0.0)
-# ✓ security-skills@pds-agent-skills (v2.0.0)
+# ✓ pds-agent-skills@pds-agent-skills (v2.1.0)
+# ✓ security-skills@pds-agent-skills (v1.0.0)
 
 # View installation details
 cat ~/.claude/plugins/installed_plugins.json
@@ -415,7 +415,7 @@ Export all issues to JSON, triage them repository by repository, then apply appr
 Save everything to ~/pds-security-audit.
 ```
 
-> **Prerequisites for security-skills:** Node.js v18+. SonarCloud skills require `SONARCLOUD_TOKEN`; Dependabot skills require `GITHUB_TOKEN` with `security_events` scope. See the [SonarCloud Skills Guide](docs/SONARCLOUD_SKILLS_GUIDE.md) for setup instructions and a full list of example prompts.
+> **Prerequisites for security-skills:** Node.js v18+. SonarCloud skills require `SONARCLOUD_TOKEN`; Dependabot skills require `GITHUB_TOKEN` with `security_events` scope. See the [SonarCloud Skills Guide](docs/SECURITY_SKILLS_GUIDE.md) for setup instructions and a full list of example prompts.
 
 ### Managing Plugins
 
@@ -434,7 +434,7 @@ Save everything to ~/pds-security-audit.
 ```
 
 **📚 Detailed guides:**
-- [SonarCloud Skills Guide](docs/SONARCLOUD_SKILLS_GUIDE.md) — installation, example prompts, full workflow, troubleshooting
+- [SonarCloud Skills Guide](docs/SECURITY_SKILLS_GUIDE.md) — installation, example prompts, full workflow, troubleshooting
 - [Plugin Marketplace Installation Guide](docs/PLUGIN_MARKETPLACE_GUIDE.md) — local, private repo, and air-gapped install scenarios
 
 ## Adding a New Skill
