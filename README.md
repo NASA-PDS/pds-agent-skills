@@ -459,34 +459,42 @@ See [CLAUDE.md](CLAUDE.md) for comprehensive development guidance and the existi
 ```
 pds-agent-skills/
 ├── .claude-plugin/             # Plugin marketplace configuration
-│   └── marketplace.json        # Marketplace catalog listing all plugins
-├── static/                     # Static marketplace content
-│   └── marketplace/            # Marketplace plugins and resources
-│       └── skills/             # All plugin skills organized here
-│           ├── generating-release-notes/    # Release notes generation
-│           │   ├── .claude-plugin/plugin.json
+│   └── marketplace.json        # Marketplace catalog (2 plugins, 8 skills)
+├── static/
+│   └── marketplace/
+│       └── skills/             # All skills (pds-agent-skills + security-skills)
+│           ├── generating-release-notes/        # pds-agent-skills
 │           │   ├── SKILL.md
 │           │   ├── templates/
 │           │   └── resources/
-│           ├── creating-pds-issues/         # GitHub issue creation
-│           │   ├── .claude-plugin/plugin.json
+│           ├── creating-pds-issues/             # pds-agent-skills
 │           │   ├── SKILL.md
 │           │   ├── scripts/
 │           │   └── resources/
-│           ├── sonarcloud-security-audit/   # Security audit
-│           │   ├── .claude-plugin/plugin.json
+│           ├── creating-pds-pull-requests/      # pds-agent-skills
 │           │   ├── SKILL.md
 │           │   └── scripts/
-│           ├── sonarcloud-security-triage/  # Security triage
-│           │   ├── .claude-plugin/plugin.json
+│           ├── sonarcloud-security-exporting/   # security-skills
 │           │   ├── SKILL.md
 │           │   └── scripts/
-│           └── shared-resources/            # Shared across plugins
+│           ├── sonarcloud-security-triaging/    # security-skills
+│           │   └── SKILL.md
+│           ├── sonarcloud-security-updating/    # security-skills
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           ├── dependabot-alerts-exporting/     # security-skills
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           ├── dependabot-alerts-triaging/      # security-skills
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           └── shared-resources/               # Shared across plugins
 │               └── pds-labels.yaml
 ├── docs/                       # Documentation
 │   ├── history/                # AI session histories
 │   ├── MARKETPLACE_SETUP.md    # GitHub configuration guide
 │   ├── PLUGIN_MARKETPLACE_GUIDE.md  # Comprehensive install guide
+│   ├── SECURITY_SKILLS_GUIDE.md    # Security skills usage guide
 │   └── PRODUCTS_README.md      # Product mapping documentation
 ├── .github/                    # GitHub configuration
 │   └── ISSUE_TEMPLATE/         # Issue templates

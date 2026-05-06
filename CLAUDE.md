@@ -74,23 +74,23 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 
 **4. sonarcloud-security-exporting** - Exports SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
-- Exports to CSV with triage columns (severity, status, rule, component, line, URL)
+- Exports to JSON (recommended — includes code snippets and rule details) or CSV
 - Automatic pagination for large result sets (500 items per page)
 - Rate limiting and retry logic with exponential backoff
 - Requires SonarCloud API token and Node.js v18+
 - Helper script: `scripts/fetch-security-issues.mjs`
 
 **5. sonarcloud-security-triaging** - Analyzes security issues and suggests triage decisions
-- Reads exported CSV and analyzes each security issue
+- Reads exported JSON (recommended) or CSV and analyzes each security issue
 - Examines code context around flagged lines
 - Identifies false positive patterns (test fixtures, URIs, dev code)
 - Suggests Action, Resolution, and Comment for each issue with reasoning
 - Groups similar issues for bulk triage efficiency
-- Generates triage recommendations CSV with confidence levels
+- Generates triage recommendations JSON with confidence levels
 - Helps distinguish true positives from false positives
 
 **6. sonarcloud-security-updating** - Applies triage decisions to SonarCloud
-- Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
+- Reads JSON (recommended) or CSV with triage decisions
 - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
 - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)
 - Dry-run mode to preview changes before applying
@@ -113,6 +113,7 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 - Creates GitHub issues in `NASA-PDS/outlaw-tracker` for confirmed HIGH/CRITICAL vulnerabilities
 - Generates updated JSON with `triage` fields populated
 - Tracks token usage in metrics
+- Helper script: `scripts/dismiss-alerts.mjs`
 
 **Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
 
@@ -135,10 +136,9 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
    - Style rules and edge cases
 3. Add supporting resources as needed (scripts/, resources/, templates/)
 4. Update `.claude-plugin/marketplace.json` to add the skill path to the appropriate plugin's `skills` array
-5. Update README.md "Available Skills" section with table entry
-6. Update SKILLS_CATALOG.md with detailed skill documentation
-7. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-8. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
+5. Update README.md "Available Plugins & Skills" section with table entry
+6. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+7. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
 
 ### Creating a New Plugin Group
 
