@@ -4,10 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Repository Overview
 
-This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 3 plugins grouping 8 skills by workflow theme:
-- **pds-github-skills**: Release notes generation + GitHub issue creation + pull request creation
-- **sonarcloud-skills**: SonarCloud security export + triage + update
-- **dependabot-skills**: Dependabot alert export + triage
+This repository is a Claude Code plugin marketplace (`pds-agent-skills`) for NASA's Planetary Data System (PDS). The marketplace distributes 2 plugins grouping 8 skills by workflow theme:
+- **pds-agent-skills**: Release notes generation + GitHub issue creation + pull request creation
+- **security-skills**: SonarCloud security export + triage + update + Dependabot alert export + triage
 
 Skills are reusable AI agents that perform specialized tasks within the Claude Code CLI environment. There are no build commands, tests, or compilation steps - this is a documentation and configuration repository.
 
@@ -39,7 +38,7 @@ description: Brief description triggering the skill
 **Marketplace:** `pds-agent-skills`
 **Location:** All skills in `static/marketplace/skills/` directory
 
-#### Plugin 1: pds-github-skills
+#### Plugin 1: pds-agent-skills
 
 GitHub workflow automation for NASA PDS
 
@@ -69,40 +68,34 @@ GitHub workflow automation for NASA PDS
 - Helper scripts: `detect-context.mjs`, `cache-pr-template.mjs`
 - Requires GitHub CLI (`gh`) and Node.js v18+
 
-#### Plugin 2: sonarcloud-skills
+#### Plugin 2: security-skills
 
-SonarCloud security workflow automation for NASA PDS
+Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot)
 
 **4. sonarcloud-security-exporting** - Exports SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
-- Exports to CSV with triage columns (severity, status, rule, component, line, URL)
+- Exports to JSON (recommended — includes code snippets and rule details) or CSV
 - Automatic pagination for large result sets (500 items per page)
 - Rate limiting and retry logic with exponential backoff
 - Requires SonarCloud API token and Node.js v18+
 - Helper script: `scripts/fetch-security-issues.mjs`
 
 **5. sonarcloud-security-triaging** - Analyzes security issues and suggests triage decisions
-- Reads exported CSV and analyzes each security issue
+- Reads exported JSON (recommended) or CSV and analyzes each security issue
 - Examines code context around flagged lines
 - Identifies false positive patterns (test fixtures, URIs, dev code)
 - Suggests Action, Resolution, and Comment for each issue with reasoning
 - Groups similar issues for bulk triage efficiency
-- Generates triage recommendations CSV with confidence levels
+- Generates triage recommendations JSON with confidence levels
 - Helps distinguish true positives from false positives
 
 **6. sonarcloud-security-updating** - Applies triage decisions to SonarCloud
-- Reads CSV with triage decisions (Action, Resolution, Comment, Reviewer columns)
+- Reads JSON (recommended) or CSV with triage decisions
 - Bulk updates security hotspots (TO_REVIEW → REVIEWED with SAFE/FIXED resolution)
 - Bulk updates vulnerabilities (OPEN → confirm/falsepositive/wontfix/resolve)
 - Dry-run mode to preview changes before applying
 - Requires SonarCloud API token with admin permissions and Node.js v18+
 - Helper script: `scripts/apply-triage.mjs`
-
-**Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
-
-#### Plugin 3: dependabot-skills
-
-GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
 
 **7. dependabot-alerts-exporting** - Exports GitHub Dependabot alerts
 - Fetches all open dependency vulnerability alerts from nasa-pds organization via GitHub API
@@ -120,6 +113,9 @@ GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
 - Creates GitHub issues in `NASA-PDS/outlaw-tracker` for confirmed HIGH/CRITICAL vulnerabilities
 - Generates updated JSON with `triage` fields populated
 - Tracks token usage in metrics
+- Helper script: `scripts/dismiss-alerts.mjs`
+
+**Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
 
 ## Shared Resources
 
@@ -140,10 +136,9 @@ GitHub Dependabot dependency vulnerability workflow automation for NASA PDS
    - Style rules and edge cases
 3. Add supporting resources as needed (scripts/, resources/, templates/)
 4. Update `.claude-plugin/marketplace.json` to add the skill path to the appropriate plugin's `skills` array
-5. Update README.md "Available Skills" section with table entry
-6. Update SKILLS_CATALOG.md with detailed skill documentation
-7. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-8. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
+5. Update README.md "Available Plugins & Skills" section with table entry
+6. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+7. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
 
 ### Creating a New Plugin Group
 

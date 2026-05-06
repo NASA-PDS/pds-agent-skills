@@ -1,16 +1,19 @@
-# SonarCloud Skills User Guide
+# Security Skills User Guide
 
-This guide explains how to install and use the `sonarcloud-skills` plugin to audit, triage, and update security issues for NASA PDS repositories.
+This guide explains how to install and use the `security-skills` plugin to audit, triage, and update SonarCloud security issues and Dependabot dependency vulnerability alerts for NASA PDS repositories.
 
 ## Table of Contents
 
 - [Overview](#overview)
 - [Prerequisites](#prerequisites)
 - [Installation](#installation)
-- [The Three-Step Workflow](#the-three-step-workflow)
-- [Step 1: Export Security Issues](#step-1-export-security-issues)
-- [Step 2: Triage Security Issues](#step-2-triage-security-issues)
-- [Step 3: Apply Triage Decisions](#step-3-apply-triage-decisions)
+- [SonarCloud Workflow (3 steps)](#sonarcloud-workflow-3-steps)
+  - [Step 1: Export Security Issues](#step-1-export-security-issues)
+  - [Step 2: Triage Security Issues](#step-2-triage-security-issues)
+  - [Step 3: Apply Triage Decisions](#step-3-apply-triage-decisions)
+- [Dependabot Workflow (2 steps)](#dependabot-workflow-2-steps)
+  - [Step 1: Export Dependabot Alerts](#step-1-export-dependabot-alerts)
+  - [Step 2: Triage Dependabot Alerts](#step-2-triage-dependabot-alerts)
 - [Example Prompts](#example-prompts)
 - [Tips for Effective Triage Sessions](#tips-for-effective-triage-sessions)
 - [Troubleshooting](#troubleshooting)
@@ -19,15 +22,24 @@ This guide explains how to install and use the `sonarcloud-skills` plugin to aud
 
 ## Overview
 
-The `sonarcloud-skills` plugin provides three skills that work together as a pipeline:
+The `security-skills` plugin provides **5 skills** covering two security scanning tools:
+
+### SonarCloud (3-step pipeline)
 
 | Step | Skill | What It Does |
 |------|-------|-------------|
-| 1 | `sonarcloud-security-exporting` | Fetches all vulnerabilities and security hotspots from SonarCloud and saves them to a file |
-| 2 | `sonarcloud-security-triaging` | Analyzes each issue, reads code context, and recommends a triage decision (safe/false positive/won't fix/needs fixing) |
+| 1 | `sonarcloud-security-exporting` | Fetches all vulnerabilities and security hotspots from SonarCloud and saves them to JSON or CSV |
+| 2 | `sonarcloud-security-triaging` | Analyzes each issue with code context and recommends a triage decision (safe/false positive/won't fix/needs fixing) |
 | 3 | `sonarcloud-security-updating` | Applies your approved triage decisions back to SonarCloud via the API |
 
-You can run all three in one session, or use them independently depending on your workflow.
+### Dependabot (2-step pipeline)
+
+| Step | Skill | What It Does |
+|------|-------|-------------|
+| 1 | `dependabot-alerts-exporting` | Fetches all open Dependabot dependency vulnerability alerts from GitHub and saves them to JSON |
+| 2 | `dependabot-alerts-triaging` | Analyzes each CVE for exploitability in PDS context and recommends a triage action; creates GitHub issues for HIGH/CRITICAL findings |
+
+You can run each pipeline independently or combine them in a single security audit session.
 
 ---
 
@@ -48,9 +60,7 @@ brew install claude
 node --version  # should print v18.x.x or higher
 ```
 
-### 3. SonarCloud API Token
-
-The skills authenticate with SonarCloud via a personal access token.
+### 3. SonarCloud API Token *(SonarCloud skills only)*
 
 **Generate a token:**
 1. Log in to [sonarcloud.io](https://sonarcloud.io)
@@ -75,6 +85,24 @@ source ~/.zshrc
 
 If you're only auditing and not applying changes, a read-only token is sufficient.
 
+### 4. GitHub Token *(Dependabot skills only)*
+
+Dependabot alerts are fetched via the GitHub API using a personal access token or the `gh` CLI token.
+
+**Quickest approach** — reuse your existing `gh` CLI token:
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+```
+
+**Or generate a dedicated token:**
+1. Go to https://github.com/settings/tokens
+2. Generate a new token with **`security_events`** scope (org members) or **`read:org` + `repo`** (org admins)
+
+**Set the token:**
+```bash
+export GITHUB_TOKEN=your_token_here
+```
+
 ---
 
 ## Installation
@@ -86,26 +114,26 @@ If you're only auditing and not applying changes, a read-only token is sufficien
 /plugin marketplace add NASA-PDS/pds-agent-skills
 
 # Install the SonarCloud plugin
-/plugin install sonarcloud-skills@pds-agent-skills
+/plugin install security-skills@pds-agent-skills
 ```
 
 ### Verify installation
 
 ```bash
 /plugin list
-# Should show: ✓ sonarcloud-skills@pds-agent-skills
+# Should show: ✓ security-skills@pds-agent-skills
 ```
 
 ### Update to latest version
 
 ```bash
 /plugin marketplace update pds-agent-skills
-/plugin update sonarcloud-skills@pds-agent-skills
+/plugin update security-skills@pds-agent-skills
 ```
 
 ---
 
-## The Three-Step Workflow
+## SonarCloud Workflow (3 steps)
 
 ```
 ┌─────────────────────────────┐
@@ -285,6 +313,117 @@ After updating, Claude will suggest you verify a few issues in the SonarCloud UI
 
 ---
 
+## Dependabot Workflow (2 steps)
+
+```
+┌─────────────────────────────┐
+│  1. EXPORT                  │
+│  Fetch all Dependabot       │
+│  alerts from GitHub → JSON  │
+└──────────────┬──────────────┘
+               │
+               ▼
+┌─────────────────────────────┐
+│  2. TRIAGE                  │
+│  Claude analyzes each CVE   │
+│  for exploitability in PDS  │
+│  context; creates outlaw-   │
+│  tracker issues for HIGH+   │
+└─────────────────────────────┘
+```
+
+Unlike SonarCloud, Dependabot triage has no separate "update" step — dismissed alerts are managed in GitHub directly, and HIGH/CRITICAL findings are escalated by creating GitHub issues in `NASA-PDS/outlaw-tracker`.
+
+---
+
+## Step 1: Export Dependabot Alerts
+
+### What this does
+Calls the GitHub API to fetch all open Dependabot dependency vulnerability alerts across NASA PDS repositories and saves them to JSON.
+
+### Example prompts
+
+```
+Export all Dependabot alerts for NASA PDS to ~/security-audit
+```
+
+```
+Fetch the open Dependabot dependency vulnerabilities for all nasa-pds repos and save to JSON
+```
+
+```
+Run a Dependabot audit for just NASA-PDS/registry — save the output to /tmp
+```
+
+### What to expect
+- Requires `GITHUB_TOKEN` set in your environment (`export GITHUB_TOKEN=$(gh auth token)`)
+- Export typically completes in **1–5 minutes** depending on organization size
+- Output file: `dependabot-alerts-YYYYMMDD.json`
+- Summary on completion: `Found X alerts across Y repositories (Z CRITICAL, N HIGH, ...)`
+
+---
+
+## Step 2: Triage Dependabot Alerts
+
+### What this does
+Reads the exported JSON, analyzes each CVE one at a time in the context of how the affected package is actually used in PDS code, and recommends a triage action. You review and approve every decision.
+
+### Triage actions
+| Action | Meaning |
+|--------|---------|
+| `fix` | Update the dependency — vulnerability is reachable |
+| `tolerable_risk` | Known CVE, code path not exploitable in PDS context |
+| `inaccurate` | Alert is a false positive (wrong package, wrong version) |
+| `no_bandwidth` | Risk accepted for now, track in outlaw-tracker |
+
+For confirmed HIGH/CRITICAL vulnerabilities, Claude automatically creates a tracking issue in `NASA-PDS/outlaw-tracker`.
+
+### Example prompts
+
+```
+Help me triage the Dependabot alerts in ~/security-audit/dependabot-alerts-20260506.json
+```
+
+```
+Analyze the Dependabot CVEs and tell me which ones are actually exploitable in PDS
+```
+
+```
+Triage the Dependabot alerts, focusing on CRITICAL severity first
+```
+
+### What to expect
+
+For each alert (or group of identical CVEs across repos), Claude presents:
+
+```
+## CVE-2024-12345 — lodash (CRITICAL)
+Affected: 14 repositories
+Vulnerable versions: <4.17.21  |  Fix: 4.17.21
+
+Vulnerability: Prototype pollution via _.merge()
+
+How it's used in PDS: lodash is a direct dependency of pds-registry-app
+and several other services. _.merge() is called in config merging logic.
+
+Analysis: Prototype pollution requires attacker-controlled input to
+_.merge(). Config merging uses static objects — no user input flows here.
+
+My recommendation:
+- Action: tolerable_risk
+- Reason: Vulnerable code path not reachable from user input
+
+How would you like to proceed?
+1. Accept (tolerable_risk — 14 repos)
+2. Fix (add to upgrade list)
+3. Escalate (create outlaw-tracker issue)
+```
+
+### Output
+An updated JSON file with `triage` fields populated: `dependabot-alerts-triaged-YYYYMMDD.json`
+
+---
+
 ## Example Prompts
 
 ### Full pipeline in one session
@@ -321,6 +460,20 @@ After reviewing in your spreadsheet and adding Action/Resolution/Comment columns
 ```
 Apply the triage decisions from ~/Desktop/sonarcloud-triage.csv to SonarCloud.
 Do a dry run first.
+```
+
+### Full Dependabot audit in one session
+
+```
+Export all Dependabot alerts for NASA PDS and triage them together.
+Focus on CRITICAL and HIGH severity first. Save to ~/pds-security-audit.
+```
+
+### Combined SonarCloud + Dependabot audit
+
+```
+Run a complete security audit for NASA PDS — export and triage both SonarCloud issues
+and Dependabot alerts. Save everything to ~/pds-security-audit.
 ```
 
 ---
@@ -378,6 +531,23 @@ Either:
 ### Triage file shows all `"triage": null`
 The export file hasn't been through the triage step yet. Run the triaging skill on it first, then apply.
 
+### "GITHUB_TOKEN is not set" (Dependabot)
+Set the token in your terminal session:
+```bash
+export GITHUB_TOKEN=$(gh auth token)
+```
+
+### "403 Forbidden" fetching Dependabot alerts
+Your token needs additional scopes. Regenerate with:
+- Org members: `security_events` scope
+- Org admins: `read:org` + `repo` scopes
+
+### Dependabot export shows 0 alerts
+Either the organization has no open alerts (good news!) or the token lacks `security_events` scope. Verify with:
+```bash
+gh api /repos/NASA-PDS/pds-registry/vulnerability-alerts
+```
+
 ---
 
 ## Related Resources
@@ -386,3 +556,5 @@ The export file hasn't been through the triage step yet. Run the triaging skill 
 - [SonarCloud API documentation](https://sonarcloud.io/web-api)
 - [SonarCloud token setup](https://sonarcloud.io/account/security)
 - [NASA PDS SonarCloud organization](https://sonarcloud.io/organizations/nasa-pds/projects)
+- [GitHub Dependabot alerts API](https://docs.github.com/en/rest/dependabot/alerts)
+- [NASA-PDS/outlaw-tracker](https://github.com/NASA-PDS/outlaw-tracker) — where HIGH/CRITICAL issues are tracked

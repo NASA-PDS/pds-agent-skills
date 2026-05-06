@@ -47,13 +47,13 @@ Update your repository description to help with search:
 
 **Recommended Description:**
 ```
-Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more
+Claude Code plugin marketplace for NASA PDS workflows - GitHub automation (release notes, issues, PRs) and security scanning (SonarCloud + Dependabot)
 ```
 
 **Via GitHub CLI:**
 ```bash
 gh repo edit NASA-PDS/pds-agent-skills \
-  --description "Claude Code skills marketplace for NASA PDS workflows - automated release notes, GitHub issue creation, and more"
+  --description "Claude Code plugin marketplace for NASA PDS workflows - GitHub automation (release notes, issues, PRs) and security scanning (SonarCloud + Dependabot)"
 ```
 
 ## Repository Settings
@@ -144,6 +144,12 @@ body:
       options:
         - generating-release-notes
         - creating-pds-issues
+        - creating-pds-pull-requests
+        - sonarcloud-security-exporting
+        - sonarcloud-security-triaging
+        - sonarcloud-security-updating
+        - dependabot-alerts-exporting
+        - dependabot-alerts-triaging
     validations:
       required: true
 
@@ -160,12 +166,11 @@ body:
 
 - [ ] GitHub topics added
 - [ ] Repository description updated
-- [ ] README.md has catalog link
-- [ ] SKILLS_CATALOG.md created and complete
-- [ ] Badges added to README (skills count, license, compatibility)
+- [ ] README.md "Available Plugins & Skills" section is current
+- [ ] Badges accurate (plugins count, skills count, license)
 - [ ] Issue templates created
 - [ ] CONTRIBUTING.md exists (or created)
-- [ ] CHANGELOG.md updated with marketplace transformation
+- [ ] CHANGELOG.md updated
 - [ ] Social preview image created and uploaded
 - [ ] Repository starred by team members (increases visibility)
 
@@ -187,8 +192,8 @@ body:
 ## Maintenance
 
 ### Regular Updates
-- Update skills count badge when adding new skills
-- Keep SKILLS_CATALOG.md in sync with skill additions/removals
+- Update skills/plugins count badges when adding new skills
+- Keep README.md "Available Plugins & Skills" table in sync
 - Update CHANGELOG.md with version history
 - Review and respond to issues/PRs promptly
 
