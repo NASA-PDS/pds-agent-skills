@@ -27,6 +27,12 @@ DETECT_SECRETS_ARGS=(
     --exclude-files '.*/.*test.*/data/.*'
     --exclude-files 'src/.*/test/data/.*'
     --exclude-files 'tests/data/.*'
+    # Node / Docusaurus project additions: skip dependency tree, the npm
+    # lockfile (full of integrity hashes), Docusaurus caches and built zips.
+    --exclude-files 'node_modules'
+    --exclude-files 'package-lock\.json'
+    --exclude-files '\.docusaurus'
+    --exclude-files 'static/assets/zip'
 )
 
 compare_secrets() {
@@ -73,15 +79,14 @@ print(count)
 
     if ! compare_secrets .secrets.baseline .secrets.new; then
         echo "⚠️ Attention Required! ⚠️" >&2
-        echo "New secrets have been detected in your recent commit. Due to security concerns, we cannot display detailed information here and we cannot proceed until this issue is resolved." >&2
+        echo "New secrets have been detected in your recent commit." >&2
         echo "" >&2
         echo "Please follow the steps below on your local machine to reveal and handle the secrets:" >&2
         echo "" >&2
-        echo "1️⃣ Run the 'detect-secrets' tool on your local machine. This tool will identify and clean up the secrets. You can find detailed instructions at this link: https://nasa-ammos.github.io/slim/continuous-testing/starter-kits/#detect-secrets" >&2
+        echo "1️⃣ Run the 'detect-secrets' tool locally to identify and clean up the secrets." >&2
         echo "" >&2
-        echo "2️⃣ After cleaning up the secrets, commit your changes and re-push your update to the repository." >&2
+        echo "2️⃣ After cleaning up, commit your changes and re-push." >&2
         echo "" >&2
-        echo "Your efforts to maintain the security of our codebase are greatly appreciated!" >&2
         rm -f .secrets.new
         exit 1
     fi

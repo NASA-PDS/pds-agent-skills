@@ -14,10 +14,15 @@ body:
       label: Which skill?
       description: Select the skill that has the bug
       options:
-        - generating-release-notes
         - creating-pds-issues
-        - sonarcloud-security-audit
-        - sonarcloud-security-triage
+        - creating-pds-pull-requests
+        - generating-release-notes
+        - dependabot-alerts-exporting
+        - dependabot-alerts-triaging
+        - sonarcloud-security-exporting
+        - sonarcloud-security-triaging
+        - sonarcloud-security-updating
+        - Marketplace website (not a specific skill)
         - Other (specify in description)
     validations:
       required: true
