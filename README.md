@@ -9,19 +9,19 @@
 <pre align="center">Specialized AI workflow plugins for NASA Planetary Data System in Claude Code</pre>
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
-![Plugins](https://img.shields.io/badge/plugins-2-blue)
+![Marketplace](https://img.shields.io/badge/marketplace-1-blue)
 ![Skills](https://img.shields.io/badge/skills-8-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
-This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 2 thematic plugins grouping 8 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code).
+This repository is a **Claude Code plugin marketplace** for NASA's Planetary Data System (PDS) Engineering Node. It distributes 8 specialized AI agents that automate complex workflows within the [Claude Code CLI environment](https://claude.ai/code). Each skill is installed individually from the `@pds-agent-skills` marketplace.
 
-**🔌 Plugins:** `pds-agent-skills` (GitHub workflows) • `security-skills` (SonarCloud + Dependabot security)
+**🔌 Marketplace:** `pds-agent-skills` — GitHub workflows • SonarCloud security • Dependabot security
 
 ## Table of Contents
 
 - [What are Claude Code Skills?](#what-are-claude-code-skills)
-- [Available Plugins & Skills](#available-plugins--skills)
+- [Available Skills](#available-skills)
 - [Installation](#installation)
   - [🆕 Recommended: Plugin Marketplace](#-recommended-plugin-marketplace-easy-updates--version-management)
   - [Alternative: Manual Installation (Legacy)](#alternative-manual-installation-legacy)
@@ -46,9 +46,9 @@ Claude Code skills are reusable prompts that enable Claude Code to perform speci
 
 Skills help automate repetitive or complex workflows, making development more efficient and consistent across the PDS organization.
 
-## Available Plugins & Skills
+## Available Skills
 
-### 🔌 Plugin 1: pds-agent-skills (GitHub Workflows)
+### 🔌 GitHub Workflow Skills
 
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
@@ -56,7 +56,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[creating-pds-issues](static/marketplace/skills/creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
 | **[creating-pds-pull-requests](static/marketplace/skills/creating-pds-pull-requests/SKILL.md)** | Create GitHub pull requests with auto-detection of repo/branch, issue linking, reviewer assignment, and label management | Opening PRs, submitting code changes, linking issues to PRs, draft PRs |
 
-### 🔒 Plugin 2: security-skills (Security Workflows)
+### 🔒 Security Workflow Skills
 
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
@@ -66,7 +66,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[dependabot-alerts-exporting](static/marketplace/skills/dependabot-alerts-exporting/SKILL.md)** | Export GitHub Dependabot dependency vulnerability alerts for NASA PDS repositories to JSON | Dependency audits, CVE exports, vulnerability reports |
 | **[dependabot-alerts-triaging](static/marketplace/skills/dependabot-alerts-triaging/SKILL.md)** | Analyze Dependabot alerts and suggest triage decisions with exploitability assessment | CVE triage, dependency review, identifying false positives |
 
-**Total:** 3 plugins • 8 production-ready skills
+**Total:** 8 production-ready skills in the `@pds-agent-skills` marketplace
 
 ## Installation
 
@@ -90,25 +90,31 @@ The easiest way to install and manage PDS plugins with automatic updates and ver
 /plugin marketplace add NASA-PDS/pds-agent-skills
 ```
 
-**Install individual plugins as needed:**
+**Install individual skills as needed:**
 ```bash
-# List available plugins
+# List available skills
 /plugin list @pds-agent-skills
 
-# Install GitHub workflow skills
-/plugin install pds-agent-skills@pds-agent-skills
+# GitHub workflow skills
+/plugin install generating-release-notes@pds-agent-skills
+/plugin install creating-pds-issues@pds-agent-skills
+/plugin install creating-pds-pull-requests@pds-agent-skills
 
-# Install security skills (SonarCloud + Dependabot)
-/plugin install security-skills@pds-agent-skills
+# Security skills (SonarCloud + Dependabot)
+/plugin install sonarcloud-security-exporting@pds-agent-skills
+/plugin install sonarcloud-security-triaging@pds-agent-skills
+/plugin install sonarcloud-security-updating@pds-agent-skills
+/plugin install dependabot-alerts-exporting@pds-agent-skills
+/plugin install dependabot-alerts-triaging@pds-agent-skills
 
-# Or install both
-/plugin install pds-agent-skills@pds-agent-skills security-skills@pds-agent-skills
+# Or install all 8 skills at once
+/plugin install generating-release-notes@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
 ```
 
 **Update to latest versions:**
 ```bash
 /plugin marketplace update pds-agent-skills
-/plugin update pds-agent-skills@pds-agent-skills security-skills@pds-agent-skills
+/plugin update generating-release-notes@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
 ```
 
 #### Option B: Local/Internal Installation
@@ -139,16 +145,15 @@ cd ~
 
 **Important**: Run the `/plugin marketplace add` command from **outside** the marketplace directory, pointing to the directory that contains `.claude-plugin/`. Don't run it from inside the marketplace directory itself.
 
-**Install plugins:**
+**Install skills:**
 ```bash
-# List available plugins (marketplace name will be auto-generated from path)
+# List available skills (marketplace name will be auto-generated from path)
 /plugin list @pds-plugins
 
-# Install GitHub workflow skills
-/plugin install pds-agent-skills@pds-plugins
-
-# Install security skills (SonarCloud + Dependabot)
-/plugin install security-skills@pds-plugins
+# Install individual skills (same names, different marketplace suffix)
+/plugin install generating-release-notes@pds-plugins
+/plugin install sonarcloud-security-triaging@pds-plugins
+# ... repeat for each skill as needed
 ```
 
 **Update from local marketplace:**
@@ -159,7 +164,7 @@ git pull
 
 # Then update the marketplace in Claude Code
 /plugin marketplace update pds-plugins
-/plugin update pds-agent-skills@pds-plugins security-skills@pds-plugins
+/plugin update generating-release-notes@pds-plugins creating-pds-issues@pds-plugins # ... etc
 ```
 
 #### Option C: Private Git Repository
@@ -258,7 +263,7 @@ git pull
 
 **Symptoms:**
 ```bash
-/plugin install pds-agent-skills@pds-agent-skills
+/plugin install generating-release-notes@pds-agent-skills
 ⎿  Failed to load marketplace "claude-plugins-official" from source (github): Failed to parse
    marketplace file at .../claude-plugins-official/.claude-plugin/marketplace.json: Invalid schema
 ```
@@ -275,17 +280,17 @@ claude plugin marketplace remove claude-plugins-official
 claude plugin marketplace add anthropics/claude-plugins-official
 ```
 
-**Solution 2: Install plugins without the official marketplace**
+**Solution 2: Install skills without the official marketplace**
 
-The PDS plugins can be installed independently without the official marketplace:
+The PDS skills can be installed independently without the official marketplace:
 
 ```bash
 # Remove the corrupted marketplace
 claude plugin marketplace remove claude-plugins-official
 
-# Install PDS plugins directly
-claude plugin install pds-agent-skills@pds-agent-skills
-claude plugin install security-skills@pds-agent-skills
+# Install PDS skills directly (example — repeat for each skill)
+claude plugin install generating-release-notes@pds-agent-skills
+claude plugin install sonarcloud-security-triaging@pds-agent-skills
 ```
 
 **Solution 3: Manually clean up the marketplace directory**
@@ -299,16 +304,16 @@ rm -rf ~/.claude/plugins/marketplaces/claude-plugins-official
 # Update your PDS marketplace
 claude plugin marketplace update pds-agent-skills
 
-# Install PDS plugins
-claude plugin install pds-agent-skills@pds-agent-skills
-claude plugin install security-skills@pds-agent-skills
+# Install PDS skills (example — repeat for each skill)
+claude plugin install generating-release-notes@pds-agent-skills
+claude plugin install sonarcloud-security-triaging@pds-agent-skills
 ```
 
-### Issue: Plugin Not Found
+### Issue: Skill Not Found
 
 **Symptoms:**
 ```bash
-/plugin install pds-agent-skills@pds-agent-skills
+/plugin install generating-release-notes@pds-agent-skills
 Error: Plugin not found
 ```
 
@@ -316,16 +321,16 @@ Error: Plugin not found
 
 ```bash
 # Add the marketplace if not already added
-/plugin marketplace add NASA-PDS/pds-claude-skills
+/plugin marketplace add NASA-PDS/pds-agent-skills
 
-# Update the marketplace to fetch latest plugin catalog
+# Update the marketplace to fetch latest skill catalog
 /plugin marketplace update pds-agent-skills
 
-# List available plugins to verify
+# List available skills to verify
 /plugin list @pds-agent-skills
 
-# Install the plugin
-/plugin install pds-agent-skills@pds-agent-skills
+# Install the skill
+/plugin install generating-release-notes@pds-agent-skills
 ```
 
 ### Issue: Marketplace Name Mismatch
@@ -336,23 +341,25 @@ Error: Plugin not found
 
 ```bash
 # Correct
-/plugin install pds-agent-skills@pds-agent-skills
+/plugin install generating-release-notes@pds-agent-skills
 
 # Incorrect (will fail)
-/plugin install pds-agent-skills@pds-claude-skills
+/plugin install generating-release-notes@pds-claude-skills
 ```
 
 ### Verify Installation
 
-To confirm plugins are installed correctly:
+To confirm skills are installed correctly:
 
 ```bash
-# Check installed plugins
+# Check installed skills
 /plugin list
 
-# Should show both plugins with version 2.0.0 or higher
-# ✓ pds-agent-skills@pds-agent-skills (v2.1.0)
-# ✓ security-skills@pds-agent-skills (v1.0.0)
+# Should show each installed skill, e.g.:
+# ✓ generating-release-notes@pds-agent-skills
+# ✓ creating-pds-issues@pds-agent-skills
+# ✓ sonarcloud-security-triaging@pds-agent-skills
+# ...
 
 # View installation details
 cat ~/.claude/plugins/installed_plugins.json
@@ -418,20 +425,20 @@ Save everything to ~/pds-security-audit.
 
 > **Prerequisites for security-skills:** Node.js v18+. SonarCloud skills require `SONARCLOUD_TOKEN`; Dependabot skills require `GITHUB_TOKEN` with `security_events` scope. See the [SonarCloud Skills Guide](docs/SECURITY_SKILLS_GUIDE.md) for setup instructions and a full list of example prompts.
 
-### Managing Plugins
+### Managing Skills
 
 ```bash
-# List installed plugins
+# List installed skills
 /plugin list
 
-# List available plugins in marketplace
+# List available skills in marketplace
 /plugin list @pds-agent-skills
 
-# Update a specific plugin
-/plugin update security-skills@pds-agent-skills
+# Update a specific skill
+/plugin update sonarcloud-security-triaging@pds-agent-skills
 
-# Uninstall a plugin
-/plugin uninstall security-skills@pds-agent-skills
+# Uninstall a skill
+/plugin uninstall sonarcloud-security-triaging@pds-agent-skills
 ```
 
 **📚 Detailed guides:**
