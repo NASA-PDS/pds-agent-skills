@@ -63,7 +63,7 @@ const config = {
         title: "PDS Agent Skills",
         logo: {
           alt: "PDS Agent Skills",
-          src: "img/pds-logo.svg",
+          src: "img/pds-logo.png",
         },
         items: [
           {
@@ -158,7 +158,7 @@ const config = {
     // Enhanced branding configuration for easy customization
     brandingConfig: {
       // Visual Assets — hero uses the official NASA PDS logo
-      logoPath: "/img/pds-logo.svg",
+      logoPath: "/img/pds-logo.png",
 
       // Hero Section Control
       hero: {
