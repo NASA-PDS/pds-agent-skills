@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" role="img" aria-label="favicon">
+  <rect x="10" y="10" width="180" height="180" rx="42" fill="#0f2b5c"/>
+  <g transform="rotate(-22 100 100)">
+    <ellipse cx="100" cy="100" rx="72" ry="26" fill="none" stroke="#7db5ff" stroke-width="9"/>
+  </g>
+  <circle cx="100" cy="100" r="40" fill="#4d9fec"/>
+</svg>

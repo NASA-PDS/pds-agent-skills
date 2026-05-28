@@ -28,6 +28,7 @@ This repository is a **Claude Code plugin marketplace** for NASA's Planetary Dat
 - [Troubleshooting](#troubleshooting)
 - [Using Plugins](#using-plugins)
 - [Adding a New Skill](#adding-a-new-skill)
+- [Updating an Existing Skill](#updating-an-existing-skill)
 - [Repository Structure](#repository-structure)
 - [Contributing](#contributing)
 - [Changelog](#changelog)
@@ -439,69 +440,135 @@ Save everything to ~/pds-security-audit.
 
 ## Adding a New Skill
 
-See [CLAUDE.md](CLAUDE.md) for comprehensive development guidance and the existing skills in `static/marketplace/skills/` for examples.
+This repository is **registry-driven**: contributors edit one source-of-truth file (`static/data/registry.json`), and the Claude Code plugin manifest (`.claude-plugin/marketplace.json`) is regenerated from it by the build. **Do not edit `marketplace.json` by hand** — it is a build artifact, and a CI check rejects any drift.
+
+See [CLAUDE.md](CLAUDE.md) for deeper development guidance, and the existing skills under `static/marketplace/skills/` for examples.
 
 **Quick steps:**
-1. Create a new directory: `static/marketplace/skills/<skill-name>/` (use gerund form: `generating-*`, `processing-*`)
-2. Add a `SKILL.md` file with YAML frontmatter and instructions
-3. Add supporting files (scripts, templates, resources) as needed
-4. Update `.claude-plugin/marketplace.json` to add the skill to the appropriate plugin
-5. Update [README.md](README.md) Available Plugins & Skills section
-6. Update [CHANGELOG.md](CHANGELOG.md) following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
-7. Test with sample inputs
-8. Submit a pull request
 
-**For new plugin groups:** See [CLAUDE.md](CLAUDE.md) section "Creating a New Plugin Group"
-**For marketplace configuration:** See [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md)
+1. **Create the skill folder** — `static/marketplace/skills/<skill-name>/` (use gerund form: `generating-*`, `processing-*`, `creating-*`).
+2. **Add `SKILL.md`** with YAML frontmatter (`name`, `description`) and the full instructions. Include any supporting `scripts/`, `resources/`, or `templates/` as needed.
+3. **Add an entry** to the `skills` array in `static/data/registry.json`:
+
+   ```json
+   {
+     "name": "<skill-name>",
+     "displayName": "Human Readable Name",
+     "description": "What it does and when to use it",
+     "category": "development-workflow",
+     "tags": ["github", "automation", "pds"],
+     "example": "An example request a user might make",
+     "lastUpdated": "YYYY-MM-DD"
+   }
+   ```
+
+   Author only the semantic fields above. The build derives `type`, `skill_file_url`, and `zip_file_path` automatically — do not write them by hand. Optional passthrough fields: `dependencies`, `version`, `author`, `homepage`, `repository`, `license`. Categories are defined in the same file under `metadata.categoryIcons`; add a new `"<category>": "<emoji>"` entry there to introduce a category.
+4. **Regenerate the manifest:**
+
+   ```bash
+   npm run prebuild
+   ```
+
+   This runs `src/conf/generate-marketplace.js`, which writes `.claude-plugin/marketplace.json` from the registry. The `registry-check` CI workflow fails if the committed manifest drifts out of sync.
+5. **Update [CHANGELOG.md](CHANGELOG.md)** following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
+6. **Test locally** — `npm run start` (dev server) or `npm run build && npm run serve` (production preview).
+7. **Commit both** `static/data/registry.json` and `.claude-plugin/marketplace.json`, then submit a pull request.
+
+**For marketplace configuration:** See [docs/MARKETPLACE_SETUP.md](docs/MARKETPLACE_SETUP.md).
+
+## Updating an Existing Skill
+
+The same registry-driven flow applies — edit `static/data/registry.json` (and the skill files), then regenerate.
+
+**Change a skill's behavior** — edit files under `static/marketplace/skills/<skill-name>/` (its `SKILL.md`, scripts, templates, resources). No further metadata work is needed unless the change affects how the skill is described.
+
+**Change how the skill appears in the catalog** — edit that skill's entry in `static/data/registry.json`:
+
+- `displayName` — human-readable name shown on the catalog card
+- `description` — short summary shown in the card and used for skill discovery
+- `category` — where the skill appears in the category tree (e.g. `development-workflow`, `security`)
+- `tags` — filter pills on the card
+- `example` — example user request shown beneath the install instructions
+- `dependencies`, `version`, `author`, `homepage`, `repository`, `license` — optional metadata
+
+**Bump the timestamp** — whenever a skill changes in any meaningful way, set its `lastUpdated` to today's date in `YYYY-MM-DD` format (e.g. `"2026-05-22"`). The catalog sorts and labels skills by this field, so an accurate timestamp keeps the marketplace's "what changed recently" view truthful.
+
+**Regenerate the manifest:**
+
+```bash
+npm run prebuild
+```
+
+**Remove a skill** — delete its folder under `static/marketplace/skills/` and its entry from `static/data/registry.json`, then run `npm run prebuild`.
+
+Update [CHANGELOG.md](CHANGELOG.md) and commit both `static/data/registry.json` and the updated `.claude-plugin/marketplace.json`.
 
 ## Repository Structure
 
 ```
 pds-agent-skills/
-├── .claude-plugin/             # Plugin marketplace configuration
-│   └── marketplace.json        # Marketplace catalog (2 plugins, 8 skills)
+├── .claude-plugin/
+│   └── marketplace.json        # Claude Code plugin manifest — GENERATED from static/data/registry.json
 ├── static/
+│   ├── data/
+│   │   └── registry.json       # Hand-authored SOURCE OF TRUTH (marketplace identity + all skills)
+│   ├── img/                    # Logo, favicon, hero images
 │   └── marketplace/
-│       └── skills/             # All skills (pds-agent-skills + security-skills)
-│           ├── generating-release-notes/        # pds-agent-skills
-│           │   ├── SKILL.md
-│           │   ├── templates/
-│           │   └── resources/
-│           ├── creating-pds-issues/             # pds-agent-skills
+│       └── skills/             # All skill content (one folder per skill)
+│           ├── creating-pds-issues/
 │           │   ├── SKILL.md
 │           │   ├── scripts/
 │           │   └── resources/
-│           ├── creating-pds-pull-requests/      # pds-agent-skills
+│           ├── creating-pds-pull-requests/
 │           │   ├── SKILL.md
 │           │   └── scripts/
-│           ├── sonarcloud-security-exporting/   # security-skills
+│           ├── generating-release-notes/
+│           │   ├── SKILL.md
+│           │   ├── templates/
+│           │   └── resources/
+│           ├── dependabot-alerts-exporting/
 │           │   ├── SKILL.md
 │           │   └── scripts/
-│           ├── sonarcloud-security-triaging/    # security-skills
+│           ├── dependabot-alerts-triaging/
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           ├── sonarcloud-security-exporting/
+│           │   ├── SKILL.md
+│           │   └── scripts/
+│           ├── sonarcloud-security-triaging/
 │           │   └── SKILL.md
-│           ├── sonarcloud-security-updating/    # security-skills
+│           ├── sonarcloud-security-updating/
 │           │   ├── SKILL.md
 │           │   └── scripts/
-│           ├── dependabot-alerts-exporting/     # security-skills
-│           │   ├── SKILL.md
-│           │   └── scripts/
-│           ├── dependabot-alerts-triaging/      # security-skills
-│           │   ├── SKILL.md
-│           │   └── scripts/
-│           └── shared-resources/               # Shared across plugins
+│           └── shared-resources/
 │               └── pds-labels.yaml
-├── docs/                       # Documentation
+├── src/
+│   ├── conf/
+│   │   └── generate-marketplace.js  # Generates marketplace.json from registry.json
+│   ├── components/             # Marketplace website (React/Docusaurus)
+│   ├── pages/                  # Website pages
+│   └── css/                    # Styles
+├── docs/
+│   ├── about/                  # Marketplace "About" page (Docusaurus)
+│   ├── contribute/             # "Contribute" docs (Docusaurus)
+│   ├── faq/                    # FAQ (Docusaurus)
 │   ├── history/                # AI session histories
 │   ├── MARKETPLACE_SETUP.md    # GitHub configuration guide
 │   ├── PLUGIN_MARKETPLACE_GUIDE.md  # Comprehensive install guide
-│   ├── SECURITY_SKILLS_GUIDE.md    # Security skills usage guide
+│   ├── SECURITY_SKILLS_GUIDE.md     # Security skills usage guide
 │   └── PRODUCTS_README.md      # Product mapping documentation
-├── .github/                    # GitHub configuration
-│   └── ISSUE_TEMPLATE/         # Issue templates
-├── backup/                     # Deprecated/experimental skills
+├── .github/
+│   ├── CODEOWNERS
+│   ├── ISSUE_TEMPLATE/         # Issue templates
+│   └── workflows/              # CI — secrets-detection, registry-check, Pages deploy
+├── scripts/
+│   └── detect_secrets_baseline.sh
+├── docusaurus.config.js        # Marketplace website configuration
+├── package.json                # Node dependencies for the website
+├── sidebars.js                 # Website docs sidebar layout
 ├── CLAUDE.md                   # Developer guidance for Claude Code
 ├── CONTRIBUTING.md             # Contribution guidelines
-├── README.md                   # This file (marketplace overview)
+├── README.md                   # This file
 └── CHANGELOG.md                # Project changelog
 ```
 

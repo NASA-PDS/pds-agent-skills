@@ -14,11 +14,15 @@ body:
       label: Which skill?
       description: Select the skill to enhance
       options:
-        - generating-release-notes
         - creating-pds-issues
-        - sonarcloud-security-audit
-        - sonarcloud-security-triage
-        - Documentation or repository structure
+        - creating-pds-pull-requests
+        - generating-release-notes
+        - dependabot-alerts-exporting
+        - dependabot-alerts-triaging
+        - sonarcloud-security-exporting
+        - sonarcloud-security-triaging
+        - sonarcloud-security-updating
+        - Marketplace website or repository structure
         - Other (specify in description)
     validations:
       required: true
