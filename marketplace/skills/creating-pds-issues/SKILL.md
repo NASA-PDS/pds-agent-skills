@@ -213,7 +213,7 @@ ERROR: Connection refused by database host
 
 ### 3. Create the Issue
 
-Use GitHub CLI to create the issue with appropriate labels and metadata.
+Use GitHub CLI to create the issue with appropriate labels and metadata, then set the issue type via the REST API (the `gh issue create` command does not support a `--type` flag).
 
 **IMPORTANT: Always use `--body-file` to avoid shell quoting errors.** Never pass the body inline with `--body` — markdown content with single quotes, backticks, or special characters will break the shell command.
 
@@ -224,62 +224,89 @@ Then reference it with `--body-file /tmp/pds_issue_body.md` in all `gh issue cre
 **Default Assignee:**
 By default, issues requiring triage are assigned to `jordanpadams`. Users can override this by setting the `PDS_ISSUE_ASSIGNEE` environment variable or by using the `--assignee` flag.
 
+**Setting the Issue Type:**
+
+After every `gh issue create` call, extract the issue number and set the GitHub issue type via the REST API:
+
+```bash
+# Extract the issue number from the returned URL
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+
+# Set the issue type (replace "Bug" with the appropriate type)
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER \
+  --field type="Bug"
+```
+
+NASA-PDS issue type values: `Bug`, `Feature`, `Task`, `Theme`
+
 **Bug Report:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
   --label "bug,needs:triage" \
-  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Bug"
 ```
 
 **I&T Bug Report:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
   --label "B15.1,bug,needs:triage" \
-  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Bug"
 ```
 
 **Feature Request:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
   --label "needs:triage,requirement" \
-  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Feature"
 ```
 
 **Task:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
-  --label "task,i&t.skip"
+  --label "task,i&t.skip")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Task"
 ```
 
 **Vulnerability:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
   --label "security,bug,needs:triage" \
-  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}"
+  --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Bug"
 ```
 
 **Release Theme:**
 ```bash
-gh issue create \
+ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
   --body-file /tmp/pds_issue_body.md \
-  --label "theme,Epic,i&t.skip"
+  --label "theme,Epic,i&t.skip")
+ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Theme"
 ```
 
 **Template Body Format:**
@@ -403,6 +430,9 @@ ISSUE_URL=$(gh issue create \
 
 # 2. Extract issue number from URL
 CHILD_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
+
+# 2a. Set the issue type (Bug | Feature | Task | Theme)
+gh api --method PATCH /repos/NASA-PDS/<repo>/issues/$CHILD_NUMBER --field type="<type>"
 
 # 3. Get parent node ID
 PARENT_ID=$(gh api graphql -f query='
