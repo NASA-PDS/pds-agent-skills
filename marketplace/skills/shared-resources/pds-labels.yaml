@@ -1,0 +1,482 @@
+# NASA-PDS GitHub Label Definitions
+#
+# Canonical reference for all PDS GitHub labels used across the organization.
+# This file is used by multiple Claude Code skills:
+# - generating-release-notes: Maps labels to release note sections
+# - creating-pds-issues: Template selection and issue categorization
+#
+# Derived from PDS label scheme and organizational conventions.
+
+version: "1.0"
+updated: "2025-11-06"
+next_review_date: "2026-02-06"
+
+# Label Categories:
+# - type: What kind of work (bug, enhancement, requirement, etc.)
+# - priority: Business priority (p.must-have, p.could-have, etc.)
+# - severity: Technical severity (s.critical, s.high, etc.)
+# - project: Project grouping (proj.*)
+# - workflow: Process/triage labels (needs.*, i&t.*)
+# - build: Build/version tracking (B*.*)
+# - component: Component/area tags (c.*)
+# - status: Issue status (duplicate, invalid, wontfix)
+# - backlog: Planning labels (product-backlog, sprint-backlog)
+
+labels:
+  # ============================================================================
+  # TYPE LABELS - What kind of work is this?
+  # ============================================================================
+
+  backwards-incompatible:
+    description: "backwards incompatible change. will require major tag"
+    category: "type"
+    release_notes_section: "Breaking Changes"
+    include_in_release_notes: true
+    status_reporter_score: 6
+    notes: "Always prominently featured in releases and status reports"
+
+  security:
+    description: "bug identified as a potential security issue or coding no-no"
+    category: "type"
+    release_notes_section: "Security"
+    include_in_release_notes: true
+    status_reporter_score: 5
+    notes: "High priority for both releases and status reports"
+
+  requirement:
+    description: "user story or formal requirement for new feature"
+    category: "type"
+    release_notes_section: "New"
+    include_in_release_notes: true
+    status_reporter_score: 1
+    notes: "Represents a user story/requirement; categorize as New when delivered"
+
+  enhancement:
+    description: "improvements"
+    category: "type"
+    release_notes_section: "Improvements"
+    include_in_release_notes: true
+    status_reporter_score: 1
+    notes: "If this introduces a brand-new capability, consider listing under New"
+
+  bug:
+    description: "its a bug. gross"
+    category: "type"
+    release_notes_section: "Fixes"
+    include_in_release_notes: true
+    status_reporter_score: 2
+    notes: "User-facing bug fixes"
+
+  maintenance:
+    description: "maintenance theme"
+    category: "type"
+    release_notes_section: "Improvements"
+    include_in_release_notes: false
+    status_reporter_score: 0
+    notes: "Internal/maintenance; usually omit unless user-visible"
+
+  task:
+    description: "task or work item, most often a sub-tasks of a bug, enhancement, or requirement Epic"
+    category: "type"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 1
+    notes: "Sub-tasks; typically grouped under parent issue"
+
+  theme:
+    description: "release plan theme to group together user stories, where applicable"
+    category: "type"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 1
+    notes: "Grouping mechanism for related work"
+
+  # ============================================================================
+  # PRIORITY LABELS - Business priority
+  # ============================================================================
+
+  p.must-have:
+    description: "high priority, high likelihood of impacting current release backlog"
+    category: "priority"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 5
+    notes: "Planning/prioritization metadata"
+
+  p.should-have:
+    description: "nice-to-have that isn't nice enough to be low priority"
+    category: "priority"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 3
+    notes: "Planning/prioritization metadata"
+
+  p.could-have:
+    description: "medium priority, may impact current release backlog"
+    category: "priority"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 2
+    notes: "Planning/prioritization metadata"
+
+  p.wont-have:
+    description: "low priority, most likey to be added to product backlog"
+    category: "priority"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: -3
+    notes: "Planning/prioritization metadata"
+
+  # ============================================================================
+  # SEVERITY LABELS - Technical severity/impact
+  # ============================================================================
+
+  s.critical:
+    description: "critical priority, will impact current sprint backlog"
+    category: "severity"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 5
+    notes: "Planning/prioritization metadata"
+
+  s.high:
+    description: "high priority, will impact current sprint backlog"
+    category: "severity"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 3
+    notes: "Planning/prioritization metadata"
+
+  s.medium:
+    description: "medium priority, may impact current release backlog"
+    category: "severity"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 1
+    notes: "Planning/prioritization metadata"
+
+  s.low:
+    description: "low severity"
+    category: "severity"
+    release_notes_section: null
+    include_in_release_notes: false
+    status_reporter_score: 0
+    notes: "Planning/prioritization metadata"
+
+  # ============================================================================
+  # WORKFLOW/TRIAGE LABELS - Process management
+  # ============================================================================
+
+  needs.triage:
+    description: "new tickets will be auto-tagged with this, or team can tag for triage by product-owner"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  needs.more-info:
+    description: "team can tag tickets that need more info / details from product-owner in order to proceed"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  needs.requirement:
+    description: "team can tag tickets if it is unclear if a story is associated with this ticket"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  needs.scheduling:
+    description: "ticket is created and triaged but needs a Release Theme to be scheduled"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  needs.dependency:
+    description: "some other dependency needed before we can close this out"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  needs.receivable:
+    description: "external receivables and/or tasks reliant on someone outside of EN in order to complete. this triggers product owner to follow up with external customers/stakeholders"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/triage metadata"
+
+  # ============================================================================
+  # I&T (INTEGRATION & TEST) LABELS
+  # ============================================================================
+
+  i&t-backlog:
+    description: "all features and bugs ready for I&T"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Internal I&T tracking"
+
+  i&t.automated:
+    description: "I&T-related ticket"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Internal I&T label; omit from user notes"
+
+  i&t.done:
+    description: "Initial testing complete from I&T team"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Internal I&T label; omit from user notes"
+
+  i&t.issue:
+    description: "I&T-related ticket"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Internal I&T label; omit from user notes"
+
+  i&t.skip:
+    description: "Skip I&T either due to a related ticket being tested or trivial closeout"
+    category: "workflow"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Internal I&T label; omit from user notes"
+
+  # ============================================================================
+  # PROJECT LABELS - Project grouping
+  # ============================================================================
+
+  proj.cloud-project:
+    description: "PDS Cloud Initiative project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping; can be used to sub-group bullets by project if desired"
+
+  proj.deep-archive:
+    description: "PDS Deep Archive"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.devops:
+    description: "DevOps Project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.dldd-mgmt:
+    description: "dLDD Managment Project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.doi-service:
+    description: "DOI Service Project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.nucleus:
+    description: "PDS Nucleus"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.pds-ux:
+    description: "PDS User Experience Project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.pds4-scrs:
+    description: "PDS4 Software Change Requests (SCRs)"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.plaid:
+    description: "PLAID-related tasks"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.registry+api:
+    description: "Registry and API tasks"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.validate:
+    description: "PDS Validate Tool tasks"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  proj.web-modern:
+    description: "PDS Web Modernization Project"
+    category: "project"
+    release_notes_section: null
+    include_in_release_notes: false
+    notes: "Project grouping"
+
+  # ============================================================================
+  # BACKLOG LABELS - Planning/tracking
+  # ============================================================================
+
+  product-backlog:
+    description: "all features and bugs associated with a product"
+    category: "backlog"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/tracking metadata"
+
+  release-backlog:
+    description: "all features and bugs planned for the current release"
+    category: "backlog"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/tracking metadata"
+
+  sprint-backlog:
+    description: "all features and bugs planned for the current sprint"
+    category: "backlog"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Planning/tracking metadata"
+
+  icebox:
+    description: "backlog. will be planned for future release"
+    category: "backlog"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Housekeeping; exclude from reports"
+
+  # ============================================================================
+  # STATUS LABELS - Issue status/resolution
+  # ============================================================================
+
+  duplicate:
+    description: "duplicate to another issue"
+    category: "status"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Housekeeping; exclude from reports"
+
+  invalid:
+    description: "feature or bug is invalid"
+    category: "status"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Housekeeping; exclude from reports"
+
+  wontfix:
+    description: "feature or bug wont be fixed either because of priority or some other rationale"
+    category: "status"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Housekeeping; exclude from reports"
+
+  pending-scr:
+    description: "pending PDS4 SCR"
+    category: "status"
+    release_notes_section: null
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Waiting on Standards Change Request"
+
+  # ============================================================================
+  # BUILD LABELS - Version/build tracking (pattern-based)
+  # ============================================================================
+  # Note: Build labels follow pattern B##.# (e.g., B11.0, B12.1, B16.0)
+  # These are dynamically created and not exhaustively listed here.
+  # Category: "build"
+  # Include in release notes: false
+  # Exclude from reports: true (used for planning/tracking only)
+
+  # ============================================================================
+  # COMPONENT LABELS - Area/component tags (pattern-based)
+  # ============================================================================
+  # Note: Component labels follow pattern c.<component_name> (e.g., c.doi-search)
+  # These are dynamically created per component and not exhaustively listed here.
+  # Category: "component"
+  # Include in release notes: false (use to group bullets within sections)
+  # Can be used for sub-grouping in status reports
+
+# Pattern Matching Rules
+# Used by skills to identify labels not explicitly listed above
+patterns:
+  build:
+    regex: "^B\\d+\\.\\d+$"
+    description: "Build/version placeholder labels (e.g., B16.0, B17.1)"
+    category: "build"
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Used for build planning and tracking"
+
+  component:
+    regex: "^c\\.[a-z0-9-]+$"
+    description: "Component/area tags (e.g., c.doi-search, c.registry)"
+    category: "component"
+    include_in_release_notes: false
+    notes: "Use to group bullets within sections or identify component-specific work"
+
+  open_version:
+    regex: "^open\\.v\\d+\\.\\d+\\.\\d+$"
+    description: "Open bugs associated with specific version (e.g., open.v3.0.0)"
+    category: "tracking"
+    include_in_release_notes: false
+    exclude_from_reports: true
+    notes: "Version-specific bug tracking"
+
+# Usage Notes for Skills
+#
+# For generating-release-notes skill:
+# - Use 'release_notes_section' to map issues to sections
+# - Check 'include_in_release_notes' flag
+# - Omit labels with exclude_from_reports: true
+#
+# For creating-pds-issues skill:
+# - Use label definitions for template selection
+# - Apply appropriate labels based on issue type
+# - Reference 'description' and 'category' for guidance
+#
+# Quarterly Review:
+# - Review label definitions
+# - Add new labels as they're introduced
+# - Update based on organizational priorities
+# - Check next_review_date: 2026-02-06

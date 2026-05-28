@@ -1,0 +1,141 @@
+{
+  "name": "pds-agent-skills",
+  "owner": {
+    "name": "NASA Planetary Data System Engineering Node",
+    "email": "pds-operator@jpl.nasa.gov"
+  },
+  "metadata": {
+    "description": "Claude Code plugins for NASA PDS workflows - automated release notes, pull request creation, GitHub issue creation, security auditing, and more",
+    "version": "2.1.0"
+  },
+  "plugins": [
+    {
+      "name": "creating-pds-issues",
+      "description": "Create GitHub issues in NASA-PDS repositories using organizational templates (bug reports, I&T bug reports, feature requests, tasks, vulnerabilities, release themes). Use when a user requests to create, file, or submit PDS issues.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/creating-pds-issues"
+      ],
+      "keywords": [
+        "github",
+        "issues",
+        "templates",
+        "automation",
+        "pds"
+      ]
+    },
+    {
+      "name": "creating-pds-pull-requests",
+      "description": "Create GitHub pull requests in NASA-PDS repositories with auto-detection of repo/branch, issue linking, reviewer assignment, and label management. Use when a user requests to create, open, submit, or make a pull request.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/creating-pds-pull-requests"
+      ],
+      "keywords": [
+        "github",
+        "pull-requests",
+        "pr",
+        "automation",
+        "pds"
+      ]
+    },
+    {
+      "name": "generating-release-notes",
+      "description": "Generate GitHub release notes from merged PRs and issues with automated categorization, breaking change detection, and optional upload via the gh CLI. Use when creating releases, publishing new versions, or documenting changes.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/generating-release-notes"
+      ],
+      "keywords": [
+        "release-notes",
+        "changelog",
+        "github",
+        "automation",
+        "pds"
+      ]
+    },
+    {
+      "name": "dependabot-alerts-exporting",
+      "description": "Export GitHub Dependabot dependency vulnerability alerts for NASA-PDS repositories to JSON. Use when a user requests to export, fetch, or download Dependabot alerts, dependency vulnerability data, or CVE reports.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/dependabot-alerts-exporting"
+      ],
+      "keywords": [
+        "security",
+        "dependabot",
+        "vulnerability",
+        "cve",
+        "pds"
+      ]
+    },
+    {
+      "name": "dependabot-alerts-triaging",
+      "description": "Analyze GitHub Dependabot dependency vulnerability alerts and suggest triage decisions (dismiss/fix/escalate) with explanations. Use when reviewing Dependabot alerts or triaging CVEs across NASA-PDS repositories.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/dependabot-alerts-triaging"
+      ],
+      "keywords": [
+        "security",
+        "dependabot",
+        "vulnerability",
+        "triage",
+        "pds"
+      ]
+    },
+    {
+      "name": "sonarcloud-security-exporting",
+      "description": "Export SonarCloud security issues (vulnerabilities and hotspots) for NASA-PDS repositories to CSV or JSON. Use when a user requests to export, download, or fetch SonarCloud security data or vulnerability reports.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/sonarcloud-security-exporting"
+      ],
+      "keywords": [
+        "security",
+        "sonarcloud",
+        "vulnerability",
+        "audit",
+        "pds"
+      ]
+    },
+    {
+      "name": "sonarcloud-security-triaging",
+      "description": "Analyze SonarCloud security issues and suggest triage decisions (SAFE/FIXED/wontfix/falsepositive) with explanations. Use when reviewing security issues or making triage decisions.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/sonarcloud-security-triaging"
+      ],
+      "keywords": [
+        "security",
+        "sonarcloud",
+        "triage",
+        "audit",
+        "pds"
+      ]
+    },
+    {
+      "name": "sonarcloud-security-updating",
+      "description": "Update SonarCloud security issues by applying triage decisions from JSON or CSV files. Use when bulk-updating SonarCloud with reviewed triage decisions or applying security review outcomes.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/sonarcloud-security-updating"
+      ],
+      "keywords": [
+        "security",
+        "sonarcloud",
+        "triage",
+        "remediation",
+        "pds"
+      ]
+    }
+  ]
+}

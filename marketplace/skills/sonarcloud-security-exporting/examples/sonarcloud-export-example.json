@@ -1,0 +1,276 @@
+{
+  "exportMetadata": {
+    "timestamp": "2026-04-16T15:30:00Z",
+    "organization": "nasa-pds",
+    "totalIssues": 5,
+    "totalVulnerabilities": 2,
+    "totalHotspots": 3,
+    "totalProjects": 2,
+    "schemaVersion": "1.0.0",
+    "exportedBy": "claude-code",
+    "format": "json",
+    "options": {
+      "includeSnippets": true,
+      "includeRules": true,
+      "filters": {
+        "severity": null,
+        "status": null,
+        "project": null,
+        "createdAfter": null
+      }
+    }
+  },
+  "issues": [
+    {
+      "key": "AZnP1S0b_yFrdYV3Iu6e",
+      "project": "NASA-PDS_doi-ui",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {
+        "key": "javascript:S3330",
+        "name": "Using HTTP protocol is insecure",
+        "description": "Using HTTP instead of HTTPS leaves data vulnerable to interception and tampering by attackers. All external connections should use HTTPS to ensure confidentiality and integrity.",
+        "category": "VULNERABILITY",
+        "tags": ["cwe", "owasp", "security"],
+        "cwe": ["CWE-319"],
+        "owaspTop10": ["A02:2021"],
+        "securityCategory": "others"
+      },
+      "location": {
+        "component": "NASA-PDS_doi-ui:src/utils/metadata.js",
+        "line": 119,
+        "textRange": {
+          "startLine": 119,
+          "endLine": 119,
+          "startColumn": 10,
+          "endColumn": 65
+        },
+        "codeSnippet": {
+          "before": [
+            "// PDS metadata namespace identifiers",
+            "export const NAMESPACES = {"
+          ],
+          "flagged": "  core: \"http://pds.nasa.gov/ns/2010/metadata/core\",",
+          "after": [
+            "  disp: \"http://pds.nasa.gov/ns/2010/metadata/display\",",
+            "};"
+          ]
+        }
+      },
+      "message": "Using http protocol is insecure. Use https instead.",
+      "created": "2025-01-15T10:30:00Z",
+      "updated": "2025-01-20T14:22:00Z",
+      "author": "jordan@jpl.nasa.gov",
+      "effort": "5min",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-ui&hotspots=AZnP1S0b_yFrdYV3Iu6e",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "AYqR2T1c_zGsdXW4Jv7f",
+      "project": "NASA-PDS_data-upload",
+      "type": "VULNERABILITY",
+      "severity": "MAJOR",
+      "status": "OPEN",
+      "rule": {
+        "key": "python:S7608",
+        "name": "Add ExpectedBucketOwner parameter to S3 operations",
+        "description": "When working with Amazon S3 buckets, it's recommended to specify the ExpectedBucketOwner parameter to prevent confused deputy attacks and ensure you're operating on the correct bucket.",
+        "category": "VULNERABILITY",
+        "tags": ["aws", "s3", "security", "cwe"],
+        "cwe": ["CWE-284"],
+        "owaspTop10": ["A01:2021"],
+        "securityCategory": "others"
+      },
+      "location": {
+        "component": "NASA-PDS_data-upload:src/s3_sync.py",
+        "line": 134,
+        "textRange": {
+          "startLine": 134,
+          "endLine": 134,
+          "startColumn": 8,
+          "endColumn": 45
+        },
+        "codeSnippet": {
+          "before": [
+            "def sync_to_s3(bucket_name, local_path):",
+            "    \"\"\"Upload files to S3 bucket.\"\"\""
+          ],
+          "flagged": "    s3_client.upload_file(local_path, bucket_name, key)",
+          "after": [
+            "    logger.info(f'Uploaded {local_path} to {bucket_name}')",
+            "    return True"
+          ]
+        }
+      },
+      "message": "Add ExpectedBucketOwner parameter to this S3 operation.",
+      "created": "2025-10-10T20:33:50Z",
+      "updated": "2025-10-10T20:33:50Z",
+      "author": "jane@jpl.nasa.gov",
+      "effort": "10min",
+      "url": "https://sonarcloud.io/project/issues?open=AYqR2T1c_zGsdXW4Jv7f&id=NASA-PDS_data-upload",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "BZpQ3U2d_aHteYX5Kw8g",
+      "project": "NASA-PDS_registry",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {
+        "key": "java:S2092",
+        "name": "Cookies should be \"secure\"",
+        "description": "When a cookie is protected with the secure attribute, the cookie is only sent over HTTPS. This prevents man-in-the-middle attacks.",
+        "category": "SECURITY_HOTSPOT",
+        "tags": ["cwe", "owasp", "sans-top25"],
+        "cwe": ["CWE-614"],
+        "owaspTop10": ["A05:2021"],
+        "securityCategory": "others"
+      },
+      "location": {
+        "component": "NASA-PDS_registry:src/main/java/gov/nasa/pds/registry/auth/SessionCookie.java",
+        "line": 45,
+        "textRange": {
+          "startLine": 45,
+          "endLine": 45,
+          "startColumn": 4,
+          "endColumn": 50
+        },
+        "codeSnippet": {
+          "before": [
+            "public Cookie createSessionCookie(String sessionId) {",
+            "    Cookie cookie = new Cookie(\"SESSIONID\", sessionId);"
+          ],
+          "flagged": "    cookie.setSecure(true);",
+          "after": [
+            "    // TODO: Add HttpOnly flag",
+            "    return cookie;"
+          ]
+        }
+      },
+      "message": "Cookie should have HttpOnly flag set.",
+      "created": "2025-01-10T09:15:00Z",
+      "updated": "2025-02-05T11:20:00Z",
+      "author": "mike@jpl.nasa.gov",
+      "effort": "2min",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_registry&hotspots=BZpQ3U2d_aHteYX5Kw8g",
+      "flows": [],
+      "triage": null
+    },
+    {
+      "key": "CZoP4V3e_bIufZY6Lx9h",
+      "project": "NASA-PDS_registry",
+      "type": "VULNERABILITY",
+      "severity": "CRITICAL",
+      "status": "OPEN",
+      "rule": {
+        "key": "java:S4426",
+        "name": "Cryptographic keys should be robust",
+        "description": "Weak cryptographic algorithms should not be used. Using weak or broken cryptographic hash functions can leave data vulnerable. Use SHA-256 or stronger.",
+        "category": "VULNERABILITY",
+        "tags": ["cwe", "owasp", "sans-top25"],
+        "cwe": ["CWE-327"],
+        "owaspTop10": ["A02:2021"],
+        "securityCategory": "others"
+      },
+      "location": {
+        "component": "NASA-PDS_registry:src/main/java/gov/nasa/pds/registry/util/HashUtil.java",
+        "line": 67,
+        "textRange": {
+          "startLine": 67,
+          "endLine": 67,
+          "startColumn": 20,
+          "endColumn": 55
+        },
+        "codeSnippet": {
+          "before": [
+            "public static String hashLegacyId(String id) {",
+            "    try {"
+          ],
+          "flagged": "        MessageDigest md = MessageDigest.getInstance(\"MD5\");",
+          "after": [
+            "        byte[] digest = md.digest(id.getBytes());",
+            "        return bytesToHex(digest);"
+          ]
+        }
+      },
+      "message": "Use a stronger hashing algorithm than MD5.",
+      "created": "2024-11-05T14:20:00Z",
+      "updated": "2025-01-15T08:30:00Z",
+      "author": "sarah@jpl.nasa.gov",
+      "effort": "30min",
+      "url": "https://sonarcloud.io/project/issues?open=CZoP4V3e_bIufZY6Lx9h&id=NASA-PDS_registry",
+      "flows": [
+        {
+          "locations": [
+            {
+              "component": "NASA-PDS_registry:src/main/java/gov/nasa/pds/registry/util/HashUtil.java",
+              "textRange": {
+                "startLine": 67,
+                "endLine": 67
+              },
+              "msg": "MD5 is used here"
+            },
+            {
+              "component": "NASA-PDS_registry:src/main/java/gov/nasa/pds/registry/service/IdService.java",
+              "textRange": {
+                "startLine": 34,
+                "endLine": 34
+              },
+              "msg": "Called from production code"
+            }
+          ]
+        }
+      ],
+      "triage": null
+    },
+    {
+      "key": "DZnO5W4f_cJvgaZ7My0i",
+      "project": "NASA-PDS_doi-ui",
+      "type": "SECURITY_HOTSPOT",
+      "severity": null,
+      "status": "TO_REVIEW",
+      "rule": {
+        "key": "javascript:S5122",
+        "name": "Having a permissive Cross-Origin Resource Sharing policy is security-sensitive",
+        "description": "A CORS policy that allows requests from any origin (*) can expose sensitive data to attackers. Consider restricting origins to trusted domains only.",
+        "category": "SECURITY_HOTSPOT",
+        "tags": ["cwe", "owasp"],
+        "cwe": ["CWE-942"],
+        "owaspTop10": ["A05:2021"],
+        "securityCategory": "others"
+      },
+      "location": {
+        "component": "NASA-PDS_doi-ui:src/server/middleware/cors.js",
+        "line": 12,
+        "textRange": {
+          "startLine": 12,
+          "endLine": 12,
+          "startColumn": 2,
+          "endColumn": 30
+        },
+        "codeSnippet": {
+          "before": [
+            "// CORS configuration for API endpoints",
+            "const corsOptions = {"
+          ],
+          "flagged": "  origin: '*',",
+          "after": [
+            "  credentials: true,",
+            "};"
+          ]
+        }
+      },
+      "message": "Make sure this permissive CORS policy is safe here.",
+      "created": "2025-03-12T16:45:00Z",
+      "updated": "2025-03-12T16:45:00Z",
+      "author": "alex@jpl.nasa.gov",
+      "effort": "15min",
+      "url": "https://sonarcloud.io/project/security_hotspots?id=NASA-PDS_doi-ui&hotspots=DZnO5W4f_cJvgaZ7My0i",
+      "flows": [],
+      "triage": null
+    }
+  ]
+}

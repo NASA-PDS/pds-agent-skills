@@ -1,0 +1,89 @@
+name: 🆕 New Skill Request
+description: Suggest a new skill for the PDS Claude Code Skills marketplace
+title: "[Skill Request]: "
+labels: ["enhancement", "skill-request"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a new skill! Please provide details below to help us evaluate your request.
+
+  - type: input
+    id: skill-name
+    attributes:
+      label: Skill Name
+      description: Proposed name using gerund form (action + -ing)
+      placeholder: "generating-validation-reports, deploying-services, analyzing-data"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: What should this skill do? What problem does it solve?
+      placeholder: "This skill should automate the process of..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-cases
+    attributes:
+      label: Use Cases
+      description: Specific scenarios where this skill would be useful
+      placeholder: |
+        - When preparing quarterly status reports...
+        - When validating data submissions...
+        - When deploying services to cloud infrastructure...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: work-stream
+    attributes:
+      label: PDS Work Stream
+      description: Which PDS work stream does this skill support?
+      options:
+        - Core Data Services
+        - Web Modernization
+        - Planetary Data Cloud
+        - Cross-cutting (multiple streams)
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: prerequisites
+    attributes:
+      label: Prerequisites
+      description: What tools, APIs, or access would this skill require?
+      placeholder: "GitHub CLI, AWS credentials, specific API tokens, etc."
+    validations:
+      required: false
+
+  - type: textarea
+    id: trigger-keywords
+    attributes:
+      label: Trigger Keywords
+      description: What words or phrases should trigger this skill?
+      placeholder: "validation report, status report, deploy to cloud, etc."
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other information that would help evaluate this skill request
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to contribute this skill?
+      options:
+        - label: I'm willing to implement this skill myself
+        - label: I can help test and provide feedback
+        - label: I can provide domain expertise

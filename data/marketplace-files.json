@@ -1,0 +1,466 @@
+{
+  "skills": {
+    "creating-pds-issues": {
+      "name": "creating-pds-issues",
+      "type": "directory",
+      "children": [
+        {
+          "name": ".claude-plugin",
+          "type": "directory",
+          "path": ".claude-plugin",
+          "children": [
+            {
+              "name": "plugin.json",
+              "type": "file",
+              "path": ".claude-plugin/plugin.json",
+              "size": 351
+            }
+          ],
+          "fileCount": 1
+        },
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 17171
+        },
+        {
+          "name": "resources",
+          "type": "directory",
+          "path": "resources",
+          "children": [
+            {
+              "name": "templates",
+              "type": "directory",
+              "path": "resources/templates",
+              "children": [
+                {
+                  "name": "-bug_report.yml",
+                  "type": "file",
+                  "path": "resources/templates/-bug_report.yml",
+                  "size": 3010
+                },
+                {
+                  "name": "-feature_request.yml",
+                  "type": "file",
+                  "path": "resources/templates/-feature_request.yml",
+                  "size": 2870
+                },
+                {
+                  "name": "-vulnerability-issue.yml",
+                  "type": "file",
+                  "path": "resources/templates/-vulnerability-issue.yml",
+                  "size": 2751
+                },
+                {
+                  "name": ".cache-timestamp",
+                  "type": "file",
+                  "path": "resources/templates/.cache-timestamp",
+                  "size": 13
+                },
+                {
+                  "name": "config.yml",
+                  "type": "file",
+                  "path": "resources/templates/config.yml",
+                  "size": 193
+                },
+                {
+                  "name": "i-t-bug-report.yml",
+                  "type": "file",
+                  "path": "resources/templates/i-t-bug-report.yml",
+                  "size": 2920
+                },
+                {
+                  "name": "release-theme.yml",
+                  "type": "file",
+                  "path": "resources/templates/release-theme.yml",
+                  "size": 754
+                },
+                {
+                  "name": "task.yml",
+                  "type": "file",
+                  "path": "resources/templates/task.yml",
+                  "size": 1178
+                }
+              ],
+              "fileCount": 8
+            }
+          ],
+          "fileCount": 8
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "README.md",
+              "type": "file",
+              "path": "scripts/README.md",
+              "size": 6576
+            },
+            {
+              "name": "attach-sub-issue.mjs",
+              "type": "file",
+              "path": "scripts/attach-sub-issue.mjs",
+              "size": 5075
+            },
+            {
+              "name": "cache-templates.mjs",
+              "type": "file",
+              "path": "scripts/cache-templates.mjs",
+              "size": 3333
+            },
+            {
+              "name": "create-issue.mjs",
+              "type": "file",
+              "path": "scripts/create-issue.mjs",
+              "size": 10701
+            },
+            {
+              "name": "detect-repo.mjs",
+              "type": "file",
+              "path": "scripts/detect-repo.mjs",
+              "size": 3049
+            }
+          ],
+          "fileCount": 5
+        }
+      ],
+      "fileCount": 15
+    },
+    "creating-pds-pull-requests": {
+      "name": "creating-pds-pull-requests",
+      "type": "directory",
+      "children": [
+        {
+          "name": ".claude-plugin",
+          "type": "directory",
+          "path": ".claude-plugin",
+          "children": [
+            {
+              "name": "plugin.json",
+              "type": "file",
+              "path": ".claude-plugin/plugin.json",
+              "size": 378
+            }
+          ],
+          "fileCount": 1
+        },
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 13008
+        },
+        {
+          "name": "resources",
+          "type": "directory",
+          "path": "resources",
+          "children": [
+            {
+              "name": "templates",
+              "type": "directory",
+              "path": "resources/templates",
+              "children": [
+                {
+                  "name": ".cache-timestamp",
+                  "type": "file",
+                  "path": "resources/templates/.cache-timestamp",
+                  "size": 13
+                },
+                {
+                  "name": "pull_request_template.md",
+                  "type": "file",
+                  "path": "resources/templates/pull_request_template.md",
+                  "size": 3068
+                }
+              ],
+              "fileCount": 2
+            }
+          ],
+          "fileCount": 2
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "cache-pr-template.mjs",
+              "type": "file",
+              "path": "scripts/cache-pr-template.mjs",
+              "size": 3595
+            },
+            {
+              "name": "detect-context.mjs",
+              "type": "file",
+              "path": "scripts/detect-context.mjs",
+              "size": 6952
+            }
+          ],
+          "fileCount": 2
+        }
+      ],
+      "fileCount": 6
+    },
+    "dependabot-alerts-exporting": {
+      "name": "dependabot-alerts-exporting",
+      "type": "directory",
+      "children": [
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 6095
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "fetch-dependabot-alerts.mjs",
+              "type": "file",
+              "path": "scripts/fetch-dependabot-alerts.mjs",
+              "size": 11180
+            }
+          ],
+          "fileCount": 1
+        }
+      ],
+      "fileCount": 2
+    },
+    "dependabot-alerts-triaging": {
+      "name": "dependabot-alerts-triaging",
+      "type": "directory",
+      "children": [
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 17688
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "dismiss-alerts.mjs",
+              "type": "file",
+              "path": "scripts/dismiss-alerts.mjs",
+              "size": 5956
+            }
+          ],
+          "fileCount": 1
+        }
+      ],
+      "fileCount": 2
+    },
+    "generating-release-notes": {
+      "name": "generating-release-notes",
+      "type": "directory",
+      "children": [
+        {
+          "name": ".claude-plugin",
+          "type": "directory",
+          "path": ".claude-plugin",
+          "children": [
+            {
+              "name": "plugin.json",
+              "type": "file",
+              "path": ".claude-plugin/plugin.json",
+              "size": 386
+            }
+          ],
+          "fileCount": 1
+        },
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 8463
+        },
+        {
+          "name": "label-mapping.md",
+          "type": "file",
+          "path": "label-mapping.md",
+          "size": 7181
+        },
+        {
+          "name": "release-notes-template.md",
+          "type": "file",
+          "path": "release-notes-template.md",
+          "size": 1327
+        },
+        {
+          "name": "summary-template.md",
+          "type": "file",
+          "path": "summary-template.md",
+          "size": 514
+        }
+      ],
+      "fileCount": 5
+    },
+    "shared-resources": {
+      "name": "shared-resources",
+      "type": "directory",
+      "children": [
+        {
+          "name": "pds-labels.yaml",
+          "type": "file",
+          "path": "pds-labels.yaml",
+          "size": 16436
+        }
+      ],
+      "fileCount": 1
+    },
+    "sonarcloud-security-exporting": {
+      "name": "sonarcloud-security-exporting",
+      "type": "directory",
+      "children": [
+        {
+          "name": ".claude-plugin",
+          "type": "directory",
+          "path": ".claude-plugin",
+          "children": [
+            {
+              "name": "plugin.json",
+              "type": "file",
+              "path": ".claude-plugin/plugin.json",
+              "size": 373
+            }
+          ],
+          "fileCount": 1
+        },
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 14272
+        },
+        {
+          "name": "TEST_RESULTS.md",
+          "type": "file",
+          "path": "TEST_RESULTS.md",
+          "size": 3262
+        },
+        {
+          "name": "TEST_RESULTS_LIVE.md",
+          "type": "file",
+          "path": "TEST_RESULTS_LIVE.md",
+          "size": 6222
+        },
+        {
+          "name": "examples",
+          "type": "directory",
+          "path": "examples",
+          "children": [
+            {
+              "name": "README.md",
+              "type": "file",
+              "path": "examples/README.md",
+              "size": 2729
+            },
+            {
+              "name": "sonarcloud-export-example.json",
+              "type": "file",
+              "path": "examples/sonarcloud-export-example.json",
+              "size": 9448
+            }
+          ],
+          "fileCount": 2
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "README.md",
+              "type": "file",
+              "path": "scripts/README.md",
+              "size": 5291
+            },
+            {
+              "name": "fetch-security-issues.mjs",
+              "type": "file",
+              "path": "scripts/fetch-security-issues.mjs",
+              "size": 19007
+            },
+            {
+              "name": "test-json-structure.mjs",
+              "type": "file",
+              "path": "scripts/test-json-structure.mjs",
+              "size": 2128
+            },
+            {
+              "name": "test-parse-args.mjs",
+              "type": "file",
+              "path": "scripts/test-parse-args.mjs",
+              "size": 1333
+            }
+          ],
+          "fileCount": 4
+        }
+      ],
+      "fileCount": 10
+    },
+    "sonarcloud-security-triaging": {
+      "name": "sonarcloud-security-triaging",
+      "type": "directory",
+      "children": [
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 22340
+        }
+      ],
+      "fileCount": 1
+    },
+    "sonarcloud-security-updating": {
+      "name": "sonarcloud-security-updating",
+      "type": "directory",
+      "children": [
+        {
+          "name": ".claude-plugin",
+          "type": "directory",
+          "path": ".claude-plugin",
+          "children": [
+            {
+              "name": "plugin.json",
+              "type": "file",
+              "path": ".claude-plugin/plugin.json",
+              "size": 376
+            }
+          ],
+          "fileCount": 1
+        },
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 14759
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "apply-triage.mjs",
+              "type": "file",
+              "path": "scripts/apply-triage.mjs",
+              "size": 11862
+            }
+          ],
+          "fileCount": 1
+        }
+      ],
+      "fileCount": 3
+    }
+  },
+  "mcp-servers": {}
+}
