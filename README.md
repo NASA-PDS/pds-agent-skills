@@ -274,10 +274,10 @@ git pull
 
 ```bash
 # Remove the corrupted marketplace
-claude plugin marketplace remove claude-plugins-official
+/plugin marketplace remove claude-plugins-official
 
 # Try to re-add it (if this fails, proceed to Solution 2)
-claude plugin marketplace add anthropics/claude-plugins-official
+/plugin marketplace add anthropics/claude-plugins-official
 ```
 
 **Solution 2: Install skills without the official marketplace**
@@ -286,11 +286,11 @@ The PDS skills can be installed independently without the official marketplace:
 
 ```bash
 # Remove the corrupted marketplace
-claude plugin marketplace remove claude-plugins-official
+/plugin marketplace remove claude-plugins-official
 
 # Install PDS skills directly (example — repeat for each skill)
-claude plugin install generating-release-notes@pds-agent-skills
-claude plugin install sonarcloud-security-triaging@pds-agent-skills
+/plugin install generating-release-notes@pds-agent-skills
+/plugin install sonarcloud-security-triaging@pds-agent-skills
 ```
 
 **Solution 3: Manually clean up the marketplace directory**
@@ -302,11 +302,11 @@ If the above solutions don't work:
 rm -rf ~/.claude/plugins/marketplaces/claude-plugins-official
 
 # Update your PDS marketplace
-claude plugin marketplace update pds-agent-skills
+/plugin marketplace update pds-agent-skills
 
 # Install PDS skills (example — repeat for each skill)
-claude plugin install generating-release-notes@pds-agent-skills
-claude plugin install sonarcloud-security-triaging@pds-agent-skills
+/plugin install generating-release-notes@pds-agent-skills
+/plugin install sonarcloud-security-triaging@pds-agent-skills
 ```
 
 ### Issue: Skill Not Found
