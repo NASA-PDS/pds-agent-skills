@@ -135,9 +135,9 @@ function toPlugin(entry, marketplaceSource) {
   };
 
   if (entry.type === "skill") {
-    plugin.source = entry.source || `${marketplaceSource}/skills/${entry.name}`;
+    plugin.source = marketplaceSource;
     plugin.strict = false;
-    plugin.skills = ["."];
+    plugin.skills = [`./skills/${entry.name}`];
   } else if (entry.type === "agent") {
     plugin.source = marketplaceSource;
     plugin.strict = false;
