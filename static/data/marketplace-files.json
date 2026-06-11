@@ -22,7 +22,7 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 17171
+          "size": 18855
         },
         {
           "name": "resources",
@@ -59,6 +59,20 @@
                   "size": 13
                 },
                 {
+                  "name": ".claude",
+                  "type": "directory",
+                  "path": "resources/templates/.claude",
+                  "children": [
+                    {
+                      "name": "settings.local.json",
+                      "type": "file",
+                      "path": "resources/templates/.claude/settings.local.json",
+                      "size": 165
+                    }
+                  ],
+                  "fileCount": 1
+                },
+                {
                   "name": "config.yml",
                   "type": "file",
                   "path": "resources/templates/config.yml",
@@ -83,10 +97,10 @@
                   "size": 1178
                 }
               ],
-              "fileCount": 8
+              "fileCount": 9
             }
           ],
-          "fileCount": 8
+          "fileCount": 9
         },
         {
           "name": "scripts",
@@ -127,7 +141,7 @@
           "fileCount": 5
         }
       ],
-      "fileCount": 15
+      "fileCount": 16
     },
     "creating-pds-pull-requests": {
       "name": "creating-pds-pull-requests",
@@ -353,6 +367,36 @@
           "size": 6222
         },
         {
+          "name": "cloud-tools.json",
+          "type": "file",
+          "path": "cloud-tools.json",
+          "size": 16631
+        },
+        {
+          "name": "data-upload-manager.json",
+          "type": "file",
+          "path": "data-upload-manager.json",
+          "size": 17048
+        },
+        {
+          "name": "deep-archive.json",
+          "type": "file",
+          "path": "deep-archive.json",
+          "size": 18669
+        },
+        {
+          "name": "devops.json",
+          "type": "file",
+          "path": "devops.json",
+          "size": 506
+        },
+        {
+          "name": "doi-service.json",
+          "type": "file",
+          "path": "doi-service.json",
+          "size": 52005
+        },
+        {
           "name": "examples",
           "type": "directory",
           "path": "examples",
@@ -373,6 +417,72 @@
           "fileCount": 2
         },
         {
+          "name": "harvest.json",
+          "type": "file",
+          "path": "harvest.json",
+          "size": 2080
+        },
+        {
+          "name": "monitoring.json",
+          "type": "file",
+          "path": "monitoring.json",
+          "size": 7530
+        },
+        {
+          "name": "nasa-pds-github-io.json",
+          "type": "file",
+          "path": "nasa-pds-github-io.json",
+          "size": 113109
+        },
+        {
+          "name": "nucleus.json",
+          "type": "file",
+          "path": "nucleus.json",
+          "size": 35509
+        },
+        {
+          "name": "operations.json",
+          "type": "file",
+          "path": "operations.json",
+          "size": 14402
+        },
+        {
+          "name": "pds4-information-model.json",
+          "type": "file",
+          "path": "pds4-information-model.json",
+          "size": 9548
+        },
+        {
+          "name": "portal-tasks.json",
+          "type": "file",
+          "path": "portal-tasks.json",
+          "size": 512
+        },
+        {
+          "name": "registry-api.json",
+          "type": "file",
+          "path": "registry-api.json",
+          "size": 6611
+        },
+        {
+          "name": "registry-legacy-solr.json",
+          "type": "file",
+          "path": "registry-legacy-solr.json",
+          "size": 28118
+        },
+        {
+          "name": "registry-sweepers.json",
+          "type": "file",
+          "path": "registry-sweepers.json",
+          "size": 34105
+        },
+        {
+          "name": "registry.json",
+          "type": "file",
+          "path": "registry.json",
+          "size": 12988
+        },
+        {
           "name": "scripts",
           "type": "directory",
           "path": "scripts",
@@ -384,10 +494,52 @@
               "size": 5291
             },
             {
+              "name": "all-open-issues.json",
+              "type": "file",
+              "path": "scripts/all-open-issues.json",
+              "size": 94276
+            },
+            {
+              "name": "export-log.txt",
+              "type": "file",
+              "path": "scripts/export-log.txt",
+              "size": 6909
+            },
+            {
               "name": "fetch-security-issues.mjs",
               "type": "file",
               "path": "scripts/fetch-security-issues.mjs",
               "size": 19007
+            },
+            {
+              "name": "pds-tf-modules-issues.json",
+              "type": "file",
+              "path": "scripts/pds-tf-modules-issues.json",
+              "size": 4660
+            },
+            {
+              "name": "pds-tf-modules-triage-fixed.json",
+              "type": "file",
+              "path": "scripts/pds-tf-modules-triage-fixed.json",
+              "size": 7820
+            },
+            {
+              "name": "pds-tf-modules-triage.json",
+              "type": "file",
+              "path": "scripts/pds-tf-modules-triage.json",
+              "size": 7429
+            },
+            {
+              "name": "test-csv-small.csv",
+              "type": "file",
+              "path": "scripts/test-csv-small.csv",
+              "size": 25641
+            },
+            {
+              "name": "test-json-small.json",
+              "type": "file",
+              "path": "scripts/test-json-small.json",
+              "size": 112257
             },
             {
               "name": "test-json-structure.mjs",
@@ -396,16 +548,34 @@
               "size": 2128
             },
             {
+              "name": "test-output.json",
+              "type": "file",
+              "path": "scripts/test-output.json",
+              "size": 1823
+            },
+            {
               "name": "test-parse-args.mjs",
               "type": "file",
               "path": "scripts/test-parse-args.mjs",
               "size": 1333
             }
           ],
-          "fileCount": 4
+          "fileCount": 12
+        },
+        {
+          "name": "sonarcloud-security-triage.csv",
+          "type": "file",
+          "path": "sonarcloud-security-triage.csv",
+          "size": 1751524
+        },
+        {
+          "name": "validate.json",
+          "type": "file",
+          "path": "validate.json",
+          "size": 112257
         }
       ],
-      "fileCount": 10
+      "fileCount": 36
     },
     "sonarcloud-security-triaging": {
       "name": "sonarcloud-security-triaging",
