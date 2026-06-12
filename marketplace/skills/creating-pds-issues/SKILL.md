@@ -217,9 +217,16 @@ Use GitHub CLI to create the issue with appropriate labels and metadata, then se
 
 **IMPORTANT: Always use `--body-file` to avoid shell quoting errors.** Never pass the body inline with `--body` — markdown content with single quotes, backticks, or special characters will break the shell command.
 
-**Always write the body using the `Write` tool** (not a bash heredoc or `cat` command) to `/tmp/pds_issue_body.md`. Using the `Write` tool bypasses shell parsing entirely and avoids heredoc delimiter collisions or unmatched quote errors.
+**Always write the body using the `Write` tool** (not a bash heredoc or `cat` command). Using the `Write` tool bypasses shell parsing entirely and avoids heredoc delimiter collisions or unmatched quote errors.
 
-Then reference it with `--body-file /tmp/pds_issue_body.md` in all `gh issue create` calls below.
+Generate a unique filename per session to avoid collisions with leftover files from prior sessions:
+```bash
+ISSUE_BODY_FILE=$(mktemp /tmp/pds_issue_body_XXXXXX.md)
+```
+Then write the body to `$ISSUE_BODY_FILE` using the `Write` tool, reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
+```bash
+rm "$ISSUE_BODY_FILE"
+```
 
 **Default Assignee:**
 By default, issues requiring triage are assigned to `jordanpadams`. Users can override this by setting the `PDS_ISSUE_ASSIGNEE` environment variable or by using the `--assignee` flag.
@@ -244,7 +251,7 @@ NASA-PDS issue type values: `Bug`, `Feature`, `Task`, `Theme`
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
@@ -256,7 +263,7 @@ gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field t
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "B15.1,bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
@@ -268,7 +275,7 @@ gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field t
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "needs:triage,requirement" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
@@ -280,7 +287,7 @@ gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field t
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "task,i&t.skip")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
 gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Task"
@@ -291,7 +298,7 @@ gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field t
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "security,bug,needs:triage" \
   --assignee "${PDS_ISSUE_ASSIGNEE:-jordanpadams}")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
@@ -303,10 +310,15 @@ gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field t
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo-name> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "theme,Epic,i&t.skip")
 ISSUE_NUMBER=$(echo "$ISSUE_URL" | grep -oE '[0-9]+$')
 gh api --method PATCH /repos/NASA-PDS/<repo-name>/issues/$ISSUE_NUMBER --field type="Theme"
+```
+
+After running any of the above, **always delete the temp file**:
+```bash
+rm "$ISSUE_BODY_FILE"
 ```
 
 **Template Body Format:**
@@ -421,11 +433,11 @@ gh api graphql -f query='
 For convenience, you can chain these operations:
 
 ```bash
-# 1. Create the issue and capture the URL (body already written to /tmp/pds_issue_body.md)
+# 1. Create the issue and capture the URL (body already written to $ISSUE_BODY_FILE)
 ISSUE_URL=$(gh issue create \
   --repo NASA-PDS/<repo> \
   --title "<title>" \
-  --body-file /tmp/pds_issue_body.md \
+  --body-file "$ISSUE_BODY_FILE" \
   --label "<labels>" 2>&1)
 
 # 2. Extract issue number from URL
@@ -464,6 +476,9 @@ gh api graphql -f query="
     }
   }
 "
+
+# 6. Clean up temp file
+rm "$ISSUE_BODY_FILE"
 ```
 
 **Cross-Repository Sub-Issues:**

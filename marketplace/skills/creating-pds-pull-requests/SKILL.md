@@ -184,8 +184,11 @@ git push -u origin $(git branch --show-current)
 **Create PR with gh CLI:**
 
 ```bash
+# Generate unique temp file to avoid collisions with leftover files from prior sessions
+PR_BODY_FILE=$(mktemp /tmp/pr-body-XXXXXX.md)
+
 # Save PR body to temporary file
-cat > /tmp/pr-body.md << 'EOF'
+cat > "$PR_BODY_FILE" << 'EOF'
 <PR body content here>
 EOF
 
@@ -195,13 +198,13 @@ gh pr create \
   --base <base-branch> \
   --head <head-branch> \
   --title "<PR title>" \
-  --body-file /tmp/pr-body.md \
+  --body-file "$PR_BODY_FILE" \
   --label "<label1>,<label2>" \
   --reviewer "<reviewer1>,<reviewer2>" \
   --assignee "@me"
 
 # Clean up
-rm /tmp/pr-body.md
+rm "$PR_BODY_FILE"
 ```
 
 **Labels to Apply:**
