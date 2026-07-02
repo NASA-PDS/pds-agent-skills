@@ -12,6 +12,22 @@ This skill creates GitHub issues in NASA-PDS repositories using the official org
 - GitHub CLI (`gh`) must be installed and authenticated
 - User must have write access to the target NASA-PDS repository
 
+### Recommended: Allow Rules for Uninterrupted Execution
+
+Without these allowlist entries, Claude Code will prompt for permission at each intermediate step (temp file creation, writes, reads, and `gh` calls). Add them to `~/.claude/settings.json` under `permissions.allow` to let the skill run end-to-end without interruption:
+
+```json
+"Read(~/.claude/tmp/**)",
+"Write(~/.claude/tmp/**)",
+"Edit(~/.claude/tmp/**)",
+"Bash(mkdir -p ~/.claude/tmp)",
+"Bash(gh issue*)",
+"Bash(gh label *)",
+"Bash(gh api *)"
+```
+
+Temp files are written to `~/.claude/tmp/` — a stable, Claude-scoped directory that avoids macOS's opaque `/var/folders/...` paths and the need for broad system temp permissions.
+
 ## Workflow
 
 ### 0. Detect Sub-Issue Request
@@ -221,7 +237,8 @@ Use GitHub CLI to create the issue with appropriate labels and metadata, then se
 
 Generate a unique filename per session to avoid collisions with leftover files from prior sessions:
 ```bash
-ISSUE_BODY_FILE=$(mktemp /tmp/pds_issue_body_XXXXXX.md)
+mkdir -p ~/.claude/tmp
+ISSUE_BODY_FILE=$(mktemp ~/.claude/tmp/pds_issue_body_XXXXXX.md)
 ```
 Then write the body to `$ISSUE_BODY_FILE` using the `Write` tool, reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
 ```bash
