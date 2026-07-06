@@ -237,10 +237,10 @@ Use GitHub CLI to create the issue with appropriate labels and metadata, then se
 
 Generate a unique filename per session to avoid collisions with leftover files from prior sessions:
 ```bash
-mkdir -p ~/.claude/tmp
-ISSUE_BODY_FILE=$(mktemp ~/.claude/tmp/pds_issue_body_XXXXXX.md)
+mkdir -p "$HOME/.claude/tmp"
+ISSUE_BODY_FILE=$(mktemp "$HOME/.claude/tmp/pds_issue_body_XXXXXX.md")
 ```
-Then write the body to `$ISSUE_BODY_FILE` using the `Write` tool, reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
+Then write the body to `$ISSUE_BODY_FILE` using the `Write` tool **with the full absolute path** (the Write tool does not expand `~` or `$HOME` — use the literal path returned by `mktemp`), reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
 ```bash
 rm "$ISSUE_BODY_FILE"
 ```
