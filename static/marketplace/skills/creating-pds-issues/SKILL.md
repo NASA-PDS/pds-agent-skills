@@ -239,8 +239,15 @@ Generate a unique filename per session to avoid collisions with leftover files f
 ```bash
 mkdir -p "$HOME/.claude/tmp"
 ISSUE_BODY_FILE=$(mktemp "$HOME/.claude/tmp/pds_issue_body_XXXXXX.md")
+echo "Temp file: $ISSUE_BODY_FILE"
 ```
-Then write the body to `$ISSUE_BODY_FILE` using the `Write` tool **with the full absolute path** (the Write tool does not expand `~` or `$HOME` — use the literal path returned by `mktemp`), reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
+
+**CRITICAL: The Write tool does not expand shell variables or `~`.** You MUST:
+1. Run the `mktemp` Bash command first and capture the output (e.g., `/Users/jpadams/.claude/tmp/pds_issue_body_a1b2c3.md`)
+2. Use that **literal absolute path string** as the `file_path` argument to the Write tool — never pass `$ISSUE_BODY_FILE` or `~/.claude/tmp/...` as the path
+3. Use the same literal path in `--body-file` and `rm` commands
+
+Then reference it with `--body-file $ISSUE_BODY_FILE` in all `gh issue create` calls, and **delete it immediately after the issue is created**:
 ```bash
 rm "$ISSUE_BODY_FILE"
 ```
