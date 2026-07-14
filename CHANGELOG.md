@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+
+- **generating-accomplishments** skill — Generate PDS EN accomplishment status reports from `activity.json` or via live `pds-activity` CLI collection
+  - Accepts an existing `activity.json` or runs `pds-activity` (lasso-issues main branch) to collect fresh data
+  - Asks clarifying questions before generating: reporting period label, audience, priority themes, scope, format
+  - Groups accomplishments by PDS product team using embedded `pds-products.yaml` mapping
+  - Organizes output by work stream: Core Data Services, Planetary Data Cloud, Web Modernization
+  - Highlights core backbone products (⭐) and surfaces releases, breaking changes, and security fixes
+  - Deduplicates issues and linked PRs; filters noise labels (duplicate, wontfix, icebox)
+  - **"At a Glance" metrics dashboard** for stakeholder audience: bug/requirement/enhancement/task/theme/security/breaking-change counts, releases shipped, repositories active, must-have/should-have completion counts
+  - **Summary by Work Stream** table: per-column breakdown of bugs, requirements, enhancements, tasks, and releases per work stream
+  - Repos in `ignore: true` products (dependencies, node-products, archived_repositories, ops) fully excluded from all counts and bullets
+  - Auto-refreshes `pds-products.yaml` from upstream if local copy is >30 days old
+  - Closes [#23](https://github.com/NASA-PDS/pds-agent-skills/issues/23)
+
 ### Changed
 
 - **🔄 Renamed `pds-github-skills` → `pds-agent-skills`** - Plugin name now matches the marketplace identifier

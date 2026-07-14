@@ -10,7 +10,7 @@
 
 [![SLIM](https://img.shields.io/badge/Best%20Practices%20from-SLIM-blue)](https://nasa-ammos.github.io/slim/)
 ![Marketplace](https://img.shields.io/badge/marketplace-1-blue)
-![Skills](https://img.shields.io/badge/skills-8-brightgreen)
+![Skills](https://img.shields.io/badge/skills-9-brightgreen)
 ![License](https://img.shields.io/badge/license-Apache%202.0-blue)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-Marketplace-purple)](https://claude.ai/code)
 
@@ -53,6 +53,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
 | **[generating-release-notes](static/marketplace/skills/generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
+| **[generating-accomplishments](static/marketplace/skills/generating-accomplishments/SKILL.md)** | Generate PDS accomplishment status reports from activity.json or live lasso-issues data, grouped by product team | Sprint reports, quarterly reports, annual accomplishments, status updates |
 | **[creating-pds-issues](static/marketplace/skills/creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
 | **[creating-pds-pull-requests](static/marketplace/skills/creating-pds-pull-requests/SKILL.md)** | Create GitHub pull requests with auto-detection of repo/branch, issue linking, reviewer assignment, and label management | Opening PRs, submitting code changes, linking issues to PRs, draft PRs |
 
@@ -66,7 +67,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[dependabot-alerts-exporting](static/marketplace/skills/dependabot-alerts-exporting/SKILL.md)** | Export GitHub Dependabot dependency vulnerability alerts for NASA PDS repositories to JSON | Dependency audits, CVE exports, vulnerability reports |
 | **[dependabot-alerts-triaging](static/marketplace/skills/dependabot-alerts-triaging/SKILL.md)** | Analyze Dependabot alerts and suggest triage decisions with exploitability assessment | CVE triage, dependency review, identifying false positives |
 
-**Total:** 8 production-ready skills in the `@pds-agent-skills` marketplace
+**Total:** 9 production-ready skills in the `@pds-agent-skills` marketplace
 
 ## Installation
 
@@ -107,14 +108,14 @@ The easiest way to install and manage PDS plugins with automatic updates and ver
 /plugin install dependabot-alerts-exporting@pds-agent-skills
 /plugin install dependabot-alerts-triaging@pds-agent-skills
 
-# Or install all 8 skills at once
-/plugin install generating-release-notes@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
+# Or install all 9 skills at once
+/plugin install generating-release-notes@pds-agent-skills generating-accomplishments@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
 ```
 
 **Update to latest versions:**
 ```bash
 /plugin marketplace update pds-agent-skills
-/plugin update generating-release-notes@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
+/plugin update generating-release-notes@pds-agent-skills generating-accomplishments@pds-agent-skills creating-pds-issues@pds-agent-skills creating-pds-pull-requests@pds-agent-skills sonarcloud-security-exporting@pds-agent-skills sonarcloud-security-triaging@pds-agent-skills sonarcloud-security-updating@pds-agent-skills dependabot-alerts-exporting@pds-agent-skills dependabot-alerts-triaging@pds-agent-skills
 ```
 
 #### Option B: Local/Internal Installation
