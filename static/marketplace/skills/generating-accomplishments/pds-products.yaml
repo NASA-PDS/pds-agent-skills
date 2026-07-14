@@ -20,9 +20,6 @@
 # Core Backbone products should be reviewed quarterly
 # Next review date: 2026-08-28
 
-version: "2.0"
-updated: "2026-05-28"
-
 products:
   deep-archive:
     description: "PDS Open Archival Information System (OAIS) utilities for deep archive operations"
@@ -292,6 +289,7 @@ products:
       - MediaInfo
       - openh264
       - opensearch-java
+      - pds-opencsv
       - solr-to-es
       - merge-branch
       - PDS-Pipelines

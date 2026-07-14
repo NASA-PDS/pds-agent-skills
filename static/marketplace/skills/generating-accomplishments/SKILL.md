@@ -19,30 +19,27 @@ Generates a canonical PDS EN accomplishment report from a `activity.json` file, 
 
 ---
 
-## Step 0 — Refresh pds-products.yaml if stale
+## Step 0 — Check pds-products.yaml for upstream changes
 
-Before doing anything else, check whether the local `pds-products.yaml` (in this skill's directory) is up to date.
+Before doing anything else, check whether `pds-products.yaml` (in this skill's directory) matches the upstream canonical version.
 
-**Locate the skill directory:** the `pds-products.yaml` lives alongside this `SKILL.md`. Find the path by resolving the skill directory from the Claude Code plugin installation path (typically `~/.claude/skills/generating-accomplishments/pds-products.yaml` or the project-local equivalent under `static/marketplace/skills/generating-accomplishments/pds-products.yaml`).
+**Locate the skill directory:** `pds-products.yaml` lives alongside this `SKILL.md` — typically at `~/.claude/plugins/cache/pds-agent-skills/creating-pds-issues/<hash>/skills/generating-accomplishments/pds-products.yaml`.
 
-**Read the `updated` field** from the top of the file:
-```yaml
-updated: "YYYY-MM-DD"
+**Fetch the upstream and diff:**
+```bash
+curl -fsSL https://raw.githubusercontent.com/NASA-PDS/.github/main/conf/pds-products.yaml > /tmp/pds-products-upstream.yaml
+diff /tmp/pds-products-upstream.yaml <path-to-local-pds-products.yaml>
 ```
 
-**If the `updated` date is more than 30 days ago** (compare against today's date):
+**If the diff shows changes to `products:` entries** (new repos, new products, changed `ignore:` or `work_stream:` or `core_backbone:` values):
+1. Apply those structural changes to the local copy — preserve our local comment additions (the reporting-exclusion notes at the top).
+2. Do not copy upstream `version:` or `updated:` fields — those are intentionally omitted from our copy.
+3. Confirm: "Updated `pds-products.yaml` — applied N changes from upstream."
 
-1. Fetch the latest version from the canonical source:
-   ```bash
-   curl -fsSL https://raw.githubusercontent.com/NASA-PDS/.github/main/conf/pds-products.yaml
-   ```
-2. If the fetch succeeds and the remote `updated` field is newer than the local one, overwrite the local file with the fetched content.
-3. Confirm: "Updated `pds-products.yaml` from NASA-PDS/.github (was `<old-date>`, now `<new-date>`)."
+**If the fetch fails** (network error, non-200): warn and continue with the local copy.
+   > ⚠️ Could not check `pds-products.yaml` for updates (fetch failed). Using local copy. Check manually: https://github.com/NASA-PDS/.github/blob/main/conf/pds-products.yaml
 
-**If the fetch fails** (network error, non-200 response): log a warning and continue with the local copy — do not block the skill.
-   > ⚠️ Could not refresh `pds-products.yaml` (fetch failed). Using local copy dated `<date>`. You can update it manually from https://github.com/NASA-PDS/.github/blob/main/conf/pds-products.yaml
-
-**If the file is ≤ 30 days old:** skip the refresh silently and proceed.
+**If diff shows only comment/whitespace differences:** proceed silently — no update needed.
 
 ---
 
