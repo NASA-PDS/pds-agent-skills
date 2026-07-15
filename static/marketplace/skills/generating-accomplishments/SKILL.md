@@ -103,11 +103,7 @@ Before I generate the report, a few quick questions:
    (e.g., "Sprint 142", "Q3 FY2026", "June 2026", "FY2026 Annual")
    Default: derived from the activity.json date range
 
-2. **Audience** — Who is this for?
-   (e.g., Engineering team, Management/stakeholders, Public/NASA HQ, Internal sprint review)
-   Default: Engineering team
-
-3. **Priority themes or highlights** — Are there any areas you want foregrounded or called out?
+2. **Priority themes or highlights** — Are there any areas you want foregrounded or called out?
    (e.g., "Highlight Registry work", "Focus on cloud migration", "Lead with release milestones")
    Default: none — use natural grouping
 
@@ -210,7 +206,6 @@ Across ALL product groups, identify the top 5–8 accomplishments that represent
 # PDS EN Accomplishments — <REPORTING_PERIOD>
 
 > **Period:** <START_DATE> – <END_DATE>
-> **Audience:** <AUDIENCE>
 
 ---
 
