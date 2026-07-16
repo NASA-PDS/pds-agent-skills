@@ -138,7 +138,10 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 
 ### Adding a New Skill
 
-**IMPORTANT:** A CI check (`marketplace.json / registry.json`) diffs both registration files on every push and fails if they are out of sync. Every new skill MUST be registered in both files before committing, or the CI gate will block the PR.
+**IMPORTANT — generated file, do not hand-edit `marketplace.json`:**
+`static/data/registry.json` is the single hand-authored source of truth.
+`.claude-plugin/marketplace.json` is **generated** from it by `src/conf/generate-marketplace.js`.
+A CI check diffs both files after regenerating and fails if they diverge — the only correct fix is to edit `registry.json` and run `node src/conf/generate-marketplace.js` (or `npm run prebuild`), then commit both outputs.
 
 1. Create directory: `static/marketplace/skills/<skill-name>/` (use gerund form: `generating-*`, `processing-*`, `creating-*`)
 2. Create `SKILL.md` with:
@@ -147,8 +150,8 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
    - Input/output specifications
    - Style rules and edge cases
 3. Add supporting resources as needed (scripts/, resources/, templates/)
-4. **Update `.claude-plugin/marketplace.json`** — add a plugin entry with `name`, `description`, `source`, `strict`, `skills`, and `keywords` fields. Position it in logical order (e.g., after other skills in the same theme).
-5. **Update `static/data/registry.json`** — add a skill entry to the `"skills"` array with `name`, `displayName`, `description`, `category`, `tags`, `example`, `lastUpdated`, `type`, `skill_file_url`, and `zip_file_path` fields. Keep it in the same relative order as in `marketplace.json` so diffs stay readable. **Forgetting this step causes CI to fail.**
+4. **Edit `static/data/registry.json` only** — add a skill entry to the `"skills"` array with `name`, `displayName`, `description`, `category`, `tags`, `example`, `lastUpdated` fields. Do NOT manually edit `.claude-plugin/marketplace.json`; the generator overwrites it.
+5. **Run `node src/conf/generate-marketplace.js`** to regenerate `.claude-plugin/marketplace.json` from the updated registry. Commit both changed files together.
 6. Update README.md "Available Plugins & Skills" section with table entry
 7. Update CHANGELOG.md following [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 8. Update this CLAUDE.md file to include the new skill in "Plugin Architecture"
