@@ -22,7 +22,7 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 20386
+          "size": 20508
         },
         {
           "name": "resources",
@@ -254,6 +254,25 @@
             }
           ],
           "fileCount": 1
+        }
+      ],
+      "fileCount": 2
+    },
+    "generating-accomplishments": {
+      "name": "generating-accomplishments",
+      "type": "directory",
+      "children": [
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 13713
+        },
+        {
+          "name": "pds-products.yaml",
+          "type": "file",
+          "path": "pds-products.yaml",
+          "size": 9954
         }
       ],
       "fileCount": 2

@@ -1,0 +1,348 @@
+# NASA-PDS Product-to-Repository Mapping
+# Source: https://github.com/NASA-PDS/.github/blob/main/conf/pds-products.yaml
+# This file maps PDS repositories to product categories for organizational and tooling purposes.
+#
+# Format:
+#   products:
+#     <product-name>:
+#       description: Brief description of the product
+#       github_project_name: "Name in GitHub Projects" (optional)
+#       work_stream: "core-data-services" | "planetary-data-cloud" | "web-modernization" (optional)
+#       ignore: true/false - if true, ALL repositories in this product are excluded from reporting
+#       core_backbone: true/false - if true, repositories receive +2 scoring bonus (critical infrastructure)
+#       core_backbone_justification: Rationale for core backbone designation
+#       repositories:
+#         - repo-name
+#
+# IMPORTANT: Products with ignore: true represent repositories that should be silently excluded
+# from ALL accomplishment reporting: dependencies, node-products, archived repos, and ops noise.
+#
+# Core Backbone products should be reviewed quarterly
+# Next review date: 2026-08-28
+
+products:
+  deep-archive:
+    description: "PDS Open Archival Information System (OAIS) utilities for deep archive operations"
+    github_project_name: "Deep Archive"
+    work_stream: "core-data-services"
+    repositories:
+      - deep-archive
+
+  devops:
+    description: "DevOps tools, CI/CD pipelines, and automation infrastructure"
+    github_project_name: "DevOps"
+    work_stream: "core-data-services"
+    repositories:
+      - devops
+      - github-actions-base
+      - git-ping
+      - roundup-action
+      - ldd-gen-action
+      - pdsen-corral
+      - pdsen-maven-parent
+
+  doi-service:
+    description: "Digital Object Identifier (DOI) service for PDS data products"
+    github_project_name: "DOI Service"
+    work_stream: "core-data-services"
+    repositories:
+      - doi-service
+
+  pds4-information-model:
+    description: "PDS4 Information Model, ontology, and data dictionary tools"
+    github_project_name: "PDS4 Information Model"
+    work_stream: "core-data-services"
+    repositories:
+      - pds4-information-model
+      - ldd-manager
+      - ldd-dashboard
+      - PDS4-CCB
+      - pds4-context-products
+
+  pds4-viewer:
+    description: "Tools for viewing and visualizing PDS4 data products"
+    github_project_name: "PDS View"
+    work_stream: "core-data-services"
+    repositories:
+      - pds-view-legacy
+      - pds4-viewer-support
+      - pds4-jparser
+      - portal-ds-view
+      - pds4_tools_prototype
+
+  peppi:
+    description: "Planetary Data Explorer Python (PEPPi) client library"
+    github_project_name: "peppi"
+    work_stream: "core-data-services"
+    core_backbone: true
+    core_backbone_justification: "Key client library for programmatic data access"
+    repositories:
+      - peppi
+
+  registry-tools:
+    description: "PDS Registry backend services and data loading tools"
+    github_project_name: "Registry Tools"
+    work_stream: "core-data-services"
+    core_backbone: true
+    core_backbone_justification: "Core data storage, search, and retrieval infrastructure"
+    repositories:
+      - registry
+      - registry-api
+      - registry-client
+      - registry-common
+      - registry-dashboards
+      - registry-legacy-solr
+      - registry-loader
+      - registry-mgr
+      - registry-operations
+      - registry-ref-data
+      - registry-stac-api
+      - registry-sweepers
+      - harvest
+      - supplementer
+      - tracking-service-legacy
+      - tracking-ui
+      - pds4-graph
+
+  search-api:
+    description: "PDS Search API and client libraries"
+    github_project_name: "Search API"
+    work_stream: "core-data-services"
+    core_backbone: true
+    core_backbone_justification: "Primary public API for accessing PDS data"
+    repositories:
+      - pds-api
+      - pds-api-client
+      - search-api-notebook
+      - planetary-data-engine
+      - dd-search
+
+  validate:
+    description: "PDS4 data product validation tools"
+    github_project_name: "Validate"
+    work_stream: "core-data-services"
+    repositories:
+      - validate
+      - validate-test
+      - transform
+
+  web-analytics:
+    description: "Web analytics tools and monitoring"
+    github_project_name: "Web Analytics"
+    work_stream: "web-modernization"
+    repositories:
+      - web-analytics
+
+  web-content:
+    description: "PDS website content management and legacy systems"
+    github_project_name: "Web Content"
+    work_stream: "web-modernization"
+    repositories:
+      - portal
+      - portal-legacy
+      - portal-legacy-docker
+      - portal-drupal
+      - portal-tasks
+      - portal-wp
+      - nasa-pds.github.io
+      - planetarydata.org
+      - pds-web-mgmt
+      - EdWG
+
+  web-design:
+    description: "PDS Web Design System (WDS) components and implementations"
+    github_project_name: "Web Design"
+    work_stream: "web-modernization"
+    repositories:
+      - wds
+      - wds-react
+      - wds-react-legacy
+      - wds-web
+      - portal-wp-tasks
+
+  web-dev:
+    description: "Web development tools and demonstration applications"
+    github_project_name: "Web Dev"
+    work_stream: "web-modernization"
+    repositories:
+      - web-modernization
+      - feedback-widget
+      - s3-browser-awssdk
+      - s3-browser-cloudfront
+      - gis-web-client
+      - api-subpath
+      - portal-wst-docker-drupal
+      - Drupal-Temp
+      - search-ui-legacy
+      - portal-search-ui-legacy
+
+  cloud-platform-engineering:
+    description: "Planetary Data Cloud platform infrastructure and engineering"
+    github_project_name: "Cloud Platform Engineering"
+    work_stream: "planetary-data-cloud"
+    core_backbone: true
+    core_backbone_justification: "Critical cloud infrastructure and platform services"
+    repositories:
+      - planetary-data-cloud
+      - pds-mcp-infra
+      - pds-tf-modules
+      - pds-thin-egress-app
+      - proxycrypt
+      - cloud-tools
+      - cosmo-sign
+      - notification-service
+      - pds-cds-infra
+      - portal-infra
+
+  nucleus:
+    description: "Nucleus workflow platform for planetary data processing"
+    github_project_name: "Nucleus"
+    work_stream: "core-data-services"
+    repositories:
+      - nucleus
+      - nucleus-configurator
+      - nucleus-tools-java
+      - nucleus-tools.py
+      - crawler-trigger
+
+  data-upload-manager:
+    description: "Data Upload Manager (DUM) for managing data uploads to PDC"
+    github_project_name: "Data Upload Manager"
+    work_stream: "core-data-services"
+    repositories:
+      - data-upload-manager
+
+  cloud-operations:
+    description: "Cloud operations, utilities, and authentication"
+    github_project_name: "Cloud Operations"
+    work_stream: "planetary-data-cloud"
+    core_backbone: true
+    core_backbone_justification: "Operational tooling and monitoring for cloud services"
+    repositories:
+      - cloud-ops
+      - monitoring
+
+  operations:
+    description: "PDS Engineering Node operations and issue tracking"
+    github_project_name: "Operations"
+    work_stream: "core-data-services"
+    repositories:
+      - operations
+      - en-ops-utils
+
+  system-engineering:
+    description: "System-level engineering, requirements, and documentation"
+    github_project_name: "Systems Engineering"
+    work_stream: "core-data-services"
+    repositories:
+      - pds-swg
+      - software-issues-repo
+      - ".github"
+      - lasso-issues
+      - lasso-releasers
+      - lasso-reports
+      - lasso-requirements
+      - template-repo-cpp
+      - template-repo-java
+      - template-repo-nodejs
+      - template-repo-python
+      - product_relationships
+      - oias-if
+      - outlaw-tracker
+
+  integration-and-testing:
+    description: "Integration and testing infrastructure"
+    github_project_name: "I&T and Release"
+    work_stream: "core-data-services"
+    repositories:
+      - system-i-n-t
+      - newman-with-testrail-reporter
+
+  system-tools:
+    description: "System-level utilities and libraries"
+    github_project_name: "Systems Engineering"
+    work_stream: "core-data-services"
+    repositories:
+      - logging-core
+      - pds-mcp-server
+      - llms-and-pds
+      - pds-agent-skills
+      - litellm-freehealth
+      - pds3-product-tools
+      - mi-label
+
+  # --- ignore: true products are excluded from ALL reporting ---
+
+  ops:
+    description: "Ops noise excluded from reporting"
+    ignore: true
+    repositories:
+      - PlanetPatrol
+
+  dependencies:
+    description: "External dependencies and forked repositories not maintained by PDS EN"
+    ignore: true
+    repositories:
+      - FFmpeg
+      - FFmpeg-fateserver
+      - FFmpeg-web
+      - MediaInfo
+      - openh264
+      - opensearch-java
+      - pds-opencsv
+      - solr-to-es
+      - merge-branch
+      - PDS-Pipelines
+      - portal-search
+
+  node-products:
+    description: "Tools and interfaces implemented by other nodes"
+    ignore: true
+    repositories:
+      - atlas
+      - img-msn-int
+      - kdp
+      - ppi-reviews
+      - cdrom-migration
+      - RSdataViewer
+      - naif-pds4-bundler
+      - radiosci-pds4
+      - PyTrk234
+      - archive-viewer
+
+  archived_repositories:
+    description: "Archived/retired repositories no longer under active development"
+    ignore: true
+    repositories:
+      - pds-github-util
+      - pds-doi-legacy
+      - doi-ui
+      - pds-view-legacy
+      - registry-api-service
+      - registry-ci
+      - registry-ingest-util-legacy
+      - pds-api-javalib
+      - pds-api-pythonlib
+      - pds-api-service
+      - api-search-query-lexer
+      - portal-wp-smd
+      - planetary-data-login
+      - pds4-migrate-tools
+      - pds4-npm-utils
+      - pds4-product-registry
+      - email-app
+
+# Metadata about forked repositories (tracked separately; all excluded from reporting)
+forked_repositories:
+  - FFmpeg
+  - FFmpeg-fateserver
+  - FFmpeg-web
+  - MediaInfo
+  - openh264
+  - opensearch-java
+  - solr-to-es
+  - merge-branch
+  - PDS-Pipelines
+  - pds-thin-egress-app
+  - pds4_tools_prototype
+  - portal-search
