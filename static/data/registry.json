@@ -67,6 +67,25 @@
       "zip_file_path": "assets/zip/generating-release-notes.zip"
     },
     {
+      "name": "generating-accomplishments",
+      "displayName": "Generate Accomplishments Report",
+      "description": "Generate a PDS accomplishment status report from activity.json or by running the lasso-issues pds-activity CLI. Groups accomplishments by PDS product team. Use when creating sprint reports, quarterly reports, annual reports, or status updates.",
+      "category": "development-workflow",
+      "tags": [
+        "accomplishments",
+        "status-report",
+        "sprint-report",
+        "quarterly-report",
+        "activity",
+        "pds"
+      ],
+      "example": "Generate a quarterly accomplishments report for PDS",
+      "lastUpdated": "2026-07-14",
+      "type": "skill",
+      "skill_file_url": "/pds-agent-skills/marketplace/skills/generating-accomplishments/SKILL.md",
+      "zip_file_path": "assets/zip/generating-accomplishments.zip"
+    },
+    {
       "name": "dependabot-alerts-exporting",
       "displayName": "Export Dependabot Alerts",
       "description": "Export GitHub Dependabot dependency vulnerability alerts for NASA-PDS repositories to JSON. Use when a user requests to export, fetch, or download Dependabot alerts, dependency vulnerability data, or CVE reports.",
