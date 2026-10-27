@@ -7,3 +7,16 @@
 /build/**
 .DS_Store
 static/assets/zip/
+
+# security export and triage output (unresolved vulnerability data - never commit)
+/static/marketplace/skills/sonarcloud-security-exporting/*.json
+/static/marketplace/skills/sonarcloud-security-exporting/*.csv
+/static/marketplace/skills/sonarcloud-security-exporting/scripts/*.json
+/static/marketplace/skills/sonarcloud-security-exporting/scripts/*.csv
+/static/marketplace/skills/sonarcloud-security-exporting/scripts/*.txt
+dependabot-alerts-*.json
+/sonarcloud-triage-metrics.json
+/TRIAGE_METRICS.md
+
+# editor autosave files
+\#*#
