@@ -58,11 +58,12 @@ GitHub workflow automation for NASA PDS
 **3. generating-accomplishments** - Generates PDS EN accomplishment status reports
 - Accepts an existing `activity.json` or runs `pds-activity` CLI (lasso-issues main branch) to collect fresh data
 - Asks clarifying questions before generating: reporting period, audience, priority themes, scope, format
-- Groups accomplishments by PDS product team using embedded `pds-products.yaml` mapping
-- Organizes by work stream: Core Data Services, Planetary Data Cloud, Web Modernization
+- Groups accomplishments by PDC account using the `work_area` of each product in the embedded `pds-products.yaml`: Platform Engineering (PDC Platform Engineering), Node Support (PDC Node Support), CloudOps (PDC Cloud Operations), plus Cybersecurity (PDS Cybersecurity)
+- Account assignment order: (a) product `work_area`; (b) for shared repos, the Work Area of the parent theme issue (org issue field, via `gh api graphql`); (c) otherwise an **Unassigned** section — never guessed
+- Cloud/AWS work from repos outside the accounts goes in a "Related Cloud-Adjacent Work" section
 - Highlights core backbone products (⭐), releases, breaking changes, and security fixes
 - Deduplicates issues and PRs; filters noise labels (duplicate, wontfix, icebox)
-- Generates summary table per work stream with counts
+- "At a Glance" table with per-account counts
 - Requires `GITHUB_TOKEN` (if running pds-activity) and Python 3.10+ with `lasso-issues` installed
 
 **4. creating-pds-pull-requests** - Creates GitHub pull requests in NASA-PDS repositories

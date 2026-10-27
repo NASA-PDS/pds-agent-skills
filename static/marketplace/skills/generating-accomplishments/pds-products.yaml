@@ -195,6 +195,7 @@ products:
       - pds-cds-infra
       - terra-wrangler
       - blockinator
+      - pdc-tenant-infra
 
   nucleus:
     description: "Nucleus workflow platform for planetary data processing"
@@ -252,7 +253,7 @@ products:
     work_stream: "planetary-data-cloud"
     work_area: "PDC Node Support"
     repositories:
-      - pdc-tenant-infra
+      - pdscloud-node-support
 
   system-engineering:
     description: "System-level engineering, requirements, and documentation"

@@ -53,7 +53,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | Skill | Description | Use Cases |
 |-------|-------------|-----------|
 | **[generating-release-notes](static/marketplace/skills/generating-release-notes/SKILL.md)** | Generate structured GitHub release notes with breaking changes, categorization, and upload | Software releases, changelogs, version announcements |
-| **[generating-accomplishments](static/marketplace/skills/generating-accomplishments/SKILL.md)** | Generate PDS accomplishment status reports from activity.json or live lasso-issues data, grouped by product team | Sprint reports, quarterly reports, annual accomplishments, status updates |
+| **[generating-accomplishments](static/marketplace/skills/generating-accomplishments/SKILL.md)** | Generate PDS accomplishment status reports from activity.json or live lasso-issues data, grouped by PDC account (Platform Engineering, Node Support, CloudOps) | Sprint reports, quarterly reports, annual accomplishments, status updates |
 | **[creating-pds-issues](static/marketplace/skills/creating-pds-issues/SKILL.md)** | Create GitHub issues using NASA-PDS organizational templates | Bug reports, feature requests, tasks, vulnerabilities, release themes |
 | **[creating-pds-pull-requests](static/marketplace/skills/creating-pds-pull-requests/SKILL.md)** | Create GitHub pull requests with auto-detection of repo/branch, issue linking, reviewer assignment, and label management | Opening PRs, submitting code changes, linking issues to PRs, draft PRs |
 

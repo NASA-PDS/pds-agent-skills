@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **generating-accomplishments** now groups output by the PDC accounts used in the HQ bi-weekly report: Platform Engineering, Node Support and CloudOps, plus Cybersecurity
+  - Accounts are assigned from the product `work_area` in `pds-products.yaml` (PDC Platform Engineering, PDC Node Support, PDC Cloud Operations, PDS Cybersecurity); no repo lists are hard-coded in the skill
+  - Shared repos fall back to the Work Area of the parent theme issue, read from the org issue field via `gh api graphql`; items with an unknown work area go to an **Unassigned** section instead of being guessed
+  - "At a Glance" table now has per-account columns; the cloud-adjacent section is limited to cloud/AWS work that maps to none of the accounts
+  - Replaces the work-stream layout (Core Data Services / Planetary Data Cloud / Web Modernization); the legacy layout is still available on request
+  - `pds-products.yaml` synced with `NASA-PDS/.github` main: `pdc-tenant-infra` moved to `cloud-platform-engineering`, `pdc-node-support` now lists `pdscloud-node-support`
+  - Step 0 upstream check now also watches `work_area` changes
+
+### Fixed
+
+- **terraform-conventions** is now registered in `static/data/registry.json`, so regenerating `.claude-plugin/marketplace.json` keeps it instead of dropping the hand-added plugin entry
+
 ### Added
 
 - **generating-accomplishments** skill — Generate PDS EN accomplishment status reports from `activity.json` or via live `pds-activity` CLI collection
