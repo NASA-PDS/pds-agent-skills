@@ -59,7 +59,7 @@
     },
     {
       "name": "generating-accomplishments",
-      "description": "Generate a PDS accomplishment status report from activity.json or by running the lasso-issues pds-activity CLI. Groups accomplishments by PDS product team. Use when creating sprint reports, quarterly reports, annual reports, or status updates.",
+      "description": "Generate a PDS accomplishment status report from activity.json or by running the lasso-issues pds-activity CLI. Groups Planetary Data Cloud accomplishments by the PDC accounts used in the HQ bi-weekly report (Platform Engineering, Node Support, CloudOps) using the work_area in pds-products.yaml. Use when creating sprint reports, quarterly reports, annual reports, or status updates.",
       "source": "./static/marketplace",
       "strict": false,
       "skills": [
@@ -71,6 +71,7 @@
         "sprint-report",
         "quarterly-report",
         "activity",
+        "work-area",
         "pds"
       ]
     },
@@ -151,6 +152,22 @@
         "sonarcloud",
         "triage",
         "remediation",
+        "pds"
+      ]
+    },
+    {
+      "name": "terraform-conventions",
+      "description": "Enforces PDS/PDC's Must-Have Terraform requirements (remote state, locking, tagging, naming, SSM interface, version pinning, IAM/auth) and Should-Have recommendations, and runs a validator script before calling Terraform work done. Use when writing, editing, or reviewing Terraform in a NASA-PDS repository.",
+      "source": "./static/marketplace",
+      "strict": false,
+      "skills": [
+        "./skills/terraform-conventions"
+      ],
+      "keywords": [
+        "terraform",
+        "infrastructure-as-code",
+        "aws",
+        "iac",
         "pds"
       ]
     }

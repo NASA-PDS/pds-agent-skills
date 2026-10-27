@@ -1,30 +1,30 @@
 # NASA-PDS Product-to-Repository Mapping
-# Source: https://github.com/NASA-PDS/.github/blob/main/conf/pds-products.yaml
-# This file maps PDS repositories to product categories for organizational and tooling purposes.
+# This file maps PDS repositories to product categories for organizational and tooling purposes
 #
 # Format:
 #   products:
 #     <product-name>:
 #       description: Brief description of the product
-#       github_project_name: "Name in GitHub Projects" (optional)
+#       github_project_name: "Name in GitHub Projects" (optional - only for products used in planning)
 #       work_stream: "core-data-services" | "planetary-data-cloud" | "web-modernization" (optional)
-#       ignore: true/false - if true, ALL repositories in this product are excluded from reporting
-#       core_backbone: true/false - if true, repositories receive +2 scoring bonus (critical infrastructure)
-#       core_backbone_justification: Rationale for core backbone designation
+#       work_area: GitHub org issue field value — one of:
+#                  "Core Data Services" | "PDS Operations" | "PDC Cloud Operations" |
+#                  "PDC Node Support" | "PDC Platform Engineering" | "PDS Cybersecurity" |
+#                  "Planetary Data UX"
+#       ignore: true/false - if true, this product should be ignored by any processing tool / software
+#       core_backbone: true/false - if true, repositories in this product receive +2 scoring bonus (critical infrastructure)
+#       core_backbone_justification: Rationale for core backbone designation (optional, for documentation)
 #       repositories:
 #         - repo-name
 #
-# IMPORTANT: Products with ignore: true represent repositories that should be silently excluded
-# from ALL accomplishment reporting: dependencies, node-products, archived repos, and ops noise.
-#
-# Core Backbone products should be reviewed quarterly
+# IMPORTANT: Core Backbone products should be reviewed quarterly
 # Next review date: 2026-08-28
-
 products:
   deep-archive:
     description: "PDS Open Archival Information System (OAIS) utilities for deep archive operations"
     github_project_name: "Deep Archive"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - deep-archive
 
@@ -32,6 +32,7 @@ products:
     description: "DevOps tools, CI/CD pipelines, and automation infrastructure"
     github_project_name: "DevOps"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - devops
       - github-actions-base
@@ -45,6 +46,7 @@ products:
     description: "Digital Object Identifier (DOI) service for PDS data products"
     github_project_name: "DOI Service"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - doi-service
 
@@ -52,6 +54,7 @@ products:
     description: "PDS4 Information Model, ontology, and data dictionary tools"
     github_project_name: "PDS4 Information Model"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - pds4-information-model
       - ldd-manager
@@ -63,8 +66,8 @@ products:
     description: "Tools for viewing and visualizing PDS4 data products"
     github_project_name: "PDS View"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
-      - pds-view-legacy
       - pds4-viewer-support
       - pds4-jparser
       - portal-ds-view
@@ -74,6 +77,7 @@ products:
     description: "Planetary Data Explorer Python (PEPPi) client library"
     github_project_name: "peppi"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     core_backbone: true
     core_backbone_justification: "Key client library for programmatic data access"
     repositories:
@@ -83,6 +87,7 @@ products:
     description: "PDS Registry backend services and data loading tools"
     github_project_name: "Registry Tools"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     core_backbone: true
     core_backbone_justification: "Core data storage, search, and retrieval infrastructure"
     repositories:
@@ -99,105 +104,104 @@ products:
       - registry-stac-api
       - registry-sweepers
       - harvest
-      - supplementer
-      - tracking-service-legacy
-      - tracking-ui
       - pds4-graph
 
   search-api:
     description: "PDS Search API and client libraries"
     github_project_name: "Search API"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     core_backbone: true
     core_backbone_justification: "Primary public API for accessing PDS data"
     repositories:
       - pds-api
       - pds-api-client
       - search-api-notebook
-      - planetary-data-engine
       - dd-search
 
   validate:
     description: "PDS4 data product validation tools"
     github_project_name: "Validate"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - validate
       - validate-test
       - transform
 
-  web-analytics:
-    description: "Web analytics tools and monitoring"
-    github_project_name: "Web Analytics"
-    work_stream: "web-modernization"
+  observability:
+    description: "PDC Observability, web analytics tools and monitoring"
+    github_project_name: "observability"
+    work_stream: "planetary-data-cloud"
+    work_area: "PDC Platform Engineering"
     repositories:
-      - web-analytics
+      - o11y-cloudfront-batch
+      - o11y-cloudfront-streaming
+      - o11y-platform
 
   web-content:
     description: "PDS website content management and legacy systems"
     github_project_name: "Web Content"
     work_stream: "web-modernization"
+    work_area: "Core Data Services"
     repositories:
       - portal
       - portal-legacy
       - portal-legacy-docker
-      - portal-drupal
-      - portal-tasks
-      - portal-wp
       - nasa-pds.github.io
-      - planetarydata.org
-      - pds-web-mgmt
       - EdWG
 
   web-design:
     description: "PDS Web Design System (WDS) components and implementations"
     github_project_name: "Web Design"
     work_stream: "web-modernization"
+    work_area: "Core Data Services"
     repositories:
-      - wds
-      - wds-react
       - wds-react-legacy
       - wds-web
-      - portal-wp-tasks
 
   web-dev:
     description: "Web development tools and demonstration applications"
     github_project_name: "Web Dev"
     work_stream: "web-modernization"
+    work_area: "Core Data Services"
     repositories:
       - web-modernization
       - feedback-widget
-      - s3-browser-awssdk
       - s3-browser-cloudfront
       - gis-web-client
       - api-subpath
-      - portal-wst-docker-drupal
-      - Drupal-Temp
-      - search-ui-legacy
       - portal-search-ui-legacy
+      - portal-drupal
+      - portal-infra
+      - drupal-image
+      - portal-search
 
   cloud-platform-engineering:
     description: "Planetary Data Cloud platform infrastructure and engineering"
     github_project_name: "Cloud Platform Engineering"
     work_stream: "planetary-data-cloud"
+    work_area: "PDC Platform Engineering"
     core_backbone: true
     core_backbone_justification: "Critical cloud infrastructure and platform services"
     repositories:
       - planetary-data-cloud
-      - pds-mcp-infra
-      - pds-tf-modules
-      - pds-thin-egress-app
+      - pdc-cds-infra
+      - pdc-tf-modules
       - proxycrypt
       - cloud-tools
       - cosmo-sign
       - notification-service
       - pds-cds-infra
-      - portal-infra
+      - terra-wrangler
+      - blockinator
+      - pdc-tenant-infra
 
   nucleus:
     description: "Nucleus workflow platform for planetary data processing"
     github_project_name: "Nucleus"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - nucleus
       - nucleus-configurator
@@ -209,6 +213,7 @@ products:
     description: "Data Upload Manager (DUM) for managing data uploads to PDC"
     github_project_name: "Data Upload Manager"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - data-upload-manager
 
@@ -216,27 +221,48 @@ products:
     description: "Cloud operations, utilities, and authentication"
     github_project_name: "Cloud Operations"
     work_stream: "planetary-data-cloud"
+    work_area: "PDC Cloud Operations"
     core_backbone: true
     core_backbone_justification: "Operational tooling and monitoring for cloud services"
     repositories:
       - cloud-ops
       - monitoring
+      - aws-utils
 
   operations:
     description: "PDS Engineering Node operations and issue tracking"
     github_project_name: "Operations"
     work_stream: "core-data-services"
+    work_area: "PDS Operations"
     repositories:
       - operations
       - en-ops-utils
+
+  pds-cybersecurity:
+    description: "PDS cybersecurity authorization, compliance, and ATO planning"
+    github_project_name: "PDS ATO"
+    work_stream: "core-data-services"
+    work_area: "PDS Cybersecurity"
+    repositories:
+      - pds-security-roadmap
+      - waf-emergency-stop
+
+  pdc-node-support:
+    description: "PDC node engineering support, tenant onboarding, and migration"
+    github_project_name: "PDC Node Support"
+    work_stream: "planetary-data-cloud"
+    work_area: "PDC Node Support"
+    repositories:
+      - pdscloud-node-support
 
   system-engineering:
     description: "System-level engineering, requirements, and documentation"
     github_project_name: "Systems Engineering"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - pds-swg
-      - software-issues-repo
+      - systems-engineering
       - ".github"
       - lasso-issues
       - lasso-releasers
@@ -246,7 +272,6 @@ products:
       - template-repo-java
       - template-repo-nodejs
       - template-repo-python
-      - product_relationships
       - oias-if
       - outlaw-tracker
 
@@ -254,6 +279,7 @@ products:
     description: "Integration and testing infrastructure"
     github_project_name: "I&T and Release"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - system-i-n-t
       - newman-with-testrail-reporter
@@ -262,6 +288,7 @@ products:
     description: "System-level utilities and libraries"
     github_project_name: "Systems Engineering"
     work_stream: "core-data-services"
+    work_area: "Core Data Services"
     repositories:
       - logging-core
       - pds-mcp-server
@@ -271,10 +298,8 @@ products:
       - pds3-product-tools
       - mi-label
 
-  # --- ignore: true products are excluded from ALL reporting ---
-
   ops:
-    description: "Ops noise excluded from reporting"
+    description: "Ops noise we do not need in our reporting."
     ignore: true
     repositories:
       - PlanetPatrol
@@ -293,7 +318,6 @@ products:
       - solr-to-es
       - merge-branch
       - PDS-Pipelines
-      - portal-search
 
   node-products:
     description: "Tools and interfaces implemented by other nodes"
@@ -311,28 +335,11 @@ products:
       - archive-viewer
 
   archived_repositories:
-    description: "Archived/retired repositories no longer under active development"
+    description: "Archive repositories — repos that have been removed from the org"
     ignore: true
-    repositories:
-      - pds-github-util
-      - pds-doi-legacy
-      - doi-ui
-      - pds-view-legacy
-      - registry-api-service
-      - registry-ci
-      - registry-ingest-util-legacy
-      - pds-api-javalib
-      - pds-api-pythonlib
-      - pds-api-service
-      - api-search-query-lexer
-      - portal-wp-smd
-      - planetary-data-login
-      - pds4-migrate-tools
-      - pds4-npm-utils
-      - pds4-product-registry
-      - email-app
+    repositories: []
 
-# Metadata about forked repositories (tracked separately; all excluded from reporting)
+# Metadata about forked repositories
 forked_repositories:
   - FFmpeg
   - FFmpeg-fateserver

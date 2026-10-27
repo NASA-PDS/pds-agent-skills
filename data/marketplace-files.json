@@ -173,7 +173,7 @@
                   "name": "pull_request_template.md",
                   "type": "file",
                   "path": "resources/templates/pull_request_template.md",
-                  "size": 3068
+                  "size": 4764
                 }
               ],
               "fileCount": 2
@@ -266,13 +266,13 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 13955
+          "size": 18591
         },
         {
           "name": "pds-products.yaml",
           "type": "file",
           "path": "pds-products.yaml",
-          "size": 9954
+          "size": 10607
         }
       ],
       "fileCount": 2
@@ -473,6 +473,39 @@
               "type": "file",
               "path": "scripts/apply-triage.mjs",
               "size": 11862
+            }
+          ],
+          "fileCount": 1
+        }
+      ],
+      "fileCount": 3
+    },
+    "terraform-conventions": {
+      "name": "terraform-conventions",
+      "type": "directory",
+      "children": [
+        {
+          "name": "SKILL.md",
+          "type": "file",
+          "path": "SKILL.md",
+          "size": 5594
+        },
+        {
+          "name": "TERRAFORM_GUIDELINES.md",
+          "type": "file",
+          "path": "TERRAFORM_GUIDELINES.md",
+          "size": 14801
+        },
+        {
+          "name": "scripts",
+          "type": "directory",
+          "path": "scripts",
+          "children": [
+            {
+              "name": "validate_terraform.py",
+              "type": "file",
+              "path": "scripts/validate_terraform.py",
+              "size": 18701
             }
           ],
           "fileCount": 1

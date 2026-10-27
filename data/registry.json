@@ -69,7 +69,7 @@
     {
       "name": "generating-accomplishments",
       "displayName": "Generate Accomplishments Report",
-      "description": "Generate a PDS accomplishment status report from activity.json or by running the lasso-issues pds-activity CLI. Groups accomplishments by PDS product team. Use when creating sprint reports, quarterly reports, annual reports, or status updates.",
+      "description": "Generate a PDS accomplishment status report from activity.json or by running the lasso-issues pds-activity CLI. Groups Planetary Data Cloud accomplishments by the PDC accounts used in the HQ bi-weekly report (Platform Engineering, Node Support, CloudOps) using the work_area in pds-products.yaml. Use when creating sprint reports, quarterly reports, annual reports, or status updates.",
       "category": "development-workflow",
       "tags": [
         "accomplishments",
@@ -77,10 +77,11 @@
         "sprint-report",
         "quarterly-report",
         "activity",
+        "work-area",
         "pds"
       ],
-      "example": "Generate a quarterly accomplishments report for PDS",
-      "lastUpdated": "2026-07-14",
+      "example": "Generate a Planetary Data Cloud accomplishments report by account for the last two weeks",
+      "lastUpdated": "2026-10-27",
       "type": "skill",
       "skill_file_url": "/pds-agent-skills/marketplace/skills/generating-accomplishments/SKILL.md",
       "zip_file_path": "assets/zip/generating-accomplishments.zip"
@@ -174,6 +175,24 @@
       "type": "skill",
       "skill_file_url": "/pds-agent-skills/marketplace/skills/sonarcloud-security-updating/SKILL.md",
       "zip_file_path": "assets/zip/sonarcloud-security-updating.zip"
+    },
+    {
+      "name": "terraform-conventions",
+      "displayName": "Terraform Conventions",
+      "description": "Enforces PDS/PDC's Must-Have Terraform requirements (remote state, locking, tagging, naming, SSM interface, version pinning, IAM/auth) and Should-Have recommendations, and runs a validator script before calling Terraform work done. Use when writing, editing, or reviewing Terraform in a NASA-PDS repository.",
+      "category": "development-workflow",
+      "tags": [
+        "terraform",
+        "infrastructure-as-code",
+        "aws",
+        "iac",
+        "pds"
+      ],
+      "example": "Review this Terraform change against PDS conventions",
+      "lastUpdated": "2026-08-21",
+      "type": "skill",
+      "skill_file_url": "/pds-agent-skills/marketplace/skills/terraform-conventions/SKILL.md",
+      "zip_file_path": "assets/zip/terraform-conventions.zip"
     }
   ],
   "agents": [],
