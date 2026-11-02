@@ -416,9 +416,7 @@ Triaged <N> alerts across <M> repositories.
   fix:            <N>  (outlaw-tracker issues created: <N>)
   inaccurate:     <N>
   tolerable_risk: <N>
-  no_bandwidth:   <N>
-
-Co-Authored-By: Claude Sonnet 4.6 <noreply@anthropic.com>"
+  no_bandwidth:   <N>"
 
 # 6. Push
 git push -u origin "$BRANCH"
