@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   - Replaces the work-stream layout (Core Data Services / Planetary Data Cloud / Web Modernization); the legacy layout is still available on request
   - `pds-products.yaml` synced with `NASA-PDS/.github` main: `pdc-tenant-infra` moved to `cloud-platform-engineering`, `pdc-node-support` now lists `pdscloud-node-support`
   - Step 0 upstream check now also watches `work_area` changes
+- **dependabot-alerts-triaging** example commit message no longer includes a `Co-Authored-By` trailer
 
 ### Fixed
 
