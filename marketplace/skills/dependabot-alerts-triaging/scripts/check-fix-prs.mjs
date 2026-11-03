@@ -326,9 +326,13 @@ function parseTargetVersion(title) {
   return match ? match[1] : null;
 }
 
+// Qualifiers that name a build flavor or final release, not a pre-release (Guava "-jre", Spring ".RELEASE").
+const RELEASE_QUALIFIER = /[.-](jre|android|final|release|ga)$/i;
+
 // Numeric dotted versions only; returns null when either side is not comparable (e.g. pre-releases).
 function compareVersions(a, b) {
-  const parse = v => v.replace(/^v/i, '').split('.').map(s => (/^\d+$/.test(s) ? parseInt(s, 10) : NaN));
+  const parse = v => v.replace(/^v/i, '').replace(RELEASE_QUALIFIER, '').split('.')
+    .map(s => (/^\d+$/.test(s) ? parseInt(s, 10) : NaN));
   const pa = parse(a);
   const pb = parse(b);
   if (pa.some(Number.isNaN) || pb.some(Number.isNaN)) return null;

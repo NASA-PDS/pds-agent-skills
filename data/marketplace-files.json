@@ -250,7 +250,7 @@
               "name": "check-fix-prs.mjs",
               "type": "file",
               "path": "scripts/check-fix-prs.mjs",
-              "size": 19660
+              "size": 19873
             },
             {
               "name": "dismiss-alerts.mjs",
