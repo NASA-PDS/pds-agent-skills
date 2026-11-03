@@ -24,6 +24,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- **dependabot-alerts-triaging** now reports fix-PR status for every alert (new Step 1b and `scripts/check-fix-prs.mjs`)
+  - Finds the open PR that fixes each alert using GitHub's alert-to-PR link, with a branch-name match marked `probable` when there is no link
+  - Reports whether the PR is current with the repository's default branch (commits behind, from the compare API) and whether its checks pass, naming any failing checks
+  - Flags PRs whose target version is below the alert's patched version or on a different major line (`insufficient-version`)
+  - Explains alerts with no PR: Dependabot's own update error, or whether security updates are paused or disabled for the repository
+  - Alerts that are no longer open are marked `unknown`, so a stale export is visible before triage
+  - The alert display and recommendation now include a FIX PR block, and outlaw-tracker issues link the fix PR
 - **generating-accomplishments** skill — Generate PDS EN accomplishment status reports from `activity.json` or via live `pds-activity` CLI collection
   - Accepts an existing `activity.json` or runs `pds-activity` (lasso-issues main branch) to collect fresh data
   - Asks clarifying questions before generating: reporting period label, audience, priority themes, scope, format

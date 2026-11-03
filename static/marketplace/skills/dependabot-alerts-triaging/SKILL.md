@@ -1,6 +1,6 @@
 ---
 name: dependabot-alerts-triaging
-description: Analyze GitHub Dependabot dependency vulnerability alerts and suggest triage decisions (dismiss/fix/escalate) with explanations. Use when the user needs help reviewing Dependabot alerts, deciding whether dependencies are exploitable, or triaging CVEs across NASA PDS repositories.
+description: Analyze GitHub Dependabot dependency vulnerability alerts and suggest triage decisions (dismiss/fix/escalate) with explanations. Also reports, per alert, whether a fix PR is open, whether it is current with the default branch, and whether its checks pass. Use when the user needs help reviewing Dependabot alerts, deciding whether dependencies are exploitable, or triaging CVEs across NASA PDS repositories.
 ---
 
 # Dependabot Alerts Triaging Skill
@@ -11,6 +11,7 @@ This skill helps you make informed triage decisions on GitHub Dependabot depende
 
 - JSON export from `dependabot-alerts-exporting` skill
 - `gh` CLI authenticated (for creating outlaw-tracker issues)
+- `GITHUB_TOKEN` environment variable and Node.js v18+ (for `check-fix-prs.mjs` and `dismiss-alerts.mjs`). Quickest: `export GITHUB_TOKEN=$(gh auth token)`
 - Local clones of affected repositories (strongly recommended — see Step 1a)
 
 ## Workflow Position
@@ -18,6 +19,7 @@ This skill helps you make informed triage decisions on GitHub Dependabot depende
 ```
 1. dependabot-alerts-exporting  → Export alerts to JSON
 2. dependabot-alerts-triaging   → THIS SKILL: Analyze & decide one by one
+     check-fix-prs.mjs          → Add fix-PR status (open? current? checks passing?) to each alert
 3. dismiss-alerts.mjs           → Apply dismissal decisions to GitHub
 ```
 
@@ -68,6 +70,55 @@ cat /tmp/<repo>/CLAUDE.md 2>/dev/null || echo "No CLAUDE.md"
 
 Read and internalize this context before starting the alert-by-alert triage.
 
+### Step 1b: Check Fix PR Status
+
+For every alert, find out whether a pull request that fixes it is already open, whether that PR is current with the repository's default branch, and whether its checks pass. This tells you before the code analysis whether the fix is a quick merge or real work.
+
+```bash
+node scripts/check-fix-prs.mjs alerts.json alerts-prs.json
+
+# Skip repositories that are out of scope for this session
+node scripts/check-fix-prs.mjs alerts.json alerts-prs.json --exclude repo-a,repo-b
+
+# One repository only
+node scripts/check-fix-prs.mjs alerts.json alerts-prs.json --repo registry-api
+```
+
+Use `alerts-prs.json` as the working JSON for the rest of the session. Every checked alert gains a `fixPullRequest` object, and the file gains a top-level `fixPrCheck` summary.
+
+**How a PR is matched to an alert (`fixPullRequest.status`):**
+
+| Status | Meaning |
+|--------|---------|
+| `linked` | GitHub's own alert-to-PR link (`dependabotUpdate`). Reliable. |
+| `probable` | No link, but an open Dependabot PR's branch is named for the package. Check the title and target version before relying on it. |
+| `none` | No open PR. `updateError` explains why Dependabot could not open one, when GitHub reports it. |
+| `unknown` | The alert is no longer open (fixed or dismissed since the export), or the lookup failed. |
+
+**Readiness (`fixPullRequest.readiness`)** is the first blocker found; `blockers` lists all of them:
+
+| Readiness | Meaning | Suggested next step |
+|-----------|---------|---------------------|
+| `ready` | Open, current with the default branch, checks passing, no conflicts | Review and merge the PR |
+| `insufficient-version` | PR target version is below the alert's patched version, or on a different major line | The PR does not fix this alert; treat as no usable PR |
+| `conflicts` | Merge conflicts with the base branch | Ask Dependabot to rebase or recreate: comment `@dependabot rebase` |
+| `ci-failing` | One or more checks failed (`checks.failing` names them) | Decide whether the failure is caused by the update or is pre-existing (see below) |
+| `ci-pending` | Checks still running | Re-run this check later |
+| `behind-default` | Checks pass but the branch is behind the default branch (`behindBy`) | Comment `@dependabot rebase`, then re-check |
+| `no-ci` | The PR has no checks | Treat as untested |
+| `draft`, `base-not-default`, `closed`, `merged` | Draft PR, targets a different base, or no longer open | Not mergeable as-is |
+| `no-pr` | No open PR | Fix means a manual update, or the setting below |
+
+**Repository-level signal.** `fixPrCheck.repositories.<repo>.securityUpdates` is `enabled`, `paused`, `disabled`, or `unknown`. When it is `paused` or `disabled`, Dependabot opens no security PRs for that repository, so `no-pr` says nothing about how hard the fix is. Tell the user once when you start that repository. Typical `updateError.errorType` values: `security_update_not_possible` (no non-vulnerable version can be resolved), `update_not_possible`, `dependency_file_not_supported`, `dependabot_timed_out`.
+
+**Reading the results correctly:**
+- "Up to date" means 0 commits behind the default branch, measured with GitHub's compare API. Do not use GitHub's `mergeStateStatus`: it reads `BLOCKED` when a review is required, which hides a stale branch.
+- Check results belong to the PR's head commit. If the branch is behind, they ran against an old base: a failure may already be fixed on the default branch, and a pass may not hold after the merge. Report both facts and never call a stale green PR "safe to merge".
+- If every failing check is the same one across many PRs in a repository, it is probably a pre-existing problem on the old base rather than a problem with the updates. Say so, and check the default branch's own CI.
+- PR status describes fix effort only. It never changes your exploitability assessment.
+
+If a repository's alerts come back `unknown` because they are no longer open, tell the user and offer to re-run the export for that repository before triaging it.
+
 ### Step 2: Order the Queue
 
 Sort alerts: CRITICAL → HIGH → MEDIUM → LOW. Within the same severity, sort by CVSS score descending.
@@ -107,6 +158,17 @@ EXPLOITABILITY:
  with attacker-controlled input. Be specific.
  E.g.: "HIGH — external XML is parsed without disabling entity resolution."]
 
+FIX PR:
+  PR:              #45 "Bump lxml from 5.2.0 to 6.1.0" (dependabot)
+                   https://github.com/NASA-PDS/registry-legacy-solr/pull/45
+  Match:           linked
+  Patched version: yes — targets 6.1.0, alert needs >= 6.1.0
+  Default branch:  3 commits BEHIND main
+  Checks:          PASSING 3/3 (ran against the older base)
+  Readiness:       behind-default — comment "@dependabot rebase", then re-check CI
+[With no PR: "None open — Dependabot security updates are PAUSED for this repo"
+ or the updateError title, taken from fixPullRequest.summary.]
+
 MY RECOMMENDATION:
   Action:     fix
   Reason:     Patch available (6.1.0). Runtime dep. Likely reachable with external XML.
@@ -125,6 +187,11 @@ Do you want to:
 ```
 
 **Do not present the next alert until the user responds to this one.**
+
+Take the FIX PR block from `fixPullRequest` (run Step 1b first). Let it shape the recommendation without replacing the exploitability analysis:
+- A `ready` PR makes **fix** cheap ("review and merge PR #N"). Mention it before suggesting a dismissal, unless the update is a risky major bump.
+- A PR that is `ci-failing`, `conflicts` or `insufficient-version`, or no PR at all, means the fix needs manual work. Say what that work is.
+- When there is no PR and no patched version exists, upgrading is not possible; weigh `tolerable_risk` or `no_bandwidth`, or replacing the package.
 
 If the user picks option 5 (investigate more), search the repository using available tools:
 - Look for imports and usages of the flagged package/function
@@ -184,6 +251,7 @@ Issue body must include:
 - Brief description of the vulnerability and attack vector
 - Exploitability assessment from the code investigation
 - Recommended fix command (e.g., `pip install "lxml>=6.1.0"`)
+- Fix PR, if one exists: link, readiness, and what remains (e.g., "merge PR #45 after `@dependabot rebase`")
 - Link to the Dependabot alert
 - Link to the GitHub advisory
 
@@ -321,7 +389,8 @@ After recording each alert's decision:
       "severity": "high",
       "cveId": "CVE-2026-41066",
       "decision": "inaccurate",
-      "rationale": "lxml never imported or used in codebase"
+      "rationale": "lxml never imported or used in codebase",
+      "fixPr": { "number": 45, "readiness": "behind-default" }
     }
   ]
 }
@@ -507,3 +576,6 @@ Dismissals have been applied to GitHub via the Dependabot API.
 - **"legacy" repo names are a signal** — `no_bandwidth` and `tolerable_risk` are more likely appropriate; call this out explicitly
 - **Same CVE, multiple repos** — mention cross-repo impact, but confirm the decision per repo unless the user says "apply to all"
 - **When unsure** — say so and recommend human review; a missed real vulnerability is worse than over-caution
+- **Fix PR status is about effort, not risk** — a green, current PR does not make an unreachable CVE exploitable, and a missing PR does not make a reachable one safe
+- **Never trust a stale green** — a passing PR that is behind the default branch has not been tested against it
+- **`probable` and `insufficient-version` matter** — one Dependabot PR often covers several alerts, but not always all of them; check the target version against each alert's patched version

@@ -65,7 +65,7 @@ Skills help automate repetitive or complex workflows, making development more ef
 | **[sonarcloud-security-triaging](static/marketplace/skills/sonarcloud-security-triaging/SKILL.md)** | Analyze security issues and suggest triage decisions with code context and explanations | Security review, making triage decisions, identifying false positives |
 | **[sonarcloud-security-updating](static/marketplace/skills/sonarcloud-security-updating/SKILL.md)** | Apply triage decisions to SonarCloud by bulk-updating security issue statuses and comments | Applying triage outcomes, bulk remediation, compliance tracking |
 | **[dependabot-alerts-exporting](static/marketplace/skills/dependabot-alerts-exporting/SKILL.md)** | Export GitHub Dependabot dependency vulnerability alerts for NASA PDS repositories to JSON | Dependency audits, CVE exports, vulnerability reports |
-| **[dependabot-alerts-triaging](static/marketplace/skills/dependabot-alerts-triaging/SKILL.md)** | Analyze Dependabot alerts and suggest triage decisions with exploitability assessment | CVE triage, dependency review, identifying false positives |
+| **[dependabot-alerts-triaging](static/marketplace/skills/dependabot-alerts-triaging/SKILL.md)** | Analyze Dependabot alerts and suggest triage decisions with exploitability assessment; reports whether a fix PR is open, current with the default branch, and passing checks | CVE triage, dependency review, identifying false positives, finding mergeable fix PRs |
 
 **Total:** 9 production-ready skills in the `@pds-agent-skills` marketplace
 

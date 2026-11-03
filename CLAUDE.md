@@ -120,11 +120,12 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 - Reads exported JSON and analyzes each CVE in PDS context
 - Assesses exploitability: is the vulnerable code path reachable?
 - Groups identical CVEs across multiple repos for bulk triage efficiency
+- Reports per alert whether a fix PR is open, whether it is current with the default branch, and whether its checks pass
 - Recommends action: fix, tolerable_risk, inaccurate, no_bandwidth
 - Creates GitHub issues in `NASA-PDS/outlaw-tracker` for confirmed HIGH/CRITICAL vulnerabilities
 - Generates updated JSON with `triage` fields populated
 - Tracks token usage in metrics
-- Helper script: `scripts/dismiss-alerts.mjs`
+- Helper scripts: `scripts/check-fix-prs.mjs`, `scripts/dismiss-alerts.mjs`
 
 **Note:** Additional experimental/deprecated skills may be found in `backup/` directory.
 
