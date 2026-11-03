@@ -117,7 +117,7 @@
         "pds"
       ],
       "example": "Triage our open Dependabot alerts",
-      "lastUpdated": "2026-04-23",
+      "lastUpdated": "2026-11-03",
       "type": "skill",
       "skill_file_url": "/pds-agent-skills/marketplace/skills/dependabot-alerts-triaging/SKILL.md",
       "zip_file_path": "assets/zip/dependabot-alerts-triaging.zip"

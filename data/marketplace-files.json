@@ -239,7 +239,7 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 17629
+          "size": 23856
         },
         {
           "name": "scripts",
@@ -247,16 +247,22 @@
           "path": "scripts",
           "children": [
             {
+              "name": "check-fix-prs.mjs",
+              "type": "file",
+              "path": "scripts/check-fix-prs.mjs",
+              "size": 19660
+            },
+            {
               "name": "dismiss-alerts.mjs",
               "type": "file",
               "path": "scripts/dismiss-alerts.mjs",
               "size": 5956
             }
           ],
-          "fileCount": 1
+          "fileCount": 2
         }
       ],
-      "fileCount": 2
+      "fileCount": 3
     },
     "generating-accomplishments": {
       "name": "generating-accomplishments",
