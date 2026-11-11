@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- **dependabot-alerts-exporting** and **sonarcloud-security-exporting** now skip repositories that belong to a product marked `ignore: true` in `NASA-PDS/.github` `conf/pds-products.yaml` (forks, other nodes' tools, ops noise) for the `nasa-pds` organization
+  - The skipped repositories are listed in the console output; the Dependabot export also records `ignoredRepositories` and `unmappedRepositories` (repos in no product, scanned anyway) in `exportMetadata`
+  - `--include-ignored` exports them anyway; `--repo` / `--project` always honor an explicitly named repository
+  - If the config cannot be downloaded the scripts stop instead of exporting unfiltered data
+  - The shared parser lives in `shared-resources/products-config.mjs` with offline tests in `shared-resources/test-products-config.mjs`
 - **generating-accomplishments** now groups output by the PDC accounts used in the HQ bi-weekly report: Platform Engineering, Node Support and CloudOps, plus Cybersecurity
   - Accounts are assigned from the product `work_area` in `pds-products.yaml` (PDC Platform Engineering, PDC Node Support, PDC Cloud Operations, PDS Cybersecurity); no repo lists are hard-coded in the skill
   - Shared repos fall back to the Work Area of the parent theme issue, read from the org issue field via `gh api graphql`; items with an unknown work area go to an **Unassigned** section instead of being guessed

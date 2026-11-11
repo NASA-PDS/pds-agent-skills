@@ -67,6 +67,13 @@ node scripts/fetch-dependabot-alerts.mjs nasa-pds "$OUTPUT_DIR/dependabot-alerts
 | `--state` | Alert state (default: open) | `--state open` |
 | `--repo` | Single repository only | `--repo validate` |
 | `--ecosystem` | Package ecosystem | `--ecosystem npm` |
+| `--include-ignored` | Also scan repositories in ignored products (see below) | `--include-ignored` |
+
+**Ignored repositories:** For the `nasa-pds` organization the script downloads `conf/pds-products.yaml` from `NASA-PDS/.github` and skips every repository that belongs to a product marked `ignore: true` (forks, tools owned by other nodes, ops noise). The skipped repositories are listed in the console output and in `exportMetadata.ignoredRepositories`. Repositories that appear in no product are scanned anyway and listed in `exportMetadata.unmappedRepositories` so you can decide whether they belong in the config.
+
+- `--include-ignored` scans them anyway.
+- `--repo` always scans the repository you name, ignored or not.
+- If the config cannot be downloaded, the script stops and asks you to re-run with `--include-ignored` rather than exporting unfiltered data without telling you.
 
 **Common invocations:**
 
@@ -124,7 +131,10 @@ The JSON output contains:
     "ecosystemFilter": null,
     "totalRepositoriesScanned": 62,
     "repositoriesSkipped": 14,
-    "totalAlerts": 127
+    "totalAlerts": 127,
+    "productsConfigApplied": true,
+    "ignoredRepositories": ["archive-viewer", "atlas", "kdp"],
+    "unmappedRepositories": ["pds-thin-egress-app"]
   },
   "summary": {
     "bySeverity": { "critical": 3, "high": 24, "medium": 61, "low": 39 },

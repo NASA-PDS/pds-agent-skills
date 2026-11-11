@@ -14,6 +14,8 @@
  *   --state <state>        Filter by state: open (default), dismissed, fixed, auto_dismissed
  *   --repo <name>          Export single repository only
  *   --ecosystem <name>     Filter by package ecosystem (e.g., npm, pip, maven, gradle)
+ *   --include-ignored      Also scan repositories in `ignore: true` products of
+ *                          NASA-PDS/.github conf/pds-products.yaml (skipped by default for nasa-pds)
  *
  * Environment:
  *   GITHUB_TOKEN           Required. Personal access token or gh CLI token.
@@ -27,6 +29,7 @@
  */
 
 import { writeFileSync } from 'fs';
+import { loadProductsConfig, ProductsConfigError } from '../../shared-resources/products-config.mjs';
 
 const GITHUB_API = 'https://api.github.com';
 const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
@@ -64,6 +67,7 @@ const filterSeverity = flags.severity ? flags.severity.toLowerCase().split(',') 
 const filterState = flags.state || 'open';
 const filterRepo = flags.repo || null;
 const filterEcosystem = flags.ecosystem || null;
+const includeIgnored = flags['include-ignored'] === true;
 
 // Validate token
 if (!GITHUB_TOKEN) {
@@ -246,10 +250,36 @@ async function main() {
 
   // Get repos to scan
   let repos;
+  let ignoredRepos = [];
+  let unmappedRepos = [];
+  let productsConfigApplied = false;
   if (filterRepo) {
     repos = [{ name: filterRepo }];
   } else {
     repos = await fetchOrgRepos(organization);
+
+    // pds-products.yaml describes NASA-PDS repositories only
+    if (!includeIgnored && organization.toLowerCase() === 'nasa-pds') {
+      let config;
+      try {
+        config = await loadProductsConfig();
+      } catch (err) {
+        if (!(err instanceof ProductsConfigError)) throw err;
+        console.error(`\n❌ ${err.message}`);
+        console.error('   Re-run with --include-ignored to export every repository without the products config.');
+        process.exit(1);
+      }
+      productsConfigApplied = true;
+      ignoredRepos = repos.filter(r => config.ignored.has(r.name.toLowerCase())).map(r => r.name);
+      repos = repos.filter(r => !config.ignored.has(r.name.toLowerCase()));
+      unmappedRepos = repos.filter(r => !config.mapped.has(r.name.toLowerCase())).map(r => r.name);
+
+      console.log(`   Skipping ${ignoredRepos.length} repositories in ignored products (pds-products.yaml): ${ignoredRepos.join(', ')}`);
+      if (unmappedRepos.length > 0) {
+        console.log(`   ℹ️  ${unmappedRepos.length} repositories are in no product and are scanned anyway: ${unmappedRepos.join(', ')}`);
+      }
+      console.log('');
+    }
   }
 
   const allAlerts = [];
@@ -305,6 +335,9 @@ async function main() {
       totalRepositoriesScanned: repos.length,
       repositoriesSkipped: skipped,
       totalAlerts: allAlerts.length,
+      productsConfigApplied,
+      ignoredRepositories: ignoredRepos,
+      unmappedRepositories: unmappedRepos,
     },
     summary: {
       bySeverity: allAlerts.reduce((acc, a) => {
