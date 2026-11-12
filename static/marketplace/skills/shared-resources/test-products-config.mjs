@@ -1,7 +1,7 @@
 // Offline test for products-config.mjs. Run: node --test test-products-config.mjs
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { parseProductsConfig } from './products-config.mjs';
+import { parseProductsConfig, loadProductsConfig, ProductsConfigError } from './products-config.mjs';
 
 const SAMPLE = `
 # header comment
@@ -71,4 +71,23 @@ test('ignores the forked_repositories section and empty repository lists', () =>
   assert.ok(!mapped.has('pds-thin-egress-app'));
   assert.deepEqual(ignoredProducts.get('archived_repositories'), []);
   assert.deepEqual(ignoredProducts.get('node-products'), ['atlas', 'archive-viewer']);
+});
+
+test('loadProductsConfig wraps response body read failures in ProductsConfigError', async () => {
+  const realFetch = globalThis.fetch;
+  globalThis.fetch = async () => ({
+    ok: true,
+    status: 200,
+    text: async () => {
+      throw new TypeError('terminated');
+    },
+  });
+  try {
+    await assert.rejects(
+      loadProductsConfig('https://example.invalid/pds-products.yaml'),
+      (err) => err instanceof ProductsConfigError && /terminated/.test(err.message)
+    );
+  } finally {
+    globalThis.fetch = realFetch;
+  }
 });

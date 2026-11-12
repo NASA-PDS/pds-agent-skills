@@ -15,8 +15,30 @@ const REGISTRY_PATH = path.join(__dirname, '../../static/data/registry.json');
 const MARKETPLACE_PATH = path.join(__dirname, '../../static/marketplace');
 const OUTPUT_PATH = path.join(__dirname, '../../static/assets/zip');
 
+const SHARED_RESOURCES_DIR = 'shared-resources';
+
+/**
+ * Check whether any file under a directory refers to the shared-resources directory
+ * (for example a script importing ../../shared-resources/products-config.mjs).
+ * @param {string} dirPath - Directory to scan recursively
+ * @returns {boolean} - True if a file mentions shared-resources/
+ */
+function referencesSharedResources(dirPath) {
+  for (const entry of fs.readdirSync(dirPath, { withFileTypes: true })) {
+    const entryPath = path.join(dirPath, entry.name);
+    if (entry.isDirectory()) {
+      if (referencesSharedResources(entryPath)) return true;
+    } else if (/\.(mjs|js|cjs|ts|py|sh)$/.test(entry.name)) {
+      if (fs.readFileSync(entryPath, 'utf8').includes(`${SHARED_RESOURCES_DIR}/`)) return true;
+    }
+  }
+  return false;
+}
+
 /**
  * Create a zip file for a marketplace item
+ * Skills whose scripts import from shared-resources/ get that directory added as a
+ * sibling of the skill folder, so relative imports keep working after extraction.
  * @param {string} itemName - Name of the item (e.g., 'example-skill')
  * @param {string} itemType - Type of item ('skills' or 'mcp-servers')
  * @returns {boolean} - True if successful, false otherwise
@@ -35,7 +57,13 @@ function createZip(itemName, itemType) {
   try {
     // Change to the parent directory and create zip with parent folder included
     const marketplaceTypeDir = path.join(MARKETPLACE_PATH, itemType);
-    const zipCommand = `cd "${marketplaceTypeDir}" && zip -r "${zipFilePath}" "${itemName}/"`;
+    const sharedPath = path.join(marketplaceTypeDir, SHARED_RESOURCES_DIR);
+    const includeShared =
+      itemType === 'skills' && fs.existsSync(sharedPath) && referencesSharedResources(sourcePath);
+    const sharedArgs = includeShared
+      ? ` "${SHARED_RESOURCES_DIR}/" -x "${SHARED_RESOURCES_DIR}/test-*"`
+      : '';
+    const zipCommand = `cd "${marketplaceTypeDir}" && zip -r "${zipFilePath}" "${itemName}/"${sharedArgs}`;
 
     execSync(zipCommand, { stdio: 'pipe' });
 

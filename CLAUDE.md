@@ -138,6 +138,10 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 - Defines semantics for priority, severity, type, status labels
 - Centrally located for all marketplace plugins
 
+**static/marketplace/skills/shared-resources/products-config.mjs** - Parser for `NASA-PDS/.github` `conf/pds-products.yaml`
+- Imported by the Dependabot and SonarCloud exporter scripts via `../../shared-resources/products-config.mjs`
+- `create-marketplace-zips.js` adds `shared-resources/` beside the skill folder in the zip of any skill whose scripts reference it
+
 ## Key Workflows
 
 ### Adding a New Skill
