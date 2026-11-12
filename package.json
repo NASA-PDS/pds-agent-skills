@@ -34,6 +34,14 @@
   "devDependencies": {
     "@docusaurus/module-type-aliases": "^3.8.0"
   },
+  "overrides": {
+    "@fastify/busboy": "^3.2.2",
+    "nanoid": "^3.3.18",
+    "qs": "^6.16.1",
+    "serialize-javascript": "^7.1.3",
+    "tinypool": "^2.1.2",
+    "undici": "^6.29.1"
+  },
   "browserslist": {
     "production": [
       ">0.5%",
