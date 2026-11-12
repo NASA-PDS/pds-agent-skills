@@ -101,7 +101,13 @@ export async function loadProductsConfig(url = PRODUCTS_CONFIG_URL) {
     throw new ProductsConfigError(`Cannot fetch ${url}: HTTP ${response.status}`);
   }
 
-  const config = parseProductsConfig(await response.text());
+  let configText;
+  try {
+    configText = await response.text();
+  } catch (err) {
+    throw new ProductsConfigError(`Cannot fetch ${url}: ${err.message}`);
+  }
+  const config = parseProductsConfig(configText);
   if (config.ignored.size === 0) {
     throw new ProductsConfigError(
       `${url} lists no repositories under an "ignore: true" product; the file layout may have changed`
