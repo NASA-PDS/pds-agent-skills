@@ -50,7 +50,7 @@ forked_repositories:
 
 test('collects repositories of ignore: true products, lower-cased', () => {
   const { ignored } = parseProductsConfig(SAMPLE);
-  assert.deepEqual([...ignored].sort(), ['archive-viewer', 'atlas', 'ffmpeg', 'opensearch-java']);
+  assert.deepEqual([...ignored].sort((a, b) => a.localeCompare(b)), ['archive-viewer', 'atlas', 'ffmpeg', 'opensearch-java']);
 });
 
 test('does not ignore products without ignore: true', () => {

@@ -134,7 +134,7 @@ The JSON output contains:
     "totalAlerts": 127,
     "productsConfigApplied": true,
     "ignoredRepositories": ["archive-viewer", "atlas", "kdp"],
-    "unmappedRepositories": ["pds-thin-egress-app"]
+    "unmappedRepositories": ["model-access-gateway"]
   },
   "summary": {
     "bySeverity": { "critical": 3, "high": 24, "medium": 61, "low": 39 },
