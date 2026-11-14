@@ -18,6 +18,8 @@
  *   --status <statuses>    Filter by status (comma-separated)
  *   --project <key>        Export single project only
  *   --created-after <date> Filter issues created after date (YYYY-MM-DD)
+ *   --include-ignored      Also export projects for repositories in `ignore: true` products of
+ *                          NASA-PDS/.github conf/pds-products.yaml (skipped by default for nasa-pds)
  *
  * Environment: SONARCLOUD_TOKEN (required)
  *
@@ -29,6 +31,7 @@
  */
 
 import { writeFileSync } from 'fs';
+import { loadProductsConfig, ProductsConfigError } from '../../shared-resources/products-config.mjs';
 
 const SONARCLOUD_BASE_URL = 'https://sonarcloud.io/api';
 const SONARCLOUD_TOKEN = process.env.SONARCLOUD_TOKEN;
@@ -71,6 +74,7 @@ const filterSeverity = flags.severity ? flags.severity.split(',') : null;
 const filterStatus = flags.status ? flags.status.split(',') : null;
 const filterProject = flags.project || null;
 const filterCreatedAfter = flags['created-after'] || null;
+const includeIgnored = flags['include-ignored'] === true;
 
 // Validate format
 if (format !== 'csv' && format !== 'json') {
@@ -446,6 +450,27 @@ async function main() {
       projects = [{ key: filterProject }];
     } else {
       projects = await fetchAllProjects(organization);
+
+      // pds-products.yaml describes NASA-PDS repositories only; SonarCloud project keys are <org>_<repo>
+      if (!includeIgnored && organization.toLowerCase() === 'nasa-pds') {
+        let config;
+        try {
+          config = await loadProductsConfig();
+        } catch (err) {
+          if (!(err instanceof ProductsConfigError)) throw err;
+          console.error(`❌ ${err.message}`);
+          console.error('   Re-run with --include-ignored to export every project without the products config.');
+          process.exit(1);
+        }
+        const keyPrefix = `${organization.toLowerCase()}_`;
+        const repoOf = (project) => {
+          const key = project.key.toLowerCase();
+          return key.startsWith(keyPrefix) ? key.slice(keyPrefix.length) : key;
+        };
+        const ignoredProjects = projects.filter(p => config.ignored.has(repoOf(p))).map(p => p.key);
+        projects = projects.filter(p => !config.ignored.has(repoOf(p)));
+        console.log(`⏭️  Skipping ${ignoredProjects.length} projects in ignored products (pds-products.yaml): ${ignoredProjects.join(', ')}\n`);
+      }
     }
 
     if (projects.length === 0) {
