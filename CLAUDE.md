@@ -86,6 +86,7 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 **4. sonarcloud-security-exporting** - Exports SonarCloud security issues
 - Fetches all vulnerabilities and security hotspots from nasa-pds organization
 - Exports to JSON (recommended — includes code snippets and rule details) or CSV
+- Skips projects for repositories in `ignore: true` products of `NASA-PDS/.github` `conf/pds-products.yaml` (override with `--include-ignored`)
 - Automatic pagination for large result sets (500 items per page)
 - Rate limiting and retry logic with exponential backoff
 - Requires SonarCloud API token and Node.js v18+
@@ -112,6 +113,7 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 - Fetches all open dependency vulnerability alerts from nasa-pds organization via GitHub API
 - Exports to JSON with CVE ID, CVSS score, affected package, version range, fix version, manifest path, and advisory URL
 - Supports filtering by severity, state, ecosystem, and single repository
+- Skips repositories in `ignore: true` products of `NASA-PDS/.github` `conf/pds-products.yaml` (override with `--include-ignored`) and lists repos that are in no product
 - Automatic pagination, rate limiting, and retry logic
 - Requires `GITHUB_TOKEN` with `security_events` scope and Node.js v18+
 - Helper script: `scripts/fetch-dependabot-alerts.mjs`
@@ -135,6 +137,10 @@ Security vulnerability workflow automation for NASA PDS (SonarCloud + Dependabot
 - Used by multiple skills for consistent label interpretation
 - Defines semantics for priority, severity, type, status labels
 - Centrally located for all marketplace plugins
+
+**static/marketplace/skills/shared-resources/products-config.mjs** - Parser for `NASA-PDS/.github` `conf/pds-products.yaml`
+- Imported by the Dependabot and SonarCloud exporter scripts via `../../shared-resources/products-config.mjs`
+- `create-marketplace-zips.js` adds `shared-resources/` beside the skill folder in the zip of any skill whose scripts reference it
 
 ## Key Workflows
 

@@ -99,7 +99,7 @@
         "pds"
       ],
       "example": "Export Dependabot alerts for our PDS repositories",
-      "lastUpdated": "2026-04-23",
+      "lastUpdated": "2026-11-11",
       "type": "skill",
       "skill_file_url": "/pds-agent-skills/marketplace/skills/dependabot-alerts-exporting/SKILL.md",
       "zip_file_path": "assets/zip/dependabot-alerts-exporting.zip"
@@ -135,7 +135,7 @@
         "pds"
       ],
       "example": "Export SonarCloud security issues to CSV",
-      "lastUpdated": "2026-04-18",
+      "lastUpdated": "2026-11-11",
       "type": "skill",
       "skill_file_url": "/pds-agent-skills/marketplace/skills/sonarcloud-security-exporting/SKILL.md",
       "zip_file_path": "assets/zip/sonarcloud-security-exporting.zip"

@@ -264,6 +264,8 @@ Structured format for AI-assisted triage with full context:
 
 ### Command-Line Flags
 
+Each command below is an independent alternative, not a sequence. They all write to the same output path, so running several in a row overwrites the earlier result; pass a different output file to keep more than one.
+
 ```bash
 # Export only high-severity vulnerabilities
 node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
@@ -289,7 +291,21 @@ node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.
 node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output.json" \
   --format json \
   --no-snippets
+
+# Also export projects for ignored repositories (see below); separate file so it
+# does not overwrite the default export
+node <skill-dir>/scripts/fetch-security-issues.mjs nasa-pds "$OUTPUT_DIR/output-with-ignored.json" \
+  --format json \
+  --include-ignored
 ```
+
+### Ignored Repositories
+
+For the `nasa-pds` organization the script downloads `conf/pds-products.yaml` from `NASA-PDS/.github` and skips the SonarCloud project of every repository that belongs to a product marked `ignore: true` (forks, tools owned by other nodes, ops noise). The skipped projects are listed in the console output.
+
+- `--include-ignored` exports them anyway.
+- `--project` always exports the project you name, ignored or not.
+- If the config cannot be downloaded, the script stops and asks you to re-run with `--include-ignored` rather than exporting unfiltered data without telling you.
 
 ### Converting Between Formats
 
