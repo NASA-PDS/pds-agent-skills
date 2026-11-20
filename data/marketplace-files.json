@@ -212,7 +212,7 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 6095
+          "size": 7137
         },
         {
           "name": "scripts",
@@ -223,7 +223,7 @@
               "name": "fetch-dependabot-alerts.mjs",
               "type": "file",
               "path": "scripts/fetch-dependabot-alerts.mjs",
-              "size": 11180
+              "size": 12880
             }
           ],
           "fileCount": 1
@@ -337,9 +337,21 @@
           "type": "file",
           "path": "pds-labels.yaml",
           "size": 16436
+        },
+        {
+          "name": "products-config.mjs",
+          "type": "file",
+          "path": "products-config.mjs",
+          "size": 3559
+        },
+        {
+          "name": "test-products-config.mjs",
+          "type": "file",
+          "path": "test-products-config.mjs",
+          "size": 2605
         }
       ],
-      "fileCount": 1
+      "fileCount": 3
     },
     "sonarcloud-security-exporting": {
       "name": "sonarcloud-security-exporting",
@@ -363,7 +375,7 @@
           "name": "SKILL.md",
           "type": "file",
           "path": "SKILL.md",
-          "size": 14272
+          "size": 15357
         },
         {
           "name": "TEST_RESULTS.md",
@@ -412,7 +424,7 @@
               "name": "fetch-security-issues.mjs",
               "type": "file",
               "path": "scripts/fetch-security-issues.mjs",
-              "size": 19007
+              "size": 20482
             },
             {
               "name": "test-json-structure.mjs",
